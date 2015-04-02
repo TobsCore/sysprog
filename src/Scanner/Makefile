@@ -1,22 +1,26 @@
+# The Makefile for the Scanner of our simple compiler.
+# It compiles either each file on its own, or the whole program.
+# It contains a very simple clean method.
+
 all:		simple
 
 simple:		main.o buffer.o automat.o scanner.o
-		g++ main.o buffer.o automat.o scanner.o -o program.o
+		$(CXX) main.o buffer.o automat.o scanner.o -o program.o
 
 main:		main.cpp
-		g++ -c main.o
+		$(CXX) -c main.o
 
 scanner:	scanner.cpp
-		g++ -c scanner.cpp
+		$(CXX) -c scanner.cpp
 
 automat:	automat.cpp
-		g++ -c automat.cpp
+		$(CXX) -c automat.cpp
 
 symtab:		symtab.cpp
-		g++ -c symtab.cpp
+		$(CXX) -c symtab.cpp
 
 buffer:		buffer.cpp
-		g++ -c buffer.cpp
+		$(CXX) -c buffer.cpp
 
 clean:
 		rm *.o
