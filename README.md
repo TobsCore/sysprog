@@ -23,7 +23,7 @@ To generate the documentation, you need to install LaTeX.  Then simply run:
 make docu
 ```
 
-Fixed Methods / Interfaces:
+#Fixed Methods / Interfaces:
 
 Buffer:
 int getchar() //Nullterminator, falls das Ende der Datei erreicht wurde.
