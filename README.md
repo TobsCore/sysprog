@@ -39,7 +39,9 @@ int checkExpression(char aktuellesZeichen)
 ```
 Scanner:
 ```c++
-nextToken() // Gibt das nächste Token Objekt zurück. Falls ein Fehler aufgetaucht ist, ein Fehlertoken, falls es keine Tokens mehr gibt, ein Nullpointer. Speichert aktuelle Zeile und Reihe. Speichert Lexeme in der Symtabelle ab und generiert Tokens.
+nextToken() // Gibt das nächste Token Objekt zurück. Falls ein Fehler aufgetaucht ist, ein Fehlertoken, 
+falls es keine Tokens mehr gibt, ein Nullpointer. Speichert aktuelle Zeile und Reihe. Speichert Lexeme in der
+Symtabelle ab und generiert Tokens.
 ```
 
 Token:
