@@ -52,5 +52,3 @@ Art, Name, Zeile, Reihe
 
 Information:
 Art (Integer), Namen (Wert)
-
-###maike Testest lustig git, yeahyeah!
