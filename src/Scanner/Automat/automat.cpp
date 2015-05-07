@@ -26,6 +26,9 @@ using namespace sign;
 * 5. im Switch den default anpassen (letzte Spalte)
 */
 
+// TODO ASSIGN und SPECIAL hinzufügen
+
+
 class Automat {
 
 	private:
@@ -89,7 +92,7 @@ class Automat {
 								case '}': return 15;
 								case '[': return 16;
 								case ']': return 17;
-								default: return 18; //eig 18
+								default: return 18;
 							}
 						}
 				}
