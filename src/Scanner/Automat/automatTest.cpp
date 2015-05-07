@@ -2,17 +2,28 @@
 #include <iostream>
 using namespace std;
 
+void checkReturnValue(int returnValue, int expectedValue);
+
+
 int main () {
 
 	Automat* testAutomat = new Automat();
-
-	cout << testAutomat->checkExpression('a') << endl;
-	cout << testAutomat->checkExpression('a') << endl;
-	cout << testAutomat->checkExpression('a') << endl;
-	cout << testAutomat->checkExpression('1') << endl;
-	cout << testAutomat->checkExpression('+') << endl;
-	cout << testAutomat->checkExpression('4') << endl;
-	cout << testAutomat->checkExpression('a') << endl;
-//	cout << "hello" << endl;
+    
+    checkReturnValue(testAutomat->checkExpression('a'), 0);
+    checkReturnValue(testAutomat->checkExpression('a'), 0);
+    checkReturnValue(testAutomat->checkExpression('a'), 0);
+    checkReturnValue(testAutomat->checkExpression('b'), 0);
+    checkReturnValue(testAutomat->checkExpression('+'), 2); //Is an identifier
+    checkReturnValue(testAutomat->checkExpression('a'), 3); //Is a plus sign
 	return 0;
+}
+
+void checkReturnValue(int returnValue, int expectedValue) {
+    if(returnValue == expectedValue) {
+        cout << "OK";
+    } else {
+        cout << "Error";
+    }
+    
+    cout << "- Got: " << returnValue << " | Expected: " << expectedValue << endl;
 }
