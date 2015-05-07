@@ -6,7 +6,7 @@
 Token::Token() {
     this->column = 0;
     this->type = 0;
-    this->value = nullptr;
+    this->value = 0;
     this->row = 0;
 }
 
