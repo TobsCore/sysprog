@@ -6,11 +6,19 @@
 
 void simpletest();
 void testDifferentTypes();
+void testForValue();
+void testForValue1();
+void testForValueWithEmptyString();
+void testForValueWithNumbers();
 
 int main(int argc, char** argv) {
     
     simpletest();
     testDifferentTypes();
+    testForValue();
+    testForValue1();
+    testForValueWithEmptyString();
+    testForValueWithNumbers();
     return 0;
 }
 
@@ -40,6 +48,63 @@ void testDifferentTypes() {
         std::cout << "Error-Type Succeeded!\n";
     } else {
         std::cout << "Error-Type Failed!\n";
+    }
+    
+}
+
+void testForValue() {
+    Token* testToken = new Token();
+    char* const testValue = (char*)"x";
+    testToken->setValue(testValue);
+    char* const testValueResult = testToken->getValue();
+    
+    if(strcmp(testValue, testValueResult) == 0) {
+        std::cout << "Simple Value Succeeded!\n";
+    } else {
+        std::cout << "Simple Value Failed!\n";
+    }
+    
+}
+
+void testForValue1() {
+    Token* testToken = new Token();
+    char* const testValue = (char*)"testVariableName";
+    testToken->setValue(testValue);
+    char* const testValueResult = testToken->getValue();
+    
+    if(strcmp(testValue, testValueResult) == 0) {
+        std::cout << "Advanced Value Succeeded!\n";
+    } else {
+        std::cout << "Advanced Value Failed!\n";
+    }
+    
+}
+
+void testForValueWithEmptyString() {
+    Token* testToken = new Token();
+    char* const testValue = 0;
+    testToken->setValue(testValue);
+    char* const testValueResult = testToken->getValue();
+    
+    if(testValueResult == 0) {
+        std::cout << "Empty String Succeeded!\n";
+    } else {
+        std::cout << "Emptry String Failed!\n";
+    }
+    
+}
+
+
+void testForValueWithNumbers() {
+    Token* testToken = new Token();
+    char* const testValue = (char*)"123456";
+    testToken->setValue(testValue);
+    char* const testValueResult = testToken->getValue();
+    
+    if(strcmp(testValue, testValueResult) == 0) {
+        std::cout << "Numbered String Succeeded!\n";
+    } else {
+        std::cout << "Numbered String Failed!\n";
     }
     
 }
