@@ -2,6 +2,10 @@ namespace sign
 {
     enum signtype
     {
+        ERROR = -1,             // If error occurs
+        NEXTCHAR = 0,           // Expects the next char
+        INTEGER = 1,            // Integer
+        IDENTIFIER = 2,         // should explain itself
     	PLUS = 3,				// +
 		MINUS = 4,				// -
 		COLON = 5,				// :
