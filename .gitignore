@@ -39,6 +39,7 @@
 *.tcp
 *.tps
 *.synctex
+.project
 
 #Shitty Mac file
 *.DS_Store
