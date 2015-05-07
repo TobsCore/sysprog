@@ -13,8 +13,8 @@
  	* etc.
 */
 
-#include <symboltype.h>
-using namespace sign;
+//#include <symboltype.h>
+//using namespace sign;
 
 /* Anleitung um den Automat anzupassen
 * 1. neues Sign als neue Zeile einfügen. dafür alle Zustände der s3-zeile kopieren und
