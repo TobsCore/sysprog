@@ -12,6 +12,7 @@
 
 void testForValue();
 void testForValue1();
+void testForValueWithChange();
 void testForValueWithEmptyString();
 void testForValueWithNumbers();
 void testColonSign();
@@ -22,6 +23,7 @@ int main(int argc, char** argv) {
     
     testForValue();
     testForValue1();
+    testForValueWithChange();
     testForValueWithEmptyString();
     testForValueWithNumbers();
     testPlusSign();
@@ -54,6 +56,23 @@ void testForValue1() {
         std::cout << "Advanced Value Succeeded!\n";
     } else {
         std::cout << "Advanced Value Failed!\n";
+    }
+    
+}
+
+void testForValueWithChange() {
+    Container* testContainer = new Container();
+    char* testValue = (char*)"testVariableName";
+    testContainer->setValue(testValue);
+    
+    //Change the variable
+    testValue = (char*)"testVariableNameChange";
+    char* const testValueResult = testContainer->getValue();
+    
+    if(strcmp(testValue, testValueResult) != 0) {
+        std::cout << "Value Change Succeeded!\n";
+    } else {
+        std::cout << "Value Change Failed!\n";
     }
     
 }
