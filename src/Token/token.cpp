@@ -3,6 +3,11 @@
 #include "token.h"
 #endif
 
+#ifndef symtype
+#define symtype
+#include "../SymbolType/symboltype.h"
+#endif
+
 Token::Token() {
     this->column = 0;
     this->type = 0;
@@ -27,7 +32,12 @@ int Token::getType() {
 }
 
 void Token::setColumn(int column) {
-    this->column = column;
+    // Don't accept negative values
+    if(column <= 0) {
+        this->column = 0;
+    } else {
+        this->column = column;
+    }
 }
 
 int Token::getColumn() {
@@ -35,7 +45,12 @@ int Token::getColumn() {
 }
 
 void Token::setRow(int row) {
-    this->row = row;
+    // Don't accept negative values
+    if(row <= 0) {
+        this->row = 0;
+    } else {
+        this->row = row;
+    }
 }
 
 int Token::getRow() {

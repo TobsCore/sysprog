@@ -4,12 +4,21 @@
 #include "token.h"
 #endif
 
+
+#ifndef symtype
+#define symtype
+#include "../SymbolType/symboltype.h"
+#endif
+
 void simpletest();
 void testDifferentTypes();
 void testForValue();
 void testForValue1();
 void testForValueWithEmptyString();
 void testForValueWithNumbers();
+void testColonSign();
+void testMinusSign();
+void testPlusSign();
 
 int main(int argc, char** argv) {
     
@@ -19,6 +28,9 @@ int main(int argc, char** argv) {
     testForValue1();
     testForValueWithEmptyString();
     testForValueWithNumbers();
+    testPlusSign();
+    testColonSign();
+    testMinusSign();
     return 0;
 }
 
@@ -105,6 +117,48 @@ void testForValueWithNumbers() {
         std::cout << "Numbered String Succeeded!\n";
     } else {
         std::cout << "Numbered String Failed!\n";
+    }
+    
+}
+
+
+void testPlusSign() {
+    Token* testToken = new Token();
+    testToken->setType(sign::PLUS);
+    int tokenType = testToken->getType();
+    
+    if(tokenType == 3 && tokenType == sign::PLUS) {
+        std::cout << "Plus Sign Succeeded!\n";
+    } else {
+        std::cout << "Plus Sign Failed!\n";
+    }
+    
+}
+
+
+void testMinusSign() {
+    Token* testToken = new Token();
+    testToken->setType(sign::MINUS);
+    int tokenType = testToken->getType();
+    
+    if(tokenType == 4 && tokenType == sign::MINUS) {
+        std::cout << "Minus Sign Succeeded!\n";
+    } else {
+        std::cout << "Minus Sign Failed!\n";
+    }
+    
+}
+
+
+void testColonSign() {
+    Token* testToken = new Token();
+    testToken->setType(sign::COLON);
+    int tokenType = testToken->getType();
+    
+    if(tokenType == 5 && tokenType == sign::COLON) {
+        std::cout << "Colon Sign Succeeded!\n";
+    } else {
+        std::cout << "Colon Sign Failed!\n";
     }
     
 }
