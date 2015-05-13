@@ -1,13 +1,11 @@
-all:	token.o
-
-test:	token.o testtoken.o
-	$(CXX) -o TestToken.out token.o testtoken.o
+all:	token.o testToken.o
+	$(CXX) -o testToken.out token.o testToken.o
 
 token:	token.cpp
 	$(CXX) -c token.cpp
 
 testtoken:	testtoken.cpp
-	$(CXX) -c testtoken.cpp
+	$(CXX) -c testToken.cpp
 
 clean:
 	rm *.o *.out

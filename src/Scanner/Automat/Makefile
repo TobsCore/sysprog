@@ -1,6 +1,4 @@
-all:	automat.o
-
-test:	automatTest.o automat.o
+all:	automatTest.o automat.o
 	$(CXX) -o AutomatTest.out automatTest.o automat.o
 
 automat:	automat.cpp
