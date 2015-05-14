@@ -5,4 +5,4 @@ scanner:	scanner.cpp
 	$(CXX) -c scanner.cpp
 
 clean:
-	rm *.o
+	rm *.o *.out
