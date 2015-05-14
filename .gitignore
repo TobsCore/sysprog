@@ -47,3 +47,8 @@
 *.synctex.gz
 *.fls
 *.iml
+
+
+#Even shittier Eclipse files
+.cproject
+.settings
