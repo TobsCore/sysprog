@@ -1,13 +1,14 @@
-/*
- * Buffer.cpp
- *
- *  Created on: 07.05.2015
- *      Author: patrick
- */
+#ifndef BUFFER
+#define BUFFER
+#include "Buffer.h"
+#endif
+
+#ifndef IO
+#define IO
+#include <iostream>
+#endif
 
 #include <fcntl.h>
-#include "Buffer.h"
-#include <iostream>
 #include <stdlib.h>
 #include <stdio.h>
 #include <errno.h>

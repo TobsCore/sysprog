@@ -1,5 +1,5 @@
-#ifndef scanner
-#define scanner
+#ifndef SCANNER
+#define SCANNER
 #include "scanner.h"
 #endif
 

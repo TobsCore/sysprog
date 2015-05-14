@@ -13,13 +13,13 @@
  * etc.
  */
 
-#ifndef automat
-#define automat
+#ifndef AUTOMAT
+#define AUTOMAT
 #include "automat.h"
 #endif
 
-//#ifndef symtype
-//#define symtype
+//#ifndef SYMTYPE
+//#define SYMTYPE
 //#include <symboltype.h>
 //#endif
 //using namespace sign;

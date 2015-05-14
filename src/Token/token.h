@@ -1,5 +1,5 @@
-#ifndef symtype
-#define symtype
+#ifndef SYMTYPE
+#define SYMTYPE
 #include "../SymbolType/symboltype.h"
 #endif
 

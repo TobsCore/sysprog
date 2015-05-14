@@ -1,22 +1,22 @@
-#ifndef io
-#define io
+#ifndef IO
+#define IO
 #include <iostream>
 #endif
 
-#ifndef string
-#define string
+#ifndef STRING
+#define STRING
 #include <string.h>
 #endif
 
 
-#ifndef token
-#define token
+#ifndef TOKEN
+#define TOKEN
 #include "token.h"
 #endif
 
 
-#ifndef symtype
-#define symtype
+#ifndef SYMTYPE
+#define SYMTYPE
 #include "../SymbolType/symboltype.h"
 #endif
 

@@ -1,11 +1,13 @@
-/*
- * main.cpp
- *
- *  Created on: 07.05.2015
- *      Author: patrick
- */
+#ifndef IO
+#define IO
 #include <iostream>
+#endif
+
+#ifndef BUFFER
+#define BUFFER
 #include "Buffer.h"
+#endif
+
 using namespace std;
 
 int main() {

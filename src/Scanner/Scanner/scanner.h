@@ -1,25 +1,25 @@
-#ifndef token
-#define token
+#ifndef TOKEN
+#define TOKEN
 #include "../../Token/token.h"
 #endif
 
-#ifndef symtype
-#define symtype
+#ifndef SYMTYPE
+#define SYMTYPE
 #include "../../SymbolType/symboltype.h"
 #endif
 
-#ifndef buffer
-#define buffer
+#ifndef BUFFER
+#define BUFFER
 #include "../Buffer/Buffer.h"
 #endif
 
-#ifndef automat
-#define automat
+#ifndef AUTOMAT
+#define AUTOMAT
 #include "../Automat/automat.h"
 #endif
 
-#ifndef scanner
-#define scanner
+#ifndef SCANNER
+#define SCANNER
 #include "scanner.h"
 #endif
 

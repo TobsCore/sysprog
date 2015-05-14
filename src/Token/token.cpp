@@ -1,5 +1,5 @@
-#ifndef token
-#define token
+#ifndef TOKEN
+#define TOKEN
 #include "token.h"
 #endif
 

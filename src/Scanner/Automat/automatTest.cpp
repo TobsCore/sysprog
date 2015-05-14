@@ -1,5 +1,12 @@
-#include "automat.cpp"
+#ifndef AUTOMAT
+#define AUTOMAT
+#include "automat.h"
+#endif
+
+#ifndef IO
+#define IO
 #include <iostream>
+#endif
 using namespace std;
 
 void simpleTest();
