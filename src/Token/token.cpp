@@ -3,10 +3,6 @@
 #include "token.h"
 #endif
 
-#ifndef symtype
-#define symtype
-#include "../SymbolType/symboltype.h"
-#endif
 
 Token::Token() {
     this->column = 0;

@@ -1,3 +1,8 @@
+#ifndef symtype
+#define symtype
+#include "../SymbolType/symboltype.h"
+#endif
+
 class Token {
 public:
     Token();

@@ -1,5 +1,14 @@
+#ifndef io
+#define io
 #include <iostream>
+#endif
+
+#ifndef string
+#define string
 #include <string.h>
+#endif
+
+
 #ifndef token
 #define token
 #include "token.h"
