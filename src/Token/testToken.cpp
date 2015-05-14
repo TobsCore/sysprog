@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string.h>
 #ifndef token
 #define token
 #include "token.h"
