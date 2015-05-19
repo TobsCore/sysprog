@@ -26,17 +26,20 @@
 class Scanner {
 
 public:
+	Scanner();
+	~Scanner();
 	int getCurrentRow();
 	int getCurrentColumn();
 
 	void setCurrentRow(int row);
 	void setCurrentColumn(int col);
 
+	Token nextToken();
+
 
 private:
-	int myrow;
-	int mycolumn;
-	Buffer buffer;
-	Automat automat;
-	Token token;
+	int currentRow;
+	int currentColumn;
+	Buffer* buffer;
+	Automat* automat;
 };
