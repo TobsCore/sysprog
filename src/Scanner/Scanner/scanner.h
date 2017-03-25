@@ -28,18 +28,11 @@ class Scanner {
 public:
 	Scanner(char* filePath);
 	~Scanner();
-	int getCurrentRow();
-	int getCurrentColumn();
-
-	void setCurrentRow(int row);
-	void setCurrentColumn(int col);
 
 	Token nextToken();
 
 
 private:
-	int currentRow;
-	int currentColumn;
 	Buffer* buffer;
 	Automat* automat;
 };

@@ -27,6 +27,12 @@ private:
 	bool isLeft;
 	bool isFileOpen;
 	unsigned int bufferLength;
+
+	int currentRow;
+	int currentColumn;
+
+	void setPosition(char*);
+
 	void fillBuffer();
 	//void createFile();
 	void openFile();
@@ -39,6 +45,9 @@ public:
 	//void putChar(char c);
 	bool hasNext();
 	void closeFiles();
+
+	int getCurrentRow();
+	int getCurrentColumn();
 
 };
 

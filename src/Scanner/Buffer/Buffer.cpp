@@ -14,24 +14,25 @@ Buffer::Buffer(char* source) {
 	baseLeft = current = next = &leftBuffer[0]; //base ist immer neuer anfang von Buffer
 	baseRight = &rightBuffer[0];
 	isLeft = true;
+
 	eof = 0;
+	currentColumn = 1;
+	currentRow = 1;
+
 	isFileOpen = isFinished = false;
 	sourceFile = source;
 	openFile();
 	fillBuffer();
 }
 
-Buffer::~Buffer() { //dekonstruktor?
+Buffer::~Buffer() {
 	delete leftBuffer;
 	delete rightBuffer;
 }
 
 char Buffer::getChar() {
 	current = next; //nimm das zuletzt als nächstes Zeichen gesetzte, als neues aktuelles Zeichen.
-
-	if (isFinished) {
-		cout << "FINISHED";
-	}
+	setPosition(current);
 
 	if(*current == eof){ //Test ob Datei zu ende.
 		isFinished = true;
@@ -68,6 +69,15 @@ void Buffer::ungetChar(int count) {
 	}
 	}
 	current = next;
+}
+
+void Buffer::setPosition(char* current) {
+	if (*current == '\n') {
+		currentRow += 1;
+		currentColumn = 1;
+	} else {
+		currentColumn += 1;
+	}
 }
 
 void Buffer::openFile() {
@@ -168,4 +178,11 @@ void Buffer::closeFiles(){ //schließt die geöffneten Dateien wieder
 	close(fdRead);
 	//close(fdWrite);
 }
-//current wird übergeben
+
+int Buffer::getCurrentRow() {
+	return this->currentRow;
+}
+
+int Buffer::getCurrentColumn() {
+	return this->currentColumn;
+}

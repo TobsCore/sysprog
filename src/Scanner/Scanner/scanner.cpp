@@ -9,8 +9,6 @@
 #endif
 
 Scanner::Scanner(char* filePath) {
-	currentRow = 1;
-	currentColumn = 1;
 
 	this->automat = new Automat();
 	this->buffer = new Buffer(filePath);
