@@ -3,11 +3,17 @@
 #include "automat.h"
 #endif
 
+#ifndef SYMBOLTYPE
+#define SYMBOLTYPE
+#include "../../SymbolType/symboltype.h"
+#endif
+
 #ifndef IO
 #define IO
 #include <iostream>
 #endif
 using namespace std;
+using namespace sign;
 
 void simpleTest();
 void testIdentifierAddition();
@@ -39,15 +45,15 @@ void simpleTest() {
     cout << "1234+52;" << endl;
     Automat* testAutomat = new Automat();
     
-    checkReturnValue(testAutomat->checkExpression('1'), 0);
-    checkReturnValue(testAutomat->checkExpression('2'), 0);
-    checkReturnValue(testAutomat->checkExpression('3'), 0);
-    checkReturnValue(testAutomat->checkExpression('4'), 0);
-    checkReturnValue(testAutomat->checkExpression('+'), 1); //Is an integer
-    checkReturnValue(testAutomat->checkExpression('5'), 3); //Is a plus sign
-    checkReturnValue(testAutomat->checkExpression('2'), 0);
-    checkReturnValue(testAutomat->checkExpression(';'), 1); //Is an integer
-    checkReturnValue(testAutomat->checkExpression('\0'), 12); //Semicolon
+    checkReturnValue(testAutomat->checkExpression('1'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('2'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('3'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('4'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('+'), INTEGER); //Is an integer
+    checkReturnValue(testAutomat->checkExpression('5'), PLUS); //Is a plus sign
+    checkReturnValue(testAutomat->checkExpression('2'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(';'), INTEGER); //Is an integer
+    checkReturnValue(testAutomat->checkExpression('\0'), SEMICOLON); //Semicolon
 
 
 }
@@ -58,13 +64,13 @@ void testIdentifierAddition() {
     cout << "aaab+a" << endl;
     Automat* testAutomat = new Automat();
     
-    checkReturnValue(testAutomat->checkExpression('a'), 0);
-    checkReturnValue(testAutomat->checkExpression('a'), 0);
-    checkReturnValue(testAutomat->checkExpression('a'), 0);
-    checkReturnValue(testAutomat->checkExpression('b'), 0);
-    checkReturnValue(testAutomat->checkExpression('+'), 2); //Is an identifier
-    checkReturnValue(testAutomat->checkExpression('a'), 3); //Is a plus sign
-    checkReturnValue(testAutomat->checkExpression('\0'), 2); //Semicolon
+    checkReturnValue(testAutomat->checkExpression('a'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('a'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('a'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('b'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('+'), IDENTIFIER); //Is an identifier
+    checkReturnValue(testAutomat->checkExpression('a'), PLUS); //Is a plus sign
+    checkReturnValue(testAutomat->checkExpression('\0'), IDENTIFIER); //Semicolon
 
 }
 
@@ -75,15 +81,15 @@ void testVariableIdentification() {
     cout << "int var;" << endl;
     Automat* testAutomat = new Automat();
     
-    checkReturnValue(testAutomat->checkExpression('i'), 0);
-    checkReturnValue(testAutomat->checkExpression('n'), 0);
-    checkReturnValue(testAutomat->checkExpression('t'), 0);
-    checkReturnValue(testAutomat->checkExpression(' '), 2); //Identifier
-    checkReturnValue(testAutomat->checkExpression('v'), 0);
-    checkReturnValue(testAutomat->checkExpression('a'), 0);
-    checkReturnValue(testAutomat->checkExpression('r'), 0);
-    checkReturnValue(testAutomat->checkExpression(';'), 2); //Identifier
-    checkReturnValue(testAutomat->checkExpression('\0'), 12); //Semicolon
+    checkReturnValue(testAutomat->checkExpression('i'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('n'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('t'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(' '), IDENTIFIER); //Identifier
+    checkReturnValue(testAutomat->checkExpression('v'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('a'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('r'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(';'), IDENTIFIER); //Identifier
+    checkReturnValue(testAutomat->checkExpression('\0'), SEMICOLON); //Semicolon
 }
 
 
@@ -94,25 +100,25 @@ void testIfStatement() {
 
     Automat* testAutomat = new Automat();
     
-    checkReturnValue(testAutomat->checkExpression('i'), 0);
-    checkReturnValue(testAutomat->checkExpression('f'), 0);
-    checkReturnValue(testAutomat->checkExpression('('), 2); //Identifier
-    checkReturnValue(testAutomat->checkExpression('v'), 13); //Open Parentethesis
-    checkReturnValue(testAutomat->checkExpression('a'), 0);
-    checkReturnValue(testAutomat->checkExpression('r'), 0);
-    checkReturnValue(testAutomat->checkExpression('1'), 0);
-    checkReturnValue(testAutomat->checkExpression(' '), 2); //Identifier
-    checkReturnValue(testAutomat->checkExpression('='), 0);
-    checkReturnValue(testAutomat->checkExpression(' '), 9);
-    checkReturnValue(testAutomat->checkExpression('v'), 0);
-    checkReturnValue(testAutomat->checkExpression('a'), 0);
-    checkReturnValue(testAutomat->checkExpression('r'), 0);
-    checkReturnValue(testAutomat->checkExpression('2'), 0);
-    checkReturnValue(testAutomat->checkExpression(')'), 2);
-    checkReturnValue(testAutomat->checkExpression('{'), 14);
-    checkReturnValue(testAutomat->checkExpression('\n'), 15);
-    checkReturnValue(testAutomat->checkExpression('}'), 0);
-    checkReturnValue(testAutomat->checkExpression('\0'), 16);
+    checkReturnValue(testAutomat->checkExpression('i'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('f'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('('), IDENTIFIER); //Identifier
+    checkReturnValue(testAutomat->checkExpression('v'), PARANTHESES_LEFT); //Open Parentethesis
+    checkReturnValue(testAutomat->checkExpression('a'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('r'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('1'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(' '), IDENTIFIER); //Identifier
+    checkReturnValue(testAutomat->checkExpression('='), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(' '), EQUALS);
+    checkReturnValue(testAutomat->checkExpression('v'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('a'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('r'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('2'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(')'), IDENTIFIER);
+    checkReturnValue(testAutomat->checkExpression('{'), PARANTHESES_RIGHT);
+    checkReturnValue(testAutomat->checkExpression('\n'), BRACES_LEFT);
+    checkReturnValue(testAutomat->checkExpression('}'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('\0'), BRACES_RIGHT);
 }
 
 
@@ -122,21 +128,21 @@ void testAssignment() {
     cout << "int var := 35;" << endl;
     Automat* testAutomat = new Automat();
     
-    checkReturnValue(testAutomat->checkExpression('i'), 0);
-    checkReturnValue(testAutomat->checkExpression('n'), 0);
-    checkReturnValue(testAutomat->checkExpression('t'), 0); //Identifier
-    checkReturnValue(testAutomat->checkExpression(' '), 2); //Open Parentethesis
-    checkReturnValue(testAutomat->checkExpression('v'), 0);
-    checkReturnValue(testAutomat->checkExpression('a'), 0);
-    checkReturnValue(testAutomat->checkExpression('r'), 0);
-    checkReturnValue(testAutomat->checkExpression(' '), 2); //Identifier
-    checkReturnValue(testAutomat->checkExpression(':'), 0);
-    checkReturnValue(testAutomat->checkExpression('='), 0);
-    checkReturnValue(testAutomat->checkExpression(' '), 19);
-    checkReturnValue(testAutomat->checkExpression('3'), 0);
-    checkReturnValue(testAutomat->checkExpression('5'), 0);
-    checkReturnValue(testAutomat->checkExpression(';'), 1);
-    checkReturnValue(testAutomat->checkExpression('\0'), 12);
+    checkReturnValue(testAutomat->checkExpression('i'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('n'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('t'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(' '), IDENTIFIER);
+    checkReturnValue(testAutomat->checkExpression('v'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('a'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('r'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(' '), IDENTIFIER); //Identifier
+    checkReturnValue(testAutomat->checkExpression(':'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('='), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(' '), ASSIGN);
+    checkReturnValue(testAutomat->checkExpression('3'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('5'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(';'), INTEGER);
+    checkReturnValue(testAutomat->checkExpression('\0'), SEMICOLON);
 }
 
 
@@ -146,18 +152,18 @@ void testSpecial() {
     cout << "var <:> 35;" << endl;
     Automat* testAutomat = new Automat();
     
-    checkReturnValue(testAutomat->checkExpression('v'), 0);
-    checkReturnValue(testAutomat->checkExpression('a'), 0);
-    checkReturnValue(testAutomat->checkExpression('r'), 0);
-    checkReturnValue(testAutomat->checkExpression(' '), 2); //Identifier
-    checkReturnValue(testAutomat->checkExpression('<'), 0);
-    checkReturnValue(testAutomat->checkExpression(':'), 0);
-    checkReturnValue(testAutomat->checkExpression('>'), 0);
-    checkReturnValue(testAutomat->checkExpression(' '), 20);
-    checkReturnValue(testAutomat->checkExpression('3'), 0);
-    checkReturnValue(testAutomat->checkExpression('5'), 0);
-    checkReturnValue(testAutomat->checkExpression(';'), 1);
-    checkReturnValue(testAutomat->checkExpression('\0'), 12);
+    checkReturnValue(testAutomat->checkExpression('v'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('a'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('r'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(' '), IDENTIFIER); //Identifier
+    checkReturnValue(testAutomat->checkExpression('<'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(':'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('>'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(' '), SPECIAL);
+    checkReturnValue(testAutomat->checkExpression('3'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('5'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(';'), INTEGER);
+    checkReturnValue(testAutomat->checkExpression('\0'), SEMICOLON);
 }
 
 
@@ -167,27 +173,27 @@ void testArray() {
     cout << "var1[56] = var2 <:> 35;" << endl;
     Automat* testAutomat = new Automat();
     
-    checkReturnValue(testAutomat->checkExpression('v'), 0);
-    checkReturnValue(testAutomat->checkExpression('a'), 0);
-    checkReturnValue(testAutomat->checkExpression('r'), 0);
-    checkReturnValue(testAutomat->checkExpression('['), 2);
-    checkReturnValue(testAutomat->checkExpression('5'), 17);
-    checkReturnValue(testAutomat->checkExpression('6'), 0);
-    checkReturnValue(testAutomat->checkExpression(']'), 1); //Identifier
-    checkReturnValue(testAutomat->checkExpression(' '), 18);
-    checkReturnValue(testAutomat->checkExpression('v'), 0);
-    checkReturnValue(testAutomat->checkExpression('a'), 0);
-    checkReturnValue(testAutomat->checkExpression('r'), 0);
-    checkReturnValue(testAutomat->checkExpression('2'), 0);
-    checkReturnValue(testAutomat->checkExpression(' '), 2);
-    checkReturnValue(testAutomat->checkExpression('<'), 0);
-    checkReturnValue(testAutomat->checkExpression(':'), 0);
-    checkReturnValue(testAutomat->checkExpression('>'), 0);
-    checkReturnValue(testAutomat->checkExpression(' '), 20);
-    checkReturnValue(testAutomat->checkExpression('3'), 0);
-    checkReturnValue(testAutomat->checkExpression('5'), 0);
-    checkReturnValue(testAutomat->checkExpression(';'), 1);
-    checkReturnValue(testAutomat->checkExpression('\0'), 12);
+    checkReturnValue(testAutomat->checkExpression('v'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('a'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('r'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('['), IDENTIFIER);
+    checkReturnValue(testAutomat->checkExpression('5'), BRACKET_LEFT);
+    checkReturnValue(testAutomat->checkExpression('6'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(']'), INTEGER); //Identifier
+    checkReturnValue(testAutomat->checkExpression(' '), BRACKET_RIGHT);
+    checkReturnValue(testAutomat->checkExpression('v'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('a'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('r'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('2'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(' '), IDENTIFIER);
+    checkReturnValue(testAutomat->checkExpression('<'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(':'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('>'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(' '), SPECIAL);
+    checkReturnValue(testAutomat->checkExpression('3'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('5'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(';'), INTEGER);
+    checkReturnValue(testAutomat->checkExpression('\0'), SEMICOLON);
 }
 
 
@@ -197,42 +203,42 @@ void testBoolean() {
     cout << "if(a = b & !b = a & b < a & b > a);" << endl;
     Automat* testAutomat = new Automat();
     
-    checkReturnValue(testAutomat->checkExpression('i'), 0);
-    checkReturnValue(testAutomat->checkExpression('f'), 0);
-    checkReturnValue(testAutomat->checkExpression('('), 2);
-    checkReturnValue(testAutomat->checkExpression('a'), 13);
-    checkReturnValue(testAutomat->checkExpression(' '), 2);
-    checkReturnValue(testAutomat->checkExpression('='), 0);
-    checkReturnValue(testAutomat->checkExpression(' '), 9);
-    checkReturnValue(testAutomat->checkExpression('b'), 0);
-    checkReturnValue(testAutomat->checkExpression(' '), 2);
-    checkReturnValue(testAutomat->checkExpression('&'), 0);
-    checkReturnValue(testAutomat->checkExpression(' '), 11);
-    checkReturnValue(testAutomat->checkExpression('!'), 0);
-    checkReturnValue(testAutomat->checkExpression('b'), 10);
-    checkReturnValue(testAutomat->checkExpression(' '), 2);
-    checkReturnValue(testAutomat->checkExpression('='), 0);
-    checkReturnValue(testAutomat->checkExpression(' '), 9);
-    checkReturnValue(testAutomat->checkExpression('a'), 0);
-    checkReturnValue(testAutomat->checkExpression(' '), 2);
-    checkReturnValue(testAutomat->checkExpression('&'), 0);
-    checkReturnValue(testAutomat->checkExpression(' '), 11);
-    checkReturnValue(testAutomat->checkExpression('b'), 0);
-    checkReturnValue(testAutomat->checkExpression(' '), 2);
-    checkReturnValue(testAutomat->checkExpression('<'), 0);
-    checkReturnValue(testAutomat->checkExpression(' '), 7);
-    checkReturnValue(testAutomat->checkExpression('a'), 0);
-    checkReturnValue(testAutomat->checkExpression(' '), 2);
-    checkReturnValue(testAutomat->checkExpression('&'), 0);
-    checkReturnValue(testAutomat->checkExpression(' '), 11);
-    checkReturnValue(testAutomat->checkExpression('b'), 0);
-    checkReturnValue(testAutomat->checkExpression(' '), 2);
-    checkReturnValue(testAutomat->checkExpression('>'), 0);
-    checkReturnValue(testAutomat->checkExpression(' '), 8);
-    checkReturnValue(testAutomat->checkExpression('a'), 0);
-    checkReturnValue(testAutomat->checkExpression(')'), 2);
-    checkReturnValue(testAutomat->checkExpression(';'), 14);
-    checkReturnValue(testAutomat->checkExpression('\0'), 12);
+    checkReturnValue(testAutomat->checkExpression('i'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('f'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('('), IDENTIFIER);
+    checkReturnValue(testAutomat->checkExpression('a'), PARANTHESES_LEFT);
+    checkReturnValue(testAutomat->checkExpression(' '), IDENTIFIER);
+    checkReturnValue(testAutomat->checkExpression('='), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(' '), EQUALS);
+    checkReturnValue(testAutomat->checkExpression('b'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(' '), IDENTIFIER);
+    checkReturnValue(testAutomat->checkExpression('&'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(' '), AND);
+    checkReturnValue(testAutomat->checkExpression('!'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('b'), EXCLAMATION);
+    checkReturnValue(testAutomat->checkExpression(' '), IDENTIFIER);
+    checkReturnValue(testAutomat->checkExpression('='), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(' '), EQUALS);
+    checkReturnValue(testAutomat->checkExpression('a'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(' '), IDENTIFIER);
+    checkReturnValue(testAutomat->checkExpression('&'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(' '), AND);
+    checkReturnValue(testAutomat->checkExpression('b'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(' '), IDENTIFIER);
+    checkReturnValue(testAutomat->checkExpression('<'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(' '), LESS);
+    checkReturnValue(testAutomat->checkExpression('a'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(' '), IDENTIFIER);
+    checkReturnValue(testAutomat->checkExpression('&'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(' '), AND);
+    checkReturnValue(testAutomat->checkExpression('b'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(' '), IDENTIFIER);
+    checkReturnValue(testAutomat->checkExpression('>'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(' '), GREATER);
+    checkReturnValue(testAutomat->checkExpression('a'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(')'), IDENTIFIER);
+    checkReturnValue(testAutomat->checkExpression(';'), PARANTHESES_RIGHT);
+    checkReturnValue(testAutomat->checkExpression('\0'), SEMICOLON);
 }
 
 

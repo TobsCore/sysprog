@@ -1,6 +1,6 @@
 namespace sign
 {
-    enum signtype
+    enum Signtype
     {
         ERROR = -1,             // If error occurs
         NEXTCHAR = 0,           // Expects the next char
