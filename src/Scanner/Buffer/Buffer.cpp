@@ -10,13 +10,15 @@ Buffer::Buffer(char* source) {
 	posix_memalign((void**) &(this->leftBuffer), 1024, bufferLength);
 	posix_memalign((void**) &(this->rightBuffer), 1024, bufferLength);
 
-	eof = 10;
 	fdRead = /*fdWrite =*/ 0; //fd = FileDescriptor = nicht negativer Integer.
 	baseLeft = current = next = &leftBuffer[0]; //base ist immer neuer anfang von Buffer
 	baseRight = &rightBuffer[0];
 	isLeft = true;
-	isFileOpen = isEOF = false;
-	sourceFile = source; //hier Quell Datei einbinden
+	eof = 0;
+	isFileOpen = isFinished = false;
+	sourceFile = source;
+	openFile();
+	fillBuffer();
 }
 
 Buffer::~Buffer() { //dekonstruktor?
@@ -27,36 +29,30 @@ Buffer::~Buffer() { //dekonstruktor?
 char Buffer::getChar() {
 	current = next; //nimm das zuletzt als nächstes Zeichen gesetzte, als neues aktuelles Zeichen.
 
-	if(!isFileOpen){ // Wenn noch keine Datei geöffnet oder erstellt wurde. Methoden siehe unten.
-		openFile();
-		fillBuffer();
+	if (isFinished) {
+		cout << "FINISHED";
 	}
 
 	if(*current == eof){ //Test ob Datei zu ende.
-		isEOF = true;
+		isFinished = true;
 		close(fdRead);
 		return *current;
 	}
 
-	if (true) { //abfangen ob current außerhalb des Speichers der 2 buffer ist "!((&current < &leftSide[0]) && (&current > &leftSide[bufferLength - 1]))"
-		if (current == baseRight + bufferLength - 1) { //wenn wir uns im letzten Zeichen befinden dann leftBuffer neu befüllen
-			isLeft = true;
-			fillBuffer(); //leftBuffer neu befüllen
-			next = baseLeft;
-			return *current;
-		}
-		if (current == baseLeft + bufferLength - 1) { //wenn wir uns im letzten Zeichen befinden dann rightBuffer befüllen
-			isLeft = false;
-			fillBuffer(); //rightBuffer neu befüllen
-			next = baseRight;
-			return *current;
-		}
-		next++; //Aktuelles Zeichen befindet sich irgendwo mitten im Buffer
+	if (current == baseRight + bufferLength - 1) { //wenn wir uns im letzten Zeichen befinden dann leftBuffer neu befüllen
+		isLeft = true;
+		fillBuffer(); //leftBuffer neu befüllen
+		next = baseLeft;
 		return *current;
 	}
-	//Zeiger befindet sich außerhalb des Speicherbereichs der Arrays -> Fehler
-	cout << endl << "!!! ZEIGER AUSERHALB DES SPEICHERBEREICHES !!!" << endl;
-	return '\n';
+	if (current == baseLeft + bufferLength - 1) { //wenn wir uns im letzten Zeichen befinden dann rightBuffer befüllen
+		isLeft = false;
+		fillBuffer(); //rightBuffer neu befüllen
+		next = baseRight;
+		return *current;
+	}
+	next++; //Aktuelles Zeichen befindet sich irgendwo mitten im Buffer
+	return *current;
 	}
 
 void Buffer::ungetChar(int count) {
@@ -75,10 +71,11 @@ void Buffer::ungetChar(int count) {
 }
 
 void Buffer::openFile() {
-	cout << endl << "in Buffer::openFile()" << endl;
 	fdRead = open(sourceFile, O_DIRECT);
 	if(fdRead != -1){	//öffnen der Datei hat geklappt.
 		isFileOpen = true; //dann setze isFileOpen auf true
+	} else {
+		cout << "Error! File " << sourceFile << " couldn't be opened";
 	}
 }
 
@@ -94,9 +91,9 @@ void Buffer::openFile() {
 
 void Buffer::fillBuffer() {
 	if (isLeft) {
-		read(fdRead, baseLeft, 512);
+		read(fdRead, baseLeft, 1024);
 	} else {
-		read(fdRead, baseRight, 512);
+		read(fdRead, baseRight, 1024);
 	}
 }
 
@@ -164,7 +161,7 @@ void Buffer::fillBuffer() {
 }*/
 
 bool Buffer::hasNext(){
-	return !isEOF;
+	return !isFinished;
 }
 
 void Buffer::closeFiles(){ //schließt die geöffneten Dateien wieder

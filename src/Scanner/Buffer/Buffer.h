@@ -23,7 +23,7 @@ private:
 	int fdRead;
 	//int fdWrite;
 	int eof;
-	bool isEOF;
+	bool isFinished;
 	bool isLeft;
 	bool isFileOpen;
 	unsigned int bufferLength;

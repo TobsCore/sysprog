@@ -17,16 +17,14 @@ int main(int argc, char** argv) {
 	if(argc == 2) {
 		filePath = (char*)argv[1];
 	} else {
-		filePath = "./testProgramm.txt";
+		filePath = "./test.txt";
 	}
 
 	cout << filePath << endl;
 
-	Buffer* joo = new Buffer(filePath);
-	for (int i = 0; i< 128; i++)
-	{
-	char c = joo->getChar();
-	cout << "mein char: " << i << ": " << c << endl;
+	Buffer* buf = new Buffer(filePath);
+	while (buf->hasNext()) {
+		cout << buf->getChar();
 	}
 	return 0;
 }
