@@ -4,9 +4,10 @@
 #endif
 
 
+
 Token::Token() {
     this->column = 0;
-    this->type = 0;
+    this->type = NEXTCHAR;
     this->value = 0;
     this->row = 0;
 }
@@ -19,11 +20,11 @@ char* Token::getValue() {
     return this->value;
 }
 
-void Token::setType(int type) {
+void Token::setType(Signtype type) {
     this->type = type;
 }
 
-int Token::getType() {
+Signtype Token::getType() {
     return this->type;
 }
 

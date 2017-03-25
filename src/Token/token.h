@@ -10,8 +10,8 @@ public:
     char* getValue();
     void setValue(char* value);
     
-    int getType();
-    void setType(int type);
+    Signtype getType();
+    void setType(Signtype type);
     
     int getColumn();
     void setColumn(int column);
@@ -22,7 +22,7 @@ public:
 private:
     
     char* value;
-    int type;
+    Signtype type;
     int column;
     int row;
 };
