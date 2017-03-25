@@ -22,6 +22,8 @@ void testAssignment();
 void testSpecial();
 void testArray();
 void testBoolean();
+void testNewLine();
+void testSimpleAssign();
 void checkReturnValue(int returnValue, int expectedValue);
 
 
@@ -35,6 +37,8 @@ int main () {
     testSpecial();
     testArray();
     testBoolean();
+    testNewLine();
+    testSimpleAssign();
 	return 0;
 }
 
@@ -165,6 +169,19 @@ void testSpecial() {
     checkReturnValue(testAutomat->checkExpression('\0'), SEMICOLON);
 }
 
+void testSpecialError() {
+
+    cout << "=:+;" << endl;
+    Automat* testAutomat = new Automat();
+
+    checkReturnValue(testAutomat->checkExpression('='), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression(':'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('+'), ERROR);
+    checkReturnValue(testAutomat->checkExpression('\0'), PLUS);
+}
+
+
+
 void testSimpleAssign() {
 	cout << endl << "Test Simple Assignment:" << endl;
 	cout << ":= a" << endl;
@@ -254,6 +271,23 @@ void testBoolean() {
     checkReturnValue(testAutomat->checkExpression(')'), IDENTIFIER);
     checkReturnValue(testAutomat->checkExpression(';'), PARANTHESES_RIGHT);
     checkReturnValue(testAutomat->checkExpression('\0'), SEMICOLON);
+}
+
+void testNewLine() {
+	cout << endl << "Test NewLine:" << endl;
+	cout << "a+b;\nb+c" << endl;
+	Automat* testAutomat = new Automat();
+
+	checkReturnValue(testAutomat->checkExpression('a'), NEXTCHAR);
+	checkReturnValue(testAutomat->checkExpression('+'), IDENTIFIER);
+	checkReturnValue(testAutomat->checkExpression('b'), PLUS);
+	checkReturnValue(testAutomat->checkExpression(';'), IDENTIFIER);
+	checkReturnValue(testAutomat->checkExpression('\n'), SEMICOLON);
+	checkReturnValue(testAutomat->checkExpression('b'), NEXTCHAR);
+	checkReturnValue(testAutomat->checkExpression('+'), IDENTIFIER);
+	checkReturnValue(testAutomat->checkExpression('c'), PLUS);
+	checkReturnValue(testAutomat->checkExpression('\0'), IDENTIFIER);
+
 }
 
 
