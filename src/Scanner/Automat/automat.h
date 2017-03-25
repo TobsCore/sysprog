@@ -1,18 +1,24 @@
+#ifndef SYMTYPE
+#define SYMTYPE
+#include "../../SymbolType/symboltype.h"
+#endif
+
 class Automat {
 
 public:
 	Automat();
-	int checkExpression(char currentChar);
-	int findColumn(char currentChar);
+	Signtype checkExpression(char currentChar);
 
 private:
+	int findColumn(char currentChar);
+
 	int currentState;
 	int newState;
 	int column;
 
 	typedef struct {
 		int nextState;
-		int returnValue;
+		Signtype returnValue;
 	} stateElement;
 
 	/* Funktionsweise:
@@ -24,29 +30,29 @@ private:
 
 	stateElement stateMatrix[24][20] = {
 			//digit	//letter  //+	   //-    //: 	  //*     //<     //>     //=     //!      //&      //;      //(  	 //)	   //{    	 //}  	 //[ 	  //]      //leer
-		   { {1,0},  {2,0},   {3,0},  {4,0},  {5,0},  {6,0},  {7,0},  {8,0},  {9,0},  {10,0},  {11,0},  {12,0},  {13,0},  {14,0},  {15,0},  {16,0},  {17,0},  {18,0},  {0,0}   }, // s0
-		   { {1,0},  {19,0},  {3,1},  {4,1},  {5,1},  {6,1},  {7,1},  {8,1},  {9,1},  {10,1},  {11,1},  {12,1},  {13,1},  {14,1},  {15,1},  {16,1},  {17,1},  {18,1},  {0,1}   }, // s1
-		   { {2,0},  {2,0},   {3,2},  {4,2},  {5,2},  {6,2},  {7,2},  {8,2},  {9,2},  {10,2},  {11,2},  {12,2},  {13,2},  {14,2},  {15,2},  {16,2},  {17,2},  {18,2},  {0,2}   }, // s2
-		   { {1,3},  {2,3},   {3,3},  {4,3},  {5,3},  {6,3},  {7,3},  {8,3},  {9,3},  {10,3},  {11,3},  {12,3},  {13,3},  {14,3},  {15,3},  {16,3},  {17,3},  {18,3},  {0,3}   }, // s3
-		   { {1,4},  {2,4},   {3,4},  {4,4},  {5,4},  {6,4},  {7,4},  {8,4},  {9,4},  {10,4},  {11,4},  {12,4},  {13,4},  {14,4},  {15,4},  {16,4},  {17,4},  {18,4},  {0,4}   }, // s4
-		   { {1,5},  {2,5},   {3,5},  {4,5},  {5,5},  {6,5},  {7,5},  {8,5},  {19,0}, {10,5},  {11,5},  {12,5},  {13,5},  {14,5},  {15,5},  {16,5},  {17,5},  {18,5},  {0,5}   }, // s5
-		   { {1,6},  {2,6},   {3,6},  {4,6},  {5,6},  {6,6},  {7,6},  {8,6},  {9,6},  {10,6},  {11,6},  {12,6},  {13,6},  {14,6},  {15,6},  {16,6},  {17,6},  {18,6},  {0,6}   }, // s6
-		   { {1,7},  {2,7},   {3,7},  {4,7},  {5,7},  {6,7},  {7,7},  {8,7},  {9,7},  {10,7},  {11,7},  {12,7},  {13,7},  {14,7},  {15,7},  {16,7},  {17,7},  {18,7},  {0,7}   }, // s7
-		   { {1,8},  {2,8},   {3,8},  {4,8},  {5,8},  {6,8},  {7,8},  {8,8},  {9,8},  {10,8},  {11,8},  {12,8},  {13,8},  {14,8},  {15,8},  {16,8},  {17,8},  {18,8},  {0,8}   }, // s8
-		   { {1,9},  {2,9},   {3,9},  {4,9},  {21,0}, {6,9},  {7,9},  {8,9},  {9,9},  {10,9},  {11,9},  {12,9},  {13,9},  {14,9},  {15,9},  {16,9},  {17,9},  {18,9},  {0,9}   }, // s9
-		   { {1,10}, {2,10},  {3,10}, {4,10}, {5,10}, {6,10}, {7,10}, {8,10}, {9,10}, {10,10}, {11,10}, {12,10}, {13,10}, {14,10}, {15,10}, {16,10}, {17,10}, {18,10}, {0,10}  }, // s10
-		   { {1,-1}, {2,-1},  {3,-1}, {4,-1}, {5,-1}, {6,-1}, {7,-1}, {8,-1}, {9,-1}, {10,-1}, {20,0},  {12,-1}, {13,-1}, {14,-1}, {15,-1}, {16,-1}, {17,-1}, {18,-1}, {0,0}   }, // s11-intermediate
-		   { {1,12}, {2,12},  {3,12}, {4,12}, {5,12}, {6,12}, {7,12}, {8,12}, {9,12}, {10,12}, {11,12}, {12,12}, {13,12}, {14,12}, {15,12}, {16,12}, {17,12}, {18,12}, {0,12}  }, // s12
-		   { {1,13}, {2,13},  {3,13}, {4,13}, {5,13}, {6,13}, {7,13}, {8,13}, {9,13}, {10,13}, {11,13}, {12,13}, {13,13}, {14,13}, {15,13}, {16,13}, {17,13}, {18,13}, {0,13}  }, // s13
-		   { {1,14}, {2,14},  {3,14}, {4,14}, {5,14}, {6,14}, {7,14}, {8,14}, {9,14}, {10,14}, {11,14}, {12,14}, {13,14}, {14,14}, {15,14}, {16,14}, {17,14}, {18,14}, {0,14}  }, // s14
-		   { {1,15}, {2,15},  {3,15}, {4,15}, {5,15}, {6,15}, {7,15}, {8,15}, {9,15}, {10,15}, {11,15}, {12,15}, {13,15}, {14,15}, {15,15}, {16,15}, {17,15}, {18,15}, {0,15}  }, // s15
-		   { {1,16}, {2,16},  {3,16}, {4,16}, {5,16}, {6,16}, {7,16}, {8,16}, {9,16}, {10,16}, {11,16}, {12,16}, {13,16}, {14,16}, {15,16}, {16,16}, {17,16}, {18,16}, {0,16}  }, // s16
-		   { {1,17}, {2,17},  {3,17}, {4,17}, {5,17}, {6,17}, {7,17}, {8,17}, {9,17}, {10,17}, {11,17}, {12,17}, {13,17}, {14,17}, {15,17}, {16,17}, {17,17}, {18,17}, {0,17}  }, // s17
-		   { {1,18}, {2,18},  {3,18}, {4,18}, {5,18}, {6,18}, {7,18}, {8,18}, {9,18}, {10,18}, {11,18}, {12,18}, {13,18}, {14,18}, {15,18}, {16,18}, {17,18}, {18,18}, {0,18}  }, // s18
-		   { {1,19}, {2,19},  {3,19}, {4,19}, {5,19}, {6,19}, {7,19}, {8,19}, {9,19}, {10,19}, {11,19}, {12,19}, {13,19}, {14,19}, {15,19}, {16,19}, {17,19}, {18,19}, {0,19}  }, // s19
-		   { {1,11}, {2,11},  {3,11}, {4,11}, {5,11}, {6,11}, {7,11}, {8,11}, {9,11}, {10,11}, {11,11}, {12,11}, {13,11}, {14,11}, {15,11}, {16,11}, {17,11}, {18,11}, {0,11}  }, // s11
-		   { {1,-1}, {2,-1},  {3,-1}, {4,-1}, {5,-1}, {6,-1}, {7,-1}, {8,-1}, {22,0}, {10,-1}, {11,-1}, {12,-1}, {13,-1}, {14,-1}, {15,-1}, {16,-1}, {17,-1}, {18,-1}, {0,-1}  }, // s20-intermediate
-		   { {1,20}, {2,20},  {3,20}, {4,20}, {5,20}, {6,20}, {7,20}, {8,20}, {9,20}, {10,20}, {11,20}, {12,20}, {13,20}, {14,20}, {15,20}, {16,20}, {17,20}, {18,20}, {0,20}  }, // s20
-		   { {19,0}, {19,0},  {3,-1}, {4,-1}, {5,-1}, {6,-1}, {7,-1}, {8,-1}, {9,-1}, {10,-1}, {11,-1}, {12,-1}, {13,-1}, {14,-1}, {15,-1}, {16,-1}, {17,-1}, {18,-1}, {0,-1}  }  // s-1
+		   { {1,NEXTCHAR},  {2,NEXTCHAR},   {3,NEXTCHAR},  {4,NEXTCHAR},  {5,NEXTCHAR},  {6,NEXTCHAR},  {7,NEXTCHAR},  {8,NEXTCHAR},  {9,NEXTCHAR},  {10,NEXTCHAR},  {11,NEXTCHAR},  {12,NEXTCHAR},  {13,NEXTCHAR},  {14,NEXTCHAR},  {15,NEXTCHAR},  {16,NEXTCHAR},  {17,NEXTCHAR},  {18,NEXTCHAR},  {0,NEXTCHAR}   }, // s0
+		   { {1,NEXTCHAR},  {19,NEXTCHAR},  {3,INTEGER},  {4,INTEGER},  {5,INTEGER},  {6,INTEGER},  {7,INTEGER},  {8,INTEGER},  {9,INTEGER},  {10,INTEGER},  {11,INTEGER},  {12,INTEGER},  {13,INTEGER},  {14,INTEGER},  {15,INTEGER},  {16,INTEGER},  {17,INTEGER},  {18,INTEGER},  {0,INTEGER}   }, // s1
+		   { {2,NEXTCHAR},  {2,NEXTCHAR},   {3,IDENTIFIER},  {4,IDENTIFIER},  {5,IDENTIFIER},  {6,IDENTIFIER},  {7,IDENTIFIER},  {8,IDENTIFIER},  {9,IDENTIFIER},  {10,IDENTIFIER},  {11,IDENTIFIER},  {12,IDENTIFIER},  {13,IDENTIFIER},  {14,IDENTIFIER},  {15,IDENTIFIER},  {16,IDENTIFIER},  {17,IDENTIFIER},  {18,IDENTIFIER},  {0,IDENTIFIER}   }, // s2
+		   { {1,PLUS},  {2,PLUS},   {3,PLUS},  {4,PLUS},  {5,PLUS},  {6,PLUS},  {7,PLUS},  {8,PLUS},  {9,PLUS},  {10,PLUS},  {11,PLUS},  {12,PLUS},  {13,PLUS},  {14,PLUS},  {15,PLUS},  {16,PLUS},  {17,PLUS},  {18,PLUS},  {0,PLUS}   }, // s3
+		   { {1,MINUS},  {2,MINUS},   {3,MINUS},  {4,MINUS},  {5,MINUS},  {6,MINUS},  {7,MINUS},  {8,MINUS},  {9,MINUS},  {10,MINUS},  {11,MINUS},  {12,MINUS},  {13,MINUS},  {14,MINUS},  {15,MINUS},  {16,MINUS},  {17,MINUS},  {18,MINUS},  {0,MINUS}   }, // s4
+		   { {1,COLON},  {2,COLON},   {3,COLON},  {4,COLON},  {5,COLON},  {6,COLON},  {7,COLON},  {8,COLON},  {19,NEXTCHAR}, {10,COLON},  {11,COLON},  {12,COLON},  {13,COLON},  {14,COLON},  {15,COLON},  {16,COLON},  {17,COLON},  {18,COLON},  {0,COLON}   }, // s5
+		   { {1,STAR},  {2,STAR},   {3,STAR},  {4,STAR},  {5,STAR},  {6,STAR},  {7,STAR},  {8,STAR},  {9,STAR},  {10,STAR},  {11,STAR},  {12,STAR},  {13,STAR},  {14,STAR},  {15,STAR},  {16,STAR},  {17,STAR},  {18,STAR},  {0,STAR}   }, // s6
+		   { {1,LESS},  {2,LESS},   {3,LESS},  {4,LESS},  {5,LESS},  {6,LESS},  {7,LESS},  {8,LESS},  {9,LESS},  {10,LESS},  {11,LESS},  {12,LESS},  {13,LESS},  {14,LESS},  {15,LESS},  {16,LESS},  {17,LESS},  {18,LESS},  {0,LESS}   }, // s7
+		   { {1,GREATER},  {2,GREATER},   {3,GREATER},  {4,GREATER},  {5,GREATER},  {6,GREATER},  {7,GREATER},  {8,GREATER},  {9,GREATER},  {10,GREATER},  {11,GREATER},  {12,GREATER},  {13,GREATER},  {14,GREATER},  {15,GREATER},  {16,GREATER},  {17,GREATER},  {18,GREATER},  {0,GREATER}   }, // s8
+		   { {1,EQUALS},  {2,EQUALS},   {3,EQUALS},  {4,EQUALS},  {21,NEXTCHAR}, {6,EQUALS},  {7,EQUALS},  {8,EQUALS},  {9,EQUALS},  {10,EQUALS},  {11,EQUALS},  {12,EQUALS},  {13,EQUALS},  {14,EQUALS},  {15,EQUALS},  {16,EQUALS},  {17,EQUALS},  {18,EQUALS},  {0,EQUALS}   }, // s9
+		   { {1,EXCLAMATION}, {2,EXCLAMATION},  {3,EXCLAMATION}, {4,EXCLAMATION}, {5,EXCLAMATION}, {6,EXCLAMATION}, {7,EXCLAMATION}, {8,EXCLAMATION}, {9,EXCLAMATION}, {10,EXCLAMATION}, {11,EXCLAMATION}, {12,EXCLAMATION}, {13,EXCLAMATION}, {14,EXCLAMATION}, {15,EXCLAMATION}, {16,EXCLAMATION}, {17,EXCLAMATION}, {18,EXCLAMATION}, {0,EXCLAMATION}  }, // s10
+		   { {1,ERROR}, {2,ERROR},  {3,ERROR}, {4,ERROR}, {5,ERROR}, {6,ERROR}, {7,ERROR}, {8,ERROR}, {9,ERROR}, {10,ERROR}, {20,NEXTCHAR},  {12,ERROR}, {13,ERROR}, {14,ERROR}, {15,ERROR}, {16,ERROR}, {17,ERROR}, {18,ERROR}, {0,NEXTCHAR}   }, // s11-intermediate
+		   { {1,SEMICOLON}, {2,SEMICOLON},  {3,SEMICOLON}, {4,SEMICOLON}, {5,SEMICOLON}, {6,SEMICOLON}, {7,SEMICOLON}, {8,SEMICOLON}, {9,SEMICOLON}, {10,SEMICOLON}, {11,SEMICOLON}, {12,SEMICOLON}, {13,SEMICOLON}, {14,SEMICOLON}, {15,SEMICOLON}, {16,SEMICOLON}, {17,SEMICOLON}, {18,SEMICOLON}, {0,SEMICOLON}  }, // s12
+		   { {1,PARANTHESES_LEFT}, {2,PARANTHESES_LEFT},  {3,PARANTHESES_LEFT}, {4,PARANTHESES_LEFT}, {5,PARANTHESES_LEFT}, {6,PARANTHESES_LEFT}, {7,PARANTHESES_LEFT}, {8,PARANTHESES_LEFT}, {9,PARANTHESES_LEFT}, {10,PARANTHESES_LEFT}, {11,PARANTHESES_LEFT}, {12,PARANTHESES_LEFT}, {13,PARANTHESES_LEFT}, {14,PARANTHESES_LEFT}, {15,PARANTHESES_LEFT}, {16,PARANTHESES_LEFT}, {17,PARANTHESES_LEFT}, {18,PARANTHESES_LEFT}, {0,PARANTHESES_LEFT}  }, // s13
+		   { {1,PARANTHESES_RIGHT}, {2,PARANTHESES_RIGHT},  {3,PARANTHESES_RIGHT}, {4,PARANTHESES_RIGHT}, {5,PARANTHESES_RIGHT}, {6,PARANTHESES_RIGHT}, {7,PARANTHESES_RIGHT}, {8,PARANTHESES_RIGHT}, {9,PARANTHESES_RIGHT}, {10,PARANTHESES_RIGHT}, {11,PARANTHESES_RIGHT}, {12,PARANTHESES_RIGHT}, {13,PARANTHESES_RIGHT}, {14,PARANTHESES_RIGHT}, {15,PARANTHESES_RIGHT}, {16,PARANTHESES_RIGHT}, {17,PARANTHESES_RIGHT}, {18,PARANTHESES_RIGHT}, {0,PARANTHESES_RIGHT}  }, // s14
+		   { {1,BRACES_LEFT}, {2,BRACES_LEFT},  {3,BRACES_LEFT}, {4,BRACES_LEFT}, {5,BRACES_LEFT}, {6,BRACES_LEFT}, {7,BRACES_LEFT}, {8,BRACES_LEFT}, {9,BRACES_LEFT}, {10,BRACES_LEFT}, {11,BRACES_LEFT}, {12,BRACES_LEFT}, {13,BRACES_LEFT}, {14,BRACES_LEFT}, {15,BRACES_LEFT}, {16,BRACES_LEFT}, {17,BRACES_LEFT}, {18,BRACES_LEFT}, {0,BRACES_LEFT}  }, // s15
+		   { {1,BRACES_RIGHT}, {2,BRACES_RIGHT},  {3,BRACES_RIGHT}, {4,BRACES_RIGHT}, {5,BRACES_RIGHT}, {6,BRACES_RIGHT}, {7,BRACES_RIGHT}, {8,BRACES_RIGHT}, {9,BRACES_RIGHT}, {10,BRACES_RIGHT}, {11,BRACES_RIGHT}, {12,BRACES_RIGHT}, {13,BRACES_RIGHT}, {14,BRACES_RIGHT}, {15,BRACES_RIGHT}, {16,BRACES_RIGHT}, {17,BRACES_RIGHT}, {18,BRACES_RIGHT}, {0,BRACES_RIGHT}  }, // s16
+		   { {1,BRACKET_LEFT}, {2,BRACKET_LEFT},  {3,BRACKET_LEFT}, {4,BRACKET_LEFT}, {5,BRACKET_LEFT}, {6,BRACKET_LEFT}, {7,BRACKET_LEFT}, {8,BRACKET_LEFT}, {9,BRACKET_LEFT}, {10,BRACKET_LEFT}, {11,BRACKET_LEFT}, {12,BRACKET_LEFT}, {13,BRACKET_LEFT}, {14,BRACKET_LEFT}, {15,BRACKET_LEFT}, {16,BRACKET_LEFT}, {17,BRACKET_LEFT}, {18,BRACKET_LEFT}, {0,BRACKET_LEFT}  }, // s17
+		   { {1,BRACKET_RIGHT}, {2,BRACKET_RIGHT},  {3,BRACKET_RIGHT}, {4,BRACKET_RIGHT}, {5,BRACKET_RIGHT}, {6,BRACKET_RIGHT}, {7,BRACKET_RIGHT}, {8,BRACKET_RIGHT}, {9,BRACKET_RIGHT}, {10,BRACKET_RIGHT}, {11,BRACKET_RIGHT}, {12,BRACKET_RIGHT}, {13,BRACKET_RIGHT}, {14,BRACKET_RIGHT}, {15,BRACKET_RIGHT}, {16,BRACKET_RIGHT}, {17,BRACKET_RIGHT}, {18,BRACKET_RIGHT}, {0,BRACKET_RIGHT}  }, // s18
+		   { {1,ASSIGN}, {2,ASSIGN},  {3,ASSIGN}, {4,ASSIGN}, {5,ASSIGN}, {6,ASSIGN}, {7,ASSIGN}, {8,ASSIGN}, {9,ASSIGN}, {10,ASSIGN}, {11,ASSIGN}, {12,ASSIGN}, {13,ASSIGN}, {14,ASSIGN}, {15,ASSIGN}, {16,ASSIGN}, {17,ASSIGN}, {18,ASSIGN}, {0,ASSIGN}  }, // s19
+		   { {1,AND}, {2,AND},  {3,AND}, {4,AND}, {5,AND}, {6,AND}, {7,AND}, {8,AND}, {9,AND}, {10,AND}, {11,AND}, {12,AND}, {13,AND}, {14,AND}, {15,AND}, {16,AND}, {17,AND}, {18,AND}, {0,AND}  }, // s11
+		   { {1,ERROR}, {2,ERROR},  {3,ERROR}, {4,ERROR}, {5,ERROR}, {6,ERROR}, {7,ERROR}, {8,ERROR}, {22,NEXTCHAR}, {10,ERROR}, {11,ERROR}, {12,ERROR}, {13,ERROR}, {14,ERROR}, {15,ERROR}, {16,ERROR}, {17,ERROR}, {18,ERROR}, {0,ERROR}  }, // s20-intermediate
+		   { {1,SPECIAL}, {2,SPECIAL},  {3,SPECIAL}, {4,SPECIAL}, {5,SPECIAL}, {6,SPECIAL}, {7,SPECIAL}, {8,SPECIAL}, {9,SPECIAL}, {10,SPECIAL}, {11,SPECIAL}, {12,SPECIAL}, {13,SPECIAL}, {14,SPECIAL}, {15,SPECIAL}, {16,SPECIAL}, {17,SPECIAL}, {18,SPECIAL}, {0,SPECIAL}  }, // s20
+		   { {19,NEXTCHAR}, {19,NEXTCHAR},  {3,ERROR}, {4,ERROR}, {5,ERROR}, {6,ERROR}, {7,ERROR}, {8,ERROR}, {9,ERROR}, {10,ERROR}, {11,ERROR}, {12,ERROR}, {13,ERROR}, {14,ERROR}, {15,ERROR}, {16,ERROR}, {17,ERROR}, {18,ERROR}, {0,ERROR}  }  // s-1
 	};
 };

@@ -1,28 +1,11 @@
 // Der Automat merkt sich, in welchem Zustand er ist.
 // Gibt Integer Werte zurück, die jeweils für die entsprechenden Typen des Tokens stehen.
 
-// Aus schlüsselwörtern wie "if" und "while" werden Identifier gemacht
-
-/** Es wird ein int zurückgegeben, dass durch ein enum eine schöne Beschreibung bekommt
- * -1 > baue ein FehlerToken
- * 0 > noch ein char, bitte!
- * 1 > baue ein IntegerToken
- * 2 > baue ein IdentifierToken
- * 3 > baue ein PlusToken
- * 4 > baue ein MinusToken
- * etc.
- */
 
 #ifndef AUTOMAT
 #define AUTOMAT
 #include "automat.h"
 #endif
-
-//#ifndef SYMTYPE
-//#define SYMTYPE
-//#include <symboltype.h>
-//#endif
-//using namespace sign;
 
 int Automat::findColumn(char currentChar) {
 	if ((int) currentChar > 47 && (int) currentChar < 58) {
@@ -82,7 +65,7 @@ Automat::Automat() {
 
 }
 
-int Automat::checkExpression(char currentChar) {
+Signtype Automat::checkExpression(char currentChar) {
 	currentState = newState;
 	column = findColumn(currentChar);
 	stateElement state = stateMatrix[currentState][column];
