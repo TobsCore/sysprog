@@ -26,6 +26,7 @@ void testForValue();
 void testForValue1();
 void testForValueWithEmptyString();
 void testForValueWithNumbers();
+void testEOF();
 
 int main(int argc, char** argv) {
     
@@ -35,6 +36,7 @@ int main(int argc, char** argv) {
     testForValue1();
     testForValueWithEmptyString();
     testForValueWithNumbers();
+    testEOF();
     return 0;
 }
 
@@ -53,6 +55,17 @@ void simpletest() {
         std::cout << "Simple Test Failed!\n";
     }
     
+}
+
+void testEOF() {
+	Token* test = new Token();
+	test->setType(EOF);
+
+	if (test->isEOF()) {
+		std::cout << "EOF-Test Succeeded!" << std::endl;
+	} else {
+		std::cout << "EOF-Test Failed!" << std::endl;
+	}
 }
 
 void testDifferentTypes() {

@@ -19,6 +19,8 @@ public:
     int getRow();
     void setRow(int row);
     
+    bool isEOF();
+
 private:
     
     char* value;

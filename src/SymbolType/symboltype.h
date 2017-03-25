@@ -20,5 +20,6 @@ enum Signtype {
 	BRACKET_LEFT = 17, 		// [
 	BRACKET_RIGHT = 18, 	// ]
 	ASSIGN = 19,		 	// :=
-	SPECIAL = 20 			// =:=
+	SPECIAL = 20, 			// =:=
+	EOF = 50 			// End of file
 };

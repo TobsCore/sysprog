@@ -53,3 +53,7 @@ void Token::setRow(int row) {
 int Token::getRow() {
     return this->row;
 }
+
+bool Token::isEOF() {
+	return this->type == EOF;
+}
