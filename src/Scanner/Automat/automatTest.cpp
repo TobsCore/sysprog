@@ -137,8 +137,8 @@ void testAssignment() {
     checkReturnValue(testAutomat->checkExpression('r'), NEXTCHAR);
     checkReturnValue(testAutomat->checkExpression(' '), IDENTIFIER); //Identifier
     checkReturnValue(testAutomat->checkExpression(':'), NEXTCHAR);
-    checkReturnValue(testAutomat->checkExpression('='), NEXTCHAR);
-    checkReturnValue(testAutomat->checkExpression(' '), ASSIGN);
+    checkReturnValue(testAutomat->checkExpression('='), NEXTCHAR); // COLON
+    checkReturnValue(testAutomat->checkExpression(' '), ASSIGN);   // EQUALS
     checkReturnValue(testAutomat->checkExpression('3'), NEXTCHAR);
     checkReturnValue(testAutomat->checkExpression('5'), NEXTCHAR);
     checkReturnValue(testAutomat->checkExpression(';'), INTEGER);
@@ -149,16 +149,16 @@ void testAssignment() {
 void testSpecial() {
     
     cout << endl << "Test Special Statement:" << endl;
-    cout << "var <:> 35;" << endl;
+    cout << "var =:= 35;" << endl;
     Automat* testAutomat = new Automat();
     
     checkReturnValue(testAutomat->checkExpression('v'), NEXTCHAR);
     checkReturnValue(testAutomat->checkExpression('a'), NEXTCHAR);
     checkReturnValue(testAutomat->checkExpression('r'), NEXTCHAR);
     checkReturnValue(testAutomat->checkExpression(' '), IDENTIFIER); //Identifier
-    checkReturnValue(testAutomat->checkExpression('<'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('='), NEXTCHAR);
     checkReturnValue(testAutomat->checkExpression(':'), NEXTCHAR);
-    checkReturnValue(testAutomat->checkExpression('>'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('='), NEXTCHAR);
     checkReturnValue(testAutomat->checkExpression(' '), SPECIAL);
     checkReturnValue(testAutomat->checkExpression('3'), NEXTCHAR);
     checkReturnValue(testAutomat->checkExpression('5'), NEXTCHAR);
@@ -166,11 +166,24 @@ void testSpecial() {
     checkReturnValue(testAutomat->checkExpression('\0'), SEMICOLON);
 }
 
+void testSimpleAssign() {
+	cout << endl << "Test Simple Assignment:" << endl;
+	cout << ":= a" << endl;
+	Automat* testAutomat = new Automat();
+
+	checkReturnValue(testAutomat->checkExpression(':'), NEXTCHAR);
+	checkReturnValue(testAutomat->checkExpression('='), NEXTCHAR);
+	checkReturnValue(testAutomat->checkExpression(' '), ASSIGN);
+	checkReturnValue(testAutomat->checkExpression('a'), NEXTCHAR);
+	checkReturnValue(testAutomat->checkExpression('\0'), IDENTIFIER);
+
+}
+
 
 void testArray() {
     
     cout << endl << "Test Special Statement:" << endl;
-    cout << "var1[56] = var2 <:> 35;" << endl;
+    cout << "var1[56] = var2 =:= 35;" << endl;
     Automat* testAutomat = new Automat();
     
     checkReturnValue(testAutomat->checkExpression('v'), NEXTCHAR);
@@ -186,9 +199,9 @@ void testArray() {
     checkReturnValue(testAutomat->checkExpression('r'), NEXTCHAR);
     checkReturnValue(testAutomat->checkExpression('2'), NEXTCHAR);
     checkReturnValue(testAutomat->checkExpression(' '), IDENTIFIER);
-    checkReturnValue(testAutomat->checkExpression('<'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('='), NEXTCHAR);
     checkReturnValue(testAutomat->checkExpression(':'), NEXTCHAR);
-    checkReturnValue(testAutomat->checkExpression('>'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('='), NEXTCHAR);
     checkReturnValue(testAutomat->checkExpression(' '), SPECIAL);
     checkReturnValue(testAutomat->checkExpression('3'), NEXTCHAR);
     checkReturnValue(testAutomat->checkExpression('5'), NEXTCHAR);
@@ -199,8 +212,8 @@ void testArray() {
 
 void testBoolean() {
     
-    cout << endl << "Test Special Statement:" << endl;
-    cout << "if(a = b & !b = a & b < a & b > a);" << endl;
+    cout << endl << "Test Boolean Statement:" << endl;
+    cout << "if(a = b && !b = a && b < a && b > a);" << endl;
     Automat* testAutomat = new Automat();
     
     checkReturnValue(testAutomat->checkExpression('i'), NEXTCHAR);
@@ -213,6 +226,7 @@ void testBoolean() {
     checkReturnValue(testAutomat->checkExpression('b'), NEXTCHAR);
     checkReturnValue(testAutomat->checkExpression(' '), IDENTIFIER);
     checkReturnValue(testAutomat->checkExpression('&'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('&'), NEXTCHAR);
     checkReturnValue(testAutomat->checkExpression(' '), AND);
     checkReturnValue(testAutomat->checkExpression('!'), NEXTCHAR);
     checkReturnValue(testAutomat->checkExpression('b'), EXCLAMATION);
@@ -222,6 +236,7 @@ void testBoolean() {
     checkReturnValue(testAutomat->checkExpression('a'), NEXTCHAR);
     checkReturnValue(testAutomat->checkExpression(' '), IDENTIFIER);
     checkReturnValue(testAutomat->checkExpression('&'), NEXTCHAR);
+    checkReturnValue(testAutomat->checkExpression('&'), NEXTCHAR);
     checkReturnValue(testAutomat->checkExpression(' '), AND);
     checkReturnValue(testAutomat->checkExpression('b'), NEXTCHAR);
     checkReturnValue(testAutomat->checkExpression(' '), IDENTIFIER);
@@ -229,6 +244,7 @@ void testBoolean() {
     checkReturnValue(testAutomat->checkExpression(' '), LESS);
     checkReturnValue(testAutomat->checkExpression('a'), NEXTCHAR);
     checkReturnValue(testAutomat->checkExpression(' '), IDENTIFIER);
+    checkReturnValue(testAutomat->checkExpression('&'), NEXTCHAR);
     checkReturnValue(testAutomat->checkExpression('&'), NEXTCHAR);
     checkReturnValue(testAutomat->checkExpression(' '), AND);
     checkReturnValue(testAutomat->checkExpression('b'), NEXTCHAR);

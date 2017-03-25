@@ -85,7 +85,8 @@ Automat::Automat() {
 int Automat::checkExpression(char currentChar) {
 	currentState = newState;
 	column = findColumn(currentChar);
-	newState = stateMatrix[currentState][column].nextState;
+	stateElement state = stateMatrix[currentState][column];
+	newState = state.nextState;
 
-	return stateMatrix[currentState][column].returnValue;
+	return state.returnValue;
 }
