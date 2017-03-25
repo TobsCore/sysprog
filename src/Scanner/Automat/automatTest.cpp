@@ -13,7 +13,6 @@
 #include <iostream>
 #endif
 using namespace std;
-using namespace sign;
 
 void simpleTest();
 void testIdentifierAddition();
