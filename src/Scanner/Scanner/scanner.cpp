@@ -8,20 +8,25 @@
 #include <iostream>
 #endif
 
-Scanner::Scanner() {
+Scanner::Scanner(char* filePath) {
 	currentRow = 1;
 	currentColumn = 1;
 
 	this->automat = new Automat();
-
-	// TODO: Fix filepath, to take an argumet and use this argument as the new filepath
-	char* filePath = "/home/tobscore/Documents/sysprog/src/Scanner/Scanner/scanner.h";
 	this->buffer = new Buffer(filePath);
+
+	while (buffer->hasNext()) {
+		cout << buffer->getChar();
+	}
 }
 
 
 int main(int argc, char** argv) {
-
-	Scanner* sc = new Scanner();
+	if (argc != 2) {
+		cout << "Missing argument." << endl;
+	} else {
+		char* filePath = argv[1];
+		Scanner* sc = new Scanner(filePath);
+	}
 	return 0;
 }

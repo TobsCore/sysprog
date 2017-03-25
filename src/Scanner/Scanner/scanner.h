@@ -26,7 +26,7 @@
 class Scanner {
 
 public:
-	Scanner();
+	Scanner(char* filePath);
 	~Scanner();
 	int getCurrentRow();
 	int getCurrentColumn();
