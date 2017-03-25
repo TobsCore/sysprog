@@ -59,7 +59,7 @@ void simpletest() {
 
 void testEOF() {
 	Token* test = new Token();
-	test->setType(EOF);
+	test->setType(FILE_END);
 
 	if (test->isEOF()) {
 		std::cout << "EOF-Test Succeeded!" << std::endl;

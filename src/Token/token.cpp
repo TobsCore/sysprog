@@ -55,5 +55,5 @@ int Token::getRow() {
 }
 
 bool Token::isEOF() {
-	return this->type == EOF;
+	return this->type == FILE_END;
 }
