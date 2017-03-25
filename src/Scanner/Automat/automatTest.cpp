@@ -3,8 +3,8 @@
 #include "automat.h"
 #endif
 
-#ifndef SYMBOLTYPE
-#define SYMBOLTYPE
+#ifndef SYMTYPE
+#define SYMTYPE
 #include "../../SymbolType/symboltype.h"
 #endif
 
