@@ -1,182 +1,174 @@
-#ifndef BUFFER
-#define BUFFER
 #include "Buffer.h"
-#endif
 
-#ifndef IO
-#define IO
-#include <iostream>
-#endif
+Buffer::Buffer(char* source) {
+	bufferLength = 1024;
 
-#include <fcntl.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <errno.h>
-#include <unistd.h>
+	leftBuffer = new char[bufferLength + 1];
+	rightBuffer = new char[bufferLength + 1];
 
-using namespace std;
+//Speicher für leftBuffer und rightBuffer holen.
+	posix_memalign((void**) &(this->leftBuffer), 1024, bufferLength);
+	posix_memalign((void**) &(this->rightBuffer), 1024, bufferLength);
 
-//Konstruktor für Buffer, der Pfad der Textdatei wird als Parameter
-//übergeben
-Buffer::Buffer(char* filePath){
+	eof = 10;
+	fdRead = /*fdWrite =*/ 0; //fd = FileDescriptor = nicht negativer Integer.
+	baseLeft = current = next = &leftBuffer[0]; //base ist immer neuer anfang von Buffer
+	baseRight = &rightBuffer[0];
+	isLeft = true;
+	isFileOpen = isEOF = false;
+	sourceFile = source; //hier Quell Datei einbinden
+}
 
-	this->filePath = filePath;
-	bufferSize = 512;					//512 Byte = 512 Chars
-	int myError1, myError2;				//ErrorInts für posix_memalign
-	buffer1 = new char[bufferSize];		//buffer 1 ist 512 Byte groß
-	buffer2 = new char[bufferSize];		//buffer 2 ist 512 Byte groß
+Buffer::~Buffer() { //dekonstruktor?
+	delete leftBuffer;
+	delete rightBuffer;
+}
 
-	/**
-	 * Allokieren des Speichers (512 Byte).
-	 * Alignment: 512 (Es können nur Speicheradressen allokiert werden,
-	 * die ein Vielfaches von 512 bilden. Dies ist nötig für das O_DIRECT
-	 * Flag.)
-	 * Ein Pointer auf den allokierten Speicher wird an buffer1 bzw. buffer2
-	 * übergeben. Für die Funktion muss &pointer zu (void**) gecastet werden
-	 *
-	 * myError muss 0 sein, damit alles Fehlerfrei verlief.
-	 */
-	myError1 = posix_memalign((void**) &buffer1, bufferSize, bufferSize);
-	myError2 = posix_memalign((void**) &buffer2, bufferSize, bufferSize);
+char Buffer::getChar() {
+	current = next; //nimm das zuletzt als nächstes Zeichen gesetzte, als neues aktuelles Zeichen.
 
+	if(!isFileOpen){ // Wenn noch keine Datei geöffnet oder erstellt wurde. Methoden siehe unten.
+		openFile();
+		fillBuffer();
+	}
 
+	if(*current == eof){ //Test ob Datei zu ende.
+		isEOF = true;
+		close(fdRead);
+		return *current;
+	}
 
-	pointerBuffer1 = buffer1; //ein Pointer auf buffer1 (gleich: &buffer1[0])
-	pointerBuffer2 = buffer2;	// ein Pointer auf buffer2 (gleich: &buffer2[0])
-
-	currentCharacter = buffer1[0]; //wird noch nicht benötigt
-	nextCharacter = buffer1[0];
-
-	currentBuffer = 1;	//der aktuelle Buffer
-	bufferCounter = 0;	//Zeichencounter für Buffer1 (geht bis 512)
-	bufferCounter2 = 0;	//Zeichencounter für Buffer2
-
-	/**
-	 * Öffnen des Files mit setzen des O_DIRECT flags.
-	 * Gibt es beim öffnen einen Fehler wird -1 in myile geschrieben
-	 */
-	myFile = open (filePath, O_DIRECT);
-		if (myFile == -1){
-			cout << "Unable to open " << filePath;
+	if (true) { //abfangen ob current außerhalb des Speichers der 2 buffer ist "!((&current < &leftSide[0]) && (&current > &leftSide[bufferLength - 1]))"
+		if (current == baseRight + bufferLength - 1) { //wenn wir uns im letzten Zeichen befinden dann leftBuffer neu befüllen
+			isLeft = true;
+			fillBuffer(); //leftBuffer neu befüllen
+			next = baseLeft;
+			return *current;
 		}
+		if (current == baseLeft + bufferLength - 1) { //wenn wir uns im letzten Zeichen befinden dann rightBuffer befüllen
+			isLeft = false;
+			fillBuffer(); //rightBuffer neu befüllen
+			next = baseRight;
+			return *current;
+		}
+		next++; //Aktuelles Zeichen befindet sich irgendwo mitten im Buffer
+		return *current;
+	}
+	//Zeiger befindet sich außerhalb des Speicherbereichs der Arrays -> Fehler
+	cout << endl << "!!! ZEIGER AUSERHALB DES SPEICHERBEREICHES !!!" << endl;
+	return '\n';
+	}
 
-		/*
-		 *War das Öffnen erfolgreich, kann gelesen werden
-		 *(vorrausgesetzt der Speicher wurde erfolgreich allokiert)
-		 */
-		else{
+void Buffer::ungetChar(int count) {
+	for(int i = 0;i>=count;i++){
+	if (current == baseRight) { //current steht am anfang von rightBuffer
+		next = &leftBuffer[bufferLength - 1];
+		isLeft = true;
+	} else if (current == baseLeft) { //current steht am anfang von leftBuffer
+		next = &rightBuffer[bufferLength - 1];
+		isLeft = false;
+	} else { //current steht irgendwo in der mitte
+		next--;
+	}
+	}
+	current = next;
+}
 
-			if(myError1 == 0 && myError2 == 0){
+void Buffer::openFile() {
+	cout << endl << "in Buffer::openFile()" << endl;
+	fdRead = open(sourceFile, O_DIRECT);
+	if(fdRead != -1){	//öffnen der Datei hat geklappt.
+		isFileOpen = true; //dann setze isFileOpen auf true
+	}
+}
 
-				read_in = read (myFile,buffer1,bufferSize); //es werden "Buffersize" Zeichen gelesen
+/*void Buffer::createFile() {
+	cout << endl << "in Buffer::createFile" << endl;
+	fdWrite = creat(sourceFile, S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH); //warum nicht create??
+	if(fdWrite != -1){
+		isFileOpen = true;
+	}else{
+		cout << endl << "!!! FEHLER BEIM ERSTELLEN DER DATEI FD: " << fdWrite << " !!!" << endl;
+	}
+}*/
 
-				if (read_in < 512){	//Falls weniger als 512 Zeichen eingelesen wurden, ist das File zu Ende.
+void Buffer::fillBuffer() {
+	if (isLeft) {
+		read(fdRead, baseLeft, 512);
+	} else {
+		read(fdRead, baseRight, 512);
+	}
+}
 
-					endOfFile = 1;
-				}
+//Bekommt einzelne Zeichen, speichert sie zwischen und schreibt sie wenn das Array voll ist in die Datei
+/*void Buffer::putChar(char c){
+	current = next;
+
+	if(!isFileOpen){
+		createFile();
+	}
+
+	if(c == eof){ //Letztes Zeiches
+		*current = c; //Rest in Datei schreiben
+		if(isLeft){ //Schauen das Reihenfolge beim schreiben stimmt.
+			for(int i = 0; current != (baseLeft + (bufferLength - 1 - i)); i++){ //rest des Speichers mit Leerzeichen füllen
+				*(baseLeft + (bufferLength - 1 - i)) = 32;
 			}
-
-			else{
-				cout << "Unable to allocate memory" << endl;
+			if(*(baseRight + (bufferLength - 1)) != 0){
+				write(fdWrite, baseRight, bufferLength);
 			}
+			write(fdWrite, baseLeft, bufferLength);
 		}
-
-
-}
-
-/*Der mit Posix_Memalign allokierte Speicher wird im Destruktor
- *wieder freigegeben
- */
-Buffer::~Buffer()
-{
-	free(buffer1);
-	free(buffer2);
-	}
-
-char Buffer::getChar(){
-
-/**
- * Falls der bufferCounter des ersten Buffers auf 512 ist,
- * wird auf den zweiten Buffer gewechselt. Der erste Buffer wird jedoch
- * noch nicht überschrieben.
- */
-	if(bufferCounter == 512)
-	{
-		bufferCounter = 0;
-		read_in = read (myFile,buffer2,bufferSize);
-		pointerBuffer2 = buffer2;
-
-		if (read_in < 512){
-
-			endOfFile = 1;
-		}
-
-		currentBuffer = 2;
-	}
-
-	/**
-	 * Falls der bufferCounter des zweiten Buffers auf 512 ist,
-	 * wird wieder auf den ersten Buffer gewechselt
-	 */
-	if(bufferCounter2 == 512){
-
-		bufferCounter2 = 0;
-		read_in = read (myFile,buffer1,bufferSize);
-		pointerBuffer1 = buffer1;
-
-		if (read_in < 512){
-
-			endOfFile = 1;
-		}
-
-		currentBuffer = 1;
-	}
-
-	//Falls der erste Buffer arbeitet
-	if(currentBuffer == 1 && bufferCounter <= 512){
-	bufferCounter++;
-
-		//Falls das File noch nicht zu Ende ist
-		if(*pointerBuffer1 != '\0'){
-			return *pointerBuffer1++;
-		}
-
 		else{
-		currentBuffer = 0;
-		return '\0';
+			for(int i = 0; current != (baseRight + (bufferLength - 1 - i)); i++){ //rest des Speichers mit Leerzeichen füllen
+				*(baseRight + (bufferLength - 1 - i)) = 32;
+			}
+			if(*(baseLeft + (bufferLength -1)) != 0 ){
+				write(fdWrite, baseLeft, bufferLength);
+			}
+			write(fdWrite, baseRight, bufferLength);
+		}
+		cout << endl << "Close File" << endl;
+		if(close(fdWrite) == -1){
+			cout << "Fehler beim schließen der Datei";
 		}
 	}
-
-	/**
-	 * Falls der zweite Buffer gerade arbeitet
-	 */
-	else if (currentBuffer == 2 && bufferCounter2 <=512){
-		bufferCounter2++;
-
-		//Prüfen ob File zu Ende ist
-		if(*pointerBuffer2 != '\0'){
-		return *pointerBuffer2++;
+	else{
+		//Fülle so lange linkes Array bis es voll ist. Danach das Rechte. Ist das voll wird das Linke geschrieben usw.
+		if(current == baseLeft + (bufferLength -1)){
+			if(*baseRight != 0 ){ //das kein leeres Array in Datei geschrieben wird
+				write(fdWrite, baseRight, bufferLength);
+			}
+			cout << "Linke Seite voll" << endl;
+			next = baseRight;
+			isLeft = false;
+			*current = c;
+			cout << *current;
+			return;
 		}
-
-		else{
-			currentBuffer = 0;
-			return '\0';
+		if(current == baseRight + (bufferLength -1)){
+			if(*baseLeft != 0){ //das kein leeres Array in Datei geschrieben wird
+				write(fdWrite, baseLeft, bufferLength);
+			}
+			cout << "Rechte Seite voll" << endl;
+			next = baseLeft;
+			isLeft = true;
+			*current = c;
+			cout << *current;
+			return;
 		}
+		next++;
+		*current = c;
+		cout << *current;
 	}
+}*/
 
-	/**
-	 * Falls kein Buffer arbeitet (das File ist fertig),
-	 * wird ein 0 Terminator zurückgegeben
-	 */
-	else {
-		return '\0';
-	}
-
+bool Buffer::hasNext(){
+	return !isEOF;
 }
 
-void Buffer::ungetChar(){
-
-
+void Buffer::closeFiles(){ //schließt die geöffneten Dateien wieder
+	close(fdRead);
+	//close(fdWrite);
 }
-
-
+//current wird übergeben

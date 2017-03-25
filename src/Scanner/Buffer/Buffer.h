@@ -1,41 +1,45 @@
-/*
- * Buffer.h
- *
- *  Created on: 07.05.2015
- *      Author: patrick
- */
-
 #ifndef BUFFER_H_
 #define BUFFER_H_
 
+#include <stdio.h>
+#include <fcntl.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+//zum testen
+#include <iostream>
+using namespace std;
+
 class Buffer {
 
-public:
-    Buffer(char* filePath);
-    ~Buffer();
-    char getChar();
-    void ungetChar();
-
 private:
-    char* filePath;
-    int bufferSize;
-    char* buffer1;
-    char* buffer2;
-    short currentBuffer;
-    char currentCharacter;
-    char nextCharacter;
-    char* pointerBuffer1;
-    char* pointerBuffer2;
-    int bufferCounter;
-    int bufferCounter2;
-    int myFile;
-    int endOfFile;
-    int read_in;
+	char *baseLeft;
+	char *baseRight;
+	char *next;
+	char *current;
+	char* leftBuffer;
+	char* rightBuffer;
+	char* sourceFile;
+	int fdRead;
+	//int fdWrite;
+	int eof;
+	bool isEOF;
+	bool isLeft;
+	bool isFileOpen;
+	unsigned int bufferLength;
+	void fillBuffer();
+	//void createFile();
+	void openFile();
 
-
+public:
+	Buffer(char* source);
+	virtual ~Buffer();
+	char getChar();
+	void ungetChar(int);
+	//void putChar(char c);
+	bool hasNext();
+	void closeFiles();
 
 };
-
-
 
 #endif /* BUFFER_H_ */
