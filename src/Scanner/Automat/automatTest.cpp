@@ -1,3 +1,4 @@
+/*
 #ifndef AUTOMAT
 #define AUTOMAT
 #include "automat.h"
@@ -330,3 +331,4 @@ void checkReturnValue(int returnValue, int expectedValue) {
     
     cout << "- Got: " << returnValue << " | Expected: " << expectedValue << endl;
 }
+*/

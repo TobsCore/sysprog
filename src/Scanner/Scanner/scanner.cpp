@@ -44,7 +44,7 @@ Token Scanner::nextToken() {
 	return *nextToken;
 }
 
-int main(int argc, char** argv) {
+/*int main(int argc, char** argv) {
 	if (argc != 2) {
 		cout << "Missing argument." << endl;
 	} else {
@@ -58,4 +58,4 @@ int main(int argc, char** argv) {
 		}
 	}
 	return 0;
-}
+}*/

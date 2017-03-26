@@ -55,5 +55,4 @@
 
 #CLion Files are okay, I guess
 .idea/
-CMakeLists.txt
 cmake-build-debug/
