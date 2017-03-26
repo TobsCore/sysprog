@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.5)
 project(sysprog)
 
 set(CMAKE_CXX_STANDARD 11)
@@ -28,8 +28,8 @@ set(SOURCE_TEST
 		test/tokenTest.cpp
 		test/scannerTest.cpp)
 
-add_executable(sysprog src/main.cpp ${SOURCE_FILES})
+add_executable(sysprogMain src/main.cpp ${SOURCE_FILES})
 add_executable(unitTests test/main.cpp ${SOURCE_FILES} ${SOURCE_TEST} )
 
-target_link_libraries(sysprog)
+target_link_libraries(sysprogMain)
 target_link_libraries(unitTests gtest gtest_main)
