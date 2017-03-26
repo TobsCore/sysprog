@@ -17,7 +17,7 @@ void Token::setValue(char* value) {
 }
 
 char* Token::getValue() {
-    return this->value;
+    return this->value != 0 ? this->value : (char*) "";
 }
 
 void Token::setType(Signtype type) {

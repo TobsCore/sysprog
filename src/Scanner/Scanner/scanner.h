@@ -18,11 +18,6 @@
 #include "../Automat/automat.h"
 #endif
 
-#ifndef SCANNER
-#define SCANNER
-#include "scanner.h"
-#endif
-
 class Scanner {
 
 public:

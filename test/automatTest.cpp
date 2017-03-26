@@ -12,7 +12,6 @@ namespace {
 }
 
 TEST_F(AutomatTest, IntegerAddition) {
-    //1234+52
     ASSERT_EQ(testAutomat.checkExpression('1'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('2'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('3'), NEXTCHAR);
@@ -191,4 +190,23 @@ TEST_F(AutomatTest, trailingNewLine) {
     ASSERT_EQ(testAutomat.checkExpression(';'), IDENTIFIER);
     ASSERT_EQ(testAutomat.checkExpression('\n'), SEMICOLON);
     ASSERT_EQ(testAutomat.checkExpression('\0'), NEXTCHAR);
+}
+
+TEST_F(AutomatTest, precedingSpaces) {
+    ASSERT_EQ(testAutomat.checkExpression(' '), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression(' '), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression(' '), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('a'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression(';'), IDENTIFIER);
+    ASSERT_EQ(testAutomat.checkExpression('\0'), SEMICOLON);
+}
+
+TEST_F(AutomatTest, EOFinMiddle) {
+    ASSERT_EQ(testAutomat.checkExpression('a'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('+'), IDENTIFIER);
+    ASSERT_EQ(testAutomat.checkExpression('b'), PLUS);
+    ASSERT_EQ(testAutomat.checkExpression('\0'), IDENTIFIER);
+    ASSERT_EQ(testAutomat.checkExpression('a'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression(';'), IDENTIFIER);
+    ASSERT_EQ(testAutomat.checkExpression('\0'), SEMICOLON);
 }
