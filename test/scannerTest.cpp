@@ -35,9 +35,15 @@ TEST_F(ScannerTest, ReadSomeIdentifier) {
 
     Token token = scanner->nextToken();
     ASSERT_EQ(IDENTIFIER, token.getType());
+    ASSERT_STREQ("int", token.getValue());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(1, token.getColumn());
 
     token = scanner->nextToken();
     ASSERT_EQ(IDENTIFIER, token.getType());
+    ASSERT_STREQ("a", token.getValue());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(5, token.getColumn());
 
     token = scanner->nextToken();
     ASSERT_EQ(FILE_END, token.getType());
