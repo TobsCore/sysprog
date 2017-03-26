@@ -56,7 +56,7 @@ Done.
 
 Now you need to import the project to Eclipse. Under _File_ -> _Import_ select _General_ -> _Existing projects into workspace_.
 
-Select the location that has been printed by the script (should be called something like _build_sysprog_) as _Root Directory` and make sure that _Copy projects into workspace_ is **not** selected.
+Select the location that has been printed by the script (should be called something like _cmake-build-debug_) as _Root Directory` and make sure that _Copy projects into workspace_ is **not** selected.
 
 You can now double click on the build targets to compile and link the project. I.E the unit tests can be run by double clicking on _BuildTargets_ -> _[exe] unitTests_.
 
