@@ -21,7 +21,7 @@
 class Scanner {
 
 public:
-	Scanner(char* filePath);
+	Scanner(char const *filePath);
 	~Scanner();
 
 	Token nextToken();

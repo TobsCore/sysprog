@@ -1,6 +1,6 @@
 #include "scanner.h"
 
-Scanner::Scanner(char* filePath) {
+Scanner::Scanner(char const *filePath) {
 
 	this->automat = new Automat();
 	this->buffer = new Buffer(filePath);
