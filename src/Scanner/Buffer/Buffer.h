@@ -1,3 +1,7 @@
+#ifndef O_DIRECT
+#define O_DIRECT 0
+#endif
+
 #ifndef BUFFER_H_
 #define BUFFER_H_
 
