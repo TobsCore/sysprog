@@ -15,8 +15,6 @@ void testForValue1();
 void testForValueWithChange();
 void testForValueWithEmptyString();
 void testForValueWithNumbers();
-void testColonSign();
-void testMinusSign();
 void testPlusSign();
 
 int main(int argc, char** argv) {
@@ -27,8 +25,6 @@ int main(int argc, char** argv) {
     testForValueWithEmptyString();
     testForValueWithNumbers();
     testPlusSign();
-    testColonSign();
-    testMinusSign();
     return 0;
 }
 
@@ -109,41 +105,13 @@ void testForValueWithNumbers() {
 
 void testPlusSign() {
     Container* testContainer = new Container();
-    testContainer->setType(sign::PLUS);
+    testContainer->setType(PLUS);
     int ContainerType = testContainer->getType();
-    
-    if(ContainerType == 3 && ContainerType == sign::PLUS) {
+
+    if(ContainerType == 3 && ContainerType == PLUS) {
         std::cout << "Plus Sign Succeeded!\n";
     } else {
         std::cout << "Plus Sign Failed!\n";
     }
-    
-}
 
-
-void testMinusSign() {
-    Container* testContainer = new Container();
-    testContainer->setType(sign::MINUS);
-    int ContainerType = testContainer->getType();
-    
-    if(ContainerType == 4 && ContainerType == sign::MINUS) {
-        std::cout << "Minus Sign Succeeded!\n";
-    } else {
-        std::cout << "Minus Sign Failed!\n";
-    }
-    
-}
-
-
-void testColonSign() {
-    Container* testContainer = new Container();
-    testContainer->setType(sign::COLON);
-    int ContainerType = testContainer->getType();
-    
-    if(ContainerType == 5 && ContainerType == sign::COLON) {
-        std::cout << "Colon Sign Succeeded!\n";
-    } else {
-        std::cout << "Colon Sign Failed!\n";
-    }
-    
 }
