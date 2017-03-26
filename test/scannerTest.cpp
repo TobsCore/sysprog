@@ -4,22 +4,16 @@
 
 using testing::Eq;
 
-
-class ScannerTest : public ::testing::Test {
-public:
-    std::string folder = "../test/testData/";
-};
-
-TEST_F(ScannerTest, testingEmpty) {
-    char const *folderName = (folder + "testEmpty.txt").c_str();
+TEST(ScannerTest, testingEmpty) {
+	char const *folderName = "../test/testData/testEmpty.txt";
     Scanner *scanner = new Scanner(folderName);
 
     Token token = scanner->nextToken();
     ASSERT_EQ(FILE_END, token.getType());
 }
 
-TEST_F(ScannerTest, emptyGoFurther) {
-    char const *folderName = (folder + "testEmpty.txt").c_str();
+TEST(ScannerTest, emptyGoFurther) {
+	char const *folderName = "../test/testData/testEmpty.txt";
     Scanner *scanner = new Scanner(folderName);
 
     Token token = scanner->nextToken();
@@ -29,8 +23,8 @@ TEST_F(ScannerTest, emptyGoFurther) {
     ASSERT_EQ(FILE_END, token2.getType());
 }
 
-TEST_F(ScannerTest, ReadSomeIdentifier) {
-    char const *folderName = (folder + "testIdentifier.txt").c_str();
+TEST(ScannerTest, ReadSomeIdentifier) {
+	char const *folderName = "../test/testData/testIdentifier.txt";
     Scanner *scanner = new Scanner(folderName);
 
     Token token = scanner->nextToken();
