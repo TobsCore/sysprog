@@ -1,11 +1,8 @@
-all:	Buffer.o main
-	$(CXX) -o testBuffer.out Buffer.o main.o
+all:	Buffer.o
+	$(CXX) -o Buffer.out Buffer.o
 
 buffer:	Buffer.cpp
 	$(CXX) -c Buffer.cpp
-	
-main:	main.cpp
-	$(CXX) -c main.cpp
 
 clean:
 	rm *.o

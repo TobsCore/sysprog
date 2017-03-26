@@ -22,7 +22,10 @@ set(SOURCE_FILES
         src/Symtab/Container/container.h
         src/Symtab/symtable.cpp
         src/Token/token.cpp
-        src/Token/token.h src/main.cpp test/exampleTest.cpp)
+        src/Token/token.h 
+		src/main.cpp
+		test/automatTest.cpp
+		test/tokenTest.cpp)
 
 add_executable(sysprog ${SOURCE_FILES})
 target_link_libraries(sysprog gtest gtest_main)
