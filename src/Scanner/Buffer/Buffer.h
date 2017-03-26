@@ -23,7 +23,7 @@ private:
 	char *current;
 	char* leftBuffer;
 	char* rightBuffer;
-	char* sourceFile;
+	const char *sourceFile;
 	int fdRead;
 	//int fdWrite;
 	int eof;
@@ -42,7 +42,7 @@ private:
 	void openFile();
 
 public:
-	Buffer(char* source);
+	Buffer(const char *source);
 	virtual ~Buffer();
 	char getChar();
 	void ungetChar(int);

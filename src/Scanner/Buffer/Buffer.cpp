@@ -1,6 +1,6 @@
 #include "Buffer.h"
 
-Buffer::Buffer(char* source) {
+Buffer::Buffer(const char *source) {
 	bufferLength = 1024;
 
 	leftBuffer = new char[bufferLength + 1];

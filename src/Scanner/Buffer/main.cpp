@@ -13,12 +13,7 @@ using namespace std;
 int main(int argc, char** argv) {
 
 	// Either get a path via arguments, or just simply use the test.txt
-	char* filePath;
-	if(argc == 2) {
-		filePath = (char*)argv[1];
-	} else {
-		filePath = "./test.txt";
-	}
+	char const *filePath = (argc == 2) ? argv[1] : "./test.txt";
 
 	cout << filePath << endl;
 
