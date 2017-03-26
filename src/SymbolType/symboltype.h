@@ -1,4 +1,5 @@
 enum Signtype {
+
 	ERROR = -1,             // If error occurs
 	NEXTCHAR = 0,           // Expects the next char
 	INTEGER = 1,            // Integer
@@ -23,3 +24,8 @@ enum Signtype {
 	SPECIAL = 20, 			// =:=
 	FILE_END = 50 			// End of file
 };
+
+static const char * EnumStrings[] = { "EOF", "Error", "Nextchar", "Integer", "Identifier", "Plus", "Minus", "Colon", "Star", "Less", "Greater", "Equals",
+"Exclamation", "And", "Semicolon", "Parenthesis (open)", "Parenthesis (close)", "Brace (open)", "Brace (close)", "Bracket (open)", "Bracket (close)",
+"Assign", "Special"};
+

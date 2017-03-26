@@ -4,7 +4,7 @@
 #endif
 
 
-
+// TODO: Pass type as constructor parameter
 Token::Token() {
     this->column = 0;
     this->type = NEXTCHAR;
@@ -56,4 +56,10 @@ int Token::getRow() {
 
 bool Token::isEOF() {
 	return this->type == FILE_END;
+}
+
+
+const char* Token::getTypeString()
+{
+  return EnumStrings[this->type + 2];
 }

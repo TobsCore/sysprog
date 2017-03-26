@@ -54,7 +54,7 @@ int main(int argc, char** argv) {
 		Token token;
 		while (!token.isEOF()) {
 			token = sc->nextToken();
-			cout << token.getType() << endl;
+			cout << token.getTypeString() << endl;
 		}
 	}
 	return 0;

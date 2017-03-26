@@ -20,6 +20,7 @@ public:
     void setRow(int row);
     
     bool isEOF();
+    const char* getTypeString();
 
 private:
     
