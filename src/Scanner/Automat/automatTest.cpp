@@ -24,6 +24,8 @@ void testArray();
 void testBoolean();
 void testNewLine();
 void testSimpleAssign();
+void testTrailingSpaces();
+void testTrailingNewLine();
 void checkReturnValue(int returnValue, int expectedValue);
 
 
@@ -39,6 +41,8 @@ int main () {
     testBoolean();
     testNewLine();
     testSimpleAssign();
+    testTrailingSpaces();
+    testTrailingNewLine();
 	return 0;
 }
 
@@ -288,6 +292,31 @@ void testNewLine() {
 	checkReturnValue(testAutomat->checkExpression('c'), PLUS);
 	checkReturnValue(testAutomat->checkExpression('\0'), IDENTIFIER);
 
+}
+
+void testTrailingSpaces() {
+	cout << endl << "Test Trailing Spaces:" << endl;
+	cout << "a;   " << endl;
+	Automat* testAutomat = new Automat();
+
+	checkReturnValue(testAutomat->checkExpression('a'), NEXTCHAR);
+	checkReturnValue(testAutomat->checkExpression(';'), IDENTIFIER);
+	checkReturnValue(testAutomat->checkExpression(' '), SEMICOLON);
+	checkReturnValue(testAutomat->checkExpression(' '), NEXTCHAR);
+	checkReturnValue(testAutomat->checkExpression(' '), NEXTCHAR);
+	checkReturnValue(testAutomat->checkExpression(' '), NEXTCHAR);
+	checkReturnValue(testAutomat->checkExpression('\0'), NEXTCHAR);
+}
+
+void testTrailingNewLine() {
+	cout << endl << "Test Trailing NewLine:" << endl;
+	cout << "a;\n" << endl;
+	Automat* testAutomat = new Automat();
+
+	checkReturnValue(testAutomat->checkExpression('a'), NEXTCHAR);
+	checkReturnValue(testAutomat->checkExpression(';'), IDENTIFIER);
+	checkReturnValue(testAutomat->checkExpression('\n'), SEMICOLON);
+	checkReturnValue(testAutomat->checkExpression('\0'), NEXTCHAR);
 }
 
 
