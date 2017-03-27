@@ -277,6 +277,28 @@ TEST(ScannerTest, testParenthesis) {
     ASSERT_EQ(8, token.getCol());
 }
 
+TEST(ScannerTest, DifferentSpaces) {
+    char const *folderName = "../src/test/testData/testDifferentSpaces.txt";
+    Scanner *scanner = new Scanner(folderName);
+
+    Token token;
+
+    token = scanner->nextToken();
+    ASSERT_EQ(PLUS, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(1, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(PLUS, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(4, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(PLUS, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(8, token.getCol());
+}
+
 
 TEST(ScannerTest, DISABLED_IdentifierExValues) {
 

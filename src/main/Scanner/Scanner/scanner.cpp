@@ -71,7 +71,11 @@ void Scanner::setTokenPosition(Token *token) {
 
     nextTokenPosition->setCol(col - 1);
     nextTokenPosition->setRow(row);
-    countSpace = 0;
+    if (countSpace <= 1) {
+     countSpace = 0;
+    } else {
+        countSpace -= 1;
+    }
 
     token->setPosition(currentTokenPosition);
 }
