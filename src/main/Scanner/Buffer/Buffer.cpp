@@ -1,92 +1,96 @@
 #include "Buffer.h"
 
 Buffer::Buffer(const char *source) {
-	bufferLength = 1024;
+    bufferLength = chunkSize;
 
-	leftBuffer = new char[bufferLength + 1];
-	rightBuffer = new char[bufferLength + 1];
+    leftBuffer = new char[bufferLength + 1];
+    rightBuffer = new char[bufferLength + 1];
 
 //Speicher für leftBuffer und rightBuffer holen.
-	posix_memalign((void**) &(this->leftBuffer), 1024, bufferLength);
-	posix_memalign((void**) &(this->rightBuffer), 1024, bufferLength);
+    posix_memalign((void **) &(this->leftBuffer), chunkSize, bufferLength);
+    posix_memalign((void **) &(this->rightBuffer), chunkSize, bufferLength);
 
-	fdRead = /*fdWrite =*/ 0; //fd = FileDescriptor = nicht negativer Integer.
-	baseLeft = current = next = &leftBuffer[0]; //base ist immer neuer anfang von Buffer
-	baseRight = &rightBuffer[0];
-	isLeft = true;
+    fdRead = /*fdWrite =*/ 0; //fd = FileDescriptor = nicht negativer Integer.
+    baseLeft = current = next = &leftBuffer[0]; //base ist immer neuer anfang von Buffer
+    baseRight = &rightBuffer[0];
+    isLeft = true;
+    noRefill = false;
 
-	eof = 0;
-	currentColumn = 1;
-	currentRow = 1;
+    eof = 0;
+    currentColumn = 1;
+    currentRow = 1;
 
-	isFileOpen = isFinished = false;
-	sourceFile = source;
-	openFile();
-	fillBuffer();
+    isFileOpen = isFinished = false;
+    sourceFile = source;
+    openFile();
+    fillBuffer();
 }
 
 Buffer::~Buffer() {
-	delete leftBuffer;
-	delete rightBuffer;
+    delete leftBuffer;
+    delete rightBuffer;
 }
 
 char Buffer::getChar() {
-	current = next; //nimm das zuletzt als nächstes Zeichen gesetzte, als neues aktuelles Zeichen.
-	setPosition(current);
+    current = next; //nimm das zuletzt als nächstes Zeichen gesetzte, als neues aktuelles Zeichen.
+    setPosition(current);
 
-	if(*current == eof){ //Test ob Datei zu ende.
-		isFinished = true;
-		close(fdRead);
-		return *current;
-	}
+    if (*current == eof) { //Test ob Datei zu ende.
+        isFinished = true;
+        close(fdRead);
+        return *current;
+    }
 
-	if (current == baseRight + bufferLength - 1) { //wenn wir uns im letzten Zeichen befinden dann leftBuffer neu befüllen
-		isLeft = true;
-		fillBuffer(); //leftBuffer neu befüllen
-		next = baseLeft;
-		return *current;
-	}
-	if (current == baseLeft + bufferLength - 1) { //wenn wir uns im letzten Zeichen befinden dann rightBuffer befüllen
-		isLeft = false;
-		fillBuffer(); //rightBuffer neu befüllen
-		next = baseRight;
-		return *current;
-	}
-	next++; //Aktuelles Zeichen befindet sich irgendwo mitten im Buffer
-	return *current;
-	}
-
-void Buffer::ungetChar(int count) {
-	for(int i = 0;i>=count;i++){
-	if (current == baseRight) { //current steht am anfang von rightBuffer
-		next = &leftBuffer[bufferLength - 1];
-		isLeft = true;
-	} else if (current == baseLeft) { //current steht am anfang von leftBuffer
-		next = &rightBuffer[bufferLength - 1];
-		isLeft = false;
-	} else { //current steht irgendwo in der mitte
-		next--;
-	}
-	}
-	current = next;
+    if (current ==
+        baseRight + bufferLength - 1) { //wenn wir uns im letzten Zeichen befinden dann leftBuffer neu befüllen
+        isLeft = true;
+        fillBuffer(); //leftBuffer neu befüllen
+        next = baseLeft;
+        return *current;
+    }
+    if (current == baseLeft + bufferLength - 1) { //wenn wir uns im letzten Zeichen befinden dann rightBuffer befüllen
+        isLeft = false;
+        fillBuffer(); //rightBuffer neu befüllen
+        next = baseRight;
+        return *current;
+    }
+    next++; //Aktuelles Zeichen befindet sich irgendwo mitten im Buffer
+    return *current;
 }
 
-void Buffer::setPosition(char* current) {
-	if (*current == '\n') {
-		currentRow += 1;
-		currentColumn = 1;
-	} else {
-		currentColumn += 1;
-	}
+void Buffer::ungetChar(int count) {
+    for (int i = 0; i < count; i++) {
+        if (next == baseRight) { //current steht am anfang von rightBuffer
+            next = &leftBuffer[bufferLength - 1];
+            noRefill = true;
+            isLeft = true;
+        } else if (next == baseLeft) { //current steht am anfang von leftBuffer
+            next = &rightBuffer[bufferLength - 1];
+            noRefill = true;
+            isLeft = false;
+        } else { //current steht irgendwo in der mitte
+            next--;
+        }
+    }
+    current = next;
+}
+
+void Buffer::setPosition(char *current) {
+    if (*current == '\n') {
+        currentRow += 1;
+        currentColumn = 1;
+    } else {
+        currentColumn += 1;
+    }
 }
 
 void Buffer::openFile() {
-	fdRead = open(sourceFile, O_DIRECT);
-	if(fdRead != -1){	//öffnen der Datei hat geklappt.
-		isFileOpen = true; //dann setze isFileOpen auf true
-	} else {
-		cout << "Error! File " << sourceFile << " couldn't be opened";
-	}
+    fdRead = open(sourceFile, O_DIRECT);
+    if (fdRead != -1) {    //öffnen der Datei hat geklappt.
+        isFileOpen = true; //dann setze isFileOpen auf true
+    } else {
+        cout << "Error! File " << sourceFile << " couldn't be opened";
+    }
 }
 
 /*void Buffer::createFile() {
@@ -100,11 +104,15 @@ void Buffer::openFile() {
 }*/
 
 void Buffer::fillBuffer() {
-	if (isLeft) {
-		read(fdRead, baseLeft, 1024);
-	} else {
-		read(fdRead, baseRight, 1024);
-	}
+    if (!noRefill) {
+        if (isLeft) {
+            read(fdRead, baseLeft, chunkSize);
+        } else {
+            read(fdRead, baseRight, chunkSize);
+        }
+    } else {
+        noRefill = false;
+    }
 }
 
 //Bekommt einzelne Zeichen, speichert sie zwischen und schreibt sie wenn das Array voll ist in die Datei
@@ -170,19 +178,19 @@ void Buffer::fillBuffer() {
 	}
 }*/
 
-bool Buffer::hasNext(){
-	return !isFinished;
+bool Buffer::hasNext() {
+    return !isFinished;
 }
 
-void Buffer::closeFiles(){ //schließt die geöffneten Dateien wieder
-	close(fdRead);
-	//close(fdWrite);
+void Buffer::closeFiles() { //schließt die geöffneten Dateien wieder
+    close(fdRead);
+    //close(fdWrite);
 }
 
 int Buffer::getCurrentRow() {
-	return this->currentRow;
+    return this->currentRow;
 }
 
 int Buffer::getCurrentColumn() {
-	return this->currentColumn;
+    return this->currentColumn;
 }

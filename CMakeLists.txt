@@ -10,6 +10,8 @@ include_directories(src/lib/googletest-master/googlemock/include)
 set(SOURCE_FILES
         src/main/List/listElement.cpp
 		src/main/List/listElement.h
+		src/main/Position/Position.cpp
+		src/main/Position/Position.h
 		src/main/Scanner/Automat/automat.cpp
 		src/main/Scanner/Automat/automat.h
 		src/main/Scanner/Buffer/Buffer.cpp
@@ -26,9 +28,9 @@ set(SOURCE_FILES
 set(SOURCE_TEST
 		src/test/automatTest.cpp
 		src/test/tokenTest.cpp
-		src/test/scannerTest.cpp)
+		src/test/scannerTest.cpp src/test/bufferTest.cpp)
 
-add_executable(sysprogMain src/main/main.cpp ${SOURCE_FILES})
+add_executable(sysprogMain src/main/main.cpp ${SOURCE_FILES} src/main/Position/Position.cpp src/main/Position/Position.h)
 add_executable(unitTests src/test/main.cpp ${SOURCE_FILES} ${SOURCE_TEST} )
 
 target_link_libraries(sysprogMain)

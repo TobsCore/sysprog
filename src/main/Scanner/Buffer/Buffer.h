@@ -5,6 +5,8 @@
 #ifndef BUFFER_H_
 #define BUFFER_H_
 
+static const int chunkSize = 1024;
+
 #include <stdio.h>
 #include <fcntl.h>
 #include <stdio.h>
@@ -28,6 +30,7 @@ private:
 	//int fdWrite;
 	int eof;
 	bool isFinished;
+    bool noRefill;
 	bool isLeft;
 	bool isFileOpen;
 	unsigned int bufferLength;
@@ -52,7 +55,6 @@ public:
 
 	int getCurrentRow();
 	int getCurrentColumn();
-
 };
 
 #endif /* BUFFER_H_ */

@@ -10,18 +10,18 @@ include_directories(lib/googletest-master/googlemock/include)
 set(SOURCE_FILES
         main/List/listElement.cpp
         main/List/listElement.h
-	main/Scanner/Automat/automat.cpp
-	main/Scanner/Automat/automat.h
-	main/Scanner/Buffer/Buffer.cpp
-	main/Scanner/Buffer/Buffer.h
-	main/Scanner/Scanner/scanner.cpp
-	main/Scanner/Scanner/scanner.h
-	main/SymbolType/symboltype.h
-	main/Symtab/Container/container.cpp
-	main/Symtab/Container/container.h
-	main/Symtab/symtable.cpp
-	main/Token/token.cpp
-	main/Token/token.h)
+		main/Scanner/Automat/automat.cpp
+		main/Scanner/Automat/automat.h
+		main/Scanner/Buffer/Buffer.cpp
+		main/Scanner/Buffer/Buffer.h
+		main/Scanner/Scanner/scanner.cpp
+		main/Scanner/Scanner/scanner.h
+		main/SymbolType/symboltype.h
+		main/Symtab/Container/container.cpp
+		main/Symtab/Container/container.h
+		main/Symtab/symtable.cpp
+		main/Token/token.cpp
+		main/Token/token.h)
 
 set(SOURCE_TEST
 	test/automatTest.cpp
