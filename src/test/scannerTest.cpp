@@ -23,21 +23,273 @@ TEST(ScannerTest, emptyGoFurther) {
     ASSERT_EQ(FILE_END, token2.getType());
 }
 
+TEST(ScannerTest, ArithmaticExpressionTokenType) {
+    char const *folderName = "../src/test/testData/testCloseArithmeticExp.txt";
+    Scanner *scanner = new Scanner(folderName);
+
+    Token token;
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token.getType());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(ASSIGN, token.getType());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token.getType());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(PLUS, token.getType());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token.getType());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(SEMICOLON, token.getType());
+}
+
 TEST(ScannerTest, ReadSomeIdentifier) {
-	char const *folderName = "../src/test/testData/testIdentifier.txt";
+    char const *folderName = "../src/test/testData/testIdentifier.txt";
+    Scanner *scanner = new Scanner(folderName);
+
+    Token token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token.getType());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token.getType());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(FILE_END, token.getType());
+}
+
+TEST(ScannerTest, PlusTest) {
+    char const *folderName = "../src/test/testData/testPluses.txt";
+    Scanner *scanner = new Scanner(folderName);
+
+    Token token;
+
+    token = scanner->nextToken();
+    ASSERT_EQ(PLUS, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(1, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(PLUS, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(2, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(PLUS, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(3, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(PLUS, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(4, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(PLUS, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(5, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(PLUS, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(6, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(PLUS, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(7, token.getCol());
+}
+
+TEST(ScannerTest, SpacesTest) {
+    char const *folderName = "../src/test/testData/testSpaces.txt";
+    Scanner *scanner = new Scanner(folderName);
+
+    Token token;
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(1, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(3, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(5, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(7, token.getCol());
+}
+
+TEST(ScannerTest, ArithmeticExpPosition) {
+    char const *folderName = "../src/test/testData/testCloseArithmeticExp.txt";
+    Scanner *scanner = new Scanner(folderName);
+
+    Token token;
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(1, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(ASSIGN, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(2, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(4, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(PLUS, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(5, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(6, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(SEMICOLON, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(7, token.getCol());
+}
+
+
+
+TEST(ScannerTest, IdentifierExPositionsOneAtBeginning) {
+    char const *folderName = "../src/test/testData/testIdentifier.txt";
+    Scanner *scanner = new Scanner(folderName);
+
+    Token token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(1, token.getCol());
+}
+
+TEST(ScannerTest, IdentifierExPositionsOneAtBeginning2) {
+    char const *folderName = "../src/test/testData/testIdentifier.txt";
+    Scanner *scanner = new Scanner(folderName);
+
+    Token token;
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(1, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(5, token.getCol());
+}
+
+
+TEST(ScannerTest, testLongerIdentifier) {
+    char const *folderName = "../src/test/testData/testIdentifierLonger.txt";
+    Scanner *scanner = new Scanner(folderName);
+
+    Token token;
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(1, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(5, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(7, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(9, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(13, token.getCol());
+}
+
+TEST(ScannerTest, testParenthesis) {
+    char const *folderName = "../src/test/testData/testParenthesis.txt";
+    Scanner *scanner = new Scanner(folderName);
+
+    Token token;
+
+    token = scanner->nextToken();
+    ASSERT_EQ(PARANTHESES_LEFT, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(1, token.getCol());
+
+
+    token = scanner->nextToken();
+    ASSERT_EQ(PARANTHESES_LEFT, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(2, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(PARANTHESES_LEFT, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(3, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(PARANTHESES_RIGHT, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(4, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(PARANTHESES_RIGHT, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(5, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(PARANTHESES_RIGHT, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(6, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(PARANTHESES_LEFT, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(7, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(PARANTHESES_RIGHT, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(8, token.getCol());
+}
+
+
+TEST(ScannerTest, DISABLED_IdentifierExValues) {
+
+    char const *folderName = "../src/test/testData/testIdentifier.txt";
     Scanner *scanner = new Scanner(folderName);
 
     Token token = scanner->nextToken();
     ASSERT_EQ(IDENTIFIER, token.getType());
     ASSERT_STREQ("int", token.getValue());
-    ASSERT_EQ(1, token.getRow());
-    ASSERT_EQ(1, token.getColumn());
 
     token = scanner->nextToken();
     ASSERT_EQ(IDENTIFIER, token.getType());
     ASSERT_STREQ("a", token.getValue());
-    ASSERT_EQ(1, token.getRow());
-    ASSERT_EQ(5, token.getColumn());
 
     token = scanner->nextToken();
     ASSERT_EQ(FILE_END, token.getType());

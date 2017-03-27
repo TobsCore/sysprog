@@ -6,10 +6,9 @@
 
 // TODO: Pass type as constructor parameter
 Token::Token() {
-    this->column = 0;
     this->type = NEXTCHAR;
     this->value = 0;
-    this->row = 0;
+    this->position = new Position(1,1);
 }
 
 void Token::setValue(char* value) {
@@ -28,32 +27,6 @@ Signtype Token::getType() {
     return this->type;
 }
 
-void Token::setColumn(int column) {
-    // Don't accept negative values
-    if(column <= 0) {
-        this->column = 0;
-    } else {
-        this->column = column;
-    }
-}
-
-int Token::getColumn() {
-    return this->column;
-}
-
-void Token::setRow(int row) {
-    // Don't accept negative values
-    if(row <= 0) {
-        this->row = 0;
-    } else {
-        this->row = row;
-    }
-}
-
-int Token::getRow() {
-    return this->row;
-}
-
 bool Token::isEOF() {
 	return this->type == FILE_END;
 }
@@ -62,4 +35,26 @@ bool Token::isEOF() {
 const char* Token::getTypeString()
 {
   return EnumStrings[this->type + 2];
+}
+
+void Token::setPosition(Position *pos) {
+    this->position->setCol(pos->getCol());
+    this->position->setRow(pos->getRow());
+}
+
+void Token::setPosition(int row, int col) {
+    this->position->setCol(col);
+    this->position->setRow(row);
+}
+
+Position* Token::getPosition() {
+    return this->position;
+}
+
+int Token::getRow() {
+    return this->position->getRow();
+}
+
+int Token::getCol() {
+    return this->position->getCol();
 }

@@ -188,7 +188,7 @@ void VerifyResults(const std::vector<std::string>& data,
   size_t i = 0;
   for (; i < shorter_size; ++i) {
     ASSERT_STREQ(expected_data[i], data[i].c_str())
-        << "at position " << i;
+        << "at currentPosition " << i;
   }
 
   // Prints extra elements in the actual data.

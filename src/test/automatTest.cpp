@@ -210,3 +210,14 @@ TEST_F(AutomatTest, EOFinMiddle) {
     ASSERT_EQ(testAutomat.checkExpression(';'), IDENTIFIER);
     ASSERT_EQ(testAutomat.checkExpression('\0'), SEMICOLON);
 }
+
+TEST_F(AutomatTest, CloseArithmaticExpression) {
+    ASSERT_EQ(testAutomat.checkExpression('a'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression(':'), IDENTIFIER);
+    ASSERT_EQ(testAutomat.checkExpression('='), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('b'), ASSIGN);
+    ASSERT_EQ(testAutomat.checkExpression('+'), IDENTIFIER);
+    ASSERT_EQ(testAutomat.checkExpression('c'), PLUS);
+    ASSERT_EQ(testAutomat.checkExpression(';'), IDENTIFIER);
+    ASSERT_EQ(testAutomat.checkExpression('\0'), SEMICOLON);
+}

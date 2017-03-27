@@ -85,7 +85,7 @@ TOKEN_TABLE = [
 
 
 class Cursor:
-  """Represents a position (line and column) in a text file."""
+  """Represents a currentPosition (line and column) in a text file."""
 
   def __init__(self, line=-1, column=-1):
     self.line = line
@@ -161,7 +161,7 @@ class Token:
 
 
 def StartsWith(lines, pos, string):
-  """Returns True iff the given position in lines starts with 'string'."""
+  """Returns True iff the given currentPosition in lines starts with 'string'."""
 
   return lines[pos.line][pos.column:].startswith(string)
 

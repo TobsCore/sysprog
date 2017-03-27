@@ -1,6 +1,8 @@
 #ifndef SYMTYPE
 #define SYMTYPE
 #include "../SymbolType/symboltype.h"
+#include "../Position/Position.h"
+
 #endif
 
 class Token {
@@ -13,20 +15,21 @@ public:
     Signtype getType();
     void setType(Signtype type);
     
-    int getColumn();
-    void setColumn(int column);
-    
-    int getRow();
-    void setRow(int row);
-    
     bool isEOF();
     const char* getTypeString();
+
+    void setPosition(Position *pos);
+    void setPosition(int row, int col);
+    Position* getPosition();
+
+    int getCol();
+    int getRow();
 
 private:
     
     char* value;
     Signtype type;
-    int column;
-    int row;
+    Position* position;
+
 };
 

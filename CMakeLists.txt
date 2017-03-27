@@ -28,9 +28,10 @@ set(SOURCE_FILES
 set(SOURCE_TEST
 		src/test/automatTest.cpp
 		src/test/tokenTest.cpp
-		src/test/scannerTest.cpp src/test/bufferTest.cpp)
+		src/test/scannerTest.cpp
+		src/test/bufferTest.cpp)
 
-add_executable(sysprogMain src/main/main.cpp ${SOURCE_FILES} src/main/Position/Position.cpp src/main/Position/Position.h)
+add_executable(sysprogMain src/main/main.cpp ${SOURCE_FILES})
 add_executable(unitTests src/test/main.cpp ${SOURCE_FILES} ${SOURCE_TEST} )
 
 target_link_libraries(sysprogMain)

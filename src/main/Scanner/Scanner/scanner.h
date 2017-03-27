@@ -26,8 +26,19 @@ public:
 
 	Token nextToken();
 
-
 private:
 	Buffer* buffer;
 	Automat* automat;
+	Position* currentPosition;
+    Position *nextTokenPosition;
+    Position *currentTokenPosition;
+
+
+	void setTokenPosition(Token *token);
+    void setCurrentPosition(char c, Signtype type);
+
+    bool firstToken;
+    int tokenSize;
+    int countSpace;
+    int countChars;
 };
