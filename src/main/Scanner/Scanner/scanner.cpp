@@ -9,9 +9,9 @@ Scanner::Scanner(char const *filePath) {
     currentPosition = new Position(1, 1);
     firstToken = true;
 
+
     countSpace = 0;
     countChars = 0;
-    tokenSize = 0;
 }
 
 Token Scanner::nextToken() {
@@ -47,11 +47,10 @@ void Scanner::setCurrentPosition(char c, Signtype type) {
     if (c == ' ' || c == '\t') {
         currentPosition->incCol();
         countSpace += 1;
-    } else if (c == '\0' && type == IDENTIFIER) {
-        countSpace += 1;
     } else if (c == '\n') {
         currentPosition->incRow();
         currentPosition->resetCol();
+        countSpace += 1;
     } else {
         currentPosition->incCol();
         countChars += 1;
@@ -65,17 +64,15 @@ void Scanner::setTokenPosition(Token *token) {
     if (firstToken) {
         firstToken = false;
     } else {
-        currentTokenPosition->setCol(nextTokenPosition->getCol() + countSpace);
+        int offset = countSpace < 2 ? 0 : countSpace - 1;
+        currentTokenPosition->setCol(nextTokenPosition->getCol() + offset);
         currentTokenPosition->setRow(nextTokenPosition->getRow());
     }
 
-    nextTokenPosition->setCol(col - 1);
+    nextTokenPosition->setCol(col + countSpace - 1);
     nextTokenPosition->setRow(row);
-    if (countSpace <= 1) {
+
      countSpace = 0;
-    } else {
-        countSpace -= 1;
-    }
 
     token->setPosition(currentTokenPosition);
 }
