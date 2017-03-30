@@ -63,6 +63,9 @@ void Scanner::setTokenPosition(Token *token) {
 
     if (firstToken) {
         firstToken = false;
+        int offset = countSpace < 2 ? 0 : countSpace - 1;
+        currentTokenPosition->setCol(nextTokenPosition->getCol() + offset);
+        currentTokenPosition->setRow(nextTokenPosition->getRow());
     } else {
         int offset = countSpace < 2 ? 0 : countSpace - 1;
         currentTokenPosition->setCol(nextTokenPosition->getCol() + offset);

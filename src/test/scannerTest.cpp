@@ -279,6 +279,16 @@ TEST(ScannerTest, DifferentSpaces) {
     ASSERT_EQ(PLUS, token.getType());
     ASSERT_EQ(1, token.getRow());
     ASSERT_EQ(8, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(PLUS, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(18, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(PLUS, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(25, token.getCol());
 }
 
 TEST(ScannerTest, SimpleMultiline) {
@@ -402,8 +412,48 @@ TEST(ScannerTest, SpecialChars) {
     ASSERT_EQ(14, token.getCol());
 }
 
-TEST(ScannerTest, DISABLED_EOF) {
-    //TODO: Implementieren, da die Position beim letzten Zeichen (vor EOF) falsch ist.
+TEST(ScannerTest, EOF_Test) {
+    char const *folderName = "../src/test/testData/testIdentifier.txt";
+    Scanner *scanner = new Scanner(folderName);
+
+    Token token;
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(1, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(5, token.getCol());
+}
+
+TEST(ScannerTest, StartsWithSpaces) {
+    char const *folderName = "../src/test/testData/testStartWithSpaces.txt";
+    Scanner *scanner = new Scanner(folderName);
+
+    Token token;
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(4, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(PLUS, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(6, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(8, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(SEMICOLON, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(9, token.getCol());
 }
 
 TEST(ScannerTest, DISABLED_IdentifierExValues) {
