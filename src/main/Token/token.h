@@ -1,6 +1,8 @@
+
 #ifndef SYMTYPE
 #define SYMTYPE
 #include "../SymbolType/symboltype.h"
+#include "../Symtab/SymbolItem.h"
 #include "../Position/Position.h"
 
 #endif
@@ -25,11 +27,15 @@ public:
     int getCol();
     int getRow();
 
+    SymbolItem* getItem();
+    void setItem(SymbolItem* itemSymtab);
+
 private:
     
     char* value;
     Signtype type;
     Position* position;
+    SymbolItem* itemSymtab;
 
 };
 

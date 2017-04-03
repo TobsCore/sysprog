@@ -18,6 +18,11 @@
 #include "../Automat/automat.h"
 #endif
 
+#ifndef SYMBOLTABLE
+#define SYMBOLTABLE
+#include "../../Symtab/Symboltable.h"
+#endif
+
 class Scanner {
 
 public:
@@ -32,6 +37,8 @@ private:
 	Position* currentPosition;
     Position *nextTokenPosition;
     Position *currentTokenPosition;
+
+    Symboltable* symboltable;
 
 
 	void setTokenPosition(Token *token);

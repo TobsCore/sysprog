@@ -7,6 +7,7 @@ Scanner::Scanner(char const *filePath) {
     nextTokenPosition = new Position(1, 1);
     currentTokenPosition = new Position(1, 1);
     currentPosition = new Position(1, 1);
+    symboltable = new Symboltable();
     firstToken = true;
 
 
@@ -16,6 +17,7 @@ Scanner::Scanner(char const *filePath) {
 
 Token Scanner::nextToken() {
     Token *nextToken = new Token();
+    char* lexem;
 
     // If no other characters can be read, return and EOF-Token. This can be used to stop the calling loop.
     if (!buffer->hasNext()) {
@@ -28,6 +30,7 @@ Token Scanner::nextToken() {
         char nextChar = buffer->getChar();
         symbol = automat->checkExpression(nextChar);
         setCurrentPosition(nextChar, symbol);
+        lexem += nextChar;
 
     } while (symbol == NEXTCHAR && buffer->hasNext());
 
@@ -39,6 +42,11 @@ Token Scanner::nextToken() {
 
     nextToken->setType(symbol);
     setTokenPosition(nextToken);
+
+    if(nextToken->getType() == IDENTIFIER){
+    	SymbolItem* itemSymboltable = symboltable->insert(lexem);
+    	symboltable->viewStringTable();
+    }
 
     return *nextToken;
 }

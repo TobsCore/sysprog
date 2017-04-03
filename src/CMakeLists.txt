@@ -22,6 +22,12 @@ set(SOURCE_FILES
 		main/Symtab/Container/container.cpp
 		main/Symtab/Container/container.h
 		main/Symtab/symtable.cpp
+        main/Symtab/Information.cpp
+        main/Symtab/Information.h
+        main/Symtab/Item.h
+        main/Symtab/Keyword.h
+        main/Symtab/Symboltable.cpp
+        main/Symtab/Symboltable.h
 		main/Token/token.cpp
 		main/Token/token.h)
 
@@ -29,7 +35,8 @@ set(SOURCE_TEST
 	test/automatTest.cpp
 	test/tokenTest.cpp
 	test/scannerTest.cpp
-    test/bufferTest.cpp)
+    test/bufferTest.cpp
+    test/symtableTest.cpp)
 
 add_executable(sysprogMain main/main.cpp ${SOURCE_FILES})
 add_executable(unitTests test/main.cpp ${SOURCE_FILES} ${SOURCE_TEST} )
