@@ -184,7 +184,7 @@ SymbolItem* Symboltable::search(char* lexem){
 			cout << "Keyword: " << ptrItem->infoContainer.getKeyword() << endl;
 			int j = 0;
 			cout << "Lexem: ";
-			while(ptrItem->lexem != '\0' && j < 5){
+			while(ptrItem->lexem[j] != '\0' && j < 5){
 				cout << ptrItem->lexem[j];
 				j++;
 			}
@@ -208,7 +208,7 @@ void Symboltable::view(){
 			int j = 0;
 			cout << "-------------------------" << endl;
 			cout << "Das Lexem ist: " << endl;
-			while(testItem->lexem != '\0' && j < 5){
+			while(testItem->lexem[j] != '\0' && j < 5){
 					cout << testItem->lexem[j];
 					j++;
 			}
