@@ -2,9 +2,16 @@
 #ifndef SYMTYPE
 #define SYMTYPE
 #include "../SymbolType/symboltype.h"
-#include "../Symtab/SymbolItem.h"
-#include "../Position/Position.h"
+#endif
 
+#ifndef SYMBOLITEM
+#define SYMBOLITEM
+#include "../Symtab/SymbolItem.h"
+#endif
+
+#ifndef POSITION
+#define POSITION
+#include "../Position/Position.h"
 #endif
 
 class Token {

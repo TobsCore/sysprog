@@ -9,8 +9,16 @@
 #include <cstdlib>
 
 #include "Information.h"
-#include "../SymbolType/symboltype.h"
+
+#ifndef SYMBOLITEM
+#define SYMBOLITEM
 #include "SymbolItem.h"
+#endif
+
+#ifndef SYMTYPE
+#define SYMTYPE
+#include "../SymbolType/symboltype.h"
+#endif
 
 using namespace std;
 

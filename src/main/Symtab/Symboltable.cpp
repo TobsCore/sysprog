@@ -7,12 +7,14 @@
 
 
 #include <iostream>
-#include <cstdlib>
 
 #include "Symboltable.h"
-#include "Information.h"
+
+
+#ifndef SYMTYPE
+#define SYMTYPE
 #include "../SymbolType/symboltype.h"
-#include "SymbolItem.h"
+#endif
 
 using namespace std;
 
@@ -58,9 +60,9 @@ int Symboltable::hashcode(char* lexem, int length){
 }
 
 
-Item* Symboltable::insert(char* lexem){
+SymbolItem* Symboltable::insert(char* lexem){
 	// Erstelle einen Pointer für das Element
-	Item* ptrItem;
+	SymbolItem* ptrItem;
 
 	// Berechne die Hashadresse, wo das neue Element
 	// gespeichert wird
@@ -85,7 +87,7 @@ Item* Symboltable::insert(char* lexem){
 
 	// Speicher für neues Element bereitstellen und ausgeben
 	// wenn es keinen mehr gibt
-	ptrItem = (Item*) malloc(sizeof(Item) + sizeof(Information));
+	ptrItem = (SymbolItem*) malloc(sizeof(SymbolItem) + sizeof(Information));
 
 	if(ptrItem == NULL){
 		cout << "Kein Speicher für neues Element vorhanden" << endl;
@@ -157,9 +159,9 @@ char* Symboltable::insertStringTable(char* lexem){
 	return ptrStringMemory;
 }
 
-Item* Symboltable::search(char* lexem){
+SymbolItem* Symboltable::search(char* lexem){
 	// Erstelle einen Pointer für das Element
-	Item* ptrItem;
+	SymbolItem* ptrItem;
 
 	// Berechne die Hashadresse, wo das Element
 	// gespeichert wurde
@@ -197,7 +199,7 @@ Item* Symboltable::search(char* lexem){
 
 void Symboltable::view(){
 	for(int i = 0; i < tableSize; i++){
-		Item* testItem = hashTable[i];
+		SymbolItem* testItem = hashTable[i];
 		while(testItem != NULL){
 			cout << "Infocontainer in Hashelement " << testItem << " im Index " << i <<endl;
 			testItem->infoContainer.viewInformation();

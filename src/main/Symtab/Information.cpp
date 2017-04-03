@@ -9,7 +9,11 @@
 #include <cstdlib>
 
 #include "Information.h"
+
+#ifndef SYMTYPE
+#define SYMTYPE
 #include "../SymbolType/symboltype.h"
+#endif
 
 
 using namespace std;

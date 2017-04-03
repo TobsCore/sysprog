@@ -8,7 +8,11 @@
 #include <iostream>
 #include <cstdlib>
 
+#ifndef SYMTYPE
+#define SYMTYPE
 #include "../SymbolType/symboltype.h"
+#endif
+
 #include "Keyword.h"
 
 using namespace std;

@@ -8,7 +8,7 @@ include_directories(src/lib/googletest-master/googletest/include)
 include_directories(src/lib/googletest-master/googlemock/include)
 
 set(SOURCE_FILES
-        src/main/List/listElement.cpp
+		src/main/List/listElement.cpp
 		src/main/List/listElement.h
 		src/main/Position/Position.cpp
 		src/main/Position/Position.h
@@ -22,6 +22,11 @@ set(SOURCE_FILES
 		src/main/Symtab/Container/container.cpp
 		src/main/Symtab/Container/container.h
 		src/main/Symtab/symtable.cpp
+		src/main/Symtab/Information.cpp
+		src/main/Symtab/Information.h
+		src/main/Symtab/Keyword.h
+		src/main/Symtab/Symboltable.cpp
+		src/main/Symtab/Symboltable.h
 		src/main/Token/token.cpp
 		src/main/Token/token.h)
 
@@ -29,7 +34,8 @@ set(SOURCE_TEST
 		src/test/automatTest.cpp
 		src/test/tokenTest.cpp
 		src/test/scannerTest.cpp
-		src/test/bufferTest.cpp)
+		src/test/bufferTest.cpp
+		src/test/symtableTest.cpp)
 
 add_executable(sysprogMain src/main/main.cpp ${SOURCE_FILES})
 add_executable(unitTests src/test/main.cpp ${SOURCE_FILES} ${SOURCE_TEST} )
