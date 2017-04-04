@@ -1,24 +1,8 @@
-SEC=Scanner
-PAR=Parser
-PART1=teil1
-PART2=teil2
-
+.PHONY: all
 all:
-	make -C src
+	./latexrun Dokumentation.tex --latex-cmd=xelatex
+	mv Dokumentation.pdf Dokumentation\ Systemnahes\ Programmieren.pdf
 
-$(PART1): $(SEC)
-$(PART1).pdf: $(SEC)
-$(SEC): 
-	make $(SEC) -C src
-
-$(PART2): $(PAR)
-$(PART2).pdf: $(PAR)
-$(PAR): 
-	make $(PAR) -C src
-
-
-nclean:
-	make nclean -C src
-
+.PHONY: clean
 clean:
-	make clean -C src
+	./latexrun --clean-all && rm -rf latex.out

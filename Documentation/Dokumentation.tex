@@ -1,0 +1,97 @@
+% report.tex
+% main file for the project report.
+
+\documentclass[a4paper,12pt,parskip=full]{scrreprt}
+
+% german names
+\usepackage{ngerman}
+% utf-8
+\usepackage{polyglossia}
+\setmainlanguage[spelling=new]{german}
+\usepackage{fontspec}
+\usepackage{pdfpages}
+
+% In order to remove scr warning
+\usepackage{scrhack}
+
+%Needed to wrap text around images, used for personas
+\usepackage{wrapfig}
+
+%Used to avoid page breaks with each chapter
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\chapter}{\if@openright\cleardoublepage\else\clearpage\fi}{}{}{}
+\makeatother
+
+
+% colored links
+\usepackage{color}
+\usepackage[colorlinks=true, citecolor=red] {hyperref}
+\definecolor{grey}{rgb}{0.2,0.2,0.2}
+\definecolor{orange}{rgb}{1,0.3,0}
+\definecolor{turqoise}{rgb}{0,0.7,0.5}
+
+% code listings
+\usepackage{listings}
+\renewcommand{\lstlistingname}{Code}
+
+
+\lstset{language=C++,
+        keywordstyle=\color{blue},
+        stringstyle=\color{red},
+        commentstyle=\color{green},
+        morecomment=[l][\color{magenta}]{\#}
+}
+% For adding the titelpage as a pdf
+\usepackage{pdfpages}
+
+% graphics
+\usepackage{graphicx}
+\graphicspath{{images/}}
+
+% BibTex lib - used for citation
+\usepackage{cite}
+
+\usepackage[automark,headsepline,autooneside=false]{scrlayer-scrpage}
+\clearpairofpagestyles{}
+\ihead{\leftmark}
+\chead{}
+\ohead{\ifstr{\rightmark}{\leftmark}{}{\rightmark}}
+%\ifoot{Bachelorthesis --- Tobias Kerst}
+%\cfoot{}
+\ofoot*{Seite\enspace\pagemark}
+\pagestyle{scrheadings}
+\setkomafont{pageheadfoot}{\normalfont}
+
+
+% Increases spacing of footer line
+\ModifyLayer[addvoffset=3ex]{scrheadings.foot.oneside}
+\ModifyLayer[addvoffset=3ex]{plain.scrheadings.foot.oneside}
+
+\usepackage{lipsum}
+
+\setkomafont{disposition}{\normalfont\bfseries}
+
+% for verbatiminput
+\usepackage{verbatim}
+
+% Used for cross-referencing between different files
+\usepackage{xr}
+
+% not yet used
+%\input{src/cmd}
+
+\begin{document}
+
+\input{Titelseite}
+\pagenumbering{Roman}
+\input{Inhaltsverzeichnis}
+\pagenumbering{arabic}
+
+\input{Scanner}
+\input{Parser}
+
+\input{Literaturverzeichnis}
+\input{Abbildungsverzeichnis}
+\input{Quellcodeverzeichnis}
+\end{document}
