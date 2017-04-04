@@ -2,8 +2,27 @@
 
 \lipsum[1]{}
 
-\begin{lstlisting}[language=C++,numbers=none,caption=Ein Beispiel Codestück,label=lst:ex1]
-String helloWorld = "Hello World";% chktex 18
+\begin{lstlisting}[language=C++,numbers=none,caption=Die main() Methode,label=lst:ex1]
+  #include "Scanner/Scanner/scanner.h"
+
+  int main(int argc, char** argv) {
+      if (argc != 2) {
+          cout << "Missing argument." << endl;
+      } else {
+          char *filePath = argv[1];
+          Scanner *sc = new Scanner(filePath);
+
+          // Read all the tokens
+          Token token;
+          while (!token.isEOF()) {
+              token = sc->nextToken();
+              cout << token.getTypeString() << endl;
+          }
+      }
+      return 0;
+  }
+
+}
 \end{lstlisting}
 
 \section{Bauen der Anwendung}

@@ -28,19 +28,57 @@
 \usepackage{color}
 \usepackage[colorlinks=true, citecolor=red] {hyperref}
 \definecolor{grey}{rgb}{0.2,0.2,0.2}
-\definecolor{orange}{rgb}{1,0.3,0}
+\definecolor{orange}{rgb}{0.9,0.3,0}
 \definecolor{turqoise}{rgb}{0,0.7,0.5}
+\definecolor{listinggray}{gray}{0.9}
+\definecolor{lbcolor}{rgb}{0.95,0.95,0.95}
+\definecolor{Darkgreen}{rgb}{0.0,0.4,0.0}
 
 % code listings
 \usepackage{listings}
 \renewcommand{\lstlistingname}{Code}
-
-
-\lstset{language=C++,
-        keywordstyle=\color{blue},
-        stringstyle=\color{red},
-        commentstyle=\color{green},
-        morecomment=[l][\color{magenta}]{\#}
+\lstset{
+    backgroundcolor=\color{lbcolor},
+    tabsize=4,
+%   rulecolor=,
+    language=[GNU]C++,
+    basicstyle=\footnotesize\ttfamily,breaklines=true
+    upquote=true,
+    aboveskip={1.5\baselineskip},
+    columns=fixed,
+    showstringspaces=false,
+    extendedchars=false,
+    breaklines=true,
+    prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
+    frame=single,
+    numbers=left,
+    showtabs=false,
+    showspaces=false,
+    showstringspaces=false,
+    identifierstyle=\ttfamily,
+    keywordstyle=\color{orange},
+    commentstyle=\color[rgb]{0.026,0.112,0.095},
+    stringstyle=\color[rgb]{0.627,0.126,0.941},
+    numberstyle=\color[rgb]{0.205, 0.142, 0.73},
+%   \lstdefinestyle{C++}{language=C++,style=numbers}’.
+}
+\lstset{
+    backgroundcolor=\color{lbcolor},
+    tabsize=4,
+    language=C++,
+    captionpos=b,
+    tabsize=3,
+    frame=lines,
+    numbers=left,
+    numberstyle=\tiny,
+    numbersep=5pt,
+    breaklines=true,
+    showstringspaces=false,
+    basicstyle=\footnotesize\ttfamily,breaklines=true
+  %  identifierstyle=\color{magenta},
+    keywordstyle=\color{orange},
+    commentstyle=\color{turqoise},
+    stringstyle=\color{Darkgreen}
 }
 % For adding the titelpage as a pdf
 \usepackage{pdfpages}
