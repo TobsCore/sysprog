@@ -7,14 +7,12 @@
 
 
 #include <iostream>
+#include <cstdlib>
 
 #include "Symboltable.h"
-
-
-#ifndef SYMTYPE
-#define SYMTYPE
+#include "Information.h"
 #include "../SymbolType/symboltype.h"
-#endif
+#include "SymbolItem.h"
 
 using namespace std;
 
