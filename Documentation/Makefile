@@ -1,6 +1,6 @@
 .PHONY: all
 all:
-	./latexrun Dokumentation.tex --latex-cmd=xelatex
+	./latexrun Dokumentation.tex --latex-cmd=xelatex -Wall
 	mv Dokumentation.pdf Dokumentation\ Systemnahes\ Programmieren.pdf
 
 .PHONY: clean

@@ -42,13 +42,13 @@
     tabsize=4,
 %   rulecolor=,
     language=[GNU]C++,
-    basicstyle=\footnotesize\ttfamily,breaklines=true
+    basicstyle=\footnotesize\ttfamily,
+    breaklines=true
     upquote=true,
     aboveskip={1.5\baselineskip},
     columns=fixed,
     showstringspaces=false,
     extendedchars=false,
-    breaklines=true,
     prebreak = \raisebox{0ex}[0ex][0ex]{\ensuremath{\hookleftarrow}},
     frame=single,
     numbers=left,
@@ -80,6 +80,9 @@
     commentstyle=\color{turqoise},
     stringstyle=\color{Darkgreen}
 }
+
+\renewcaptionname{ngerman}{\figurename}{Abb.}
+\renewcaptionname{ngerman}{\tablename}{Tab.}
 % For adding the titelpage as a pdf
 \usepackage{pdfpages}
 
@@ -112,6 +115,9 @@
 
 % for verbatiminput
 \usepackage{verbatim}
+
+% Nicely prints XeLaTeX
+\usepackage{metalogo}
 
 % Used for cross-referencing between different files
 \usepackage{xr}
