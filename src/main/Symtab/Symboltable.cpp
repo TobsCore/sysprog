@@ -29,7 +29,7 @@ Symboltable::Symboltable(){
 }
 
 
-int Symboltable::length(char* lexem) {
+int Symboltable::length(const char* lexem) {
 	int i = 0;
 	while(lexem[i] != '\0'){
 		i++;
@@ -38,7 +38,7 @@ int Symboltable::length(char* lexem) {
 }
 
 
-bool Symboltable::compare(const char* lexem1, char* lexem2) {
+bool Symboltable::compare(const char* lexem1, const char* lexem2) {
 	int i = 0;
 	while(lexem1[i] != '\0'){
 		if(lexem1[i] != lexem2[i]){
@@ -53,14 +53,14 @@ bool Symboltable::compare(const char* lexem1, char* lexem2) {
 }
 
 
-int Symboltable::hashcode(char* lexem, int length){
+int Symboltable::hashcode(const char* lexem, int length){
 	int hashCode = (int) ( 16 * lexem[0] + 8 * lexem[length - 1] + length);
 	return hashCode % tableSize;
 
 }
 
 
-SymbolItem* Symboltable::insert(char* lexem){
+SymbolItem* Symboltable::insert(const char* lexem){
 	// Erstelle einen Pointer für das Element
 	SymbolItem* ptrItem;
 
@@ -96,7 +96,6 @@ SymbolItem* Symboltable::insert(char* lexem){
 
 
 	// Fügt ale Werte in das neues Element ein
-	ptrItem->infoContainer.setType(IDENTIFIER);
 	ptrItem->infoContainer.setName(lexem);
 	ptrItem->lexem = insertStringTable(lexem);
 
@@ -108,7 +107,7 @@ SymbolItem* Symboltable::insert(char* lexem){
 	return ptrItem;
 }
 
-char* Symboltable::insertStringTable(char* lexem){
+char* Symboltable::insertStringTable(const char* lexem){
 	// Erstelle ein Pointer auf Stringtabelle und gehe
 	// zum letzten Element
 	StringItem* ptrStringItem = stringTable;
@@ -159,7 +158,7 @@ char* Symboltable::insertStringTable(char* lexem){
 	return ptrStringMemory;
 }
 
-SymbolItem* Symboltable::search(char* lexem){
+SymbolItem* Symboltable::search(const char* lexem){
 	// Erstelle einen Pointer für das Element
 	SymbolItem* ptrItem;
 

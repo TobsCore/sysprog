@@ -5,8 +5,14 @@
 using testing::Eq;
 
 TEST(SymtableTest, InsertTest) {
-    SymbolItem *testSymItem;
-    Symboltable *testSymtable = new Symboltable();
-	testSymItem = testSymtable->insert("test1");
-    ASSERT_EQ(testSymItem->lexem, "test1");
+	char const *lexem = "test5";
+	cout << lexem << endl;
+
+	Symboltable* symboltable = new Symboltable();
+	SymbolItem* symbolItem;
+
+	symbolItem = symboltable->insert(lexem);
+	symboltable->viewStringTable();
+
+	ASSERT_EQ(*(symbolItem->lexem), *lexem);
 }

@@ -24,7 +24,7 @@ class Information {
 	private:
 
 		Signtype type;
-		char* name;
+		const char* name;
 		Keyword keyword;
 
 	public:
@@ -35,15 +35,15 @@ class Information {
 		/*
 		 * Konstruktor von der Klasse
 		 */
-		Information(Signtype type, char* name);
+		Information(Signtype type, const char* name);
 		/*
 		 * Gibt Name von Informationscontainer aus
 		 */
-		char* getName();
+		const char* getName();
 		/*
 		 * Ändert Name von Informationscontainer
 		 */
-		void setName(char* name2);
+		void setName(const char* name2);
 		/*
 		 * Gibt Typ von Informationscontainer aus
 		 */

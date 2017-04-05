@@ -1,5 +1,5 @@
 /*
- * Item.h
+ * SymbolItem.h
  *
  *  Created on: 08.05.2015
  *      Author: holger
@@ -10,8 +10,8 @@
 #include "Information.h"
 #endif
 
-#ifndef ITEM_H_
-#define ITEM_H_
+#ifndef SYMBOLITEM_H_
+#define SYMBOLITEM_H_
 
 /*
  * Struktur von einem Listenelement

@@ -19,20 +19,20 @@
 using namespace std;
 
 	Information::Information(){
-		this->type = NEXTCHAR;
+		this->type = IDENTIFIER;
 		this->name = NULL;
 		this->keyword = NOKEYWORD;
 	}
 
-	Information::Information(Signtype type, char* name){
-		this->type = type;
+	Information::Information(Signtype type, const char* name){
+		this->type = IDENTIFIER;
 		this->name = name;
 		this->keyword = this->isKeyword();
 	}
-	char* Information::getName(){
+	const char* Information::getName(){
 		return this->name;
 	}
-	void Information::setName(char* name2){
+	void Information::setName(const char* name2){
 		this->name = name2;
 		if(this->name != NULL && this->type != 0){
 			this->keyword = this->isKeyword();

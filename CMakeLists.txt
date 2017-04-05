@@ -24,6 +24,7 @@ set(SOURCE_FILES
 		src/main/Symtab/symtable.cpp
 		src/main/Symtab/Information.cpp
 		src/main/Symtab/Information.h
+		src/main/Symtab/SymbolItem.h
 		src/main/Symtab/Keyword.h
 		src/main/Symtab/Symboltable.cpp
 		src/main/Symtab/Symboltable.h

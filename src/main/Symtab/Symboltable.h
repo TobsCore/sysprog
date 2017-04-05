@@ -65,30 +65,30 @@ class Symboltable {
 		/*
 		 * Gibt die Länge eines Wortes zurück
 		 */
-		int length(char* lexem);
+		int length(const char* lexem);
 		/*
 		 * Vergleiche Lexem mit gespeicherten
 		 * Wort im Element
 		 */
-		bool compare(const char* lexem1, char* lexem2);
+		bool compare(const char* lexem1, const char* lexem2);
 		/*
 		 * Erzeugt eine Adresse, wo der
 		 * das Element gespeichert wird.
 		 */
-		int hashcode(char* lexem, int length);
+		int hashcode(const char* lexem, int length);
 		/*
 		 * Ein Informationselement hinzufügen
 		 */
-		SymbolItem* insert(char* lexem);
+		SymbolItem* insert(const char* lexem);
 		/*
 		 * Wert in Stringtabelle einfügen
 		 */
-		char* insertStringTable(char* lexem);
+		char* insertStringTable(const char* lexem);
 		/*
 		 * Suche nach dem Lexem in der Hashtabelle
 		 * und gibt Wert aus
 		 */
-		SymbolItem* search(char* lexem);
+		SymbolItem* search(const char* lexem);
 		/*
 		 *
 		 */

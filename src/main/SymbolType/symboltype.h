@@ -1,3 +1,6 @@
+#ifndef SYMBOLTYPE_H_
+#define SYMBOLTYPE_H_
+
 enum Signtype {
 
 	ERROR = -1,             // If error occurs
@@ -28,4 +31,6 @@ enum Signtype {
 static const char * EnumStrings[] = { "EOF", "Error", "Nextchar", "Integer", "Identifier", "Plus", "Minus", "Colon", "Star", "Less", "Greater", "Equals",
 "Exclamation", "And", "Semicolon", "Parenthesis (open)", "Parenthesis (close)", "Brace (open)", "Brace (close)", "Bracket (open)", "Bracket (close)",
 "Assign", "Special"};
+
+#endif
 
