@@ -1,14 +1,40 @@
 \chapter{Scanner}\label{chap:intro}
 
 \section{Einleitung}
+Aufgabe des Labors \textit{Systemnahes Programmieren} ist die Implementierung eines Compilers. Ein Compiler übersetzt ein Programm in einer vorgegebenen Sprache, in ein Programm in maschinennaher Sprache. Es sollen auch Fehler im Programmcode erkannt werden.
+
+Die Aufgabe wurde in zwei Teilaufgaben aufgeteilt. Dieses Dokument befasst sich mit der ersten Teilaufgabe, der Implementierung eines Scanners.
+Dabei handelt es sich um eine lexikalische Analyse, welche das vorgegebene Programm in Tokens, also ihre Grundsymbole, zerlegt.
+
+Die Menge aller gültigen Zeichen und Bezeichner einer Programmiersprache ist üblicherweise eine reguläre Sprache.
+
+Die gültigen Zeichen lauten wie folgt:
+\begin{verbatim}
+digit ::= 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+letter ::= A | B | C | … | Z | a | b | … | z
+sign… ::= + | - | : | * | < | > | = | := | =:= | ! | && | ; | ( | ) | { | } | [ | ]
+integer ::= digit digit*
+identifier ::= letter (letter | digit)*
+if ::= if | IF
+while ::= while | WHILE
+\end{verbatim}
+
+Die gültigen Symbole bilden die reguläre Sprache
+\begin{verbatim}
+L( sign+ | … | sign] | integer | identifier | if | while)
+\end{verbatim}
+
+Zu dieser Sprache wird ein Automat erstellt. Dieser akzeptiert die Sprache und befindet sich in einem Finalzustand, wenn ein Wort akzeptiert wird, oder in einem Nicht-Endzustand, wird ein Wort nicht akzeptiert.
+
+Erkannte Identifier werden in einer Symboltabelle gespeichert. Das Token enthält neben einem Verweis darauf auch die Informationen Zeile, Spalte, Typ. Sollten Symbole außerhalb der Menge der gültigen Zeichen oder Bezeichner gefunden werden, wird ein Fehlertoken erstellt.
+
 
 \subsection{Voraussetzungen}
-
 Um unser Projekt korrekt kompilieren zu können, sind einige Programme notwendig, die an dieser Stelle genannt werden sollen.
 \begin{itemize}
   \item Gcc
   \item Make
-  \item CMake
+  \item CMake (Version >= \textsc{3.5})
   \item Git
 \end{itemize}
 
@@ -29,7 +55,7 @@ Das Projekt kann man wie folgt laden:
 git clone https://github.com/TobsCore/sysprog.git
 \end{lstlisting}
 
-Man erkennt, dass ein neues Verzeichnis mit dem Namen \texttt{sysprog} erstellt wurde. Dies ist unser Projekt-Verzeichnis. Wie das Projekt organisiert ist, wird genauer in~\ref{sec:orga_code} genauer beleuchtet.
+Man erkennt, dass ein neues Verzeichnis mit dem Namen \texttt{sysprog/} erstellt wurde. Dies ist unser Projekt-Verzeichnis. Wie das Projekt organisiert ist, wird genauer in~\ref{sec:orga_code} genauer beleuchtet.
 
 Es handelt sich bei uns um ein \textit{CMake Projekt}, was man unter anderem daran erkennt, dass sich im Hauptverzeichnis die Datei \texttt{CMakeLists.txt} befindet. Diese Datei wird dazu genutzt, dass alle Programmteile korrekt gelinkt werden und man kann dort verschiedene \textit{Compile Targets} definieren. Was dies bedeutet, werden wir sehen, wenn das Projekt erfolgreich in Eclipse importiert wurde.
 
@@ -109,7 +135,7 @@ make unitTests
 \end{lstlisting}
 
 \subsection{Organisation des Codes}\label{sec:orga_code}
-Wenn man das Repository herunter geladen hat, so findet man 2 Verzeichnisse. In \texttt{Documentation} befindet sich diese Dokumentation, die mit \XeLaTeX\ erstellt wurde. Hat man \texttt{Python3} installiert, so kann man diese Dokumentation ganz einfach über \texttt{make} generieren lassen.
+Wenn man das Repository herunter geladen hat, so findet man 2 Verzeichnisse. In \texttt{Documentation/} befindet sich diese Dokumentation, die mit \XeLaTeX\ erstellt wurde. Hat man \texttt{Python3} installiert, so kann man diese Dokumentation ganz einfach über \texttt{make} generieren lassen.
 
 Das \texttt{src/} Verzeichnis enthält den Code für unser Programm, die Tests und alles was man zum erfolgreichen Bauen benötigt.
 
