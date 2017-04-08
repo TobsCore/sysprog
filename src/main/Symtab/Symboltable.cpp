@@ -140,7 +140,7 @@ char *Symboltable::insertStringTable(const char *lexem) {
     // wird aktualisiert
     int i = 0;
     while (lexem[i] != '\0') {
-        ptrStringMemory[counterStringMemory] = lexem[i];
+        ptrStringMemory[i] = lexem[i];
         counterStringMemory++;
         i++;
     }

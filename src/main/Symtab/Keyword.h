@@ -10,7 +10,9 @@
 
 
 enum Keyword {
-	IF, WHILE, NOKEYWORD
+	NOKEYWORD,
+	IF,
+	WHILE,
 };
 
 

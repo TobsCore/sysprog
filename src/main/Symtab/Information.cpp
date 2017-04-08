@@ -57,6 +57,16 @@ using namespace std;
 		return i;
 	}
 	Keyword Information::isKeyword(){
+
+		/*
+		switch(this->name) {
+			case "if":
+				return IF;
+
+		}
+		*/
+
+
 		if(this->type == IDENTIFIER){
 			int length = this->nameLength();
 			int i = 0;
