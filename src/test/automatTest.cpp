@@ -221,3 +221,53 @@ TEST_F(AutomatTest, CloseArithmaticExpression) {
     ASSERT_EQ(testAutomat.checkExpression(';'), IDENTIFIER);
     ASSERT_EQ(testAutomat.checkExpression('\0'), SEMICOLON);
 }
+
+TEST_F(AutomatTest, notAComment) {
+    ASSERT_EQ(testAutomat.checkExpression('+'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('='), PLUS);
+    ASSERT_EQ(testAutomat.checkExpression('\0'), EQUALS);
+}
+TEST_F(AutomatTest, shortestComment) {
+    ASSERT_EQ(testAutomat.checkExpression(':'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('*'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('*'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression(':'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('\0'), COMMENT);
+}
+TEST_F(AutomatTest, commentWithStars) {
+    ASSERT_EQ(testAutomat.checkExpression(':'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('*'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('*'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('*'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('*'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('*'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression(':'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('\0'), COMMENT);
+}
+TEST_F(AutomatTest, commentWithSpaces) {
+    ASSERT_EQ(testAutomat.checkExpression(':'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('*'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression(' '), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression(' '), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression(' '), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression(' '), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression(' '), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('*'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression(':'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('\0'), COMMENT);
+}
+
+TEST_F(AutomatTest, commentWithEverythingBetween) {
+    ASSERT_EQ(testAutomat.checkExpression(':'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('*'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression(' '), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression(' '), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('c'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('='), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('a'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('+'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('b'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('*'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression(':'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('\0'), COMMENT);
+}
