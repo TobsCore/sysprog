@@ -27,7 +27,7 @@ private:
     /**
      * Size of the string buffer.
      */
-    static const int stringMemorySize = 10000;
+    static const int stringMemorySize = 50;
     /*
      * Die Hashtabelle, die für die
      * verkettete Liste verwendet wird
