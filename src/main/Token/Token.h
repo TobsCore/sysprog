@@ -4,15 +4,11 @@
 #include "../SymbolType/symboltype.h"
 #include "../Symtab/SymbolItem.h"
 #include "../Position/Position.h"
-
 #endif
 
 class Token {
 public:
     Token();
-    
-    char* getValue();
-    void setValue(char* value);
     
     Signtype getType();
     void setType(Signtype type);
@@ -27,18 +23,10 @@ public:
     int getCol();
     int getRow();
 
-    SymbolItem* getItem();
-    void setItem(SymbolItem* itemSymtab);
+    virtual const char* toString();
 
-    const char* toString();
-
-private:
-    char* value;
+protected:
     Signtype type;
     Position* position;
     SymbolItem* itemSymtab;
-
-    bool hasLexem();
-    bool hasValue();
 };
-

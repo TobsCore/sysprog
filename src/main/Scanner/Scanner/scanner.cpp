@@ -1,4 +1,6 @@
 #include "scanner.h"
+#include "../../Token/IdentifierToken.h"
+#include "../../Token/IntegerToken.h"
 
 Scanner::Scanner(char const *filePath) {
 
@@ -15,13 +17,14 @@ Scanner::Scanner(char const *filePath) {
     countChars = 0;
 }
 
-Token Scanner::nextToken() {
-    Token *nextToken = new Token();
+Token* Scanner::nextToken() {
+    Token *nextToken;
 
     // If no other characters can be read, return and EOF-Token. This can be used to stop the calling loop.
     if (!buffer->hasNext()) {
+        nextToken = new Token();
         nextToken->setType(FILE_END);
-        return *nextToken;
+        return nextToken;
     }
 
     Signtype symbol;
@@ -45,10 +48,20 @@ Token Scanner::nextToken() {
         currentPosition->incCol(-1);
     }
 
+    switch (symbol) {
+        case IDENTIFIER:
+            nextToken = new IdentifierToken();
+            break;
+        case INTEGER:
+            nextToken = new IntegerToken();
+            break;
+        default:
+            nextToken = new Token();
+    }
     nextToken->setType(symbol);
     setTokenPosition(nextToken);
 
-    return *nextToken;
+    return nextToken;
 }
 
 void Scanner::setCurrentPosition(char c, Signtype type) {

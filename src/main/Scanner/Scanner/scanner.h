@@ -1,6 +1,6 @@
 #ifndef TOKEN
 #define TOKEN
-#include "../../Token/token.h"
+#include "../../Token/Token.h"
 #endif
 
 #ifndef SYMTYPE
@@ -29,7 +29,7 @@ public:
 	Scanner(char const *filePath);
 	~Scanner();
 
-	Token nextToken();
+	Token* nextToken();
 
 private:
 	Buffer* buffer;

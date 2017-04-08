@@ -1,37 +1,35 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-#include "../main/Token/token.h"
+#include "../main/Token/IntegerToken.h"
+#include "../main/Token/IdentifierToken.h"
 
 using testing::Eq;
 
 
-TEST(TokenTest, getSetIntegerToken) {
+TEST(TokenTest, IntegerToken) {
 
-    Token *testToken = new Token();
+    IntegerToken *testToken = new IntegerToken();
     testToken->setPosition(5,1);
-    testToken->setType(INTEGER);
 
     ASSERT_EQ(5, testToken->getRow());
     ASSERT_EQ(1, testToken->getCol());
     ASSERT_EQ(INTEGER, testToken->getType());
-    ASSERT_STREQ("", testToken->getValue());
+    ASSERT_EQ(0, testToken->getValue());
 }
 
-TEST(TokenTest, getSetIdentifier) {
+TEST(TokenTest, IdentifierToken) {
 
-    Token *testToken = new Token();
+    IdentifierToken *testToken = new IdentifierToken();
     testToken->setPosition(1,1);
-    testToken->setType(IDENTIFIER);
-    testToken->setValue((char *) "testVar");
+    testToken->setLexem("testVar");
 
     ASSERT_EQ(1, testToken->getRow());
     ASSERT_EQ(1, testToken->getCol());
     ASSERT_EQ(IDENTIFIER, testToken->getType());
-    ASSERT_STREQ("testVar", testToken->getValue());
+    ASSERT_STREQ("testVar", testToken->getLexem());
 }
 
 TEST(TokenTest, eof) {
-
     Token *testToken = new Token();
     testToken->setType(FILE_END);
 
