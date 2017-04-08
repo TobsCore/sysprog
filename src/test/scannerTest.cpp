@@ -429,6 +429,43 @@ TEST(ScannerTest, EOF_Test) {
     ASSERT_EQ(5, token.getCol());
 }
 
+TEST(ScannerTest, commentTest) {
+    char const *folderName = "../src/test/testData/testComment.txt";
+    Scanner *scanner = new Scanner(folderName);
+
+    Token token;
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(1, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(5, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(COMMENT, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(7, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(EQUALS, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(24, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(INTEGER, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(25, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(SEMICOLON, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(26, token.getCol());
+}
+
 TEST(ScannerTest, DISABLED_StartsWithSpaces) {
     char const *folderName = "../src/test/testData/testStartWithSpaces.txt";
     Scanner *scanner = new Scanner(folderName);
@@ -512,3 +549,6 @@ TEST(ScannerTest, DISABLED_IdentifierExValues) {
     token = scanner->nextToken();
     ASSERT_EQ(FILE_END, token.getType());
 }
+
+
+

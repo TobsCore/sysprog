@@ -1,1 +1,1 @@
-a + 1 :* jojojo was geht *: b
+int a :*heyhodiesdas*: =3;
