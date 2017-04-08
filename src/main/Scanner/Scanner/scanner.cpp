@@ -38,6 +38,13 @@ Token Scanner::nextToken() {
         symbol = FILE_END;
     }
 
+    // TODO: Document this.
+    if (symbol == ERROR_SPECIAL) {
+        symbol = EQUALS;
+        buffer->ungetChar(1);
+        currentPosition->incCol(-1);
+    }
+
     nextToken->setType(symbol);
     setTokenPosition(nextToken);
 
@@ -65,7 +72,6 @@ void Scanner::setTokenPosition(Token *token) {
     int offset = countSpace < 2 ? 0 : countSpace - 1;
     currentTokenPosition->setCol(nextTokenPosition->getCol() + offset);
     currentTokenPosition->setRow(nextTokenPosition->getRow());
-
 
     nextTokenPosition->setCol(col + countSpace - 1);
     nextTokenPosition->setRow(row);

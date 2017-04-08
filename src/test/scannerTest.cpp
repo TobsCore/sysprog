@@ -456,6 +456,46 @@ TEST(ScannerTest, DISABLED_StartsWithSpaces) {
     ASSERT_EQ(9, token.getCol());
 }
 
+
+
+TEST(ScannerTest, ErronuousSpecialChar) {
+    // a =:+ b;
+    char const *folderName = "../src/test/testData/testErroneousSpecial.txt";
+    Scanner *scanner = new Scanner(folderName);
+
+    Token token;
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(1, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(EQUALS, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(3, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(COLON, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(4, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(PLUS, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(5, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(7, token.getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(SEMICOLON, token.getType());
+    ASSERT_EQ(1, token.getRow());
+    ASSERT_EQ(8, token.getCol());
+}
+
 TEST(ScannerTest, DISABLED_IdentifierExValues) {
 
     char const *folderName = "../src/test/testData/testIdentifier.txt";
