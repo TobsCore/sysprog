@@ -90,11 +90,22 @@ TEST_F(AutomatTest, special) {
     ASSERT_EQ(testAutomat.checkExpression('\0'), SEMICOLON);
 }
 
-TEST_F(AutomatTest, specialError) {
+TEST_F(AutomatTest, specialNotFulfilled) {
     ASSERT_EQ(testAutomat.checkExpression('='), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression(':'), NEXTCHAR);
-    ASSERT_EQ(testAutomat.checkExpression('+'), ERROR);
+    ASSERT_EQ(testAutomat.checkExpression('+'), ERROR_SPECIAL);
+    ASSERT_EQ(testAutomat.checkExpression('+'), COLON);
     ASSERT_EQ(testAutomat.checkExpression('\0'), PLUS);
+}
+
+TEST_F(AutomatTest, specialTwice) {
+    ASSERT_EQ(testAutomat.checkExpression('='), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression(':'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('='), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('='), SPECIAL);
+    ASSERT_EQ(testAutomat.checkExpression(':'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('='), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('\0'), SPECIAL);
 }
 
 TEST_F(AutomatTest, array) {

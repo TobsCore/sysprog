@@ -26,6 +26,7 @@ enum Signtype {
 	ASSIGN = 19,		 	// :=
 	SPECIAL = 20, 			// =:=
 	COMMENT = 21,			// Comment
+	ERROR_SPECIAL = 22,		// Expected a special sign, but wasn't.
 	FILE_END = 50 			// End of file
 };
 
