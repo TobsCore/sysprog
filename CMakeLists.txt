@@ -21,7 +21,6 @@ set(SOURCE_FILES
 		src/main/SymbolType/symboltype.h
 		src/main/Symtab/Container/container.cpp
 		src/main/Symtab/Container/container.h
-		src/main/Symtab/symtable.cpp
         src/main/Symtab/Information.cpp
 		src/main/Symtab/Information.h
         src/main/Symtab/SymbolItem.h
