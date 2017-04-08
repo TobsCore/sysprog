@@ -10,7 +10,7 @@ int main(int argc, char** argv) {
         Token token;
         while (!token.isEOF()) {
             token = sc->nextToken();
-            cout << token.getTypeString() << endl;
+            cout << token.toString() << endl;
         }
     }
     return 0;

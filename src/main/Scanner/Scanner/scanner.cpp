@@ -42,7 +42,6 @@ Token Scanner::nextToken() {
     setTokenPosition(nextToken);
 
     return *nextToken;
-
 }
 
 void Scanner::setCurrentPosition(char c, Signtype type) {

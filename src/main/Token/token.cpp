@@ -1,6 +1,7 @@
 #ifndef TOKEN
 #define TOKEN
 #include "token.h"
+
 #endif
 
 
@@ -8,15 +9,15 @@
 Token::Token() {
     this->type = NEXTCHAR;
     this->value = 0;
-    this->position = new Position(1,1);
+    this->position = new Position(1, 1);
 }
 
-void Token::setValue(char* value) {
+void Token::setValue(char *value) {
     this->value = value;
 }
 
-char* Token::getValue() {
-    return this->value != 0 ? this->value : (char*) "";
+char *Token::getValue() {
+    return this->value != 0 ? this->value : (char *) "";
 }
 
 void Token::setType(Signtype type) {
@@ -28,13 +29,12 @@ Signtype Token::getType() {
 }
 
 bool Token::isEOF() {
-	return this->type == FILE_END;
+    return this->type == FILE_END;
 }
 
 
-const char* Token::getTypeString()
-{
-  return EnumStrings[this->type + 2];
+const char *Token::getTypeString() {
+    return EnumStrings[this->type + 2];
 }
 
 void Token::setPosition(Position *pos) {
@@ -47,7 +47,7 @@ void Token::setPosition(int row, int col) {
     this->position->setRow(row);
 }
 
-Position* Token::getPosition() {
+Position *Token::getPosition() {
     return this->position;
 }
 
@@ -57,4 +57,27 @@ int Token::getRow() {
 
 int Token::getCol() {
     return this->position->getCol();
+}
+
+const char *Token::toString() {
+    char *buffer = (char *) malloc(150 * sizeof(char));
+
+    if (hasLexem()) {
+        // TODO: Hier noch das Lexem einpflegen
+        snprintf(buffer, 100, "Token %-20s Line: %3d  Column: %3d  Lexem:", getTypeString(), getRow(), getCol());
+    } else if (hasValue()) {
+        // TODO: Hier noch den Value einpflegen
+        snprintf(buffer, 100, "Token %-20s Line: %3d  Column: %3d  Value:", getTypeString(), getRow(), getCol());
+    } else {
+        snprintf(buffer, 100, "Token %-20s Line: %3d  Column: %3d", getTypeString(), getRow(), getCol());
+    }
+    return buffer;
+}
+
+bool Token::hasLexem() {
+    return getType() == IDENTIFIER;
+}
+
+bool Token::hasValue() {
+    return getType() == INTEGER;
 }

@@ -30,12 +30,15 @@ public:
     SymbolItem* getItem();
     void setItem(SymbolItem* itemSymtab);
 
+    const char* toString();
+
 private:
-    
     char* value;
     Signtype type;
     Position* position;
     SymbolItem* itemSymtab;
 
+    bool hasLexem();
+    bool hasValue();
 };
 
