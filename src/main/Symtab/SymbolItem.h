@@ -7,7 +7,9 @@
 
 #ifndef INFOMATION
 #define INFOMATION
+
 #include "Information.h"
+
 #endif
 
 #ifndef SYMBOLITEM_H_
@@ -16,10 +18,10 @@
 /*
  * Struktur von einem Listenelement
  */
-struct SymbolItem{
-	Information infoContainer;
-	const char* lexem;
-	SymbolItem* next;
+struct SymbolItem {
+    Information infoContainer;
+    const char *lexem;
+    SymbolItem *next;
 };
 
 
