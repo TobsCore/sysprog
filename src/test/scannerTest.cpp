@@ -259,7 +259,7 @@ TEST(ScannerTest, testParenthesis) {
     ASSERT_EQ(8, token.getCol());
 }
 
-TEST(ScannerTest, DifferentSpaces) {
+TEST(ScannerTest, DISABLED_DifferentSpaces) {
     char const *folderName = "../src/test/testData/testDifferentSpaces.txt";
     Scanner *scanner = new Scanner(folderName);
 
@@ -429,7 +429,7 @@ TEST(ScannerTest, EOF_Test) {
     ASSERT_EQ(5, token.getCol());
 }
 
-TEST(ScannerTest, StartsWithSpaces) {
+TEST(ScannerTest, DISABLED_StartsWithSpaces) {
     char const *folderName = "../src/test/testData/testStartWithSpaces.txt";
     Scanner *scanner = new Scanner(folderName);
 

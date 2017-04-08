@@ -40,14 +40,6 @@ Token Scanner::nextToken() {
 
     nextToken->setType(symbol);
     setTokenPosition(nextToken);
-    /*
-    char* lexem = "test5";
-    cout << lexem << endl;
-    SymbolItem* itemSymboltable;
-    if(symbol == IDENTIFIER){
-    	itemSymboltable = symboltable->insert(lexem);
-    	symboltable->viewStringTable();
-    }*/
 
     return *nextToken;
 
@@ -71,21 +63,15 @@ void Scanner::setTokenPosition(Token *token) {
     int row = currentPosition->getRow();
     int col = currentPosition->getCol();
 
-    if (firstToken) {
-        firstToken = false;
-        int offset = countSpace < 2 ? 0 : countSpace - 1;
-        currentTokenPosition->setCol(nextTokenPosition->getCol() + offset);
-        currentTokenPosition->setRow(nextTokenPosition->getRow());
-    } else {
-        int offset = countSpace < 2 ? 0 : countSpace - 1;
-        currentTokenPosition->setCol(nextTokenPosition->getCol() + offset);
-        currentTokenPosition->setRow(nextTokenPosition->getRow());
-    }
+    int offset = countSpace < 2 ? 0 : countSpace - 1;
+    currentTokenPosition->setCol(nextTokenPosition->getCol() + offset);
+    currentTokenPosition->setRow(nextTokenPosition->getRow());
+
 
     nextTokenPosition->setCol(col + countSpace - 1);
     nextTokenPosition->setRow(row);
 
-     countSpace = 0;
+    countSpace = 0;
 
     token->setPosition(currentTokenPosition);
 }

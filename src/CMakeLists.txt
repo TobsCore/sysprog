@@ -8,8 +8,6 @@ include_directories(lib/googletest-master/googletest/include)
 include_directories(lib/googletest-master/googlemock/include)
 
 set(SOURCE_FILES
-        main/List/listElement.cpp
-        main/List/listElement.h
         main/Position/Position.cpp
         main/Position/Position.h
 		main/Scanner/Automat/automat.cpp
