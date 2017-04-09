@@ -3,16 +3,18 @@
 #include "Token.h"
 #endif
 
+#include <iostream>
+
 Token::Token() {
     this->type = NEXTCHAR;
     this->position = new Position(1,1);
 }
 
-void Token::setType(Signtype type) {
+void Token::setType(SymbolType type) {
     this->type = type;
 }
 
-Signtype Token::getType() {
+SymbolType Token::getType() {
     return this->type;
 }
 

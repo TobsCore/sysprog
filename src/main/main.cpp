@@ -1,4 +1,4 @@
-#include "Scanner/Scanner/scanner.h"
+#include "Scanner/Scanner/Scanner.h"
 
 int main(int argc, char** argv) {
     if (argc != 2) {

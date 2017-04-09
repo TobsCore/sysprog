@@ -1,13 +1,13 @@
 #ifndef SYMTYPE
 #define SYMTYPE
-#include "../../SymbolType/symboltype.h"
+#include "../../SymbolType/Symboltype.h"
 #endif
 
 class Automat {
 
 public:
 	Automat();
-	Signtype checkExpression(char currentChar);
+	SymbolType checkExpression(char currentChar);
 
 private:
 	int findColumn(char currentChar);
@@ -18,7 +18,7 @@ private:
 
 	typedef struct {
 		int nextState;
-		Signtype returnValue;
+		SymbolType returnValue;
 	} stateElement;
 
 	/* Funktionsweise:

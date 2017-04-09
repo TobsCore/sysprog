@@ -4,7 +4,7 @@
 
 #ifndef AUTOMAT
 #define AUTOMAT
-#include "automat.h"
+#include "Automat.h"
 #endif
 
 int Automat::findColumn(char currentChar) {
@@ -65,7 +65,7 @@ Automat::Automat() {
 
 }
 
-Signtype Automat::checkExpression(char currentChar) {
+SymbolType Automat::checkExpression(char currentChar) {
 	currentState = newState;
 	column = findColumn(currentChar);
 	stateElement state = stateMatrix[currentState][column];

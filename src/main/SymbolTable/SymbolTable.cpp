@@ -12,7 +12,7 @@
 
 using namespace std;
 
-Symboltable::Symboltable() {
+SymbolTable::SymbolTable() {
     for (int i = 0; i < tableSize; i++) {
         this->hashTable[i] = NULL;
     }
@@ -20,13 +20,13 @@ Symboltable::Symboltable() {
 }
 
 
-int Symboltable::hashcode(const char *lexem, int length) {
+int SymbolTable::hashcode(const char *lexem, int length) {
     int hashCode = (16 * lexem[0] + 8 * lexem[length - 1] + length);
     return hashCode % tableSize;
 }
 
 
-SymbolItem *Symboltable::insert(const char *lexem) {
+SymbolItem *SymbolTable::insert(const char *lexem) {
     // Erstelle einen Pointer für das Element
     SymbolItem *ptrItem;
 
@@ -71,12 +71,12 @@ SymbolItem *Symboltable::insert(const char *lexem) {
     return ptrItem;
 }
 
-bool Symboltable::contains(const char *lexem) {
+bool SymbolTable::contains(const char *lexem) {
     SymbolItem *item = lookup(lexem);
     return item != NULL;
 }
 
-SymbolItem *Symboltable::lookup(const char *lexem) {
+SymbolItem *SymbolTable::lookup(const char *lexem) {
     // Erstelle einen Pointer für das Element
     SymbolItem *ptrItem;
 
@@ -99,14 +99,14 @@ SymbolItem *Symboltable::lookup(const char *lexem) {
     return NULL;
 }
 
-void Symboltable::initSymbols() {
+void SymbolTable::initSymbols() {
     for (int i = 0; i < KEYWORDS_COUNT; i++) {
         insert(KEYWORDS[i]);
         insert(toUpper(KEYWORDS[i]));
     }
 }
 
-char *Symboltable::toUpper(const char *s) {
+char *SymbolTable::toUpper(const char *s) {
     int i = 0;
     char *str = strdup(s);
 
@@ -118,43 +118,7 @@ char *Symboltable::toUpper(const char *s) {
     return (str);
 }
 
-/*void Symboltable::view() {
-    for (int i = 0; i < tableSize; i++) {
-        SymbolItem *testItem = hashTable[i];
-        while (testItem != NULL) {
-            cout << "Infocontainer in Hashelement " << testItem << " im Index " << i << endl;
-            testItem->infoContainer.viewInformation();
-
-            cout << "Lexem in Hashelement " << testItem << " im Index " << i << endl;
-            int j = 0;
-            cout << "-------------------------" << endl;
-            cout << "Das Lexem ist: " << endl;
-            while (testItem->lexem[j] != '\0' && j < 5) {
-                cout << testItem->lexem[j];
-                j++;
-            }
-            cout << "\n-------------------------" << endl;
-            testItem = testItem->next;
-        }
-    }
-}*/
-
-/*void Symboltable::viewStringTable() {
-    StringItem *testStringItem = item;
-    while (testStringItem != NULL) {
-        cout << "Inhalt von StringTabelle " << testStringItem << ": ";
-        int j = 0;
-        while (j < 5) {
-            cout << testStringItem->stringMemory[j];
-            j++;
-        }
-        cout << endl;
-        testStringItem = testStringItem->next;
-    }
-}*/
-
-
-Symboltable::~Symboltable() {
+SymbolTable::~SymbolTable() {
     for (int i = 0; i < tableSize; i++) {
         delete hashTable[i];
     }

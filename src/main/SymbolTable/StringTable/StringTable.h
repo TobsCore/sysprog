@@ -22,7 +22,7 @@ private:
      * in der Stringtabelle
      */
     struct StringItem {
-        char stringMemory[stringMemorySize];
+        char *stringMemory = (char*) malloc(stringMemorySize * sizeof(char));
         StringItem *next;
     };
     /*

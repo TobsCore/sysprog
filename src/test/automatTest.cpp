@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-#include "../main/Scanner/Automat/automat.h"
+#include "../main/Scanner/Automat/Automat.h"
 
 using testing::Eq;
 

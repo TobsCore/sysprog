@@ -9,16 +9,16 @@
 #include <cstdlib>
 
 #include "Information.h"
-#include "../SymbolType/symboltype.h"
+#include "../SymbolType/Symboltype.h"
 #include "SymbolItem.h"
-#include "StringTable.h"
+#include "StringTable/StringTable.h"
 
 using namespace std;
 
 #ifndef Symboltable_H_
 #define Symboltable_H_
 
-class Symboltable {
+class SymbolTable {
 private:
     /*
      * Integer-Wert zur Array-Größe
@@ -47,7 +47,7 @@ public:
     /*
      * Konstruktor der Klasse
      */
-    Symboltable();
+    SymbolTable();
 
     /*
      * Ein Informationselement hinzufügen
@@ -85,7 +85,7 @@ public:
     * Gibt belegten Speicher von der Hashtabelle
     * frei
     */
-    virtual ~Symboltable();
+    virtual ~SymbolTable();
 };
 
 

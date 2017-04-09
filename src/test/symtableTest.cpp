@@ -1,13 +1,13 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-#include "../main/Symtab/SymbolTable.h"
+#include "../main/SymbolTable/SymbolTable.h"
 
 using testing::Eq;
 
 TEST(SymtableTest, InsertTest) {
     char const *lexem = "example";
 
-    Symboltable *symboltable = new Symboltable();
+    SymbolTable *symboltable = new SymbolTable();
     SymbolItem *symbolItem;
 
     symbolItem = symboltable->insert(lexem);
@@ -16,7 +16,7 @@ TEST(SymtableTest, InsertTest) {
 }
 
 TEST(SymtableTest, InsertSameSymbolMultipleTimes) {
-    Symboltable *table = new Symboltable();
+    SymbolTable *table = new SymbolTable();
     SymbolItem *key;
 
     key = table->insert("a");
@@ -34,7 +34,7 @@ TEST(SymtableTest, InsertSameSymbolMultipleTimes) {
 }
 
 TEST(SymtableTest, InsertTwoDifferentSymbols) {
-    Symboltable *table = new Symboltable();
+    SymbolTable *table = new SymbolTable();
     SymbolItem *key;
 
     key = table->insert("a");
@@ -45,7 +45,7 @@ TEST(SymtableTest, InsertTwoDifferentSymbols) {
 }
 
 TEST(SymtableTest, ContainsObject) {
-    Symboltable *table = new Symboltable();
+    SymbolTable *table = new SymbolTable();
     SymbolItem *key;
 
     ASSERT_FALSE(table->contains("a"));
@@ -61,7 +61,7 @@ TEST(SymtableTest, ContainsObject) {
 }
 
 TEST(SymtableTest, InitSymbols) {
-    Symboltable *symboltable = new Symboltable();
+    SymbolTable *symboltable = new SymbolTable();
     symboltable->initSymbols();
 
     ASSERT_TRUE(symboltable->contains("if"));
@@ -79,7 +79,7 @@ TEST(SymtableTest, InitSymbols) {
 }
 
 TEST(SymtableTest, InsertAlphabet) {
-    Symboltable *table = new Symboltable();
+    SymbolTable *table = new SymbolTable();
     SymbolItem *key;
 
     const char *val;

@@ -15,12 +15,12 @@
 
 #ifndef AUTOMAT
 #define AUTOMAT
-#include "../Automat/automat.h"
+#include "../Automat/Automat.h"
 #endif
 
 #ifndef SYMBOLTABLE
 #define SYMBOLTABLE
-#include "../../Symtab/SymbolTable.h"
+#include "../../SymbolTable/SymbolTable.h"
 #endif
 
 class Scanner {
@@ -38,11 +38,11 @@ private:
     Position *nextTokenPosition;
     Position *currentTokenPosition;
 
-    Symboltable* symboltable;
+    SymbolTable* symboltable;
 
 
 	void setTokenPosition(Token *token);
-    void setCurrentPosition(char c, Signtype type);
+    void setCurrentPosition(char c, SymbolType type);
 
     bool firstToken;
     int tokenSize;

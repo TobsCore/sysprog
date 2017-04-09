@@ -8,7 +8,7 @@
 #include <iostream>
 #include <cstdlib>
 
-#include "../SymbolType/symboltype.h"
+#include "../SymbolType/Symboltype.h"
 #include "Keyword.h"
 
 using namespace std;
@@ -19,7 +19,7 @@ using namespace std;
 class Information {
 	private:
 
-		Signtype type;
+		SymbolType type;
 		const char* name;
 		Keyword keyword;
 
@@ -31,7 +31,7 @@ class Information {
 		/*
 		 * Konstruktor von der Klasse
 		 */
-		Information(Signtype type, const char* name);
+		Information(SymbolType type, const char* name);
 		/*
 		 * Gibt Name von Informationscontainer aus
 		 */
@@ -43,11 +43,11 @@ class Information {
 		/*
 		 * Gibt Typ von Informationscontainer aus
 		 */
-		Signtype getType();
+		SymbolType getType();
 		/*
 		 * Ändert Typ von Informationscontainer
 		 */
-		void setType(Signtype type2);
+		void setType(SymbolType type2);
 		/*
 		 * Gibt Keyword von Informationscontainer aus
 		 */

@@ -9,7 +9,7 @@
 #include <cstdlib>
 
 #include "Information.h"
-#include "../SymbolType/symboltype.h"
+#include "../SymbolType/Symboltype.h"
 
 
 using namespace std;
@@ -20,7 +20,7 @@ using namespace std;
 		this->keyword = NOKEYWORD;
 	}
 
-	Information::Information(Signtype type, const char* name){
+	Information::Information(SymbolType type, const char* name){
 		this->type = IDENTIFIER;
 		this->name = name;
 		this->keyword = this->isKeyword();
@@ -34,10 +34,10 @@ using namespace std;
 			this->keyword = this->isKeyword();
 		}
 	}
-	Signtype Information::getType(){
+	SymbolType Information::getType(){
 		return this->type;
 	}
-	void Information::setType(Signtype type2){
+	void Information::setType(SymbolType type2){
 		this->type = type2;
 		if(this->name != NULL && this->type != 0){
 			this->keyword = this->isKeyword();

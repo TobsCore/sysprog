@@ -1,8 +1,7 @@
 
 #ifndef SYMTYPE
 #define SYMTYPE
-#include "../SymbolType/symboltype.h"
-#include "../Symtab/SymbolItem.h"
+#include "../SymbolType/Symboltype.h"
 #include "../Position/Position.h"
 #endif
 
@@ -10,8 +9,8 @@ class Token {
 public:
     Token();
     
-    Signtype getType();
-    void setType(Signtype type);
+    SymbolType getType();
+    void setType(SymbolType type);
     
     bool isEOF();
     const char* getTypeString();
@@ -26,7 +25,6 @@ public:
     virtual const char* toString();
 
 protected:
-    Signtype type;
+    SymbolType type;
     Position* position;
-    SymbolItem* itemSymtab;
 };

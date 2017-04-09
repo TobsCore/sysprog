@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-#include "../main/Scanner/Scanner/scanner.h"
+#include "../main/Scanner/Scanner/Scanner.h"
 #include "../main/Token/IdentifierToken.h"
 
 using testing::Eq;

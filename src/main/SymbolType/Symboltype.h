@@ -1,7 +1,7 @@
 #ifndef SYMBOLTYPE_H_
 #define SYMBOLTYPE_H_
 
-enum Signtype {
+enum SymbolType {
 
 	ERROR = -1,             // If error occurs
 	NEXTCHAR = 0,           // Expects the next char

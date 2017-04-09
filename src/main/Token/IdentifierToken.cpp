@@ -1,7 +1,7 @@
 //
 // Created by Tobias Kerst on 08.04.17.
 //
-
+#include <iostream>
 #include "IdentifierToken.h"
 
 IdentifierToken::IdentifierToken() {

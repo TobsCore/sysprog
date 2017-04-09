@@ -1,4 +1,4 @@
-#include "scanner.h"
+#include "Scanner.h"
 #include "../../Token/IdentifierToken.h"
 #include "../../Token/IntegerToken.h"
 
@@ -9,7 +9,7 @@ Scanner::Scanner(char const *filePath) {
     nextTokenPosition = new Position(1, 1);
     currentTokenPosition = new Position(1, 1);
     currentPosition = new Position(1, 1);
-    symboltable = new Symboltable();
+    symboltable = new SymbolTable();
     firstToken = true;
 
 
@@ -27,7 +27,7 @@ Token* Scanner::nextToken() {
         return nextToken;
     }
 
-    Signtype symbol;
+    SymbolType symbol;
     do {
         char nextChar = buffer->getChar();
         symbol = automat->checkExpression(nextChar);
@@ -64,7 +64,7 @@ Token* Scanner::nextToken() {
     return nextToken;
 }
 
-void Scanner::setCurrentPosition(char c, Signtype type) {
+void Scanner::setCurrentPosition(char c, SymbolType type) {
     if (c == ' ' || c == '\t') {
         currentPosition->incCol();
         countSpace += 1;

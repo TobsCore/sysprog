@@ -1,15 +1,14 @@
 //
-// Created by Tobias Kerst on 09.04.17.
+// Created by Holger on 09.04.17.
 //
 
 
 #include <iostream>
 #include "StringTable.h"
-#include "../String/StringOp.h"
+#include "../../String/StringOp.h"
 
 
 StringTable::StringTable() {
-
     this->item = new StringItem;
     this->ptrStringMemory = item->stringMemory;
     this->item->next = NULL;
@@ -57,11 +56,10 @@ char *StringTable::insertString(const char *lexem) {
     int i = 0;
     while (lexem[i] != '\0') {
         ptrStringMemory[i] = lexem[i];
-        counterStringMemory++;
         i++;
     }
     ptrStringMemory[i] = '\0';
-    counterStringMemory++;
+    counterStringMemory += i + 1;
 
     // Rückgabe von der Position des neuen Wortes
     return ptrStringMemory;
