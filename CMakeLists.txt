@@ -21,8 +21,8 @@ set(SOURCE_FILES
         src/main/Symtab/Information.h
         src/main/Symtab/SymbolItem.h
         src/main/Symtab/Keyword.h
-        src/main/Symtab/Symboltable.cpp
-        src/main/Symtab/Symboltable.h
+        src/main/Symtab/SymbolTable.cpp
+        src/main/Symtab/SymbolTable.h
         src/main/Token/Token.cpp
         src/main/Token/Token.h
         src/main/Token/IdentifierToken.cpp
@@ -36,7 +36,9 @@ set(SOURCE_TEST
         src/test/tokenTest.cpp
         src/test/scannerTest.cpp
         src/test/bufferTest.cpp
-        src/test/symtableTest.cpp)
+        src/test/symtableTest.cpp
+        src/main/Symtab/StringTable.cpp
+        src/main/Symtab/StringTable.h src/main/String/StringOp.cpp src/main/String/StringOp.h)
 
 add_executable(sysprogMain src/main/main.cpp ${SOURCE_FILES})
 add_executable(unitTests src/test/main.cpp ${SOURCE_FILES} ${SOURCE_TEST})

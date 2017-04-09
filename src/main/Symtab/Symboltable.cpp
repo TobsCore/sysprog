@@ -6,10 +6,9 @@
  */
 
 
-#include <iostream>
-
-#include "Symboltable.h"
+#include "SymbolTable.h"
 #include "Keywords.h"
+#include "../String/StringOp.h"
 
 using namespace std;
 
@@ -17,32 +16,7 @@ Symboltable::Symboltable() {
     for (int i = 0; i < tableSize; i++) {
         this->hashTable[i] = NULL;
     }
-    this->stringTable = new StringItem;
-    this->ptrStringMemory = stringTable->stringMemory;
-    this->stringTable->next = NULL;
-    this->counterStringMemory = 0;
-}
-
-
-int Symboltable::length(const char *lexem) {
-    int i = 0;
-    while (lexem[i] != '\0') {
-        i++;
-    }
-    return i;
-}
-
-
-bool Symboltable::compare(const char *lexem1, const char *lexem2) {
-    int i = 0;
-    while (lexem1[i] != '\0') {
-        if (lexem1[i] != lexem2[i]) {
-            return false;
-        }
-        i++;
-    }
-
-    return lexem2[i] == '\0';
+    this->stringTable = new StringTable();
 }
 
 
@@ -58,7 +32,7 @@ SymbolItem *Symboltable::insert(const char *lexem) {
 
     // Berechne die Hashadresse, an der das neue Element
     // gespeichert wird
-    int lexemLength = length(lexem);
+    int lexemLength = StringOp::length(lexem);
     int hashAdress = hashcode(lexem, lexemLength);
 
     // Pointer zeigt auf die errechnete Hashadresse
@@ -68,7 +42,7 @@ SymbolItem *Symboltable::insert(const char *lexem) {
     // Suche freien Platz auf der errechnete Hashadresse
     // und schaue ob das Element schon gibt
     while (ptrItem != NULL) {
-        if (compare(ptrItem->lexem, lexem)) {
+        if (StringOp::compare(ptrItem->lexem, lexem)) {
             //cout << "Das Element gibt es schon!" << endl;
             return ptrItem;
         }
@@ -87,7 +61,7 @@ SymbolItem *Symboltable::insert(const char *lexem) {
 
     // Fügt ale Werte in das neues Element ein
     ptrItem->infoContainer.setName(lexem);
-    ptrItem->lexem = insertStringTable(lexem);
+    ptrItem->lexem = stringTable->insertString(lexem);
 
     // Fügt neues Element in die Hashtabelle ein
     ptrItem->next = hashTable[hashAdress];
@@ -95,57 +69,6 @@ SymbolItem *Symboltable::insert(const char *lexem) {
     //delete ptrItem;
 
     return ptrItem;
-}
-
-char *Symboltable::insertStringTable(const char *lexem) {
-    // Erstelle ein Pointer auf Stringtabelle und gehe
-    // zum letzten Element
-    StringItem *ptrStringItem = stringTable;
-    while (ptrStringItem->next != NULL) {
-        ptrStringItem = ptrStringItem->next;
-    }
-
-    // Findet vor dem einfügen heraus, ob
-    // ein neues Element angelegt werden muss
-    int length = this->length(lexem);
-    if ((length + counterStringMemory) >= tableSize) {
-
-        // Speicher für neues Element bereitstellen
-        // und ausgeben wenn es keinen mehr gibt
-        StringItem *newStringItem = (StringItem *) malloc(sizeof(StringItem *));
-        if (newStringItem == NULL) {
-            cout << "Kein Speicher für neues Element vorhanden" << endl;
-            return NULL;
-        }
-        // Neues Element bekommt Werte und wird
-        // an Stringtabelle hinzugefügt
-        newStringItem->next = NULL;
-        stringTable->next = newStringItem;
-
-        // Zähler und Pointer werden auf das
-        // neue Element angepasst
-        counterStringMemory = 0;
-        ptrStringMemory = newStringItem->stringMemory;
-    }
-
-    // Pointer von String wird auf die nächste
-    // freie Stelle geführt, um das neue Lexem
-    // zu speichern
-    ptrStringMemory = &(ptrStringMemory[counterStringMemory]);
-
-    // Lexem wird in String hinzugefügt und Zähler
-    // wird aktualisiert
-    int i = 0;
-    while (lexem[i] != '\0') {
-        ptrStringMemory[i] = lexem[i];
-        counterStringMemory++;
-        i++;
-    }
-    ptrStringMemory[i] = '\0';
-    counterStringMemory++;
-
-    // Rückgabe von der Position des neuen Wortes
-    return ptrStringMemory;
 }
 
 bool Symboltable::contains(const char *lexem) {
@@ -159,7 +82,7 @@ SymbolItem *Symboltable::lookup(const char *lexem) {
 
     // Berechne die Hashadresse, wo das Element
     // gespeichert wurde
-    int lexemLength = length(lexem);
+    int lexemLength = StringOp::length(lexem);
     int hashAdress = hashcode(lexem, lexemLength);
 
     // Pointer zeigt auf die errechnete Hashadresse
@@ -168,8 +91,7 @@ SymbolItem *Symboltable::lookup(const char *lexem) {
 
     // Suche Element auf der errechnete Hashadresse
     while (ptrItem != NULL) {
-        if (compare(ptrItem->lexem, lexem)) {
-            int j = 0;
+        if (StringOp::compare(ptrItem->lexem, lexem)) {
             return ptrItem;
         }
         ptrItem = ptrItem->next;
@@ -184,13 +106,11 @@ void Symboltable::initSymbols() {
     }
 }
 
-char *Symboltable::toUpper(const char *s)
-{
+char *Symboltable::toUpper(const char *s) {
     int i = 0;
-    char    *str = strdup(s);
+    char *str = strdup(s);
 
-    while (str[i])
-    {
+    while (str[i]) {
         if (str[i] >= 97 && str[i] <= 122)
             str[i] -= 32;
         i++;
@@ -220,7 +140,7 @@ char *Symboltable::toUpper(const char *s)
 }*/
 
 /*void Symboltable::viewStringTable() {
-    StringItem *testStringItem = stringTable;
+    StringItem *testStringItem = item;
     while (testStringItem != NULL) {
         cout << "Inhalt von StringTabelle " << testStringItem << ": ";
         int j = 0;

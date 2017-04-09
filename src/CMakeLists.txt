@@ -21,21 +21,24 @@ set(SOURCE_FILES
         main/Symtab/Information.h
         main/Symtab/SymbolItem.h
         main/Symtab/Keyword.h
-        main/Symtab/Symboltable.cpp
-        main/Symtab/Symboltable.h
+        main/Symtab/SymbolTable.cpp
+        main/Symtab/SymbolTable.h
         main/Token/Token.cpp
         main/Token/Token.h
         main/Token/IdentifierToken.cpp
         main/Token/IdentifierToken.h
         main/Token/IntegerToken.cpp
-        main/Token/IntegerToken.h)
+        main/Token/IntegerToken.h
+        main/Symtab/Keywords.h)
 
 set(SOURCE_TEST
         test/automatTest.cpp
         test/tokenTest.cpp
         test/scannerTest.cpp
         test/bufferTest.cpp
-        test/symtableTest.cpp)
+        test/symtableTest.cpp
+        main/Symtab/StringTable.cpp
+        main/Symtab/StringTable.h)
 
 add_executable(sysprogMain main/main.cpp ${SOURCE_FILES})
 add_executable(unitTests test/main.cpp ${SOURCE_FILES} ${SOURCE_TEST})

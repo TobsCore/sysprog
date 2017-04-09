@@ -20,7 +20,7 @@
 
 #ifndef SYMBOLTABLE
 #define SYMBOLTABLE
-#include "../../Symtab/Symboltable.h"
+#include "../../Symtab/SymbolTable.h"
 #endif
 
 class Scanner {

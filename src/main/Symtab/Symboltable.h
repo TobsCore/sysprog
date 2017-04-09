@@ -11,6 +11,7 @@
 #include "Information.h"
 #include "../SymbolType/symboltype.h"
 #include "SymbolItem.h"
+#include "StringTable.h"
 
 using namespace std;
 
@@ -23,53 +24,13 @@ private:
      * Integer-Wert zur Array-Größe
      */
     static const int tableSize = 1024;
-
-    /**
-     * Size of the string buffer.
-     */
-    static const int stringMemorySize = 10000;
     /*
      * Die Hashtabelle, die für die
      * verkettete Liste verwendet wird
      */
     SymbolItem *hashTable[tableSize];
-    /*
-     * Struktur von einem Element
-     * in der Stringtabelle
-     */
-    struct StringItem {
-        char stringMemory[stringMemorySize];
-        StringItem *next;
-    };
-    /*
-     * Aufrufbares Element der Stringtabelle
-     */
-    StringItem *stringTable;
-    /*
-     * Pointer für die Stringspeicher
-     */
-    char *ptrStringMemory;
-    /*
-     * Counter, um zu sehen wieviel
-     * im Stringspeicher schon belegt ist
-     */
-    int counterStringMemory;
 
-    /*
-     * Gibt die Länge eines Wortes zurück
-     */
-    int length(const char *lexem);
-
-    /*
-     * Vergleiche Lexem mit gespeicherten
-     * Wort im Element
-     */
-    bool compare(const char *lexem1, const char *lexem2);
-
-    /*
-     * Wert in Stringtabelle einfügen
-     */
-    char *insertStringTable(const char *lexem);
+    StringTable *stringTable;
 
     /*
      * Erzeugt eine Adresse, wo der

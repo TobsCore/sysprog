@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-#include "../main/Symtab/Symboltable.h"
+#include "../main/Symtab/SymbolTable.h"
 
 using testing::Eq;
 
