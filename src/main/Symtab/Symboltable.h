@@ -27,7 +27,7 @@ private:
     /**
      * Size of the string buffer.
      */
-    static const int stringMemorySize = 50;
+    static const int stringMemorySize = 10000;
     /*
      * Die Hashtabelle, die für die
      * verkettete Liste verwendet wird
@@ -54,11 +54,6 @@ private:
      * im Stringspeicher schon belegt ist
      */
     int counterStringMemory;
-public:
-    /*
-     * Konstruktor der Klasse
-     */
-    Symboltable();
 
     /*
      * Gibt die Länge eines Wortes zurück
@@ -72,10 +67,26 @@ public:
     bool compare(const char *lexem1, const char *lexem2);
 
     /*
+     * Wert in Stringtabelle einfügen
+     */
+    char *insertStringTable(const char *lexem);
+
+    /*
      * Erzeugt eine Adresse, wo der
      * das Element gespeichert wird.
      */
     int hashcode(const char *lexem, int length);
+
+    /*
+     * Creates a string, that has only upper characters.
+     */
+    char *toUpper(const char *s);
+
+public:
+    /*
+     * Konstruktor der Klasse
+     */
+    Symboltable();
 
     /*
      * Ein Informationselement hinzufügen
@@ -83,20 +94,26 @@ public:
     SymbolItem *insert(const char *lexem);
 
     /*
-     * Wert in Stringtabelle einfügen
+     * Vorbelegung der Symboltabelle durch Keywords.
      */
-    char *insertStringTable(const char *lexem);
+    void initSymbols();
 
     /*
      * Suche nach dem Lexem in der Hashtabelle
      * und gibt Wert aus
      */
-    SymbolItem *search(const char *lexem);
+    SymbolItem *lookup(const char *lexem);
+
+
+    /*
+     * Checks, whether the given lexem is already in the symboltable.
+     */
+    bool contains(const char *lexem);
 
     /*
      *
-     */
     void view();
+     */
 
     /*
      * Ausgabe was in der Stringtabelle steht

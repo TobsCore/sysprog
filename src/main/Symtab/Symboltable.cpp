@@ -9,6 +9,7 @@
 #include <iostream>
 
 #include "Symboltable.h"
+#include "Keywords.h"
 
 using namespace std;
 
@@ -41,17 +42,13 @@ bool Symboltable::compare(const char *lexem1, const char *lexem2) {
         i++;
     }
 
-    if (lexem2[i] != '\0') {
-        return false;
-    }
-    return true;
+    return lexem2[i] == '\0';
 }
 
 
 int Symboltable::hashcode(const char *lexem, int length) {
     int hashCode = (16 * lexem[0] + 8 * lexem[length - 1] + length);
     return hashCode % tableSize;
-
 }
 
 
@@ -151,7 +148,12 @@ char *Symboltable::insertStringTable(const char *lexem) {
     return ptrStringMemory;
 }
 
-SymbolItem *Symboltable::search(const char *lexem) {
+bool Symboltable::contains(const char *lexem) {
+    SymbolItem *item = lookup(lexem);
+    return item != NULL;
+}
+
+SymbolItem *Symboltable::lookup(const char *lexem) {
     // Erstelle einen Pointer für das Element
     SymbolItem *ptrItem;
 
@@ -159,7 +161,6 @@ SymbolItem *Symboltable::search(const char *lexem) {
     // gespeichert wurde
     int lexemLength = length(lexem);
     int hashAdress = hashcode(lexem, lexemLength);
-    cout << "Suche in Hashadresse : " << hashAdress << endl;
 
     // Pointer zeigt auf die errechnete Hashadresse
     // in der Hashtabelle
@@ -168,28 +169,36 @@ SymbolItem *Symboltable::search(const char *lexem) {
     // Suche Element auf der errechnete Hashadresse
     while (ptrItem != NULL) {
         if (compare(ptrItem->lexem, lexem)) {
-            cout << "---------------------------" << endl;
-            cout << "Das Element gibt es unter Hashadresse " << hashAdress << endl;
-            cout << "Hashelement: " << ptrItem << endl;
-            cout << "Type: " << ptrItem->infoContainer.getType() << endl;
-            cout << "Name: " << ptrItem->infoContainer.getName() << endl;
-            cout << "Keyword: " << ptrItem->infoContainer.getKeyword() << endl;
             int j = 0;
-            cout << "Lexem: ";
-            while (ptrItem->lexem[j] != '\0' && j < 5) {
-                cout << ptrItem->lexem[j];
-                j++;
-            }
             return ptrItem;
         }
         ptrItem = ptrItem->next;
     }
     return NULL;
-
 }
 
+void Symboltable::initSymbols() {
+    for (int i = 0; i < KEYWORDS_COUNT; i++) {
+        insert(KEYWORDS[i]);
+        insert(toUpper(KEYWORDS[i]));
+    }
+}
 
-void Symboltable::view() {
+char *Symboltable::toUpper(const char *s)
+{
+    int i = 0;
+    char    *str = strdup(s);
+
+    while (str[i])
+    {
+        if (str[i] >= 97 && str[i] <= 122)
+            str[i] -= 32;
+        i++;
+    }
+    return (str);
+}
+
+/*void Symboltable::view() {
     for (int i = 0; i < tableSize; i++) {
         SymbolItem *testItem = hashTable[i];
         while (testItem != NULL) {
@@ -208,7 +217,7 @@ void Symboltable::view() {
             testItem = testItem->next;
         }
     }
-}
+}*/
 
 /*void Symboltable::viewStringTable() {
     StringItem *testStringItem = stringTable;

@@ -28,7 +28,8 @@ set(SOURCE_FILES
         src/main/Token/IdentifierToken.cpp
         src/main/Token/IdentifierToken.h
         src/main/Token/IntegerToken.cpp
-        src/main/Token/IntegerToken.h)
+        src/main/Token/IntegerToken.h
+        src/main/Symtab/Keywords.h)
 
 set(SOURCE_TEST
         src/test/automatTest.cpp

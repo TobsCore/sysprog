@@ -44,6 +44,40 @@ TEST(SymtableTest, InsertTwoDifferentSymbols) {
     ASSERT_STREQ("b", key->lexem);
 }
 
+TEST(SymtableTest, ContainsObject) {
+    Symboltable *table = new Symboltable();
+    SymbolItem *key;
+
+    ASSERT_FALSE(table->contains("a"));
+    key = table->insert("a");
+    ASSERT_STREQ("a", key->lexem);
+    ASSERT_TRUE(table->contains("a"));
+
+
+    ASSERT_FALSE(table->contains("b"));
+    key = table->insert("b");
+    ASSERT_STREQ("b", key->lexem);
+    ASSERT_TRUE(table->contains("b"));
+}
+
+TEST(SymtableTest, InitSymbols) {
+    Symboltable *symboltable = new Symboltable();
+    symboltable->initSymbols();
+
+    ASSERT_TRUE(symboltable->contains("if"));
+    ASSERT_TRUE(symboltable->contains("IF"));
+    ASSERT_FALSE(symboltable->contains("If"));
+    ASSERT_FALSE(symboltable->contains("iF"));
+
+
+    ASSERT_TRUE(symboltable->contains("while"));
+    ASSERT_TRUE(symboltable->contains("WHILE"));
+
+    ASSERT_TRUE(symboltable->contains("for"));
+    ASSERT_TRUE(symboltable->contains("int"));
+    ASSERT_TRUE(symboltable->contains("string"));
+}
+
 TEST(SymtableTest, InsertAlphabet) {
     Symboltable *table = new Symboltable();
     SymbolItem *key;
