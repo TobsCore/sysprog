@@ -7,9 +7,11 @@
 #include "StringTable.h"
 #include "../../String/StringOp.h"
 
+using namespace std;
 
 StringTable::StringTable() {
     this->item = new StringItem;
+    this->item->stringMemory = (char*) malloc(stringMemorySize * sizeof(char));
     this->ptrStringMemory = item->stringMemory;
     this->item->next = NULL;
     this->counterStringMemory = 0;
@@ -26,24 +28,38 @@ char *StringTable::insertString(const char *lexem) {
     // Findet vor dem einfügen heraus, ob
     // ein neues Element angelegt werden muss
     int length = StringOp::length(lexem);
-    if ((length + counterStringMemory) >= stringMemorySize) {
+
+    // Abfangen von Wörter die größer als
+    // der Stringmemory ist
+    if (length > stringMemorySize){
+    	return NULL;
+    }
+    // ... ansonsten wenn Länge des Lexem größer ist als die
+    // StringMemory, dann eine neue StringMemory erstellen
+    else if ((length + counterStringMemory) > stringMemorySize) {
 
         // Speicher für neues Element bereitstellen
         // und ausgeben wenn es keinen mehr gibt
         StringItem *newStringItem = (StringItem *) malloc(sizeof(StringItem *));
         if (newStringItem == NULL) {
-            //cout << "Kein Speicher für neues Element vorhanden" << endl;
+        	// Kein Speicher für neues Element vorhanden
             return NULL;
         }
         // Neues Element bekommt Werte und wird
-        // an Stringtabelle hinzugefügt
+        // an Stringtabelle verknüpft
+        newStringItem->stringMemory = (char*) malloc(stringMemorySize * sizeof(char));
+        if (newStringItem->stringMemory == NULL) {
+			// Kein Speicher für neues Element vorhanden
+			return NULL;
+        }
         newStringItem->next = NULL;
-        item->next = newStringItem;
+        ptrStringItem->next = newStringItem;
 
         // Zähler und Pointer werden auf das
         // neue Element angepasst
         counterStringMemory = 0;
         ptrStringMemory = newStringItem->stringMemory;
+        ptrStringItem = newStringItem;
     }
 
     // Pointer von String wird auf die nächste

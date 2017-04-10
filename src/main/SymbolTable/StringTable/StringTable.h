@@ -12,7 +12,7 @@ private:
     /*
      * Size of the string buffer.
      */
-    static const int stringMemorySize = 10000;
+    static const int stringMemorySize = 100;
     /*
      * Pointer für die Stringspeicher
      */
@@ -22,7 +22,7 @@ private:
      * in der Stringtabelle
      */
     struct StringItem {
-        char *stringMemory = (char*) malloc(stringMemorySize * sizeof(char));
+        char *stringMemory;
         StringItem *next;
     };
     /*

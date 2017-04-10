@@ -37,11 +37,14 @@ TEST(SymtableTest, InsertTwoDifferentSymbols) {
     SymbolTable *table = new SymbolTable();
     SymbolItem *key;
 
-    key = table->insert("a");
-    ASSERT_STREQ("a", key->lexem);
+    key = table->insert("example1");
+    ASSERT_STREQ("example1", key->lexem);
 
-    key = table->insert("b");
-    ASSERT_STREQ("b", key->lexem);
+    key = table->insert("example2");
+    ASSERT_STREQ("example2", key->lexem);
+
+    key = table->insert("example3");
+    ASSERT_STREQ("example3", key->lexem);
 }
 
 TEST(SymtableTest, ContainsObject) {

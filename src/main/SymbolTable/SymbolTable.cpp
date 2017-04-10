@@ -54,7 +54,7 @@ SymbolItem *SymbolTable::insert(const char *lexem) {
     ptrItem = (SymbolItem *) malloc(sizeof(SymbolItem) + sizeof(Information));
 
     if (ptrItem == NULL) {
-        cout << "Kein Speicher für neues Element vorhanden" << endl;
+        // cout << "Kein Speicher für neues Element vorhanden" << endl;
         return NULL;
     }
 
@@ -68,6 +68,7 @@ SymbolItem *SymbolTable::insert(const char *lexem) {
     hashTable[hashAdress] = ptrItem;
     //delete ptrItem;
 
+    cout << "insert: Lexem = " << hashTable[hashAdress]->lexem << " auf der Hashadresse " << hashAdress << endl;
     return ptrItem;
 }
 
