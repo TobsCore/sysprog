@@ -19,6 +19,16 @@ public:
      */
     static bool compare(const char *lexem1, const char *lexem2);
 
+    /*
+     * Returns a string, which is all uppercase.
+     */
+    static char* toUpper(const char *source);
+
+
+    static char * strdup(const char *source);
+
+
+    static char * strcpy(char *destination, const char *source);
 };
 
 

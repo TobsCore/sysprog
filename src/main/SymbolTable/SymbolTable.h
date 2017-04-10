@@ -5,9 +5,6 @@
  *      Author: holger
  */
 
-#include <iostream>
-#include <cstdlib>
-
 #include "Information.h"
 #include "../SymbolType/Symboltype.h"
 #include "SymbolItem.h"
@@ -37,11 +34,6 @@ private:
      * das Element gespeichert wird.
      */
     int hashcode(const char *lexem, int length);
-
-    /*
-     * Creates a string, that has only upper characters.
-     */
-    char *toUpper(const char *s);
 
 public:
     /*

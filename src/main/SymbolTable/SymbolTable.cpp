@@ -102,20 +102,8 @@ SymbolItem *SymbolTable::lookup(const char *lexem) {
 void SymbolTable::initSymbols() {
     for (int i = 0; i < KEYWORDS_COUNT; i++) {
         insert(KEYWORDS[i]);
-        insert(toUpper(KEYWORDS[i]));
+        insert(StringOp::toUpper(KEYWORDS[i]));
     }
-}
-
-char *SymbolTable::toUpper(const char *s) {
-    int i = 0;
-    char *str = strdup(s);
-
-    while (str[i]) {
-        if (str[i] >= 97 && str[i] <= 122)
-            str[i] -= 32;
-        i++;
-    }
-    return (str);
 }
 
 SymbolTable::~SymbolTable() {
