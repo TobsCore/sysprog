@@ -120,6 +120,8 @@ SymbolItem *SymbolTable::lookup(const char *lexem) {
 void SymbolTable::initSymbols() {
     for (int i = 0; i < KEYWORDS_COUNT; i++) {
         insert(KEYWORDS[i]);
-        insert(StringOp::toUpper(KEYWORDS[i]));
+        char* upper = StringOp::toUpper(KEYWORDS[i]);
+        insert(upper);
+        free(upper);
     }
 }
