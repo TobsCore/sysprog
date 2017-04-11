@@ -40,7 +40,7 @@ char *StringTable::insertString(const char *lexem) {
 
         // Speicher für neues Element bereitstellen
         // und ausgeben wenn es keinen mehr gibt
-        StringItem *newStringItem = (StringItem *) malloc(sizeof(struct StringItem) - sizeof(char *));
+        StringItem *newStringItem = new StringItem;
         if (newStringItem == NULL) {
             // Kein Speicher für neues Element vorhanden
             return NULL;
