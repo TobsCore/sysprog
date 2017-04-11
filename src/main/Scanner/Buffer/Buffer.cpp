@@ -3,9 +3,6 @@
 Buffer::Buffer(const char *source) {
     bufferLength = chunkSize;
 
-    leftBuffer = new char[bufferLength + 1];
-    rightBuffer = new char[bufferLength + 1];
-
 //Speicher für leftBuffer und rightBuffer holen.
     posix_memalign((void **) &(this->leftBuffer), chunkSize, bufferLength);
     posix_memalign((void **) &(this->rightBuffer), chunkSize, bufferLength);
@@ -27,8 +24,8 @@ Buffer::Buffer(const char *source) {
 }
 
 Buffer::~Buffer() {
-    delete leftBuffer;
-    delete rightBuffer;
+    free(leftBuffer);
+    free(rightBuffer);
 }
 
 char Buffer::getChar() {

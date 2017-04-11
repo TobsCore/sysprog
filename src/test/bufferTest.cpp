@@ -9,6 +9,8 @@ TEST(BufferTest, testEmptyFile) {
     ASSERT_TRUE(buffer->hasNext());
     ASSERT_EQ(0, buffer->getChar());
     ASSERT_FALSE(buffer->hasNext());
+
+    delete buffer;
 }
 
 TEST(BufferTest, testReadingSomeCharacters) {
@@ -30,6 +32,7 @@ TEST(BufferTest, testReadingSomeCharacters) {
     ASSERT_EQ('1', buffer->getChar());
     ASSERT_EQ('2', buffer->getChar());
     ASSERT_EQ('3', buffer->getChar());
+    delete buffer;
 }
 
 
@@ -42,6 +45,8 @@ TEST(BufferTest, testLongFileWithLoopSmallChunk) {
         char charVal = (i % 10) + 48;
         ASSERT_EQ(charVal, buffer->getChar());
     }
+
+    delete buffer;
 }
 
 TEST(BufferTest, testLongFileWithLoopSwitchOnce) {
@@ -53,6 +58,7 @@ TEST(BufferTest, testLongFileWithLoopSwitchOnce) {
         char charVal = (i % 10) + 48;
         ASSERT_EQ(charVal, buffer->getChar());
     }
+    delete buffer;
 }
 
 TEST(BufferTest, testLongFileWithLoopSwitchOften) {
@@ -64,6 +70,7 @@ TEST(BufferTest, testLongFileWithLoopSwitchOften) {
         char charVal = (i % 10) + 48;
         ASSERT_EQ(charVal, buffer->getChar());
     }
+    delete buffer;
 }
 
 TEST(BufferTest, testLongFileDifferentCharsAfterBufferExceeded) {
@@ -81,6 +88,7 @@ TEST(BufferTest, testLongFileDifferentCharsAfterBufferExceeded) {
     ASSERT_EQ('d', buffer->getChar());
     ASSERT_EQ('e', buffer->getChar());
     ASSERT_EQ('f', buffer->getChar());
+    delete buffer;
 }
 
 TEST(BufferTest, simpleUngetChar0) {
@@ -92,6 +100,7 @@ TEST(BufferTest, simpleUngetChar0) {
     buffer->ungetChar(0);
     ASSERT_EQ('2', buffer->getChar());
     ASSERT_EQ('3', buffer->getChar());
+    delete buffer;
 }
 
 TEST(BufferTest, simpleUngetChar1) {
@@ -103,6 +112,7 @@ TEST(BufferTest, simpleUngetChar1) {
     buffer->ungetChar(1);
     ASSERT_EQ('1', buffer->getChar());
     ASSERT_EQ('2', buffer->getChar());
+    delete buffer;
 }
 
 TEST(BufferTest, simpleUngetCharToBeginning) {
@@ -117,6 +127,7 @@ TEST(BufferTest, simpleUngetCharToBeginning) {
     buffer->ungetChar(2);
     ASSERT_EQ('0', buffer->getChar());
     ASSERT_EQ('1', buffer->getChar());
+    delete buffer;
 }
 
 TEST(BufferTest, simpleUngetCharBy0AtBeginning) {
@@ -127,6 +138,7 @@ TEST(BufferTest, simpleUngetCharBy0AtBeginning) {
     ASSERT_EQ('0', buffer->getChar());
     ASSERT_EQ('1', buffer->getChar());
     ASSERT_EQ('2', buffer->getChar());
+    delete buffer;
 }
 
 TEST(BufferTest, testUngetCharForRightBuffer0) {
@@ -140,6 +152,7 @@ TEST(BufferTest, testUngetCharForRightBuffer0) {
     buffer->ungetChar(0);
     ASSERT_EQ('0', buffer->getChar());
     ASSERT_EQ('1', buffer->getChar());
+    delete buffer;
 }
 
 TEST(BufferTest, testUngetCharForRightBuffer1) {
@@ -153,6 +166,7 @@ TEST(BufferTest, testUngetCharForRightBuffer1) {
     buffer->ungetChar(1);
     ASSERT_EQ('9', buffer->getChar());
     ASSERT_EQ('0', buffer->getChar());
+    delete buffer;
 }
 
 TEST(BufferTest, testUngetCharForRightBufferToBeginningOfRightBuffer) {
@@ -166,6 +180,7 @@ TEST(BufferTest, testUngetCharForRightBufferToBeginningOfRightBuffer) {
     buffer->ungetChar(6);
     ASSERT_EQ('4', buffer->getChar());
     ASSERT_EQ('5', buffer->getChar());
+    delete buffer;
 }
 
 TEST(BufferTest, testUngetCharFromRightBufferToLeftBuffer) {
@@ -179,6 +194,7 @@ TEST(BufferTest, testUngetCharFromRightBufferToLeftBuffer) {
     buffer->ungetChar(7);
     ASSERT_EQ('3', buffer->getChar());
     ASSERT_EQ('4', buffer->getChar());
+    delete buffer;
 }
 
 TEST(BufferTest, testUngetCharFromRightBufferToLeftBufferFurther) {
@@ -193,6 +209,7 @@ TEST(BufferTest, testUngetCharFromRightBufferToLeftBufferFurther) {
     ASSERT_EQ('2', buffer->getChar());
     ASSERT_EQ('3', buffer->getChar());
     ASSERT_EQ('4', buffer->getChar());
+    delete buffer;
 }
 
 TEST(BufferTest, testUngetCharFromLeftBufferToRightBuffer) {
@@ -218,4 +235,5 @@ TEST(BufferTest, testUngetCharFromLeftBufferToRightBuffer) {
     ASSERT_EQ('1', buffer->getChar());
     ASSERT_EQ('2', buffer->getChar());
     ASSERT_EQ('3', buffer->getChar());
+    delete buffer;
 }
