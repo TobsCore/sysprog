@@ -20,7 +20,7 @@ private:
     /*
      * Integer-Wert zur Array-Größe
      */
-    static const int tableSize = 1024;
+    static const int tableSize = 4;
     /*
      * Die Hashtabelle, die für die
      * verkettete Liste verwendet wird
@@ -34,6 +34,8 @@ private:
      * das Element gespeichert wird.
      */
     int hashcode(const char *lexem, int length);
+
+    void freeRecursive(SymbolItem *item);
 
 public:
     /*

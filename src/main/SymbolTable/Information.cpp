@@ -115,5 +115,4 @@ bool Information::operator==(Information& infoVergleich){
 	return false;
 }*/
 Information::~Information(){
-	delete name;
 }

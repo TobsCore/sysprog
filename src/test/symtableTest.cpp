@@ -13,6 +13,7 @@ TEST(SymtableTest, InsertTest) {
     symbolItem = symboltable->insert(lexem);
 
     ASSERT_STREQ(lexem, symbolItem->lexem);
+    delete symboltable;
 }
 
 TEST(SymtableTest, InsertSameSymbolMultipleTimes) {
@@ -31,6 +32,7 @@ TEST(SymtableTest, InsertSameSymbolMultipleTimes) {
     ASSERT_EQ(key1, key2);
     ASSERT_STREQ(key1->lexem, key2->lexem);
 
+    delete table;
 }
 
 TEST(SymtableTest, InsertTwoDifferentSymbols) {
@@ -45,6 +47,7 @@ TEST(SymtableTest, InsertTwoDifferentSymbols) {
 
     key = table->insert("example3");
     ASSERT_STREQ("example3", key->lexem);
+    delete table;
 }
 
 TEST(SymtableTest, ContainsObject) {
@@ -61,6 +64,7 @@ TEST(SymtableTest, ContainsObject) {
     key = table->insert("b");
     ASSERT_STREQ("b", key->lexem);
     ASSERT_TRUE(table->contains("b"));
+    delete table;
 }
 
 TEST(SymtableTest, InitSymbols) {
@@ -79,6 +83,7 @@ TEST(SymtableTest, InitSymbols) {
     ASSERT_TRUE(symboltable->contains("for"));
     ASSERT_TRUE(symboltable->contains("int"));
     ASSERT_TRUE(symboltable->contains("string"));
+    delete symboltable;
 }
 
 TEST(SymtableTest, InsertAlphabet) {
@@ -94,4 +99,5 @@ TEST(SymtableTest, InsertAlphabet) {
         key = table->insert(val);
         ASSERT_STREQ(val, key->lexem);
     }
+    delete table;
 }

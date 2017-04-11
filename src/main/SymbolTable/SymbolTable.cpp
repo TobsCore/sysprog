@@ -19,6 +19,23 @@ SymbolTable::SymbolTable() {
     this->stringTable = new StringTable();
 }
 
+SymbolTable::~SymbolTable() {
+
+    delete stringTable;
+
+    for (int i = 0; i < tableSize; i++) {
+    	if (hashTable[i] != NULL) {
+    		freeRecursive(hashTable[i]);
+    	}
+    }
+}
+
+void SymbolTable::freeRecursive(SymbolItem * item) {
+	if (item->next != NULL) {
+		freeRecursive(item->next);
+	}
+	delete item;
+}
 
 int SymbolTable::hashcode(const char *lexem, int length) {
     int hashCode = (16 * lexem[0] + 8 * lexem[length - 1] + length);
@@ -51,7 +68,7 @@ SymbolItem *SymbolTable::insert(const char *lexem) {
 
     // Speicher für neues Element bereitstellen und ausgeben
     // wenn es keinen mehr gibt
-    ptrItem = (SymbolItem *) malloc(sizeof(SymbolItem) + sizeof(Information));
+    ptrItem = new SymbolItem;
 
     if (ptrItem == NULL) {
         // cout << "Kein Speicher für neues Element vorhanden" << endl;
@@ -104,11 +121,5 @@ void SymbolTable::initSymbols() {
     for (int i = 0; i < KEYWORDS_COUNT; i++) {
         insert(KEYWORDS[i]);
         insert(StringOp::toUpper(KEYWORDS[i]));
-    }
-}
-
-SymbolTable::~SymbolTable() {
-    for (int i = 0; i < tableSize; i++) {
-        delete hashTable[i];
     }
 }
