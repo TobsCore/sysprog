@@ -10,6 +10,10 @@ Token::Token() {
     this->position = new Position(1,1);
 }
 
+Token::~Token() {
+	delete position;
+}
+
 void Token::setType(SymbolType type) {
     this->type = type;
 }

@@ -8,6 +8,7 @@
 class Token {
 public:
     Token();
+    virtual ~Token();
     
     SymbolType getType();
     void setType(SymbolType type);

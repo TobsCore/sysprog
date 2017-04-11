@@ -15,6 +15,8 @@ TEST(TokenTest, IntegerToken) {
     ASSERT_EQ(1, testToken->getCol());
     ASSERT_EQ(INTEGER, testToken->getType());
     ASSERT_EQ(0, testToken->getValue());
+
+    delete testToken;
 }
 
 TEST(TokenTest, IdentifierToken) {
@@ -27,6 +29,8 @@ TEST(TokenTest, IdentifierToken) {
     ASSERT_EQ(1, testToken->getCol());
     ASSERT_EQ(IDENTIFIER, testToken->getType());
     ASSERT_STREQ("testVar", testToken->getLexem());
+
+    delete testToken;
 }
 
 TEST(TokenTest, eof) {
@@ -34,4 +38,6 @@ TEST(TokenTest, eof) {
     testToken->setType(FILE_END);
 
     ASSERT_TRUE(testToken->isEOF());
+
+    delete testToken;
 }
