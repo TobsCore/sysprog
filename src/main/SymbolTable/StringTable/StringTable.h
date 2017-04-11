@@ -12,7 +12,7 @@ private:
     /*
      * Size of the strinUg buffer.
      */
-    static const int stringMemorySize = 1000;
+    static const int stringMemorySize = 1024;
     /*
      * Struktur von einem Element
      * in der Stringtabelle

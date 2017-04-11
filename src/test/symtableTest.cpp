@@ -17,19 +17,19 @@ TEST(SymtableTest, InsertTest) {
 
 TEST(SymtableTest, InsertSameSymbolMultipleTimes) {
     SymbolTable *table = new SymbolTable();
-    SymbolItem *key;
+    SymbolItem *key1;
+    SymbolItem *key2;
 
-    key = table->insert("a");
-    ASSERT_STREQ("a", key->lexem);
+    key1 = table->insert("a");
+    ASSERT_STREQ("a", key1->lexem);
 
-    key = table->insert("a");
-    ASSERT_STREQ("a", key->lexem);
+    key2 = table->insert("a");
+    ASSERT_STREQ("a", key2->lexem);
 
-    key = table->insert("a");
-    ASSERT_STREQ("a", key->lexem);
-
-    key = table->insert("a");
-    ASSERT_STREQ("a", key->lexem);
+    //Checks, that they are at the same position. This is important, so the keys aren't placed twice in the symbol
+    // table.
+    ASSERT_EQ(key1, key2);
+    ASSERT_STREQ(key1->lexem, key2->lexem);
 
 }
 
