@@ -28,7 +28,7 @@ TEST(StringTableTest, TenTimesTenCharactersSameString) {
     delete stringTable;
 }
 
-TEST(StringTableTest, LoadTestSameLexem100Characters) {
+TEST(StringTableTest, LoadTestSameLexem10) {
     char const *lexem = "0123456789";
     StringTable *stringTable = new StringTable();
 
@@ -40,7 +40,7 @@ TEST(StringTableTest, LoadTestSameLexem100Characters) {
     delete stringTable;
 }
 
-TEST(StringTableTest, LoadTestSameLexem100Times) {
+TEST(StringTableTest, LoadTestSameLexem100) {
     char const *lexem = "0123456789";
     StringTable *stringTable = new StringTable();
 
@@ -52,19 +52,20 @@ TEST(StringTableTest, LoadTestSameLexem100Times) {
     delete stringTable;
 }
 
-TEST(StringTableTest, LoadTestSameLexem1000Times) {
+TEST(StringTableTest, LoadTestSameLexem1000) {
     char const *lexem = "0123456789";
     StringTable *stringTable = new StringTable();
 
     for (int i = 0; i < 1000; i++) {
         char *insertedString = stringTable->insertString(lexem);
         ASSERT_STREQ(insertedString, lexem);
+
     }
 
     delete stringTable;
 }
 
-TEST(StringTableTest, LoadTestSameLexem100000) {
+TEST(StringTableTest, LoadTestSameLexem10000) {
     char const *lexem = "0123456789";
     StringTable *stringTable = new StringTable();
 
@@ -76,11 +77,11 @@ TEST(StringTableTest, LoadTestSameLexem100000) {
     delete stringTable;
 }
 
-TEST(StringTableTest, LoadTestSameLexem1000000) {
+TEST(StringTableTest, LoadTestSameLexem100000) {
     char const *lexem = "0123456789";
     StringTable *stringTable = new StringTable();
 
-    for (int i = 0; i < 1000000; i++) {
+    for (int i = 0; i < 100000; i++) {
         char *insertedString = stringTable->insertString(lexem);
         ASSERT_STREQ(insertedString, lexem);
     }
@@ -88,13 +89,13 @@ TEST(StringTableTest, LoadTestSameLexem1000000) {
     delete stringTable;
 }
 
-TEST(StringTableTest, LoadAlphabetMultipleTimes) {
+TEST(StringTableTest, LoadAlphabet100000) {
     StringTable *stringTable = new StringTable();
 
     const char *val;
     const char *letter[] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r",
                             "s", "t", "u", "v", "w", "x", "y", "z"};
-    for (int i = 0; i < 1000000; i++) {
+    for (int i = 0; i < 100000; i++) {
         val = letter[i % 26];
         char *insertedString = stringTable->insertString(val);
         ASSERT_STREQ(insertedString, val);
