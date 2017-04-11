@@ -11,7 +11,7 @@ using namespace std;
 
 StringTable::StringTable() {
     this->item = new StringItem;
-    this->item->stringMemory = (char*) malloc(stringMemorySize * sizeof(char));
+    this->item->stringMemory = (char *) malloc(stringMemorySize * sizeof(char));
     this->ptrStringMemory = item->stringMemory;
     this->item->next = NULL;
     this->counterStringMemory = 0;
@@ -27,30 +27,30 @@ char *StringTable::insertString(const char *lexem) {
 
     // Findet vor dem einfügen heraus, ob
     // ein neues Element angelegt werden muss
-    int length = StringOp::length(lexem);
+    int lexemLength = StringOp::length(lexem);
 
     // Abfangen von Wörter die größer als
     // der Stringmemory ist
-    if (length > stringMemorySize){
-    	return NULL;
+    if (lexemLength > stringMemorySize) {
+        return NULL;
     }
-    // ... ansonsten wenn Länge des Lexem größer ist als die
-    // StringMemory, dann eine neue StringMemory erstellen
-    else if ((length + counterStringMemory) > stringMemorySize) {
+        // ... ansonsten wenn Länge des Lexem größer ist als die
+        // StringMemory, dann eine neue StringMemory erstellen
+    else if ((lexemLength + counterStringMemory) > stringMemorySize) {
 
         // Speicher für neues Element bereitstellen
         // und ausgeben wenn es keinen mehr gibt
-        StringItem *newStringItem = (StringItem *) malloc(sizeof(StringItem *));
+        StringItem *newStringItem = (StringItem *) malloc(sizeof(struct StringItem) - sizeof(char *));
         if (newStringItem == NULL) {
-        	// Kein Speicher für neues Element vorhanden
+            // Kein Speicher für neues Element vorhanden
             return NULL;
         }
         // Neues Element bekommt Werte und wird
         // an Stringtabelle verknüpft
-        newStringItem->stringMemory = (char*) malloc(stringMemorySize * sizeof(char));
+        newStringItem->stringMemory = (char *) malloc(stringMemorySize * sizeof(char));
         if (newStringItem->stringMemory == NULL) {
-			// Kein Speicher für neues Element vorhanden
-			return NULL;
+            // Kein Speicher für neues Element vorhanden
+            return NULL;
         }
         newStringItem->next = NULL;
         ptrStringItem->next = newStringItem;
@@ -59,12 +59,12 @@ char *StringTable::insertString(const char *lexem) {
         // neue Element angepasst
         counterStringMemory = 0;
         ptrStringMemory = newStringItem->stringMemory;
-        ptrStringItem = newStringItem;
     }
 
     // Pointer von String wird auf die nächste
     // freie Stelle geführt, um das neue Lexem
     // zu speichern
+
     ptrStringMemory = &(ptrStringMemory[counterStringMemory]);
 
     // Lexem wird in String hinzugefügt und Zähler
@@ -77,6 +77,20 @@ char *StringTable::insertString(const char *lexem) {
     ptrStringMemory[i] = '\0';
     counterStringMemory += i + 1;
 
-    // Rückgabe von der Position des neuen Wortes
+    // Rückgabe der Position des neuen Wortes
     return ptrStringMemory;
+}
+
+
+StringTable::~StringTable() {
+    freeRecursive(item);
+    delete item;
+}
+
+void StringTable::freeRecursive(StringItem *item) {
+    if (item->next != NULL) {
+        freeRecursive(item->next);
+        delete (item->next);
+    }
+    free(item->stringMemory);
 }

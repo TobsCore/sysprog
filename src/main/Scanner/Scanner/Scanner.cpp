@@ -94,6 +94,10 @@ void Scanner::setTokenPosition(Token *token) {
     token->setPosition(currentTokenPosition);
 }
 
+Scanner::~Scanner() {
+//TODO: Implement this
+}
+
 
 /*
 

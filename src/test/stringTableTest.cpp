@@ -9,9 +9,11 @@ TEST(StringTableTest, SimpleInsertTest) {
     char const *lexem = "example";
     StringTable *stringTable = new StringTable();
 
-    char* insertedString = stringTable->insertString(lexem);
+    char *insertedString = stringTable->insertString(lexem);
 
     ASSERT_STREQ(insertedString, lexem);
+
+    delete stringTable;
 }
 
 TEST(StringTableTest, TenTimesTenCharactersSameString) {
@@ -22,6 +24,8 @@ TEST(StringTableTest, TenTimesTenCharactersSameString) {
         char *insertedString = stringTable->insertString(lexem);
         ASSERT_STREQ(insertedString, lexem);
     }
+
+    delete stringTable;
 }
 
 TEST(StringTableTest, LoadTestSameLexem100Characters) {
@@ -32,9 +36,11 @@ TEST(StringTableTest, LoadTestSameLexem100Characters) {
         char *insertedString = stringTable->insertString(lexem);
         ASSERT_STREQ(insertedString, lexem);
     }
+
+    delete stringTable;
 }
 
-TEST(StringTableTest, LoadTestSameLexem1000Characters) {
+TEST(StringTableTest, LoadTestSameLexem100Times) {
     char const *lexem = "0123456789";
     StringTable *stringTable = new StringTable();
 
@@ -42,9 +48,11 @@ TEST(StringTableTest, LoadTestSameLexem1000Characters) {
         char *insertedString = stringTable->insertString(lexem);
         ASSERT_STREQ(insertedString, lexem);
     }
+
+    delete stringTable;
 }
 
-TEST(StringTableTest, LoadTestSameLexem10000Characters) {
+TEST(StringTableTest, LoadTestSameLexem1000Times) {
     char const *lexem = "0123456789";
     StringTable *stringTable = new StringTable();
 
@@ -52,6 +60,8 @@ TEST(StringTableTest, LoadTestSameLexem10000Characters) {
         char *insertedString = stringTable->insertString(lexem);
         ASSERT_STREQ(insertedString, lexem);
     }
+
+    delete stringTable;
 }
 
 TEST(StringTableTest, LoadTestSameLexem100000) {
@@ -62,4 +72,54 @@ TEST(StringTableTest, LoadTestSameLexem100000) {
         char *insertedString = stringTable->insertString(lexem);
         ASSERT_STREQ(insertedString, lexem);
     }
+
+    delete stringTable;
+}
+
+TEST(StringTableTest, LoadTestSameLexem1000000) {
+    char const *lexem = "0123456789";
+    StringTable *stringTable = new StringTable();
+
+    for (int i = 0; i < 1000000; i++) {
+        char *insertedString = stringTable->insertString(lexem);
+        ASSERT_STREQ(insertedString, lexem);
+    }
+
+    delete stringTable;
+}
+
+TEST(StringTableTest, LoadAlphabetMultipleTimes) {
+    StringTable *stringTable = new StringTable();
+
+    const char *val;
+    const char *letter[] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r",
+                            "s", "t", "u", "v", "w", "x", "y", "z"};
+    for (int i = 0; i < 1000000; i++) {
+        val = letter[i % 26];
+        char *insertedString = stringTable->insertString(val);
+        ASSERT_STREQ(insertedString, val);
+    }
+
+    delete stringTable;
+}
+
+TEST(StringTableTest, CheckIfExistsAfter10000OtherSymbols) {
+    StringTable *stringTable = new StringTable();
+
+    const char *val;
+    const char *letter[] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r",
+                            "s", "t", "u", "v", "w", "x", "y", "z"};
+
+    char const *first = "example";
+    char* firstInStringTable = stringTable->insertString(first);
+
+    for (int i = 0; i < 100000; i++) {
+        val = letter[i % 26];
+        char *insertedString = stringTable->insertString(val);
+        ASSERT_STREQ(insertedString, val);
+    }
+
+    ASSERT_STREQ(firstInStringTable, first);
+
+    delete stringTable;
 }

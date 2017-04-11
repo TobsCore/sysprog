@@ -10,9 +10,9 @@ class StringTable {
 private:
 
     /*
-     * Size of the string buffer.
+     * Size of the strinUg buffer.
      */
-    static const int stringMemorySize = 100;
+    static const int stringMemorySize = 10000;
     /*
      * Pointer für die Stringspeicher
      */
@@ -37,11 +37,14 @@ private:
 
 public:
     StringTable();
-
     /*
      * Wert in Stringtabelle einfügen
      */
     char *insertString(const char *lexem);
+
+    ~StringTable();
+
+    void freeRecursive(StringItem *item);
 };
 
 
