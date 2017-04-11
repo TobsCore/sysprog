@@ -11,7 +11,6 @@ using namespace std;
 
 StringTable::StringTable() {
     this->item = new StringItem;
-    this->ptrStringMemory = item->stringMemory;
     this->item->stringMemory = (char *) calloc(stringMemorySize, sizeof(char));
     this->item->next = NULL;
     this->counterStringMemory = 0;
@@ -29,6 +28,8 @@ char *StringTable::insertString(const char *lexem) {
     // ein neues Element angelegt werden muss
     int lexemLength = StringOp::length(lexem);
 
+
+    char *ptrStringMemory = ptrStringItem->stringMemory;
     // Abfangen von Wörter die größer als
     // der Stringmemory ist
     if (lexemLength > stringMemorySize) {
@@ -36,8 +37,7 @@ char *StringTable::insertString(const char *lexem) {
     }
         // ... ansonsten wenn Länge des Lexem größer ist als die
         // StringMemory, dann eine neue StringMemory erstellen
-    else if ((lexemLength + counterStringMemory) > stringMemorySize) {
-
+    else if ((lexemLength + counterStringMemory + 2) > stringMemorySize) {
         // Speicher für neues Element bereitstellen
         // und ausgeben wenn es keinen mehr gibt
         StringItem *newStringItem = new StringItem;
@@ -61,18 +61,15 @@ char *StringTable::insertString(const char *lexem) {
     // Pointer von String wird auf die nächste
     // freie Stelle geführt, um das neue Lexem
     // zu speichern
-
-    ptrStringMemory = &(ptrStringMemory[counterStringMemory]);
+    ptrStringMemory += counterStringMemory;
 
     // Lexem wird in String hinzugefügt und Zähler
     // wird aktualisiert
-    int i = 0;
-    while (lexem[i] != '\0') {
+    for (int i = 0; i < lexemLength; i++) {
         ptrStringMemory[i] = lexem[i];
-        i++;
     }
-    ptrStringMemory[i] = '\0';
-    counterStringMemory += i + 1;
+    ptrStringMemory[lexemLength + 1] = '\0';
+    counterStringMemory += lexemLength + 1;
 
     // Rückgabe der Position des neuen Wortes
     return ptrStringMemory;

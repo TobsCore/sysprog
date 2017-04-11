@@ -68,7 +68,7 @@ SymbolItem *SymbolTable::insert(const char *lexem) {
     hashTable[hashAdress] = ptrItem;
     //delete ptrItem;
 
-    cout << "insert: Lexem = " << hashTable[hashAdress]->lexem << " auf der Hashadresse " << hashAdress << endl;
+    //cout << "insert: Lexem = " << hashTable[hashAdress]->lexem << " auf der Hashadresse " << hashAdress << endl;
     return ptrItem;
 }
 

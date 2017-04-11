@@ -12,11 +12,7 @@ private:
     /*
      * Size of the strinUg buffer.
      */
-    static const int stringMemorySize = 100;
-    /*
-     * Pointer für die Stringspeicher
-     */
-    char *ptrStringMemory;
+    static const int stringMemorySize = 1000;
     /*
      * Struktur von einem Element
      * in der Stringtabelle
