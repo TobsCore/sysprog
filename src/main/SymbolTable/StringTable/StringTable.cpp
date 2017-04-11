@@ -11,8 +11,8 @@ using namespace std;
 
 StringTable::StringTable() {
     this->item = new StringItem;
-    this->item->stringMemory = (char *) malloc(stringMemorySize * sizeof(char));
     this->ptrStringMemory = item->stringMemory;
+    this->item->stringMemory = (char *) calloc(stringMemorySize, sizeof(char));
     this->item->next = NULL;
     this->counterStringMemory = 0;
 }
@@ -41,13 +41,10 @@ char *StringTable::insertString(const char *lexem) {
         // Speicher für neues Element bereitstellen
         // und ausgeben wenn es keinen mehr gibt
         StringItem *newStringItem = new StringItem;
-        if (newStringItem == NULL) {
-            // Kein Speicher für neues Element vorhanden
-            return NULL;
-        }
+
         // Neues Element bekommt Werte und wird
         // an Stringtabelle verknüpft
-        newStringItem->stringMemory = (char *) malloc(stringMemorySize * sizeof(char));
+        newStringItem->stringMemory = (char *) calloc(stringMemorySize, sizeof(char));
         if (newStringItem->stringMemory == NULL) {
             // Kein Speicher für neues Element vorhanden
             return NULL;
