@@ -11,6 +11,9 @@ TEST(ScannerTest, testingEmpty) {
 
     Token *token = scanner->nextToken();
     ASSERT_EQ(FILE_END, token->getType());
+
+    delete scanner;
+    delete token;
 }
 
 TEST(ScannerTest, emptyGoFurther) {
@@ -22,6 +25,10 @@ TEST(ScannerTest, emptyGoFurther) {
 
     Token *token2 = scanner->nextToken();
     ASSERT_EQ(FILE_END, token2->getType());
+
+    delete scanner;
+    delete token;
+    delete token2;
 }
 
 TEST(ScannerTest, ArithmaticExpressionTokenType) {
@@ -31,35 +38,52 @@ TEST(ScannerTest, ArithmaticExpressionTokenType) {
     Token *token;
     token = scanner->nextToken();
     ASSERT_EQ(IDENTIFIER, token->getType());
+    delete token;
 
     token = scanner->nextToken();
     ASSERT_EQ(ASSIGN, token->getType());
+    delete token;
 
     token = scanner->nextToken();
     ASSERT_EQ(IDENTIFIER, token->getType());
+    delete token;
 
     token = scanner->nextToken();
     ASSERT_EQ(PLUS, token->getType());
+    delete token;
 
     token = scanner->nextToken();
     ASSERT_EQ(IDENTIFIER, token->getType());
+    delete token;
 
     token = scanner->nextToken();
     ASSERT_EQ(SEMICOLON, token->getType());
+
+    delete scanner;
+    delete token;
 }
 
 TEST(ScannerTest, ReadSomeIdentifier) {
     char const *folderName = "../src/test/testData/testIdentifier.txt";
     Scanner *scanner = new Scanner(folderName);
 
-    Token *token = scanner->nextToken();
-    ASSERT_EQ(IDENTIFIER, token->getType());
+    Token *token;
+    IdentifierToken *idToken;
+    IntegerToken *intToken;
 
-    token = scanner->nextToken();
-    ASSERT_EQ(IDENTIFIER, token->getType());
+    idToken = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, idToken->getType());
+    delete idToken;
+
+    idToken = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, idToken->getType());
+    delete idToken;
 
     token = scanner->nextToken();
     ASSERT_EQ(FILE_END, token->getType());
+
+    delete scanner;
+    delete token;
 }
 
 TEST(ScannerTest, PlusTest) {
@@ -102,6 +126,9 @@ TEST(ScannerTest, PlusTest) {
     ASSERT_EQ(PLUS, token->getType());
     ASSERT_EQ(1, token->getRow());
     ASSERT_EQ(7, token->getCol());
+
+    delete scanner;
+    delete token;
 }
 
 TEST(ScannerTest, SpacesTest) {
@@ -129,6 +156,9 @@ TEST(ScannerTest, SpacesTest) {
     ASSERT_EQ(IDENTIFIER, token->getType());
     ASSERT_EQ(1, token->getRow());
     ASSERT_EQ(7, token->getCol());
+
+    delete scanner;
+    delete token;
 }
 
 TEST(ScannerTest, ArithmeticExpPosition) {
@@ -166,6 +196,9 @@ TEST(ScannerTest, ArithmeticExpPosition) {
     ASSERT_EQ(SEMICOLON, token->getType());
     ASSERT_EQ(1, token->getRow());
     ASSERT_EQ(7, token->getCol());
+
+    delete scanner;
+    delete token;
 }
 
 
@@ -178,6 +211,9 @@ TEST(ScannerTest, IdentifierExPositionsOneAtBeginning) {
     ASSERT_EQ(IDENTIFIER, token->getType());
     ASSERT_EQ(1, token->getRow());
     ASSERT_EQ(1, token->getCol());
+
+    delete scanner;
+    delete token;
 }
 
 TEST(ScannerTest, testLongerIdentifier) {
@@ -210,6 +246,9 @@ TEST(ScannerTest, testLongerIdentifier) {
     ASSERT_EQ(IDENTIFIER, token->getType());
     ASSERT_EQ(1, token->getRow());
     ASSERT_EQ(13, token->getCol());
+
+    delete scanner;
+    delete token;
 }
 
 TEST(ScannerTest, testParenthesis) {
@@ -258,6 +297,9 @@ TEST(ScannerTest, testParenthesis) {
     ASSERT_EQ(PARANTHESES_RIGHT, token->getType());
     ASSERT_EQ(1, token->getRow());
     ASSERT_EQ(8, token->getCol());
+
+    delete scanner;
+    delete token;
 }
 
 TEST(ScannerTest, DISABLED_DifferentSpaces) {
@@ -290,6 +332,9 @@ TEST(ScannerTest, DISABLED_DifferentSpaces) {
     ASSERT_EQ(PLUS, token->getType());
     ASSERT_EQ(1, token->getRow());
     ASSERT_EQ(25, token->getCol());
+
+    delete scanner;
+    delete token;
 }
 
 TEST(ScannerTest, SimpleMultiline) {
@@ -327,6 +372,9 @@ TEST(ScannerTest, SimpleMultiline) {
     ASSERT_EQ(IDENTIFIER, token->getType());
     ASSERT_EQ(3, token->getRow());
     ASSERT_EQ(3, token->getCol());
+
+    delete scanner;
+    delete token;
 }
 
 TEST(ScannerTest, SpecialCharsSpaces) {
@@ -369,6 +417,9 @@ TEST(ScannerTest, SpecialCharsSpaces) {
     ASSERT_EQ(PARANTHESES_RIGHT, token->getType());
     ASSERT_EQ(1, token->getRow());
     ASSERT_EQ(16, token->getCol());
+
+    delete scanner;
+    delete token;
 }
 
 TEST(ScannerTest, SpecialChars) {
@@ -411,6 +462,9 @@ TEST(ScannerTest, SpecialChars) {
     ASSERT_EQ(PARANTHESES_RIGHT, token->getType());
     ASSERT_EQ(1, token->getRow());
     ASSERT_EQ(14, token->getCol());
+
+    delete scanner;
+    delete token;
 }
 
 TEST(ScannerTest, EOF_Test) {
@@ -428,6 +482,9 @@ TEST(ScannerTest, EOF_Test) {
     ASSERT_EQ(IDENTIFIER, token->getType());
     ASSERT_EQ(1, token->getRow());
     ASSERT_EQ(5, token->getCol());
+
+    delete scanner;
+    delete token;
 }
 
 TEST(ScannerTest, commentTest) {
@@ -465,6 +522,9 @@ TEST(ScannerTest, commentTest) {
     ASSERT_EQ(SEMICOLON, token->getType());
     ASSERT_EQ(1, token->getRow());
     ASSERT_EQ(26, token->getCol());
+
+    delete scanner;
+    delete token;
 }
 
 TEST(ScannerTest, DISABLED_StartsWithSpaces) {
@@ -492,6 +552,9 @@ TEST(ScannerTest, DISABLED_StartsWithSpaces) {
     ASSERT_EQ(SEMICOLON, token->getType());
     ASSERT_EQ(1, token->getRow());
     ASSERT_EQ(9, token->getCol());
+
+    delete scanner;
+    delete token;
 }
 
 
@@ -532,6 +595,9 @@ TEST(ScannerTest, ErronuousSpecialChar) {
     ASSERT_EQ(SEMICOLON, token->getType());
     ASSERT_EQ(1, token->getRow());
     ASSERT_EQ(8, token->getCol());
+
+    delete scanner;
+    delete token;
 }
 
 TEST(ScannerTest, DISABLED_IdentifierExValues) {
@@ -549,6 +615,9 @@ TEST(ScannerTest, DISABLED_IdentifierExValues) {
 
     token = scanner->nextToken();
     ASSERT_EQ(FILE_END, token->getType());
+
+    delete scanner;
+    delete token;
 }
 
 

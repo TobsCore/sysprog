@@ -10,7 +10,7 @@ IdentifierToken::IdentifierToken() {
 }
 
 const char *IdentifierToken::toString() {
-    char *buffer = (char *) malloc(150 * sizeof(char));
+    char *buffer = (char *) calloc(150, sizeof(char));
 
     snprintf(buffer, 100, "Token %-20s Line: %3d  Column: %3d  Lexem: %s", getTypeString(), getRow(), getCol(),
              getLexem());

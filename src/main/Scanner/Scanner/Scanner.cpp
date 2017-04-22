@@ -17,6 +17,15 @@ Scanner::Scanner(char const *filePath) {
     countChars = 0;
 }
 
+Scanner::~Scanner() {
+	delete buffer;
+	delete automat;
+	delete symboltable;
+	delete nextTokenPosition;
+	delete currentTokenPosition;
+	delete currentPosition;
+}
+
 Token* Scanner::nextToken() {
     Token *nextToken;
 
@@ -92,10 +101,6 @@ void Scanner::setTokenPosition(Token *token) {
     countSpace = 0;
 
     token->setPosition(currentTokenPosition);
-}
-
-Scanner::~Scanner() {
-//TODO: Implement this
 }
 
 
