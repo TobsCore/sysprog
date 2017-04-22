@@ -38,8 +38,6 @@ private:
 	int currentRow;
 	int currentColumn;
 
-	void setPosition(char*);
-
 	void fillBuffer();
 	//void createFile();
 	void openFile();

@@ -30,7 +30,6 @@ Buffer::~Buffer() {
 
 char Buffer::getChar() {
     current = next; //nimm das zuletzt als nächstes Zeichen gesetzte, als neues aktuelles Zeichen.
-    setPosition(current);
 
     if (*current == eof) { //Test ob Datei zu ende.
         isFinished = true;
@@ -70,15 +69,6 @@ void Buffer::ungetChar(int count) {
         }
     }
     current = next;
-}
-
-void Buffer::setPosition(char *current) {
-    if (*current == '\n') {
-        currentRow += 1;
-        currentColumn = 1;
-    } else {
-        currentColumn += 1;
-    }
 }
 
 void Buffer::openFile() {

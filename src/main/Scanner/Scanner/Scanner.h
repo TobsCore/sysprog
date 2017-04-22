@@ -45,7 +45,6 @@ private:
     void setCurrentPosition(char c, SymbolType type);
 
     bool firstToken;
-    int tokenSize;
     int countSpace;
     int countChars;
 };
