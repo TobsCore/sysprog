@@ -11,7 +11,8 @@ Scanner::Scanner(char const *filePath) {
     currentPosition = new Position(1, 1);
     symboltable = new SymbolTable();
     firstToken = true;
-
+    isInComment = false;
+    commentCounter = 0;
 
     countSpace = 0;
     countChars = 0;
@@ -40,8 +41,8 @@ Token* Scanner::nextToken() {
     do {
         char nextChar = buffer->getChar();
         symbol = automat->checkExpression(nextChar);
+        checkInComment(symbol);
         setCurrentPosition(nextChar, symbol);
-
     } while ((symbol == NEXTCHAR || symbol == IN_COMMENT) && buffer->hasNext());
 
     // If a symbol has a NEXTCHAR, this means that the loop has quit because there's no other character in the buffer.
@@ -73,10 +74,20 @@ Token* Scanner::nextToken() {
     return nextToken;
 }
 
+void Scanner::checkInComment(const SymbolType &symbol) {
+    if (symbol == IN_COMMENT) {
+            isInComment = true;
+        } else if (symbol == COMMENT) {
+            isInComment = false;
+        }
+}
+
 void Scanner::setCurrentPosition(char c, SymbolType type) {
     if (c == ' ' || c == '\t') {
         currentPosition->incCol();
-        countSpace += 1;
+        if (!isInComment) {
+            countSpace += 1;
+        }
     } else if (c == '\n') {
         currentPosition->incRow();
         currentPosition->resetCol();

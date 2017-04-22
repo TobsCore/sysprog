@@ -528,6 +528,126 @@ TEST(ScannerTest, commentTest) {
     delete token;
 }
 
+TEST(ScannerTest, commentWith2SpacesTest) {
+    char const *folderName = "../src/test/testData/testCommentWith2Spaces.txt";
+    Scanner *scanner = new Scanner(folderName);
+
+    Token *token;
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(1, token->getRow());
+    ASSERT_EQ(1, token->getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(1, token->getRow());
+    ASSERT_EQ(5, token->getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(COMMENT, token->getType());
+    ASSERT_EQ(1, token->getRow());
+    ASSERT_EQ(7, token->getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(EQUALS, token->getType());
+    ASSERT_EQ(1, token->getRow());
+    ASSERT_EQ(15, token->getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(INTEGER, token->getType());
+    ASSERT_EQ(1, token->getRow());
+    ASSERT_EQ(16, token->getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(SEMICOLON, token->getType());
+    ASSERT_EQ(1, token->getRow());
+    ASSERT_EQ(17, token->getCol());
+
+    delete scanner;
+    delete token;
+}
+
+TEST(ScannerTest, commentWithMultipleSpacesTest) {
+    char const *folderName = "../src/test/testData/testCommentWithMultipleSpaces.txt";
+    Scanner *scanner = new Scanner(folderName);
+
+    Token *token;
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(1, token->getRow());
+    ASSERT_EQ(1, token->getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(1, token->getRow());
+    ASSERT_EQ(5, token->getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(COMMENT, token->getType());
+    ASSERT_EQ(1, token->getRow());
+    ASSERT_EQ(7, token->getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(EQUALS, token->getType());
+    ASSERT_EQ(1, token->getRow());
+    ASSERT_EQ(26, token->getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(INTEGER, token->getType());
+    ASSERT_EQ(1, token->getRow());
+    ASSERT_EQ(27, token->getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(SEMICOLON, token->getType());
+    ASSERT_EQ(1, token->getRow());
+    ASSERT_EQ(28, token->getCol());
+
+    delete scanner;
+    delete token;
+}
+
+TEST(ScannerTest, commentWithSpaceTest) {
+    char const *folderName = "../src/test/testData/testCommentWithSpace.txt";
+    Scanner *scanner = new Scanner(folderName);
+
+    Token *token;
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(1, token->getRow());
+    ASSERT_EQ(1, token->getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(1, token->getRow());
+    ASSERT_EQ(5, token->getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(COMMENT, token->getType());
+    ASSERT_EQ(1, token->getRow());
+    ASSERT_EQ(7, token->getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(EQUALS, token->getType());
+    ASSERT_EQ(1, token->getRow());
+    ASSERT_EQ(14, token->getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(INTEGER, token->getType());
+    ASSERT_EQ(1, token->getRow());
+    ASSERT_EQ(15, token->getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(SEMICOLON, token->getType());
+    ASSERT_EQ(1, token->getRow());
+    ASSERT_EQ(16, token->getCol());
+
+    delete scanner;
+    delete token;
+}
+
 TEST(ScannerTest, DISABLED_StartsWithSpaces) {
     char const *folderName = "../src/test/testData/testStartWithSpaces.txt";
     Scanner *scanner = new Scanner(folderName);

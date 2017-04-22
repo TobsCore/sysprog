@@ -47,4 +47,8 @@ private:
     bool firstToken;
     int countSpace;
     int countChars;
+    bool isInComment;
+    int commentCounter;
+
+	void checkInComment(const SymbolType &symbol);
 };
