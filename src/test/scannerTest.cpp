@@ -721,7 +721,7 @@ TEST(ScannerTest, ErronuousSpecialChar) {
     delete token;
 }
 
-TEST(ScannerTest, DISABLED_IdentifierExValues) {
+TEST(ScannerTest, IdentifierExValues) {
 
     char const *folderName = "../src/test/testData/testIdentifier.txt";
     Scanner *scanner = new Scanner(folderName);

@@ -30,6 +30,9 @@ Scanner::~Scanner() {
 Token* Scanner::nextToken() {
     Token *nextToken;
 
+    char *lexem = new char[255];
+    int i = 0;
+
     // If no other characters can be read, return and EOF-Token. This can be used to stop the calling loop.
     if (!buffer->hasNext()) {
         nextToken = new Token();
@@ -37,13 +40,18 @@ Token* Scanner::nextToken() {
         return nextToken;
     }
 
+
     SymbolType symbol;
     do {
         char nextChar = buffer->getChar();
         symbol = automat->checkExpression(nextChar);
         checkInComment(symbol);
         setCurrentPosition(nextChar, symbol);
-    } while ((symbol == NEXTCHAR || symbol == IN_COMMENT) && buffer->hasNext());
+        lexem[i] = nextChar;
+        i++;
+	} while ((symbol == NEXTCHAR || symbol == IN_COMMENT) && buffer->hasNext());
+    i--;
+    lexem[i] = '\0';
 
     // If a symbol has a NEXTCHAR, this means that the loop has quit because there's no other character in the buffer.
     // This equals to an EOF, which should be returned.a
@@ -64,6 +72,8 @@ Token* Scanner::nextToken() {
         case IDENTIFIER:
             //TODO: Hier das Lexem in die Stringtabelle packen und dann in dem Token speichern
             nextToken = new IdentifierToken();
+            ((IdentifierToken*) nextToken)->setKey(symboltable->insert(lexem));
+            ((IdentifierToken*) nextToken)->setLexem(lexem);
             break;
         case INTEGER:
             //TODO: Den Identifier an das Integer Token übergeben und darin speichern.
