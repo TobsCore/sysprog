@@ -2,6 +2,7 @@
 #include <gmock/gmock.h>
 #include "../main/Scanner/Scanner/Scanner.h"
 #include "../main/Token/IdentifierToken.h"
+#include "../main/Token/IntegerToken.h"
 
 using testing::Eq;
 
@@ -71,11 +72,11 @@ TEST(ScannerTest, ReadSomeIdentifier) {
     IdentifierToken *idToken;
     IntegerToken *intToken;
 
-    idToken = scanner->nextToken();
+    idToken = (IdentifierToken *) scanner->nextToken();
     ASSERT_EQ(IDENTIFIER, idToken->getType());
     delete idToken;
 
-    idToken = scanner->nextToken();
+    idToken = (IdentifierToken *) scanner->nextToken();
     ASSERT_EQ(IDENTIFIER, idToken->getType());
     delete idToken;
 
