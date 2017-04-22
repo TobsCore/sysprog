@@ -42,7 +42,7 @@ Token* Scanner::nextToken() {
         symbol = automat->checkExpression(nextChar);
         setCurrentPosition(nextChar, symbol);
 
-    } while (symbol == NEXTCHAR && buffer->hasNext());
+    } while ((symbol == NEXTCHAR || symbol == IN_COMMENT) && buffer->hasNext());
 
     // If a symbol has a NEXTCHAR, this means that the loop has quit because there's no other character in the buffer.
     // This equals to an EOF, which should be returned.a
