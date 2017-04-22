@@ -57,20 +57,24 @@ Token* Scanner::nextToken() {
         buffer->ungetChar(1);
         currentPosition->incCol(-1);
     }
-
+    Position* nextTokenPosition = tokenPosition();
+    // Über die Länge das Lexem bestimmen.
+    int length = currentPosition->getCol() - nextTokenPosition->getCol();
     switch (symbol) {
         case IDENTIFIER:
+            //TODO: Hier das Lexem in die Stringtabelle packen und dann in dem Token speichern
             nextToken = new IdentifierToken();
             break;
         case INTEGER:
+            //TODO: Den Identifier an das Integer Token übergeben und darin speichern.
             nextToken = new IntegerToken();
             break;
         default:
             nextToken = new Token();
+            nextToken->setType(symbol);
     }
-    nextToken->setType(symbol);
-    setTokenPosition(nextToken);
-
+    
+    nextToken->setPosition(nextTokenPosition);
     return nextToken;
 }
 
@@ -98,7 +102,7 @@ void Scanner::setCurrentPosition(char c, SymbolType type) {
     }
 }
 
-void Scanner::setTokenPosition(Token *token) {
+Position* Scanner::tokenPosition() {
     int row = currentPosition->getRow();
     int col = currentPosition->getCol();
 
@@ -111,13 +115,13 @@ void Scanner::setTokenPosition(Token *token) {
 
     countSpace = 0;
 
-    token->setPosition(currentTokenPosition);
+    return currentTokenPosition;
 }
 
 
 /*
 
-void Scanner::setTokenPosition(Token *token) {
+void Scanner::tokenPosition(Token *token) {
     if (firstToken) {
         lineDistance -= 1;
     }

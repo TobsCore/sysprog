@@ -41,7 +41,7 @@ private:
     SymbolTable* symboltable;
 
 
-	void setTokenPosition(Token *token);
+	Position* tokenPosition();
     void setCurrentPosition(char c, SymbolType type);
 
     bool firstToken;
