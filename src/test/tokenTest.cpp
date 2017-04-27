@@ -2,6 +2,7 @@
 #include <gmock/gmock.h>
 #include "../main/Token/IntegerToken.h"
 #include "../main/Token/IdentifierToken.h"
+#include "../main/SymbolTable/SymbolTable.h"
 
 using testing::Eq;
 
@@ -22,8 +23,9 @@ TEST(TokenTest, IntegerToken) {
 TEST(TokenTest, IdentifierToken) {
 
     IdentifierToken *testToken = new IdentifierToken();
+    SymbolTable *symboltable = new SymbolTable();
     testToken->setPosition(1,1);
-    testToken->setLexem("testVar");
+    testToken->setKey(symboltable->insert("testVar"));
 
     ASSERT_EQ(1, testToken->getRow());
     ASSERT_EQ(1, testToken->getCol());

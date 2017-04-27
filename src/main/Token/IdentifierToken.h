@@ -17,8 +17,6 @@ public:
 
     const char *toString();
 
-    void setLexem(const char *lexem);
-
     const char *getLexem();
 
     void setKey(SymbolItem* key);
@@ -26,8 +24,6 @@ public:
     SymbolItem* getKey();
 
 private:
-    const char *lexem;
-
     SymbolItem* key;
 };
 

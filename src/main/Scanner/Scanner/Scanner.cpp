@@ -70,10 +70,8 @@ Token* Scanner::nextToken() {
     int length = currentPosition->getCol() - nextTokenPosition->getCol();
     switch (symbol) {
         case IDENTIFIER:
-            //TODO: Hier das Lexem in die Stringtabelle packen und dann in dem Token speichern
             nextToken = new IdentifierToken();
             ((IdentifierToken*) nextToken)->setKey(symboltable->insert(lexem));
-            ((IdentifierToken*) nextToken)->setLexem(lexem);
             break;
         case INTEGER:
             //TODO: Den Identifier an das Integer Token übergeben und darin speichern.

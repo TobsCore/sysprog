@@ -6,7 +6,6 @@
 
 IdentifierToken::IdentifierToken() {
     this->type = IDENTIFIER;
-    this->lexem = NULL;
     this->key = NULL;
 }
 
@@ -19,11 +18,7 @@ const char *IdentifierToken::toString() {
 }
 
 const char* IdentifierToken::getLexem() {
-    return lexem;
-}
-
-void IdentifierToken::setLexem(const char* lexem) {
-    this->lexem = lexem;
+    return key->lexem;
 }
 
 SymbolItem* IdentifierToken::getKey() {
