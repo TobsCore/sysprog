@@ -76,6 +76,7 @@ Token* Scanner::nextToken() {
         case INTEGER:
             //TODO: Den Identifier an das Integer Token übergeben und darin speichern.
             nextToken = new IntegerToken();
+            ((IntegerToken*) nextToken)->setValue(atoll(lexem));
             break;
         default:
             nextToken = new Token();
