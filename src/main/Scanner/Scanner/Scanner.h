@@ -50,5 +50,8 @@ private:
     bool isInComment;
     int commentCounter;
 
+    char *lexem;
+    int i;
+
 	void checkInComment(const SymbolType &symbol);
 };

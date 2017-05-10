@@ -23,7 +23,7 @@ SymbolType Token::getType() {
 }
 
 bool Token::isEOF() {
-    return this->type == FILE_END;
+	return this->type == FILE_END;
 }
 
 
