@@ -21,11 +21,15 @@ int main(int argc, char **argv) {
 
         Token *token = sc->nextToken();
         while (!token->isEOF()) {
-            if (result.is_open()) {
-                result << token->toString() << endl;
+            if (token->getType() == ERROR) {
+                cerr << token->toString() << endl;
             } else {
-                cerr << "Cannot write to file <" << outFilename << ">" << endl;
-                break;
+                if (result.is_open()) {
+                    result << token->toString() << endl;
+                } else {
+                    cerr << "Cannot write to file <" << outFilename << ">" << endl;
+                    break;
+                }
             }
 
             token = sc->nextToken();
