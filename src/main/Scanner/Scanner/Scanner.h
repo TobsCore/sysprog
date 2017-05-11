@@ -20,6 +20,8 @@
 
 #ifndef SYMBOLTABLE
 #define SYMBOLTABLE
+static const int bufferSize = 255;
+
 #include "../../SymbolTable/SymbolTable.h"
 #endif
 

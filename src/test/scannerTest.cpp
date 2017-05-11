@@ -3,6 +3,7 @@
 #include "../main/Scanner/Scanner/Scanner.h"
 #include "../main/Token/IdentifierToken.h"
 #include "../main/Token/IntegerToken.h"
+#include "../main/Token/ErrorToken.h"
 
 using testing::Eq;
 
@@ -736,6 +737,17 @@ TEST(ScannerTest, IdentifierExValues) {
 
     token = scanner->nextToken();
     ASSERT_EQ(FILE_END, token->getType());
+
+    delete scanner;
+    delete token;
+}
+
+TEST(ScannerTest, ReallyLongIdentifier) {
+    char const *folderName = "../src/test/testData/testReallyLongIdentifier.txt";
+    Scanner *scanner = new Scanner(folderName);
+
+    Token *token = scanner->nextToken();
+    ASSERT_EQ(ERROR, token->getType());
 
     delete scanner;
     delete token;

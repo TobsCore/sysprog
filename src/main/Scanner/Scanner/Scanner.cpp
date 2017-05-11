@@ -1,6 +1,7 @@
 #include "Scanner.h"
 #include "../../Token/IdentifierToken.h"
 #include "../../Token/IntegerToken.h"
+#include "../../Token/ErrorToken.h"
 
 Scanner::Scanner(char const *filePath) {
 
@@ -17,7 +18,7 @@ Scanner::Scanner(char const *filePath) {
     countSpace = 0;
     countChars = 0;
 
-    lexem = new char[255];
+    lexem = new char[bufferSize];
     i = 0;
 }
 
@@ -57,8 +58,11 @@ Token* Scanner::nextToken() {
 			lexem[i] = nextChar;
 			i++;
         }
-	} while ((symbol == NEXTCHAR || symbol == IN_COMMENT) && buffer->hasNext());
+	} while ((symbol == NEXTCHAR || symbol == IN_COMMENT) && buffer->hasNext() && i < bufferSize - 1);
 
+    if (i >= bufferSize - 1) {
+        symbol = ERROR;
+    }
 
     // If a symbol has a NEXTCHAR, this means that the loop has quit because there's no other character in the buffer.
     // This equals to an EOF, which should be returned.a
@@ -80,15 +84,19 @@ Token* Scanner::nextToken() {
         	lexem[i] = '\0';
             nextToken = new IdentifierToken();
             ((IdentifierToken*) nextToken)->setKey(symboltable->insert(lexem));
-            lexem = new char[255];
             i = 0;
             break;
         case INTEGER:
-            //TODO: Den Identifier an das Integer Token übergeben und darin speichern.
         	lexem[i] = '\0';
             nextToken = new IntegerToken();
             ((IntegerToken*) nextToken)->setValue(atoll(lexem));
-            lexem = new char[255];
+            i = 0;
+            break;
+        case ERROR:
+            lexem[i] = '\0';
+            nextToken = new ErrorToken();
+            ((IdentifierToken*) nextToken)->setKey(symboltable->insert(lexem));
+            lexem = new char[bufferSize];
             i = 0;
             break;
         default:

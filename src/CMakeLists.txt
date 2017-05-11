@@ -32,7 +32,10 @@ set(SOURCE_FILES
         main/SymbolTable/Keywords.h
         main/SymbolTable/StringTable/StringTable.cpp
         main/SymbolTable/StringTable/StringTable.h
-        main/String/StringOp.cpp main/String/StringOp.h)
+        main/String/StringOp.cpp
+        main/String/StringOp.h
+        main/src/main/Token/ErrorToken.cpp
+        main/src/main/Token/ErrorToken.h)
 
 set(SOURCE_TEST
         test/automatTest.cpp
