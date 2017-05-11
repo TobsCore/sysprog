@@ -7,10 +7,10 @@ int main(int argc, char** argv) {
         char *filePath = argv[1];
         Scanner *sc = new Scanner(filePath);
 
-        Token* token = new Token();
+        Token* token = sc->nextToken();
         while (!token->isEOF()) {
-            token = sc->nextToken();
             cout << token->toString() << endl;
+            token = sc->nextToken();
         }
     }
     return 0;

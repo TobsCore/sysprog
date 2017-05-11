@@ -45,5 +45,5 @@ set(SOURCE_TEST
 add_executable(sysprogMain src/main/main.cpp ${SOURCE_FILES})
 add_executable(unitTests src/test/main.cpp ${SOURCE_FILES} ${SOURCE_TEST})
 
-
+target_link_libraries(sysprogMain)
 target_link_libraries(unitTests gtest gtest_main)
