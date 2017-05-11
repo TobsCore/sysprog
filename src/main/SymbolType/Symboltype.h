@@ -28,7 +28,9 @@ enum SymbolType {
 	COMMENT = 21,			// Comment
 	ERROR_SPECIAL = 22,		// Expected a special sign, but wasn't.
 	FILE_END = 50, 			// End of file
-	IN_COMMENT = 23		// Beginning of Comment
+	IN_COMMENT = 23,		// Beginning of Comment
+	IF = 24,
+	WHILE = 25
 };
 
 static const char * EnumStrings[] = { "EOF", "Error", "Nextchar", "Integer", "Identifier", "Plus", "Minus", "Colon", "Star", "Less", "Greater", "Equals",

@@ -43,7 +43,7 @@ set(SOURCE_TEST
         src/test/scannerTest.cpp
         src/test/bufferTest.cpp
         src/test/symtableTest.cpp
-        src/test/stringTableTest.cpp)
+        src/test/stringTableTest.cpp src/main/Token/IfToken.cpp src/main/Token/IfToken.h src/main/Token/WhileToken.cpp src/main/Token/WhileToken.h)
 
 add_executable(scanner src/main/main.cpp ${SOURCE_FILES})
 add_executable(unitTests src/test/main.cpp ${SOURCE_FILES} ${SOURCE_TEST})
