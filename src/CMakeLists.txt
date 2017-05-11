@@ -45,8 +45,8 @@ set(SOURCE_TEST
         test/symtableTest.cpp
         test/stringTableTest.cpp)
 
-add_executable(sysprogMain main/main.cpp ${SOURCE_FILES})
+add_executable(scanner main/main.cpp ${SOURCE_FILES})
 add_executable(unitTests test/main.cpp ${SOURCE_FILES} ${SOURCE_TEST})
 
-target_link_libraries(sysprogMain)
+target_link_libraries(scanner)
 target_link_libraries(unitTests gtest gtest_main)
