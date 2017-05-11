@@ -34,8 +34,8 @@ set(SOURCE_FILES
         main/SymbolTable/StringTable/StringTable.h
         main/String/StringOp.cpp
         main/String/StringOp.h
-        main/src/main/Token/ErrorToken.cpp
-        main/src/main/Token/ErrorToken.h)
+        main/Token/ErrorToken.cpp
+        main/Token/ErrorToken.h)
 
 set(SOURCE_TEST
         test/automatTest.cpp
