@@ -238,6 +238,7 @@ TEST_F(AutomatTest, notAComment) {
     ASSERT_EQ(testAutomat.checkExpression('='), PLUS);
     ASSERT_EQ(testAutomat.checkExpression('\0'), EQUALS);
 }
+
 TEST_F(AutomatTest, shortestComment) {
     ASSERT_EQ(testAutomat.checkExpression(':'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('*'), NEXTCHAR);
@@ -245,6 +246,7 @@ TEST_F(AutomatTest, shortestComment) {
     ASSERT_EQ(testAutomat.checkExpression(':'), IN_COMMENT);
     ASSERT_EQ(testAutomat.checkExpression('\0'), COMMENT);
 }
+
 TEST_F(AutomatTest, commentWithStars) {
     ASSERT_EQ(testAutomat.checkExpression(':'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('*'), NEXTCHAR);
@@ -463,3 +465,12 @@ TEST_F(AutomatTest, NoIfNoWhile) {
     ASSERT_EQ(testAutomat.checkExpression('\0'), COMMENT);
 }
 
+TEST_F(AutomatTest, errors) {
+    ASSERT_EQ(testAutomat.checkExpression('!'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('&'), EXCLAMATION);
+    ASSERT_EQ(testAutomat.checkExpression(','), ERROR);
+    ASSERT_EQ(testAutomat.checkExpression('&'), ERROR);
+    ASSERT_EQ(testAutomat.checkExpression('a'), ERROR);
+    ASSERT_EQ(testAutomat.checkExpression('#'), IDENTIFIER);
+    ASSERT_EQ(testAutomat.checkExpression('\0'), ERROR);
+}

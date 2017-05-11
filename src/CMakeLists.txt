@@ -34,6 +34,10 @@ set(SOURCE_FILES
         main/SymbolTable/StringTable/StringTable.h
         main/String/StringOp.cpp
         main/String/StringOp.h
+        main/Token/IfToken.cpp
+        main/Token/IfToken.h
+        main/Token/WhileToken.cpp
+        main/Token/WhileToken.h
         main/Token/ErrorToken.cpp
         main/Token/ErrorToken.h)
 
@@ -43,7 +47,8 @@ set(SOURCE_TEST
         test/scannerTest.cpp
         test/bufferTest.cpp
         test/symtableTest.cpp
-        test/stringTableTest.cpp)
+        test/stringTableTest.cpp
+        test/scannerErrorTest.cpp)
 
 add_executable(scanner main/main.cpp ${SOURCE_FILES})
 add_executable(unitTests test/main.cpp ${SOURCE_FILES} ${SOURCE_TEST})
