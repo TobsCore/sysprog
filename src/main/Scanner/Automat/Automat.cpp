@@ -11,7 +11,22 @@ int Automat::findColumn(char currentChar) {
 	if ((int) currentChar > 47 && (int) currentChar < 58) {
 		//digit
 		return 0;
-	} else if (((int) currentChar > 64 && (int) currentChar < 91) // uppercase Letter
+
+	} else if ((currentChar == 'i' || currentChar == 'I')){
+		return 19;
+	} else if ((currentChar == 'f' || currentChar == 'F')){
+		return 20;
+	} else if ((currentChar == 'w' || currentChar == 'W')){
+		return 21;
+	} else if ((currentChar == 'h' || currentChar == 'H')){
+		return 22;
+	} else if ((currentChar == 'l' || currentChar == 'L')){
+		return 23;
+	} else if ((currentChar == 'e' || currentChar == 'E')){
+		return 24;
+	}
+
+	else if (((int) currentChar > 64 && (int) currentChar < 91) // uppercase Letter
 	|| ((int) currentChar > 96 && (int) currentChar < 123)) // lowercase Letter
 			{
 		// Letter

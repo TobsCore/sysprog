@@ -6,7 +6,7 @@
 
 
 WhileToken::WhileToken() {
-    this->type = WHILE;
+    this->type = WHILETOKEN;
     this->key = NULL;
 }
 

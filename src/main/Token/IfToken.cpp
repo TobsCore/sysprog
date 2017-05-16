@@ -5,7 +5,7 @@
 #include "IfToken.h"
 
 IfToken::IfToken() {
-    this->type = IF;
+    this->type = IFTOKEN;
     this->key = NULL;
 }
 
