@@ -69,33 +69,3 @@ To generate the documentation, you need to install LaTeX. Then simply run:
 ``` shell
 make docu
 ```
-
-### Fixed Methods / Interfaces:
-
-Buffer:
-``` c++
-int getchar() // Nullterminator, falls das Ende der Datei erreicht wurde.
-void ungetchar(int anzahl) // Der Buffer springt die Anzahl an Zeichen zurück.
-```
-
-Automat:
-```c++
-int checkExpression(char aktuellesZeichen)
-// Der Automat merkt sich, in welchem Zustand er ist.
-// Gibt Integer Werte zurück, die jeweils für die entsprechenden Arten/Typen stehen.
-```
-Scanner:
-```c++
-nextToken()
-/*
-* Gibt das nächste Token Objekt zurück. Falls ein Fehler aufgetaucht ist, ein Fehlertoken,
-* falls es keine Tokens mehr gibt, ein Nullpointer. Speichert aktuelle Zeile und Reihe.
-* Speichert Lexeme in derSymtabelle ab und generiert Tokens.
-*/
-```
-
-Token:
-Art, Name, Zeile, Reihe
-
-Information:
-Art (Integer), Namen (Wert)
