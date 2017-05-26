@@ -754,4 +754,108 @@ TEST(ScannerTest, ReallyLongIdentifier) {
 }
 
 
+TEST(ScannerTest, TestExampleProgram) {
+    char const *folderName = "../src/test/testData/testProgramm.txt";
+    Scanner *scanner = new Scanner(folderName);
+
+    Token *token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(1, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(1, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(SEMICOLON, token->getType());
+    ASSERT_EQ(1, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(2, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(ASSIGN, token->getType());
+    ASSERT_EQ(2, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(INTEGER, token->getType());
+    ASSERT_EQ(2, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(SEMICOLON, token->getType());
+    ASSERT_EQ(2, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(3, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(3, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(ASSIGN, token->getType());
+    ASSERT_EQ(3, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(INTEGER, token->getType());
+    ASSERT_EQ(3, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(SEMICOLON, token->getType());
+    ASSERT_EQ(3, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(4, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(4, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(ASSIGN, token->getType());
+    ASSERT_EQ(4, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(4, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(STAR, token->getType());
+    ASSERT_EQ(4, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(4, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(SEMICOLON, token->getType());
+    ASSERT_EQ(4, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(7, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(7, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(ASSIGN, token->getType());
+    ASSERT_EQ(7, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(INTEGER, token->getType());
+    ASSERT_EQ(7, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(SEMICOLON, token->getType());
+    ASSERT_EQ(7, token->getRow());
+
+
+}
+
+
 

@@ -104,7 +104,7 @@ TEST(StringTableTest, LoadAlphabet100000) {
     delete stringTable;
 }
 
-TEST(StringTableTest, LoadAlphabet1000000) {
+TEST(StringTableTest, DISABLED_LoadAlphabet1000000) {
     StringTable *stringTable = new StringTable();
 
     const char *val;

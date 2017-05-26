@@ -465,7 +465,7 @@ TEST_F(AutomatTest, NoIfNoWhile) {
     ASSERT_EQ(testAutomat.checkExpression('\0'), COMMENT);
 }
 
-TEST_F(AutomatTest, errors) {
+TEST_F(AutomatTest, DISABLED_errors) {
     ASSERT_EQ(testAutomat.checkExpression('!'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('&'), EXCLAMATION);
     ASSERT_EQ(testAutomat.checkExpression(','), ERROR);

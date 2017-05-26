@@ -35,10 +35,6 @@ Scanner::~Scanner() {
 Token* Scanner::nextToken() {
     Token *nextToken;
 
-
-
-
-    // If no other characters can be read, return and EOF-Token. This can be used to stop the calling loop.
     if (!buffer->hasNext()) {
         nextToken = new Token();
         nextToken->setType(FILE_END);
@@ -137,8 +133,12 @@ Position* Scanner::tokenPosition() {
     int col = currentPosition->getCol();
 
     int offset = countSpace < 2 ? 0 : countSpace - 1;
+    int rowOffset = 0;
+    if (row >= nextTokenPosition->getRow() && col > 1) {
+        rowOffset = row - nextTokenPosition->getRow();
+    }
     currentTokenPosition->setCol(nextTokenPosition->getCol() + offset);
-    currentTokenPosition->setRow(nextTokenPosition->getRow());
+    currentTokenPosition->setRow(nextTokenPosition->getRow() + rowOffset);
 
     nextTokenPosition->setCol(col + countSpace - 1);
     nextTokenPosition->setRow(row);
