@@ -3,6 +3,7 @@
 //
 #include <iostream>
 #include "IdentifierToken.h"
+#include "../String/StringOp.h"
 
 IdentifierToken::IdentifierToken() {
     this->type = IDENTIFIER;
@@ -10,9 +11,11 @@ IdentifierToken::IdentifierToken() {
 }
 
 const char *IdentifierToken::toString() {
-    char *buffer = (char *) calloc(150, sizeof(char));
 
-    snprintf(buffer, 100, "Token %-20s Line: %3d  Column: %3d  Lexem: %s", getTypeString(), getRow(), getCol(),
+    int lexemLength = StringOp::length(getLexem());
+    char *buffer = (char *) calloc(50 + lexemLength, sizeof(char));
+
+    snprintf(buffer, 100, "Token %-20s Line: %5d  Column: %3d  Lexem: %s", getTypeString(), getRow(), getCol(),
              getLexem());
     return buffer;
 }

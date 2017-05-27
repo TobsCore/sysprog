@@ -6,25 +6,11 @@
 
 IfToken::IfToken() {
     this->type = IFTOKEN;
-    this->key = NULL;
 }
 
 const char *IfToken::toString() {
-    char *buffer = (char *) calloc(150, sizeof(char));
+    char *buffer = (char *) calloc(60, sizeof(char));
 
-    snprintf(buffer, 100, "Token %-20s Line: %3d  Column: %3d  Lexem: %s", getTypeString(), getRow(), getCol(),
-             getLexem());
+    snprintf(buffer, 60, "Token %-20s Line: %5d  Column: %3d", getTypeString(), getRow(), getCol());
     return buffer;
-}
-
-const char* IfToken::getLexem() {
-    return key->lexem;
-}
-
-SymbolItem* IfToken::getKey() {
-    return key;
-}
-
-void IfToken::setKey(SymbolItem* key) {
-    this->key = key;
 }

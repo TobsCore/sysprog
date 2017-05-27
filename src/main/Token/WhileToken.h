@@ -7,8 +7,8 @@
 #endif
 #ifndef TOKEN
 #define TOKEN
-#endif
 #include "Token.h"
+#endif
 #include "../SymbolTable/SymbolItem.h"
 
 class WhileToken : public Token {
@@ -18,15 +18,6 @@ public:
     WhileToken();
 
     const char *toString();
-
-    const char *getLexem();
-
-    void setKey(SymbolItem *key);
-
-    SymbolItem *getKey();
-
-private:
-    SymbolItem *key;
 };
 
 

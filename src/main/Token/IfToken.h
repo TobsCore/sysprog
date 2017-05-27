@@ -8,9 +8,9 @@
 
 #ifndef TOKEN
 #define TOKEN
+#include "Token.h"
 #endif
 
-#include "Token.h"
 #include "../SymbolTable/SymbolItem.h"
 
 class IfToken : public Token {
@@ -20,15 +20,6 @@ public:
     IfToken();
 
     const char *toString();
-
-    const char *getLexem();
-
-    void setKey(SymbolItem *key);
-
-    SymbolItem *getKey();
-
-private:
-    SymbolItem *key;
 };
 
 
