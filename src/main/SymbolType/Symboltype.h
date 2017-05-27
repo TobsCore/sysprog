@@ -27,15 +27,15 @@ enum SymbolType {
 	SPECIAL = 20, 			// =:=
 	COMMENT = 21,			// Comment
 	ERROR_SPECIAL = 22,		// Expected a special sign, but wasn't.
-	FILE_END = 50, 			// End of file
 	IN_COMMENT = 23,		// Beginning of Comment
 	IFTOKEN = 24,
-	WHILETOKEN = 25
+	WHILETOKEN = 25,
+	FILE_END = 50 			// End of file
 };
 
 static const char * EnumStrings[] = { "EOF", "Error", "Nextchar", "Integer", "Identifier", "Plus", "Minus", "Colon", "Star", "Less", "Greater", "Equals",
 "Exclamation", "And", "Semicolon", "Parenthesis (open)", "Parenthesis (close)", "Brace (open)", "Brace (close)", "Bracket (open)", "Bracket (close)",
-"Assign", "Special"};
+"Assign", "Special", "Comment", "Error Special", "In Comment", "If", "While"};
 
 #endif
 

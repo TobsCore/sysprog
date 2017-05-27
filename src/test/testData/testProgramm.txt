@@ -6,7 +6,7 @@ int c := a * b;
 
 int true := 1;
 while(true) {
-	if(a = 35 && b < 200 && c > 200) {
-	a := a + 1;
-	}
+if(a = 35 && b < 200 && c > 200) {
+a := a + 1;
+}
 }

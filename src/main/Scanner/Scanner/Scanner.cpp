@@ -2,6 +2,8 @@
 #include "../../Token/IdentifierToken.h"
 #include "../../Token/IntegerToken.h"
 #include "../../Token/ErrorToken.h"
+#include "../../Token/WhileToken.h"
+#include "../../Token/IfToken.h"
 
 Scanner::Scanner(char const *filePath) {
 
@@ -93,6 +95,14 @@ Token* Scanner::nextToken() {
             nextToken = new ErrorToken();
             ((IdentifierToken*) nextToken)->setKey(symboltable->insert(lexem));
             lexem = new char[bufferSize];
+            i = 0;
+            break;
+        case WHILETOKEN:
+            nextToken = new WhileToken();
+            i = 0;
+            break;
+        case IFTOKEN:
+            nextToken = new IfToken();
             i = 0;
             break;
         default:

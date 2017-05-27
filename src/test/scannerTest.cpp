@@ -854,6 +854,117 @@ TEST(ScannerTest, TestExampleProgram) {
     ASSERT_EQ(SEMICOLON, token->getType());
     ASSERT_EQ(7, token->getRow());
 
+    token = scanner->nextToken();
+    ASSERT_EQ(WHILETOKEN, token->getType());
+    ASSERT_EQ(8, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(PARANTHESES_LEFT, token->getType());
+    ASSERT_EQ(8, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(8, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(PARANTHESES_RIGHT, token->getType());
+    ASSERT_EQ(8, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(BRACES_LEFT, token->getType());
+    ASSERT_EQ(8, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IFTOKEN, token->getType());
+    ASSERT_EQ(9, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(PARANTHESES_LEFT, token->getType());
+    ASSERT_EQ(9, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(9, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(EQUALS, token->getType());
+    ASSERT_EQ(9, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(INTEGER, token->getType());
+    ASSERT_EQ(9, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(AND, token->getType());
+    ASSERT_EQ(9, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(9, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(LESS, token->getType());
+    ASSERT_EQ(9, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(INTEGER, token->getType());
+    ASSERT_EQ(9, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(AND, token->getType());
+    ASSERT_EQ(9, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(9, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(GREATER, token->getType());
+    ASSERT_EQ(9, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(INTEGER, token->getType());
+    ASSERT_EQ(9, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(PARANTHESES_RIGHT, token->getType());
+    ASSERT_EQ(9, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(BRACES_LEFT, token->getType());
+    ASSERT_EQ(9, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(10, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(ASSIGN, token->getType());
+    ASSERT_EQ(10, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(10, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(PLUS, token->getType());
+    ASSERT_EQ(10, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(INTEGER, token->getType());
+    ASSERT_EQ(10, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(SEMICOLON, token->getType());
+    ASSERT_EQ(10, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(BRACES_RIGHT, token->getType());
+    ASSERT_EQ(11, token->getRow());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(BRACES_RIGHT, token->getType());
+    ASSERT_EQ(12, token->getRow());
 
 }
 
