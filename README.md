@@ -1,4 +1,5 @@
-# Systemnahes Programmieren SS 2015 ###
+# Systemnahes Programmieren
+[![Build Status](https://travis-ci.org/TobsCore/sysprog.svg?branch=master)](https://travis-ci.org/TobsCore/sysprog)
 
 In our course ''Systemnahes Programmieren'' that we had to take in our 3. semester at HS Karlsruhe, we had to build a compiler for a simple programming language.
 
