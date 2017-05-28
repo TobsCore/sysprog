@@ -39,7 +39,8 @@ set(SOURCE_FILES
         src/main/Token/WhileToken.cpp
         src/main/Token/WhileToken.h
         src/main/Token/ErrorToken.cpp
-        src/main/Token/ErrorToken.h)
+        src/main/Token/ErrorToken.h
+	src/main/Scanner/Automat/State.h)
 
 set(SOURCE_TEST
         src/test/automatTest.cpp

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.2.3)
 project(sysprog)
 
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 03)
 
 add_subdirectory(lib/googletest-master)
 include_directories(lib/googletest-master/googletest/include)
@@ -39,7 +39,8 @@ set(SOURCE_FILES
         main/Token/WhileToken.cpp
         main/Token/WhileToken.h
         main/Token/ErrorToken.cpp
-        main/Token/ErrorToken.h)
+        main/Token/ErrorToken.h
+	main/Scanner/Automat/State.h)
 
 set(SOURCE_TEST
         test/automatTest.cpp

@@ -7,6 +7,11 @@
 #include "Automat.h"
 #endif
 
+#ifndef SYSPROG_STATE_H
+#define SYSPROG_STATE_H
+#include "State.h"
+#endif
+
 int Automat::findColumn(char currentChar) {
 	if ((int) currentChar > 47 && (int) currentChar < 58) {
 		//digit
@@ -83,7 +88,7 @@ Automat::Automat() {
 SymbolType Automat::checkExpression(char currentChar) {
 	currentState = newState;
 	column = findColumn(currentChar);
-	stateElement state = stateMatrix[currentState][column];
+	StateElement state = stateMatrix[currentState][column];
 	newState = state.nextState;
 
 	return state.returnValue;
