@@ -8,7 +8,7 @@
 using testing::Eq;
 
 TEST(ScannerTest, Empty) {
-	char const *folderName = "../src/test/testData/testEmpty.txt";
+    char const *folderName = "../src/test/testData/testEmpty.txt";
     Scanner *scanner = new Scanner(folderName);
 
     Token *token = scanner->nextToken();
@@ -19,7 +19,7 @@ TEST(ScannerTest, Empty) {
 }
 
 TEST(ScannerTest, EmptyGoFurther) {
-	char const *folderName = "../src/test/testData/testEmpty.txt";
+    char const *folderName = "../src/test/testData/testEmpty.txt";
     Scanner *scanner = new Scanner(folderName);
 
     Token *token = scanner->nextToken();
@@ -201,7 +201,6 @@ TEST(ScannerTest, ArithmeticExpPosition) {
     delete scanner;
     delete token;
 }
-
 
 
 TEST(ScannerTest, IdentifierExPositionsOneAtBeginning) {
@@ -900,5 +899,18 @@ TEST(ScannerTest, ExampleProgram) {
 
 }
 
+TEST(ScannerTest, BibleMinimized) {
+    char const *bible = "../src/test/testData/bible.min.txt";
+    Scanner *scanner = new Scanner(bible);
 
+    Token *token = scanner->nextToken();
+    int i = 0;
+    while (!token->isEOF()) {
+        token = scanner->nextToken();
+        i++;
+    }
+    ASSERT_TRUE(token->isEOF());
+    ASSERT_EQ(i, 4543);
+    delete scanner;
+}
 

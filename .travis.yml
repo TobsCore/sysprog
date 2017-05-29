@@ -13,6 +13,7 @@ install:
 
 os:
   - linux
+  - osx
 
 language: cpp
 

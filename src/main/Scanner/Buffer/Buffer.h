@@ -33,6 +33,8 @@ private:
     bool isFinished;
     bool noRefill;
     bool isLeft;
+    int bytesRead;
+    int byteLeft;
     bool isFileOpen;
     unsigned int bufferLength;
 

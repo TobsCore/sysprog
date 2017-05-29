@@ -13,6 +13,8 @@ Buffer::Buffer(const char *source) {
     isLeft = true;
     noRefill = false;
 
+    bytesRead = 0;
+    byteLeft = chunkSize;
     eof = 0;
 
     isFileOpen = isFinished = false;
@@ -29,21 +31,25 @@ Buffer::~Buffer() {
 
 char Buffer::getChar() {
     current = next; //nimm das zuletzt als nächstes Zeichen gesetzte, als neues aktuelles Zeichen.
-
-    if (*current == eof) { //Test ob Datei zu ende.
-        isFinished = true;
-        close(fdRead);
-        return *current;
+    if (bytesRead < chunkSize) {
+        byteLeft--;
     }
 
-    if (current ==
-        baseRight + bufferLength - 1) { //wenn wir uns im letzten Zeichen befinden dann leftBuffer neu befüllen
+    if (*current == eof || byteLeft == 0) { //Test ob Datei zu ende.
+        isFinished = true;
+        close(fdRead);
+        return eof;
+    }
+
+    if (current == baseRight + bufferLength - 1) {
+        //wenn wir uns im letzten Zeichen befinden dann leftBuffer neu befüllen
         isLeft = true;
         fillBuffer(); //leftBuffer neu befüllen
         next = baseLeft;
         return *current;
     }
-    if (current == baseLeft + bufferLength - 1) { //wenn wir uns im letzten Zeichen befinden dann rightBuffer befüllen
+    if (current == baseLeft + bufferLength - 1) {
+        //wenn wir uns im letzten Zeichen befinden dann rightBuffer befüllen
         isLeft = false;
         fillBuffer(); //rightBuffer neu befüllen
         next = baseRight;
@@ -65,6 +71,9 @@ void Buffer::ungetChar(int count) {
             isLeft = false;
         } else { //current steht irgendwo in der mitte
             next--;
+            if (bytesRead < chunkSize) {
+                byteLeft++;
+            }
         }
     }
     current = next;
@@ -92,9 +101,16 @@ void Buffer::openFile() {
 void Buffer::fillBuffer() {
     if (!noRefill) {
         if (isLeft) {
-            read(fdRead, baseLeft, chunkSize);
+            bytesRead = read(fdRead, baseLeft, chunkSize);
         } else {
-            read(fdRead, baseRight, chunkSize);
+            bytesRead = read(fdRead, baseRight, chunkSize);
+        }
+
+        // If 0 bytes are read, this means the end of file has been reached.
+        if (bytesRead == 0) {
+            *current = '\0';
+        } else if (bytesRead < chunkSize) {
+            byteLeft = bytesRead + 1;
         }
     } else {
         noRefill = false;
