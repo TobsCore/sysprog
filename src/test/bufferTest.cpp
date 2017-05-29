@@ -3,8 +3,8 @@
 #include "../main/Scanner/Buffer/Buffer.h"
 
 TEST(BufferTest, EmptyFile) {
-    char const *folderName = "../src/test/testData/testEmpty.txt";
-    Buffer* buffer = new Buffer(folderName);
+    char const *testFile = "../src/test/testData/testEmpty.txt";
+    Buffer* buffer = new Buffer(testFile);
 
     ASSERT_TRUE(buffer->hasNext());
     ASSERT_EQ(0, buffer->getChar());
@@ -14,8 +14,8 @@ TEST(BufferTest, EmptyFile) {
 }
 
 TEST(BufferTest, ReadingSomeCharacters) {
-    char const *folderName = "../src/test/testData/testLongFile.txt";
-    Buffer* buffer = new Buffer(folderName);
+    char const *testFile = "../src/test/testData/testLongFile.txt";
+    Buffer* buffer = new Buffer(testFile);
 
     ASSERT_TRUE(buffer->hasNext());
     ASSERT_EQ('0', buffer->getChar());
@@ -37,8 +37,8 @@ TEST(BufferTest, ReadingSomeCharacters) {
 
 
 TEST(BufferTest, LongFileWithLoopSmallChunk) {
-    char const *folderName = "../src/test/testData/testLongFile.txt";
-    Buffer* buffer = new Buffer(folderName);
+    char const *testFile = "../src/test/testData/testLongFile.txt";
+    Buffer* buffer = new Buffer(testFile);
 
     // With a buffer size of 1024, the buffer shouldn't be switched
     for (int i = 0; i < 50; i++) {
@@ -50,8 +50,8 @@ TEST(BufferTest, LongFileWithLoopSmallChunk) {
 }
 
 TEST(BufferTest, LongFileWithLoopSwitchOnce) {
-    char const *folderName = "../src/test/testData/testLongFile.txt";
-    Buffer* buffer = new Buffer(folderName);
+    char const *testFile = "../src/test/testData/testLongFile.txt";
+    Buffer* buffer = new Buffer(testFile);
 
     // With a buffer size of 1024, the buffer should be switched at least once
     for (int i = 0; i < 1050; i++) {
@@ -62,8 +62,8 @@ TEST(BufferTest, LongFileWithLoopSwitchOnce) {
 }
 
 TEST(BufferTest, LongFileWithLoopSwitchOften) {
-    char const *folderName = "../src/test/testData/testLongFile.txt";
-    Buffer* buffer = new Buffer(folderName);
+    char const *testFile = "../src/test/testData/testLongFile.txt";
+    Buffer* buffer = new Buffer(testFile);
 
     // With a buffer size of 1024, the buffer should be switched at least once
     for (int i = 0; i < 7000; i++) {
@@ -74,8 +74,8 @@ TEST(BufferTest, LongFileWithLoopSwitchOften) {
 }
 
 TEST(BufferTest, LongFileDifferentCharsAfterBufferExceeded) {
-    char const *folderName = "../src/test/testData/testLongFileDifferentSymbols.txt";
-    Buffer* buffer = new Buffer(folderName);
+    char const *testFile = "../src/test/testData/testLongFileDifferentSymbols.txt";
+    Buffer* buffer = new Buffer(testFile);
 
     // Has some different symbols at the critical part
     for (int i = 0; i < 1020; i++) {
@@ -92,8 +92,8 @@ TEST(BufferTest, LongFileDifferentCharsAfterBufferExceeded) {
 }
 
 TEST(BufferTest, simpleUngetChar0) {
-    char const *folderName = "../src/test/testData/testLongFile.txt";
-    Buffer* buffer = new Buffer(folderName);
+    char const *testFile = "../src/test/testData/testLongFile.txt";
+    Buffer* buffer = new Buffer(testFile);
 
     ASSERT_EQ('0', buffer->getChar());
     ASSERT_EQ('1', buffer->getChar());
@@ -104,8 +104,8 @@ TEST(BufferTest, simpleUngetChar0) {
 }
 
 TEST(BufferTest, simpleUngetChar1) {
-    char const *folderName = "../src/test/testData/testLongFile.txt";
-    Buffer* buffer = new Buffer(folderName);
+    char const *testFile = "../src/test/testData/testLongFile.txt";
+    Buffer* buffer = new Buffer(testFile);
 
     ASSERT_EQ('0', buffer->getChar());
     ASSERT_EQ('1', buffer->getChar());
@@ -116,8 +116,8 @@ TEST(BufferTest, simpleUngetChar1) {
 }
 
 TEST(BufferTest, simpleUngetCharToBeginning) {
-    char const *folderName = "../src/test/testData/testLongFile.txt";
-    Buffer* buffer = new Buffer(folderName);
+    char const *testFile = "../src/test/testData/testLongFile.txt";
+    Buffer* buffer = new Buffer(testFile);
 
     ASSERT_EQ('0', buffer->getChar());
     ASSERT_EQ('1', buffer->getChar());
@@ -131,8 +131,8 @@ TEST(BufferTest, simpleUngetCharToBeginning) {
 }
 
 TEST(BufferTest, simpleUngetCharBy0AtBeginning) {
-    char const *folderName = "../src/test/testData/testLongFile.txt";
-    Buffer* buffer = new Buffer(folderName);
+    char const *testFile = "../src/test/testData/testLongFile.txt";
+    Buffer* buffer = new Buffer(testFile);
 
     buffer->ungetChar(0);
     ASSERT_EQ('0', buffer->getChar());
@@ -142,8 +142,8 @@ TEST(BufferTest, simpleUngetCharBy0AtBeginning) {
 }
 
 TEST(BufferTest, UngetCharForRightBuffer0) {
-    char const *folderName = "../src/test/testData/testLongFile.txt";
-    Buffer* buffer = new Buffer(folderName);
+    char const *testFile = "../src/test/testData/testLongFile.txt";
+    Buffer* buffer = new Buffer(testFile);
 
     for (int i = 0; i < 1030; i++) {
         char charVal = (i % 10) + 48;
@@ -156,8 +156,8 @@ TEST(BufferTest, UngetCharForRightBuffer0) {
 }
 
 TEST(BufferTest, UngetCharForRightBuffer1) {
-    char const *folderName = "../src/test/testData/testLongFile.txt";
-    Buffer* buffer = new Buffer(folderName);
+    char const *testFile = "../src/test/testData/testLongFile.txt";
+    Buffer* buffer = new Buffer(testFile);
 
     for (int i = 0; i < 1030; i++) {
         char charVal = (i % 10) + 48;
@@ -170,8 +170,8 @@ TEST(BufferTest, UngetCharForRightBuffer1) {
 }
 
 TEST(BufferTest, UngetCharForRightBufferToBeginningOfRightBuffer) {
-    char const *folderName = "../src/test/testData/testLongFile.txt";
-    Buffer* buffer = new Buffer(folderName);
+    char const *testFile = "../src/test/testData/testLongFile.txt";
+    Buffer* buffer = new Buffer(testFile);
 
     for (int i = 0; i < 1030; i++) {
         char charVal = (i % 10) + 48;
@@ -184,8 +184,8 @@ TEST(BufferTest, UngetCharForRightBufferToBeginningOfRightBuffer) {
 }
 
 TEST(BufferTest, UngetCharFromRightBufferToLeftBuffer) {
-    char const *folderName = "../src/test/testData/testLongFile.txt";
-    Buffer* buffer = new Buffer(folderName);
+    char const *testFile = "../src/test/testData/testLongFile.txt";
+    Buffer* buffer = new Buffer(testFile);
 
     for (int i = 0; i < 1030; i++) {
         char charVal = (i % 10) + 48;
@@ -198,8 +198,8 @@ TEST(BufferTest, UngetCharFromRightBufferToLeftBuffer) {
 }
 
 TEST(BufferTest, UngetCharFromRightBufferToLeftBufferFurther) {
-    char const *folderName = "../src/test/testData/testLongFile.txt";
-    Buffer* buffer = new Buffer(folderName);
+    char const *testFile = "../src/test/testData/testLongFile.txt";
+    Buffer* buffer = new Buffer(testFile);
 
     for (int i = 0; i < 1030; i++) {
         char charVal = (i % 10) + 48;
@@ -213,8 +213,8 @@ TEST(BufferTest, UngetCharFromRightBufferToLeftBufferFurther) {
 }
 
 TEST(BufferTest, UngetCharFromLeftBufferToRightBuffer) {
-    char const *folderName = "../src/test/testData/testLongFile.txt";
-    Buffer* buffer = new Buffer(folderName);
+    char const *testFile = "../src/test/testData/testLongFile.txt";
+    Buffer* buffer = new Buffer(testFile);
 
     for (int i = 0; i < 2060; i++) {
         char charVal = (i % 10) + 48;
@@ -236,4 +236,8 @@ TEST(BufferTest, UngetCharFromLeftBufferToRightBuffer) {
     ASSERT_EQ('2', buffer->getChar());
     ASSERT_EQ('3', buffer->getChar());
     delete buffer;
+}
+
+TEST(BufferTest, BibleMinimized) {
+    
 }
