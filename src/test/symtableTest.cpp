@@ -4,7 +4,7 @@
 
 using testing::Eq;
 
-TEST(SymtableTest, InsertTest) {
+TEST(SymtableTest, Insert) {
     char const *lexem = "example";
 
     SymbolTable *symboltable = new SymbolTable();

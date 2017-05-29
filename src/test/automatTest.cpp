@@ -35,7 +35,7 @@ TEST_F(AutomatTest, VariableIdentification) {
     ASSERT_EQ(testAutomat.checkExpression('\0'), SEMICOLON);
 }
 
-TEST_F(AutomatTest, ifStatement) {
+TEST_F(AutomatTest, IfStatement) {
     ASSERT_EQ(testAutomat.checkExpression('i'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('f'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('('), IFTOKEN);
@@ -57,7 +57,7 @@ TEST_F(AutomatTest, ifStatement) {
     ASSERT_EQ(testAutomat.checkExpression('\0'), BRACES_RIGHT);
 }
 
-TEST_F(AutomatTest, assignment) {
+TEST_F(AutomatTest, Assignment) {
     ASSERT_EQ(testAutomat.checkExpression('i'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('n'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('t'), NEXTCHAR);
@@ -75,7 +75,7 @@ TEST_F(AutomatTest, assignment) {
     ASSERT_EQ(testAutomat.checkExpression('\0'), SEMICOLON);
 }
 
-TEST_F(AutomatTest, special) {
+TEST_F(AutomatTest, Special) {
     ASSERT_EQ(testAutomat.checkExpression('v'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('a'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('r'), NEXTCHAR);
@@ -90,7 +90,7 @@ TEST_F(AutomatTest, special) {
     ASSERT_EQ(testAutomat.checkExpression('\0'), SEMICOLON);
 }
 
-TEST_F(AutomatTest, specialNotFulfilled) {
+TEST_F(AutomatTest, SpecialNotFulfilled) {
     ASSERT_EQ(testAutomat.checkExpression('='), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression(':'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('+'), ERROR_SPECIAL);
@@ -98,7 +98,7 @@ TEST_F(AutomatTest, specialNotFulfilled) {
     ASSERT_EQ(testAutomat.checkExpression('\0'), PLUS);
 }
 
-TEST_F(AutomatTest, specialTwice) {
+TEST_F(AutomatTest, SpecialTwice) {
     ASSERT_EQ(testAutomat.checkExpression('='), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression(':'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('='), NEXTCHAR);
@@ -108,7 +108,7 @@ TEST_F(AutomatTest, specialTwice) {
     ASSERT_EQ(testAutomat.checkExpression('\0'), SPECIAL);
 }
 
-TEST_F(AutomatTest, array) {
+TEST_F(AutomatTest, Array) {
     ASSERT_EQ(testAutomat.checkExpression('v'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('a'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('r'), NEXTCHAR);
@@ -132,7 +132,7 @@ TEST_F(AutomatTest, array) {
     ASSERT_EQ(testAutomat.checkExpression('\0'), SEMICOLON);
 }
 
-TEST_F(AutomatTest, complexBoolean) {
+TEST_F(AutomatTest, ComplexBoolean) {
     ASSERT_EQ(testAutomat.checkExpression('i'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('f'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('('), IFTOKEN);
@@ -174,7 +174,7 @@ TEST_F(AutomatTest, complexBoolean) {
     ASSERT_EQ(testAutomat.checkExpression('\0'), SEMICOLON);
 }
 
-TEST_F(AutomatTest, newLine) {
+TEST_F(AutomatTest, NewLine) {
     ASSERT_EQ(testAutomat.checkExpression('a'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('+'), IDENTIFIER);
     ASSERT_EQ(testAutomat.checkExpression('b'), PLUS);
@@ -186,7 +186,7 @@ TEST_F(AutomatTest, newLine) {
     ASSERT_EQ(testAutomat.checkExpression('\0'), IDENTIFIER);
 }
 
-TEST_F(AutomatTest, trailingSpaces) {
+TEST_F(AutomatTest, TrailingSpaces) {
     ASSERT_EQ(testAutomat.checkExpression('a'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression(';'), IDENTIFIER);
     ASSERT_EQ(testAutomat.checkExpression(' '), SEMICOLON);
@@ -196,14 +196,14 @@ TEST_F(AutomatTest, trailingSpaces) {
     ASSERT_EQ(testAutomat.checkExpression('\0'), NEXTCHAR);
 }
 
-TEST_F(AutomatTest, trailingNewLine) {
+TEST_F(AutomatTest, TrailingNewLine) {
     ASSERT_EQ(testAutomat.checkExpression('a'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression(';'), IDENTIFIER);
     ASSERT_EQ(testAutomat.checkExpression('\n'), SEMICOLON);
     ASSERT_EQ(testAutomat.checkExpression('\0'), NEXTCHAR);
 }
 
-TEST_F(AutomatTest, precedingSpaces) {
+TEST_F(AutomatTest, PrecedingSpaces) {
     ASSERT_EQ(testAutomat.checkExpression(' '), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression(' '), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression(' '), NEXTCHAR);
@@ -233,13 +233,13 @@ TEST_F(AutomatTest, CloseArithmaticExpression) {
     ASSERT_EQ(testAutomat.checkExpression('\0'), SEMICOLON);
 }
 
-TEST_F(AutomatTest, notAComment) {
+TEST_F(AutomatTest, NotAComment) {
     ASSERT_EQ(testAutomat.checkExpression('+'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('='), PLUS);
     ASSERT_EQ(testAutomat.checkExpression('\0'), EQUALS);
 }
 
-TEST_F(AutomatTest, shortestComment) {
+TEST_F(AutomatTest, ShortestComment) {
     ASSERT_EQ(testAutomat.checkExpression(':'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('*'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('*'), IN_COMMENT);
@@ -247,7 +247,7 @@ TEST_F(AutomatTest, shortestComment) {
     ASSERT_EQ(testAutomat.checkExpression('\0'), COMMENT);
 }
 
-TEST_F(AutomatTest, commentWithStars) {
+TEST_F(AutomatTest, CommentWithStars) {
     ASSERT_EQ(testAutomat.checkExpression(':'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('*'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('*'), IN_COMMENT);
@@ -257,7 +257,8 @@ TEST_F(AutomatTest, commentWithStars) {
     ASSERT_EQ(testAutomat.checkExpression(':'), IN_COMMENT);
     ASSERT_EQ(testAutomat.checkExpression('\0'), COMMENT);
 }
-TEST_F(AutomatTest, commentWithSpaces) {
+
+TEST_F(AutomatTest, CommentWithSpaces) {
     ASSERT_EQ(testAutomat.checkExpression(':'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('*'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression(' '), IN_COMMENT);
@@ -270,7 +271,7 @@ TEST_F(AutomatTest, commentWithSpaces) {
     ASSERT_EQ(testAutomat.checkExpression('\0'), COMMENT);
 }
 
-TEST_F(AutomatTest, commentWithEverythingBetween) {
+TEST_F(AutomatTest, CommentWithEverythingBetween) {
     ASSERT_EQ(testAutomat.checkExpression(':'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('*'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression(' '), IN_COMMENT);
@@ -285,7 +286,7 @@ TEST_F(AutomatTest, commentWithEverythingBetween) {
     ASSERT_EQ(testAutomat.checkExpression('\0'), COMMENT);
 }
 
-TEST_F(AutomatTest, commentWithSomethingBefore) {
+TEST_F(AutomatTest, CommentWithSomethingBefore) {
     ASSERT_EQ(testAutomat.checkExpression('a'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('+'), IDENTIFIER);
     ASSERT_EQ(testAutomat.checkExpression('b'), PLUS);
@@ -301,7 +302,7 @@ TEST_F(AutomatTest, commentWithSomethingBefore) {
     ASSERT_EQ(testAutomat.checkExpression('\0'), COMMENT);
 }
 
-TEST_F(AutomatTest, commentWithSomethingAfter) {
+TEST_F(AutomatTest, CommentWithSomethingAfter) {
     ASSERT_EQ(testAutomat.checkExpression(':'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('*'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('a'), IN_COMMENT);
@@ -314,7 +315,7 @@ TEST_F(AutomatTest, commentWithSomethingAfter) {
     ASSERT_EQ(testAutomat.checkExpression('\0'), EQUALS);
 }
 
-TEST_F(AutomatTest, commentWithSomethingAfterAndBefore) {
+TEST_F(AutomatTest, CommentWithSomethingAfterAndBefore) {
     ASSERT_EQ(testAutomat.checkExpression('a'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression(':'), IDENTIFIER);
     ASSERT_EQ(testAutomat.checkExpression('='), NEXTCHAR);
@@ -332,7 +333,7 @@ TEST_F(AutomatTest, commentWithSomethingAfterAndBefore) {
     ASSERT_EQ(testAutomat.checkExpression('\0'), COMMENT);
 }
 
-TEST_F(AutomatTest, ifTokenTest1) {
+TEST_F(AutomatTest, IfTokenTest1) {
     ASSERT_EQ(testAutomat.checkExpression('i'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('f'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression(':'), IFTOKEN);
@@ -351,7 +352,7 @@ TEST_F(AutomatTest, ifTokenTest1) {
     ASSERT_EQ(testAutomat.checkExpression('\0'), COMMENT);
 }
 
-TEST_F(AutomatTest, ifTokenTest2withoutif) {
+TEST_F(AutomatTest, IfTokenTest2withoutif) {
     ASSERT_EQ(testAutomat.checkExpression('i'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('f'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('i'), NEXTCHAR);
@@ -395,7 +396,6 @@ TEST_F(AutomatTest, WhileTokenTest1) {
 }
 
 TEST_F(AutomatTest, WhileTokenTest2) {
-
     ASSERT_EQ(testAutomat.checkExpression('b'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('+'), IDENTIFIER);
     ASSERT_EQ(testAutomat.checkExpression('c'), PLUS);
@@ -440,7 +440,6 @@ TEST_F(AutomatTest, WhileStatement) {
     ASSERT_EQ(testAutomat.checkExpression('\0'), BRACES_RIGHT);
 }
 
-
 TEST_F(AutomatTest, NoIfNoWhile) {
     ASSERT_EQ(testAutomat.checkExpression('w'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('h'), NEXTCHAR);
@@ -465,7 +464,7 @@ TEST_F(AutomatTest, NoIfNoWhile) {
     ASSERT_EQ(testAutomat.checkExpression('\0'), COMMENT);
 }
 
-TEST_F(AutomatTest, DISABLED_errors) {
+TEST_F(AutomatTest, DISABLED_ErroneousSymbols) {
     ASSERT_EQ(testAutomat.checkExpression('!'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('&'), EXCLAMATION);
     ASSERT_EQ(testAutomat.checkExpression(','), ERROR);

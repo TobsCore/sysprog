@@ -7,7 +7,7 @@
 
 using testing::Eq;
 
-TEST(ScannerErrorTest, testingEmpty) {
+TEST(ScannerErrorTest, Empty) {
 	char const *file = "../src/test/testData/errors.txt";
     Scanner *scanner = new Scanner(file);
 
@@ -17,7 +17,7 @@ TEST(ScannerErrorTest, testingEmpty) {
     delete token;
 }
 
-TEST(ScannerErrorTest, longIntegerTest) {
+TEST(ScannerErrorTest, IntegerTooLong) {
     char const *file = "../src/test/testData/testLongInteger.txt";
     Scanner *scanner = new Scanner(file);
 

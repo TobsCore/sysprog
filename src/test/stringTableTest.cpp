@@ -5,7 +5,7 @@
 #include <gmock/gmock.h>
 #include "../main/SymbolTable/StringTable/StringTable.h"
 
-TEST(StringTableTest, SimpleInsertTest) {
+TEST(StringTableTest, SimpleInsert) {
     char const *lexem = "example";
     StringTable *stringTable = new StringTable();
 

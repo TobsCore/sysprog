@@ -38,7 +38,7 @@ TEST(TokenTest, IdentifierToken) {
     delete testToken;
 }
 
-TEST(TokenTest, eof) {
+TEST(TokenTest, CheckForEOF) {
     Token *testToken = new Token();
     testToken->setType(FILE_END);
 

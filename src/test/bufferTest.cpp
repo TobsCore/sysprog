@@ -13,7 +13,7 @@ TEST(BufferTest, EmptyFile) {
     delete buffer;
 }
 
-TEST(BufferTest, testReadingSomeCharacters) {
+TEST(BufferTest, ReadingSomeCharacters) {
     char const *folderName = "../src/test/testData/testLongFile.txt";
     Buffer* buffer = new Buffer(folderName);
 
@@ -36,7 +36,7 @@ TEST(BufferTest, testReadingSomeCharacters) {
 }
 
 
-TEST(BufferTest, testLongFileWithLoopSmallChunk) {
+TEST(BufferTest, LongFileWithLoopSmallChunk) {
     char const *folderName = "../src/test/testData/testLongFile.txt";
     Buffer* buffer = new Buffer(folderName);
 
@@ -49,7 +49,7 @@ TEST(BufferTest, testLongFileWithLoopSmallChunk) {
     delete buffer;
 }
 
-TEST(BufferTest, testLongFileWithLoopSwitchOnce) {
+TEST(BufferTest, LongFileWithLoopSwitchOnce) {
     char const *folderName = "../src/test/testData/testLongFile.txt";
     Buffer* buffer = new Buffer(folderName);
 
@@ -61,7 +61,7 @@ TEST(BufferTest, testLongFileWithLoopSwitchOnce) {
     delete buffer;
 }
 
-TEST(BufferTest, testLongFileWithLoopSwitchOften) {
+TEST(BufferTest, LongFileWithLoopSwitchOften) {
     char const *folderName = "../src/test/testData/testLongFile.txt";
     Buffer* buffer = new Buffer(folderName);
 
@@ -73,7 +73,7 @@ TEST(BufferTest, testLongFileWithLoopSwitchOften) {
     delete buffer;
 }
 
-TEST(BufferTest, testLongFileDifferentCharsAfterBufferExceeded) {
+TEST(BufferTest, LongFileDifferentCharsAfterBufferExceeded) {
     char const *folderName = "../src/test/testData/testLongFileDifferentSymbols.txt";
     Buffer* buffer = new Buffer(folderName);
 
@@ -141,7 +141,7 @@ TEST(BufferTest, simpleUngetCharBy0AtBeginning) {
     delete buffer;
 }
 
-TEST(BufferTest, testUngetCharForRightBuffer0) {
+TEST(BufferTest, UngetCharForRightBuffer0) {
     char const *folderName = "../src/test/testData/testLongFile.txt";
     Buffer* buffer = new Buffer(folderName);
 
@@ -155,7 +155,7 @@ TEST(BufferTest, testUngetCharForRightBuffer0) {
     delete buffer;
 }
 
-TEST(BufferTest, testUngetCharForRightBuffer1) {
+TEST(BufferTest, UngetCharForRightBuffer1) {
     char const *folderName = "../src/test/testData/testLongFile.txt";
     Buffer* buffer = new Buffer(folderName);
 
@@ -169,7 +169,7 @@ TEST(BufferTest, testUngetCharForRightBuffer1) {
     delete buffer;
 }
 
-TEST(BufferTest, testUngetCharForRightBufferToBeginningOfRightBuffer) {
+TEST(BufferTest, UngetCharForRightBufferToBeginningOfRightBuffer) {
     char const *folderName = "../src/test/testData/testLongFile.txt";
     Buffer* buffer = new Buffer(folderName);
 
@@ -183,7 +183,7 @@ TEST(BufferTest, testUngetCharForRightBufferToBeginningOfRightBuffer) {
     delete buffer;
 }
 
-TEST(BufferTest, testUngetCharFromRightBufferToLeftBuffer) {
+TEST(BufferTest, UngetCharFromRightBufferToLeftBuffer) {
     char const *folderName = "../src/test/testData/testLongFile.txt";
     Buffer* buffer = new Buffer(folderName);
 
@@ -197,7 +197,7 @@ TEST(BufferTest, testUngetCharFromRightBufferToLeftBuffer) {
     delete buffer;
 }
 
-TEST(BufferTest, testUngetCharFromRightBufferToLeftBufferFurther) {
+TEST(BufferTest, UngetCharFromRightBufferToLeftBufferFurther) {
     char const *folderName = "../src/test/testData/testLongFile.txt";
     Buffer* buffer = new Buffer(folderName);
 
@@ -212,7 +212,7 @@ TEST(BufferTest, testUngetCharFromRightBufferToLeftBufferFurther) {
     delete buffer;
 }
 
-TEST(BufferTest, testUngetCharFromLeftBufferToRightBuffer) {
+TEST(BufferTest, UngetCharFromLeftBufferToRightBuffer) {
     char const *folderName = "../src/test/testData/testLongFile.txt";
     Buffer* buffer = new Buffer(folderName);
 
