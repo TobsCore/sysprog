@@ -22,12 +22,10 @@ public:
 
     const char *toString();
 
-    const char *getLexem();
+    const char *getInfo();
 
-    void setKey(SymbolItem *key);
-
-    SymbolItem *getKey();
+    void setInfo(const char *info);
 
 private:
-    SymbolItem *key;
+    const char *info;
 };

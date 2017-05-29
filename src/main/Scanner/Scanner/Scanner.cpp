@@ -4,6 +4,7 @@
 #include "../../Token/ErrorToken.h"
 #include "../../Token/WhileToken.h"
 #include "../../Token/IfToken.h"
+#include <climits>
 
 Scanner::Scanner(char const *filePath) {
 
@@ -77,36 +78,52 @@ Token *Scanner::nextToken() {
     Position *nextTokenPosition = tokenPosition();
 
     switch (symbol) {
-        case IDENTIFIER:
+        case IDENTIFIER: {
             lexem[i] = '\0';
             nextToken = new IdentifierToken();
             static_cast<IdentifierToken *>(nextToken)->setKey(symboltable->insert(lexem));
             i = 0;
             break;
-        case INTEGER:
+        }
+        case INTEGER: {
             lexem[i] = '\0';
-            nextToken = new IntegerToken();
-            static_cast<IntegerToken *>(nextToken)->setValue(atoll(lexem));
+            char *conversionResult;
+            long integerValue = strtol(lexem, &conversionResult, 10);
+
+            if ((integerValue == LONG_MIN || integerValue == LONG_MAX) && errno == ERANGE) {
+                //Value out of range
+                nextToken = new ErrorToken();
+                static_cast<ErrorToken *>(nextToken)->setInfo("Integer out of range");
+            } else {
+                // Conversion was succesful
+                nextToken = new IntegerToken();
+                static_cast<IntegerToken *>(nextToken)->setValue(integerValue);
+            }
             i = 0;
             break;
-        case ERROR:
+        }
+        case ERROR: {
             lexem[i] = '\0';
             nextToken = new ErrorToken();
-            static_cast<ErrorToken *>(nextToken)->setKey(symboltable->insert(lexem));
+            static_cast<ErrorToken *>(nextToken)->setInfo(lexem);
             lexem = new char[bufferSize];
             i = 0;
             break;
-        case WHILETOKEN:
+        }
+        case WHILETOKEN: {
             nextToken = new WhileToken();
             i = 0;
             break;
-        case IFTOKEN:
+        }
+        case IFTOKEN: {
             nextToken = new IfToken();
             i = 0;
             break;
-        default:
+        }
+        default: {
             nextToken = new Token();
             nextToken->setType(symbol);
+        }
     }
 
     nextToken->setPosition(nextTokenPosition);

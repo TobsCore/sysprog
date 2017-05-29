@@ -23,6 +23,6 @@ long long IntegerToken::getValue() {
     return value;
 }
 
-void IntegerToken::setValue(long long value) {
+void IntegerToken::setValue(long value) {
     this->value = value;
 }

@@ -6,25 +6,20 @@
 
 ErrorToken::ErrorToken() {
     this->type = ERROR;
-    this->key = NULL;
 }
 
 const char *ErrorToken::toString() {
     char *buffer = (char *) calloc(150, sizeof(char));
 
-    snprintf(buffer, 100, "Token %-20s Line: %3d  Column: %3d  Lexem: %s", getTypeString(), getRow(), getCol(),
-             getLexem());
+    snprintf(buffer, 100, "Error Found! Line: %3d Column: %3d  Info: %s", getRow(), getCol(),
+             getInfo());
     return buffer;
 }
 
-const char *ErrorToken::getLexem() {
-    return key->lexem;
+const char *ErrorToken::getInfo() {
+    return info;
 }
 
-SymbolItem *ErrorToken::getKey() {
-    return key;
-}
-
-void ErrorToken::setKey(SymbolItem *key) {
-    this->key = key;
+void ErrorToken::setInfo(const char *info) {
+    this->info = info;
 }

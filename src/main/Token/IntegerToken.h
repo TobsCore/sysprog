@@ -14,10 +14,10 @@ public:
 
     const char *toString();
 
-    void setValue(long long value);
+    void setValue(long value);
 
     long long getValue();
 
 private:
-    long long value;
+    long value;
 };
