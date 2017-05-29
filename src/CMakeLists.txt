@@ -3,9 +3,9 @@ project(sysprog)
 
 set(CMAKE_CXX_STANDARD 03)
 
-add_subdirectory(lib/googletest-master)
-include_directories(lib/googletest-master/googletest/include)
-include_directories(lib/googletest-master/googlemock/include)
+add_subdirectory(lib/googletest)
+include_directories(lib/googletest/googletest/include)
+include_directories(lib/googletest/googlemock/include)
 
 set(SOURCE_FILES
         main/Position/Position.cpp
@@ -40,7 +40,7 @@ set(SOURCE_FILES
         main/Token/WhileToken.h
         main/Token/ErrorToken.cpp
         main/Token/ErrorToken.h
-	main/Scanner/Automat/State.h)
+	    main/Scanner/Automat/State.h)
 
 set(SOURCE_TEST
         test/automatTest.cpp

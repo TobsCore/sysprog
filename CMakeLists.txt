@@ -3,9 +3,9 @@ project(sysprog)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_subdirectory(src/lib/googletest-master)
-include_directories(src/lib/googletest-master/googletest/include)
-include_directories(src/lib/googletest-master/googlemock/include)
+add_subdirectory(src/lib/googletest)
+include_directories(src/lib/googletest/googletest/include)
+include_directories(src/lib/googletest/googlemock/include)
 
 set(SOURCE_FILES
         src/main/Position/Position.cpp
