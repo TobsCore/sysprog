@@ -2,7 +2,7 @@
 #include <gmock/gmock.h>
 #include "../main/Scanner/Buffer/Buffer.h"
 
-TEST(BufferTest, DISABLED_testEmptyFile) {
+TEST(BufferTest, EmptyFile) {
     char const *folderName = "../src/test/testData/testEmpty.txt";
     Buffer* buffer = new Buffer(folderName);
 

@@ -103,20 +103,6 @@ TEST(StringTableTest, LoadAlphabet100000) {
     delete stringTable;
 }
 
-TEST(StringTableTest, DISABLED_LoadAlphabet1000000) {
-    StringTable *stringTable = new StringTable();
-
-    const char *letter[] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r",
-                            "s", "t", "u", "v", "w", "x", "y", "z"};
-    for (int i = 0; i < 1000000; i++) {
-        const char *val = letter[i % 26];
-        char *insertedString = stringTable->insertString(val);
-        ASSERT_STREQ(insertedString, val);
-    }
-
-    delete stringTable;
-}
-
 TEST(StringTableTest, CheckIfExistsAfter10000OtherSymbols) {
     StringTable *stringTable = new StringTable();
 

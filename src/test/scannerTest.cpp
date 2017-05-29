@@ -304,41 +304,6 @@ TEST(ScannerTest, testParenthesis) {
     delete token;
 }
 
-TEST(ScannerTest, DISABLED_DifferentSpaces) {
-    char const *folderName = "../src/test/testData/testDifferentSpaces.txt";
-    Scanner *scanner = new Scanner(folderName);
-
-    Token *token;
-
-    token = scanner->nextToken();
-    ASSERT_EQ(PLUS, token->getType());
-    ASSERT_EQ(1, token->getRow());
-    ASSERT_EQ(1, token->getCol());
-
-    token = scanner->nextToken();
-    ASSERT_EQ(PLUS, token->getType());
-    ASSERT_EQ(1, token->getRow());
-    ASSERT_EQ(4, token->getCol());
-
-    token = scanner->nextToken();
-    ASSERT_EQ(PLUS, token->getType());
-    ASSERT_EQ(1, token->getRow());
-    ASSERT_EQ(8, token->getCol());
-
-    token = scanner->nextToken();
-    ASSERT_EQ(PLUS, token->getType());
-    ASSERT_EQ(1, token->getRow());
-    ASSERT_EQ(18, token->getCol());
-
-    token = scanner->nextToken();
-    ASSERT_EQ(PLUS, token->getType());
-    ASSERT_EQ(1, token->getRow());
-    ASSERT_EQ(25, token->getCol());
-
-    delete scanner;
-    delete token;
-}
-
 TEST(ScannerTest, SimpleMultiline) {
     char const *folderName = "../src/test/testData/testSimpleMultiline.txt";
     Scanner *scanner = new Scanner(folderName);
@@ -648,38 +613,6 @@ TEST(ScannerTest, commentWithSpaceTest) {
     delete scanner;
     delete token;
 }
-
-TEST(ScannerTest, DISABLED_StartsWithSpaces) {
-    char const *folderName = "../src/test/testData/testStartWithSpaces.txt";
-    Scanner *scanner = new Scanner(folderName);
-
-    Token *token;
-
-    token = scanner->nextToken();
-    ASSERT_EQ(IDENTIFIER, token->getType());
-    ASSERT_EQ(1, token->getRow());
-    ASSERT_EQ(4, token->getCol());
-
-    token = scanner->nextToken();
-    ASSERT_EQ(PLUS, token->getType());
-    ASSERT_EQ(1, token->getRow());
-    ASSERT_EQ(6, token->getCol());
-
-    token = scanner->nextToken();
-    ASSERT_EQ(IDENTIFIER, token->getType());
-    ASSERT_EQ(1, token->getRow());
-    ASSERT_EQ(8, token->getCol());
-
-    token = scanner->nextToken();
-    ASSERT_EQ(SEMICOLON, token->getType());
-    ASSERT_EQ(1, token->getRow());
-    ASSERT_EQ(9, token->getCol());
-
-    delete scanner;
-    delete token;
-}
-
-
 
 TEST(ScannerTest, ErronuousSpecialChar) {
     // a =:+ b;
