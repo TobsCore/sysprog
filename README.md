@@ -1,5 +1,6 @@
 # Systemnahes Programmieren
 [![Build Status](https://travis-ci.org/TobsCore/sysprog.svg?branch=master)](https://travis-ci.org/TobsCore/sysprog)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/06486b00fd554980aa6120ae4e208eb4)](https://www.codacy.com/app/TobsCore/sysprog?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=TobsCore/sysprog&amp;utm_campaign=Badge_Grade)
 
 In our course ''Systemnahes Programmieren'' that we had to take in our 3. semester at HS Karlsruhe, we had to build a compiler for a simple programming language.
 
