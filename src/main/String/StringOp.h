@@ -22,13 +22,13 @@ public:
     /*
      * Returns a string, which is all uppercase.
      */
-    static char* toUpper(const char *source);
+    static char *toUpper(const char *source);
 
 
-    static char * strdup(const char *source);
+    static char *strdup(const char *source);
 
 
-    static char * strcpy(char *destination, const char *source);
+    static char *strcpy(char *destination, const char *source);
 };
 
 

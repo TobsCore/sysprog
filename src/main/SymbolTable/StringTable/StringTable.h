@@ -33,6 +33,7 @@ private:
 
 public:
     StringTable();
+
     /*
      * Wert in Stringtabelle einfügen
      */

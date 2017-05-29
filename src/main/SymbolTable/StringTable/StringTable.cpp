@@ -46,6 +46,7 @@ char *StringTable::insertString(const char *lexem) {
         // an Stringtabelle verknüpft
         newStringItem->stringMemory = (char *) calloc(stringMemorySize, sizeof(char));
         if (newStringItem->stringMemory == NULL) {
+            delete newStringItem;
             // Kein Speicher für neues Element vorhanden
             return NULL;
         }

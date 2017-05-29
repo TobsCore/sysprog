@@ -14,45 +14,46 @@ static const int chunkSize = 1024;
 #include <unistd.h>
 //zum testen
 #include <iostream>
+
 using namespace std;
 
 class Buffer {
 
 private:
-	char *baseLeft;
-	char *baseRight;
-	char *next;
-	char *current;
-	char* leftBuffer;
-	char* rightBuffer;
-	const char *sourceFile;
-	int fdRead;
-	//int fdWrite;
-	int eof;
-	bool isFinished;
+    char *baseLeft;
+    char *baseRight;
+    char *next;
+    char *current;
+    char *leftBuffer;
+    char *rightBuffer;
+    const char *sourceFile;
+    int fdRead;
+    //int fdWrite;
+    int eof;
+    bool isFinished;
     bool noRefill;
-	bool isLeft;
-	bool isFileOpen;
-	unsigned int bufferLength;
+    bool isLeft;
+    bool isFileOpen;
+    unsigned int bufferLength;
 
-	int currentRow;
-	int currentColumn;
+    void fillBuffer();
 
-	void fillBuffer();
-	//void createFile();
-	void openFile();
+    //void createFile();
+    void openFile();
 
 public:
-	Buffer(const char *source);
-	virtual ~Buffer();
-	char getChar();
-	void ungetChar(int);
-	//void putChar(char c);
-	bool hasNext();
-	void closeFiles();
+    Buffer(const char *source);
 
-	int getCurrentRow();
-	int getCurrentColumn();
+    virtual ~Buffer();
+
+    char getChar();
+
+    void ungetChar(int);
+
+    //void putChar(char c);
+    bool hasNext();
+
+    void closeFiles();
 };
 
 #endif /* BUFFER_H_ */

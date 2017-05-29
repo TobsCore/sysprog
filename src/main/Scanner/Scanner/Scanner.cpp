@@ -25,16 +25,16 @@ Scanner::Scanner(char const *filePath) {
 }
 
 Scanner::~Scanner() {
-	delete buffer;
-	delete automat;
-	delete symboltable;
-	delete nextTokenPosition;
-	delete currentTokenPosition;
-	delete currentPosition;
-	delete lexem;
+    delete buffer;
+    delete automat;
+    delete symboltable;
+    delete nextTokenPosition;
+    delete currentTokenPosition;
+    delete currentPosition;
+    delete[] lexem;
 }
 
-Token* Scanner::nextToken() {
+Token *Scanner::nextToken() {
     Token *nextToken;
 
     if (!buffer->hasNext()) {
@@ -49,14 +49,14 @@ Token* Scanner::nextToken() {
         char nextChar = buffer->getChar();
         symbol = automat->checkExpression(nextChar);
         checkInComment(symbol);
-        setCurrentPosition(nextChar, symbol);
-        if((nextChar >= '0' && nextChar <= '9')
-        	|| (nextChar >= 'a' && nextChar <= 'z')
-			|| (nextChar >= 'A' && nextChar <= 'Z')){
-			lexem[i] = nextChar;
-			i++;
+        setCurrentPosition(nextChar);
+        if ((nextChar >= '0' && nextChar <= '9')
+            || (nextChar >= 'a' && nextChar <= 'z')
+            || (nextChar >= 'A' && nextChar <= 'Z')) {
+            lexem[i] = nextChar;
+            i++;
         }
-	} while ((symbol == NEXTCHAR || symbol == IN_COMMENT) && buffer->hasNext() && i < bufferSize - 1);
+    } while ((symbol == NEXTCHAR || symbol == IN_COMMENT) && buffer->hasNext() && i < bufferSize - 1);
 
     if (i >= bufferSize - 1) {
         symbol = ERROR;
@@ -74,26 +74,25 @@ Token* Scanner::nextToken() {
         buffer->ungetChar(1);
         currentPosition->incCol(-1);
     }
-    Position* nextTokenPosition = tokenPosition();
-    // Über die Länge das Lexem bestimmen.
-    int length = currentPosition->getCol() - nextTokenPosition->getCol();
+    Position *nextTokenPosition = tokenPosition();
+
     switch (symbol) {
         case IDENTIFIER:
-        	lexem[i] = '\0';
+            lexem[i] = '\0';
             nextToken = new IdentifierToken();
-            ((IdentifierToken*) nextToken)->setKey(symboltable->insert(lexem));
+            static_cast<IdentifierToken *>(nextToken)->setKey(symboltable->insert(lexem));
             i = 0;
             break;
         case INTEGER:
-        	lexem[i] = '\0';
+            lexem[i] = '\0';
             nextToken = new IntegerToken();
-            ((IntegerToken*) nextToken)->setValue(atoll(lexem));
+            static_cast<IntegerToken *>(nextToken)->setValue(atoll(lexem));
             i = 0;
             break;
         case ERROR:
             lexem[i] = '\0';
             nextToken = new ErrorToken();
-            ((IdentifierToken*) nextToken)->setKey(symboltable->insert(lexem));
+            static_cast<ErrorToken *>(nextToken)->setKey(symboltable->insert(lexem));
             lexem = new char[bufferSize];
             i = 0;
             break;
@@ -109,20 +108,20 @@ Token* Scanner::nextToken() {
             nextToken = new Token();
             nextToken->setType(symbol);
     }
-    
+
     nextToken->setPosition(nextTokenPosition);
     return nextToken;
 }
 
 void Scanner::checkInComment(const SymbolType &symbol) {
     if (symbol == IN_COMMENT) {
-            isInComment = true;
-        } else if (symbol == COMMENT) {
-            isInComment = false;
-        }
+        isInComment = true;
+    } else if (symbol == COMMENT) {
+        isInComment = false;
+    }
 }
 
-void Scanner::setCurrentPosition(char c, SymbolType type) {
+void Scanner::setCurrentPosition(char c) {
     if (c == ' ' || c == '\t') {
         currentPosition->incCol();
         if (!isInComment) {
@@ -138,7 +137,7 @@ void Scanner::setCurrentPosition(char c, SymbolType type) {
     }
 }
 
-Position* Scanner::tokenPosition() {
+Position *Scanner::tokenPosition() {
     int row = currentPosition->getRow();
     int col = currentPosition->getCol();
 

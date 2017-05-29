@@ -31,8 +31,9 @@ char *StringOp::toUpper(const char *source) {
     char *str = strdup(source);
 
     while (str[i]) {
-        if (str[i] >= 97 && str[i] <= 122)
+        if (str[i] >= 97 && str[i] <= 122) {
             str[i] -= 32;
+        }
         i++;
     }
     return (str);
@@ -46,7 +47,6 @@ char *StringOp::strdup(const char *source) {
 char *StringOp::strcpy(char *destination, const char *source) {
 
     char *s = destination;
-    while ((*s++ = *source++) != 0)
-        ;
+    while ((*s++ = *source++) != 0) {};
     return (destination);
 }

@@ -17,14 +17,14 @@ const char *ErrorToken::toString() {
     return buffer;
 }
 
-const char* ErrorToken::getLexem() {
+const char *ErrorToken::getLexem() {
     return key->lexem;
 }
 
-SymbolItem* ErrorToken::getKey() {
+SymbolItem *ErrorToken::getKey() {
     return key;
 }
 
-void ErrorToken::setKey(SymbolItem* key) {
+void ErrorToken::setKey(SymbolItem *key) {
     this->key = key;
 }

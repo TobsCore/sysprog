@@ -20,14 +20,14 @@ const char *IdentifierToken::toString() {
     return buffer;
 }
 
-const char* IdentifierToken::getLexem() {
+const char *IdentifierToken::getLexem() {
     return key->lexem;
 }
 
-SymbolItem* IdentifierToken::getKey() {
+SymbolItem *IdentifierToken::getKey() {
     return key;
 }
 
-void IdentifierToken::setKey(SymbolItem* key) {
+void IdentifierToken::setKey(SymbolItem *key) {
     this->key = key;
 }

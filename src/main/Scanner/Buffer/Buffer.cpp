@@ -14,8 +14,6 @@ Buffer::Buffer(const char *source) {
     noRefill = false;
 
     eof = 0;
-    currentColumn = 1;
-    currentRow = 1;
 
     isFileOpen = isFinished = false;
     sourceFile = source;
@@ -24,6 +22,7 @@ Buffer::Buffer(const char *source) {
 }
 
 Buffer::~Buffer() {
+    closeFiles();
     free(leftBuffer);
     free(rightBuffer);
 }
@@ -102,69 +101,6 @@ void Buffer::fillBuffer() {
     }
 }
 
-//Bekommt einzelne Zeichen, speichert sie zwischen und schreibt sie wenn das Array voll ist in die Datei
-/*void Buffer::putChar(char c){
-	current = next;
-
-	if(!isFileOpen){
-		createFile();
-	}
-
-	if(c == eof){ //Letztes Zeiches
-		*current = c; //Rest in Datei schreiben
-		if(isLeft){ //Schauen das Reihenfolge beim schreiben stimmt.
-			for(int i = 0; current != (baseLeft + (bufferLength - 1 - i)); i++){ //rest des Speichers mit Leerzeichen füllen
-				*(baseLeft + (bufferLength - 1 - i)) = 32;
-			}
-			if(*(baseRight + (bufferLength - 1)) != 0){
-				write(fdWrite, baseRight, bufferLength);
-			}
-			write(fdWrite, baseLeft, bufferLength);
-		}
-		else{
-			for(int i = 0; current != (baseRight + (bufferLength - 1 - i)); i++){ //rest des Speichers mit Leerzeichen füllen
-				*(baseRight + (bufferLength - 1 - i)) = 32;
-			}
-			if(*(baseLeft + (bufferLength -1)) != 0 ){
-				write(fdWrite, baseLeft, bufferLength);
-			}
-			write(fdWrite, baseRight, bufferLength);
-		}
-		cout << endl << "Close File" << endl;
-		if(close(fdWrite) == -1){
-			cout << "Fehler beim schließen der Datei";
-		}
-	}
-	else{
-		//Fülle so lange linkes Array bis es voll ist. Danach das Rechte. Ist das voll wird das Linke geschrieben usw.
-		if(current == baseLeft + (bufferLength -1)){
-			if(*baseRight != 0 ){ //das kein leeres Array in Datei geschrieben wird
-				write(fdWrite, baseRight, bufferLength);
-			}
-			cout << "Linke Seite voll" << endl;
-			next = baseRight;
-			isLeft = false;
-			*current = c;
-			cout << *current;
-			return;
-		}
-		if(current == baseRight + (bufferLength -1)){
-			if(*baseLeft != 0){ //das kein leeres Array in Datei geschrieben wird
-				write(fdWrite, baseLeft, bufferLength);
-			}
-			cout << "Rechte Seite voll" << endl;
-			next = baseLeft;
-			isLeft = true;
-			*current = c;
-			cout << *current;
-			return;
-		}
-		next++;
-		*current = c;
-		cout << *current;
-	}
-}*/
-
 bool Buffer::hasNext() {
     return !isFinished;
 }
@@ -172,12 +108,4 @@ bool Buffer::hasNext() {
 void Buffer::closeFiles() { //schließt die geöffneten Dateien wieder
     close(fdRead);
     //close(fdWrite);
-}
-
-int Buffer::getCurrentRow() {
-    return this->currentRow;
-}
-
-int Buffer::getCurrentColumn() {
-    return this->currentColumn;
 }

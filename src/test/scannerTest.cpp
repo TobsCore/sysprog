@@ -73,11 +73,11 @@ TEST(ScannerTest, ReadSomeIdentifier) {
     IdentifierToken *idToken;
     IntegerToken *intToken;
 
-    idToken = (IdentifierToken *) scanner->nextToken();
+    idToken = static_cast<IdentifierToken *>(scanner->nextToken());
     ASSERT_EQ(IDENTIFIER, idToken->getType());
     delete idToken;
 
-    idToken = (IdentifierToken *) scanner->nextToken();
+    idToken = static_cast<IdentifierToken *>(scanner->nextToken());
     ASSERT_EQ(IDENTIFIER, idToken->getType());
     delete idToken;
 
@@ -729,11 +729,11 @@ TEST(ScannerTest, IdentifierExValues) {
 
     Token *token = scanner->nextToken();
     ASSERT_EQ(IDENTIFIER, token->getType());
-    ASSERT_STREQ("int", ((IdentifierToken*)token)->getLexem());
+    ASSERT_STREQ("int", static_cast<IdentifierToken *>(token)->getLexem());
 
     token = scanner->nextToken();
     ASSERT_EQ(IDENTIFIER, token->getType());
-    ASSERT_STREQ("a", ((IdentifierToken*)token)->getLexem());
+    ASSERT_STREQ("a", static_cast<IdentifierToken *>(token)->getLexem());
 
     token = scanner->nextToken();
     ASSERT_EQ(FILE_END, token->getType());
@@ -747,7 +747,7 @@ TEST(ScannerTest, ReallyLongIdentifier) {
     Scanner *scanner = new Scanner(folderName);
 
     Token *token = scanner->nextToken();
-    ASSERT_EQ(ERROR, token->getType());
+    ASSERT_EQ(SymbolType::ERROR, token->getType());
 
     delete scanner;
     delete token;

@@ -41,10 +41,6 @@ void Position::incCol(int incVal) {
     Position::column += incVal;
 }
 
-void Position::resetRow() {
-    Position::row = 1;
-}
-
 void Position::resetCol() {
     Position::column = 1;
 }

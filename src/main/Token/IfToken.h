@@ -8,21 +8,17 @@
 
 #ifndef TOKEN
 #define TOKEN
+
 #include "Token.h"
+
 #endif
 
 #include "../SymbolTable/SymbolItem.h"
 
 class IfToken : public Token {
 
-
 public:
     IfToken();
 
     const char *toString();
 };
-
-
-
-
-

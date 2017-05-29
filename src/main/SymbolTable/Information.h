@@ -17,78 +17,45 @@ using namespace std;
 #define INFORMATION_H_
 
 class Information {
-	private:
+private:
 
-		SymbolType type;
-		const char* name;
-		Keyword keyword;
+    SymbolType type;
+    const char *name;
+    Keyword keyword;
 
-	public:
-		/*
-		* Default-Konstruktor von der Klasse
-		*/
-		Information();
-		/*
-		 * Konstruktor von der Klasse
-		 */
-		Information(SymbolType type, const char* name);
-		/*
-		 * Gibt Name von Informationscontainer aus
-		 */
-		const char* getName();
-		/*
-		 * Ändert Name von Informationscontainer
-		 */
-		void setName(const char* name2);
-		/*
-		 * Gibt Typ von Informationscontainer aus
-		 */
-		SymbolType getType();
-		/*
-		 * Ändert Typ von Informationscontainer
-		 */
-		void setType(SymbolType type2);
-		/*
-		 * Gibt Keyword von Informationscontainer aus
-		 */
-		Keyword getKeyword();
-		/*
-		 * Ändert Keyword von Informationscontainer
-		 */
-		void setKeyword(Keyword keyword2);
-		/*
-		 * überprüft ob Lexem ein Keyword ist oder nicht.
-		 * Und gibt das den entsprechende Keyword zurück
-		 */
-		Keyword isKeyword();
-		/*
-		 * Gibt die Länge von dem Namen aus
-		 */
-		int nameLength();
-		/*
-		 * Ausgabe von Informationscontainer
-		 */
-		void viewInformation();
-		/*
-		 * Aktueller Informationscontainer erhält
-		 * alle Werte von anderen Infocontainer
+public:
+    /*
+    * Default-Konstruktor von der Klasse
+    */
+    Information();
 
-		Information& operator=(Information& infoGleich);
+    /*
+     * Konstruktor von der Klasse
+     */
+    Information(const char *name);
 
-		* Aktueller Informationscontainer wird mit dem
-		* anderen verglichen
+    /*
+     * Ändert Name von Informationscontainer
+     */
+    void setName(const char *name2);
 
-		bool operator==(Information& infoVergleich);*/
+    /*
+     * überprüft ob Lexem ein Keyword ist oder nicht.
+     * Und gibt das den entsprechende Keyword zurück
+     */
+    Keyword isKeyword();
 
+    /*
+     * Gibt die Länge von dem Namen aus
+     */
+    int nameLength();
 
-
-		/*
-		* Gibt belegten Speicher von der Hashtabelle
-		* frei
-		*/
-		virtual ~Information();
+    /*
+    * Gibt belegten Speicher von der Hashtabelle
+    * frei
+    */
+    virtual ~Information();
 };
-
 
 
 #endif /* INFORMATION_H_ */

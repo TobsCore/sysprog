@@ -24,17 +24,17 @@ SymbolTable::~SymbolTable() {
     delete stringTable;
 
     for (int i = 0; i < tableSize; i++) {
-    	if (hashTable[i] != NULL) {
-    		freeRecursive(hashTable[i]);
-    	}
+        if (hashTable[i] != NULL) {
+            freeRecursive(hashTable[i]);
+        }
     }
 }
 
-void SymbolTable::freeRecursive(SymbolItem * item) {
-	if (item->next != NULL) {
-		freeRecursive(item->next);
-	}
-	delete item;
+void SymbolTable::freeRecursive(SymbolItem *item) {
+    if (item->next != NULL) {
+        freeRecursive(item->next);
+    }
+    delete item;
 }
 
 int SymbolTable::hashcode(const char *lexem, int length) {
@@ -69,12 +69,6 @@ SymbolItem *SymbolTable::insert(const char *lexem) {
     // Speicher für neues Element bereitstellen und ausgeben
     // wenn es keinen mehr gibt
     ptrItem = new SymbolItem;
-
-    if (ptrItem == NULL) {
-        // cout << "Kein Speicher für neues Element vorhanden" << endl;
-        return NULL;
-    }
-
 
     // Fügt ale Werte in das neues Element ein
     ptrItem->infoContainer.setName(lexem);
@@ -120,7 +114,7 @@ SymbolItem *SymbolTable::lookup(const char *lexem) {
 void SymbolTable::initSymbols() {
     for (int i = 0; i < KEYWORDS_COUNT; i++) {
         insert(KEYWORDS[i]);
-        char* upper = StringOp::toUpper(KEYWORDS[i]);
+        char *upper = StringOp::toUpper(KEYWORDS[i]);
         insert(upper);
         free(upper);
     }

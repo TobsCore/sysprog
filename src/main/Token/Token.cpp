@@ -1,17 +1,19 @@
 #ifndef TOKEN
 #define TOKEN
+
 #include "Token.h"
+
 #endif
 
 #include <iostream>
 
 Token::Token() {
     this->type = NEXTCHAR;
-    this->position = new Position(1,1);
+    this->position = new Position(1, 1);
 }
 
 Token::~Token() {
-	delete position;
+    delete position;
 }
 
 void Token::setType(SymbolType type) {
@@ -23,7 +25,7 @@ SymbolType Token::getType() {
 }
 
 bool Token::isEOF() {
-	return this->type == FILE_END;
+    return this->type == FILE_END;
 }
 
 

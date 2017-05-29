@@ -92,11 +92,10 @@ TEST(StringTableTest, LoadTestSameLexem100000) {
 TEST(StringTableTest, LoadAlphabet100000) {
     StringTable *stringTable = new StringTable();
 
-    const char *val;
     const char *letter[] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r",
                             "s", "t", "u", "v", "w", "x", "y", "z"};
     for (int i = 0; i < 100000; i++) {
-        val = letter[i % 26];
+        const char *val = letter[i % 26];
         char *insertedString = stringTable->insertString(val);
         ASSERT_STREQ(insertedString, val);
     }
@@ -107,11 +106,10 @@ TEST(StringTableTest, LoadAlphabet100000) {
 TEST(StringTableTest, DISABLED_LoadAlphabet1000000) {
     StringTable *stringTable = new StringTable();
 
-    const char *val;
     const char *letter[] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r",
                             "s", "t", "u", "v", "w", "x", "y", "z"};
     for (int i = 0; i < 1000000; i++) {
-        val = letter[i % 26];
+        const char *val = letter[i % 26];
         char *insertedString = stringTable->insertString(val);
         ASSERT_STREQ(insertedString, val);
     }

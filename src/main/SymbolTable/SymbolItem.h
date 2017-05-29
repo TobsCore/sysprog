@@ -19,6 +19,8 @@
  * Struktur von einem Listenelement
  */
 struct SymbolItem {
+    SymbolItem() {}
+
     Information infoContainer;
     const char *lexem;
     SymbolItem *next;

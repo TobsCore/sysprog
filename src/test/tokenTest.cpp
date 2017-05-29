@@ -14,6 +14,9 @@ TEST(TokenTest, IntegerToken) {
 
     ASSERT_EQ(5, testToken->getRow());
     ASSERT_EQ(1, testToken->getCol());
+    ASSERT_EQ(testToken->getRow(), testToken->getPosition()->getRow());
+    ASSERT_EQ(testToken->getCol(), testToken->getPosition()->getCol());
+
     ASSERT_EQ(INTEGER, testToken->getType());
     ASSERT_EQ(0, testToken->getValue());
 

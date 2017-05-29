@@ -3,12 +3,15 @@
 //
 #ifndef TOKEN
 #define TOKEN
+
 #include "Token.h"
+
 #endif
 
 class IntegerToken : public Token {
 public:
     IntegerToken();
+
     const char *toString();
 
     void setValue(long long value);

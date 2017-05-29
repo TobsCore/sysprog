@@ -88,15 +88,12 @@ TEST(SymtableTest, InitSymbols) {
 
 TEST(SymtableTest, InsertAlphabet) {
     SymbolTable *table = new SymbolTable();
-    SymbolItem *key;
 
-    const char *val;
     const char *letter[] = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r",
                             "s", "t", "u", "v", "w", "x", "y", "z"};
-
     for (int i = 0; i < 100; i++) {
-        val = letter[i % 26];
-        key = table->insert(val);
+        const char *val = letter[i % 26];
+        SymbolItem *key = table->insert(val);
         ASSERT_STREQ(val, key->lexem);
     }
     delete table;
