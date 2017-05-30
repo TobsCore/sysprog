@@ -74,7 +74,7 @@ int Automat::findColumn(char currentChar) {
                 return 17;
             case ' ':
                 return 18;
-            case '  ':
+            case '\t':
                 return 18;
             case '\0':
                 return 18;
