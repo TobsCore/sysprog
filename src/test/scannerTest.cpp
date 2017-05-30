@@ -900,7 +900,7 @@ TEST(ScannerTest, ExampleProgram) {
 
 }
 
-TEST(ScannerTest, BibleMinimized) {
+TEST(ScannerTest, DISABLED_BibleMinimized) {
     char const *bible = "../src/test/testData/bible.min.txt";
     Scanner *scanner = new Scanner(bible);
 
