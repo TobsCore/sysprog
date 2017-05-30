@@ -4,6 +4,7 @@
 #include "../../Token/ErrorToken.h"
 #include "../../Token/WhileToken.h"
 #include "../../Token/IfToken.h"
+#include "../../String/StringOp.h"
 #include <climits>
 
 Scanner::Scanner(char const *filePath) {
@@ -59,6 +60,7 @@ Token *Scanner::nextToken() {
         }
     } while ((symbol == NEXTCHAR || symbol == IN_COMMENT) && buffer->hasNext() && i < bufferSize - 1);
 
+    // Identifier too long
     if (i >= bufferSize - 1) {
         symbol = ERROR;
     }
@@ -103,7 +105,12 @@ Token *Scanner::nextToken() {
             break;
         }
         case ERROR: {
-            lexem[i] = '\0';
+            if (i >= bufferSize - 1) {
+                lexem = const_cast<char *>("Identifier too long");
+            } else {
+                lexem[i] = '\0';
+
+            }
             nextToken = new ErrorToken();
             static_cast<ErrorToken *>(nextToken)->setInfo(lexem);
             lexem = new char[bufferSize];

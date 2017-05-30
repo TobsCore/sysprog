@@ -679,6 +679,7 @@ TEST(ScannerTest, ReallyLongIdentifier) {
 
     Token *token = scanner->nextToken();
     ASSERT_EQ(SymbolType::ERROR, token->getType());
+    ASSERT_STREQ("Identifier too long", static_cast<ErrorToken* >(token)->getInfo());
 
     delete scanner;
     delete token;
