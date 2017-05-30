@@ -1,4 +1,5 @@
 #include "Buffer.h"
+#include <stdexcept>
 
 Buffer::Buffer(const char *source) {
     bufferLength = chunkSize;
@@ -15,7 +16,7 @@ Buffer::Buffer(const char *source) {
 
     bytesRead = 0;
     byteLeft = chunkSize;
-    eof = 0;
+    eof = '\0';
 
     isFileOpen = isFinished = false;
     sourceFile = source;

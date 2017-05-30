@@ -29,7 +29,7 @@ private:
     const char *sourceFile;
     int fdRead;
     //int fdWrite;
-    int eof;
+    char eof;
     bool isFinished;
     bool noRefill;
     bool isLeft;
