@@ -22,7 +22,7 @@ int main(int argc, char **argv) {
         Token *token = sc->nextToken();
         while (!token->isEOF()) {
             if (token->getType() == ERROR) {
-                cerr << token->toString() << endl;
+                cerr << "\033[1;31m" << token->toString() << "\033[0m" << endl;
             } else {
                 if (result.is_open()) {
                     result << token->toString() << endl;
@@ -35,7 +35,7 @@ int main(int argc, char **argv) {
             token = sc->nextToken();
         }
 
-        cout << "Finished! Output written to <" << outFilename << ">" << endl;
+        cout << "\033[1;32m" << "Finished!" << "\033[0m" << " Output written to <" << outFilename << ">" << endl;
         result.close();
     }
     return 0;
