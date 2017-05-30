@@ -56,7 +56,7 @@ int Token::getCol() {
 }
 
 const char *Token::toString() {
-    char *buffer = (char *) calloc(60, sizeof(char));
+    char *buffer = (char *) calloc(52, sizeof(char));
     snprintf(buffer, 60, "Token %-20s Line: %5d  Column: %3d", getTypeString(), getRow(), getCol());
     return buffer;
 }

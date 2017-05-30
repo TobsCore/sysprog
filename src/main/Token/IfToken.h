@@ -19,6 +19,4 @@ class IfToken : public Token {
 
 public:
     IfToken();
-
-    const char *toString();
 };

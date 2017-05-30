@@ -900,10 +900,24 @@ TEST(ScannerTest, ExampleProgram) {
 
 }
 
+
+TEST(ScannerTest, toStringOfIdentifierAndNormaleToken)  {
+	char const *folderName = "../src/test/testData/testProgramm.txt";
+	Scanner *scanner = new Scanner(folderName);
+
+	Token *token = scanner->nextToken();
+	ASSERT_EQ(IDENTIFIER, token->getType());
+	ASSERT_STREQ("Token Identifier           Line:     1  Column:   1  Lexem: int", token->toString());
+
+	token = scanner->nextToken();
+	token = scanner->nextToken();
+	ASSERT_STREQ("Token Semicolon            Line:     1  Column:   6", token->toString());
+
+}
+
 TEST(ScannerTest, DISABLED_BibleMinimized) {
     char const *bible = "../src/test/testData/bible.min.txt";
     Scanner *scanner = new Scanner(bible);
-
     Token *token = scanner->nextToken();
     int i = 0;
     while (!token->isEOF()) {

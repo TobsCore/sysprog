@@ -19,8 +19,6 @@ class WhileToken : public Token {
 
 public:
     WhileToken();
-
-    const char *toString();
 };
 
 

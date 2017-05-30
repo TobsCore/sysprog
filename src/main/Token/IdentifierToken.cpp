@@ -13,7 +13,7 @@ IdentifierToken::IdentifierToken() {
 const char *IdentifierToken::toString() {
 
     int lexemLength = StringOp::length(getLexem());
-    char *buffer = (char *) calloc(50 + lexemLength, sizeof(char));
+    char *buffer = (char *) calloc(65 + lexemLength, sizeof(char));
 
     snprintf(buffer, 100, "Token %-20s Line: %5d  Column: %3d  Lexem: %s", getTypeString(), getRow(), getCol(),
              getLexem());
