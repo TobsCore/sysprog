@@ -35,7 +35,8 @@ int main(int argc, char **argv) {
             token = sc->nextToken();
         }
 
-        cout << "\033[1;32m" << "Finished!" << "\033[0m" << " Output written to <" << outFilename << ">" << endl;
+        cout << "\033[1;32m" << "Finished!" << "\033[0m" << endl << "Output written to <" << outFilename << ">" <<
+             endl;
         result.close();
     }
     return 0;
