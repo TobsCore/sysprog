@@ -464,7 +464,7 @@ TEST_F(AutomatTest, NoIfNoWhile) {
     ASSERT_EQ(testAutomat.checkExpression('\0'), COMMENT);
 }
 
-TEST_F(AutomatTest, DISABLED_ErroneousSymbols) {
+TEST_F(AutomatTest, ErroneousSymbols) {
     ASSERT_EQ(testAutomat.checkExpression('!'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('&'), EXCLAMATION);
     ASSERT_EQ(testAutomat.checkExpression(','), ERROR);
@@ -473,3 +473,30 @@ TEST_F(AutomatTest, DISABLED_ErroneousSymbols) {
     ASSERT_EQ(testAutomat.checkExpression('#'), IDENTIFIER);
     ASSERT_EQ(testAutomat.checkExpression('\0'), ERROR);
 }
+
+
+TEST_F(AutomatTest, ErroneousSymbols2) {
+    ASSERT_EQ(testAutomat.checkExpression(','), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('j'), ERROR);
+    ASSERT_EQ(testAutomat.checkExpression(','), IDENTIFIER);
+    ASSERT_EQ(testAutomat.checkExpression('\0'), ERROR);
+}
+
+TEST_F(AutomatTest, ErroneousSymbols3) {
+    ASSERT_EQ(testAutomat.checkExpression(','), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression(','), ERROR);
+    ASSERT_EQ(testAutomat.checkExpression('&'), ERROR);
+    ASSERT_EQ(testAutomat.checkExpression('\0'), ERROR);
+}
+
+
+TEST_F(AutomatTest, ErroneousSymbols4) {
+    ASSERT_EQ(testAutomat.checkExpression('!'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('&'), EXCLAMATION);
+    ASSERT_EQ(testAutomat.checkExpression('`'), ERROR);
+    ASSERT_EQ(testAutomat.checkExpression('&'), ERROR);
+    ASSERT_EQ(testAutomat.checkExpression('a'), ERROR);
+    ASSERT_EQ(testAutomat.checkExpression('$'), IDENTIFIER);
+    ASSERT_EQ(testAutomat.checkExpression('\0'), ERROR);
+}
+

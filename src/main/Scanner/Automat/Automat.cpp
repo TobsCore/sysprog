@@ -72,10 +72,19 @@ int Automat::findColumn(char currentChar) {
                 return 16;
             case ']':
                 return 17;
-            default:
+            case ' ':
                 return 18;
+            case '  ':
+                return 18;
+            case '\0':
+                return 18;
+            case '\n':
+                return 18;
+            default:
+                return 25;
         }
     }
+
 }
 
 Automat::Automat() {
