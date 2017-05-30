@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.2.3)
 project(sysprog)
 
-set(CMAKE_CXX_STANDARD 03)
+set(CMAKE_CXX_STANDARD 11)
 
 add_subdirectory(lib/googletest)
 include_directories(lib/googletest/googletest/include)
