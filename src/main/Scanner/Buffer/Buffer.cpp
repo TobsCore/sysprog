@@ -84,7 +84,7 @@ void Buffer::openFile() {
     if (fdRead != -1) {    //öffnen der Datei hat geklappt.
         isFileOpen = true; //dann setze isFileOpen auf true
     } else {
-        cerr << "Error! Input file <" << sourceFile << "> couldn't be opened" << endl;
+        throw std::runtime_error("Input file couldn't be opened");
     }
 }
 
