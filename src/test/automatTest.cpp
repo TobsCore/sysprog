@@ -493,7 +493,7 @@ TEST_F(AutomatTest, ErroneousSymbols3) {
 TEST_F(AutomatTest, ErroneousSymbols4) {
     ASSERT_EQ(testAutomat.checkExpression('!'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('&'), EXCLAMATION);
-    ASSERT_EQ(testAutomat.checkExpression('`'), ERROR);
+    ASSERT_EQ(testAutomat.checkExpression('$'), ERROR);
     ASSERT_EQ(testAutomat.checkExpression('&'), ERROR);
     ASSERT_EQ(testAutomat.checkExpression('a'), ERROR);
     ASSERT_EQ(testAutomat.checkExpression('$'), IDENTIFIER);
