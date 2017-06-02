@@ -105,14 +105,11 @@ Token *Scanner::nextToken() {
             break;
         }
         case ERROR: {
+            nextToken = new ErrorToken();
             if (i >= bufferSize - 1) {
                 lexem = const_cast<char *>("Identifier too long");
-            } else {
-                lexem[i] = '\0';
-
+                static_cast<ErrorToken *>(nextToken)->setInfo(lexem);
             }
-            nextToken = new ErrorToken();
-            static_cast<ErrorToken *>(nextToken)->setInfo(lexem);
             lexem = new char[bufferSize];
             i = 0;
             break;

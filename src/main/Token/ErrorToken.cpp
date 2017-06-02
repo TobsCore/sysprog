@@ -10,9 +10,12 @@ ErrorToken::ErrorToken() {
 
 const char *ErrorToken::toString() {
     char *buffer = (char *) calloc(150, sizeof(char));
-
-    snprintf(buffer, 100, "Error Found! Line: %3d Column: %3d  Info: %s", getRow(), getCol(),
-             getInfo());
+    if (this->info == 0) {
+        snprintf(buffer, 100, "Error Found! Line: %3d Column: %3d", getRow(), getCol());
+    } else {
+        snprintf(buffer, 100, "Error Found! Line: %3d Column: %3d  Info: %s", getRow(), getCol(),
+                 getInfo());
+    }
     return buffer;
 }
 
