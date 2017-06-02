@@ -492,6 +492,45 @@ TEST(ScannerTest, Comment) {
     delete token;
 }
 
+TEST(ScannerTest, DISABLED_Comment2) {
+    char const *folderName = "../src/test/testData/testComment2.txt";
+    Scanner *scanner = new Scanner(folderName);
+
+    Token *token;
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(1, token->getRow());
+    ASSERT_EQ(1, token->getCol());
+    ASSERT_STREQ("Dies", static_cast<IdentifierToken*>(token)->getLexem());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(1, token->getRow());
+    ASSERT_EQ(6, token->getCol());
+    ASSERT_STREQ("ist", static_cast<IdentifierToken*>(token)->getLexem());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(1, token->getRow());
+    ASSERT_EQ(10, token->getCol());
+    ASSERT_STREQ("ein", static_cast<IdentifierToken*>(token)->getLexem());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(COMMENT, token->getType());
+    ASSERT_EQ(1, token->getRow());
+    ASSERT_EQ(14, token->getCol());
+
+    token = scanner->nextToken();
+    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(1, token->getRow());
+    ASSERT_EQ(32, token->getCol());
+    ASSERT_STREQ("Kommentar", static_cast<IdentifierToken*>(token)->getLexem());
+
+    delete scanner;
+    delete token;
+}
+
 TEST(ScannerTest, CommentWith2Spaces) {
     char const *folderName = "../src/test/testData/testCommentWith2Spaces.txt";
     Scanner *scanner = new Scanner(folderName);
