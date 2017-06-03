@@ -78,6 +78,8 @@ int Automat::findColumn(char currentChar) {
                 return 25;
             case ',':
                 return 25;
+            case '.':
+                return 25;
             default:
                 return 18;
         }

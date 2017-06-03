@@ -543,11 +543,13 @@ TEST_F(AutomatTest, CheckComment) {
 }
 
 
-TEST_F(AutomatTest, DISABLED_CheckDot) {
+TEST_F(AutomatTest, CheckDot) {
     ASSERT_EQ(testAutomat.checkExpression('1'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('2'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('.'), INTEGER);
     ASSERT_EQ(testAutomat.checkExpression('3'), ERROR);
     ASSERT_EQ(testAutomat.checkExpression('\0'), INTEGER);
 }
+
+
 
