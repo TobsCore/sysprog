@@ -500,3 +500,45 @@ TEST_F(AutomatTest, ErroneousSymbols4) {
     ASSERT_EQ(testAutomat.checkExpression('\0'), ERROR);
 }
 
+TEST_F(AutomatTest, CheckComment) {
+    ASSERT_EQ(testAutomat.checkExpression('D'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('i'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('e'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('s'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression(' '), IDENTIFIER);
+    ASSERT_EQ(testAutomat.checkExpression('i'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('s'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('t'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression(' '), IDENTIFIER);
+    ASSERT_EQ(testAutomat.checkExpression('e'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('i'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('n'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression(' '), IDENTIFIER);
+    ASSERT_EQ(testAutomat.checkExpression(':'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('*'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression(' '), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression('1'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression('1'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression('1'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression('1'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression(' '), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression('a'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression('a'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression('a'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression('a'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression(' '), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression('*'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression(':'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression(' '), COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression('K'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('o'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('m'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('m'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('e'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('n'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('t'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('a'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('r'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('\0'), IDENTIFIER);
+}
+
