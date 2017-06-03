@@ -542,3 +542,12 @@ TEST_F(AutomatTest, CheckComment) {
     ASSERT_EQ(testAutomat.checkExpression('\0'), IDENTIFIER);
 }
 
+
+TEST_F(AutomatTest, DISABLED_CheckDot) {
+    ASSERT_EQ(testAutomat.checkExpression('1'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('2'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('.'), INTEGER);
+    ASSERT_EQ(testAutomat.checkExpression('3'), ERROR);
+    ASSERT_EQ(testAutomat.checkExpression('\0'), INTEGER);
+}
+
