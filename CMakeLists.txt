@@ -38,7 +38,11 @@ set(SCANNER_SOURCE
         src/main/Scanner/Token/WhileToken.h
         src/main/Scanner/Token/ErrorToken.cpp
         src/main/Scanner/Token/ErrorToken.h
-	src/main/Scanner/Automat/State.h)
+        src/main/Scanner/Automat/State.h)
+
+set(PARSER_SOURCE
+        src/main/Parser/Parser/Parser.h
+        src/main/Parser/Parser/Parser.cpp)
 
 set(TEST
         src/test/automatTest.cpp
@@ -50,7 +54,9 @@ set(TEST
         src/test/scannerErrorTest.cpp)
 
 add_executable(scanner src/main/Scanner/runScanner.cpp ${SCANNER_SOURCE})
-add_executable(unitTests src/test/main.cpp ${SCANNER_SOURCE} ${TEST})
+add_executable(parser src/main/Parser/runParser.cpp ${PARSER_SOURCE} ${SCANNER_SOURCE})
+add_executable(unitTests src/test/main.cpp ${SCANNER_SOURCE} ${PARSER_SOURCE} ${TEST})
 
 target_link_libraries(scanner)
+target_link_libraries(parser)
 target_link_libraries(unitTests gtest gtest_main)
