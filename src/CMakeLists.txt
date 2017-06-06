@@ -7,7 +7,7 @@ add_subdirectory(lib/googletest)
 include_directories(lib/googletest/googletest/include)
 include_directories(lib/googletest/googlemock/include)
 
-set(SOURCE_FILES
+set(SCANNER_SOURCE
         main/Scanner/Position/Position.cpp
         main/Scanner/Position/Position.h
         main/Scanner/Automat/Automat.cpp
@@ -42,7 +42,7 @@ set(SOURCE_FILES
         main/Scanner/Token/ErrorToken.h
 	    main/Scanner/Automat/State.h)
 
-set(SOURCE_TEST
+set(TEST
         test/automatTest.cpp
         test/tokenTest.cpp
         test/scannerTest.cpp
@@ -51,8 +51,8 @@ set(SOURCE_TEST
         test/stringTableTest.cpp
         test/scannerErrorTest.cpp)
 
-add_executable(scanner main/main.cpp ${SOURCE_FILES})
-add_executable(unitTests test/main.cpp ${SOURCE_FILES} ${SOURCE_TEST})
+add_executable(scanner main/Scanner/runScanner.cpp ${SCANNER_SOURCE})
+add_executable(unitTests test/main.cpp ${SCANNER_SOURCE} ${TEST})
 
 target_link_libraries(scanner)
 target_link_libraries(unitTests gtest gtest_main)

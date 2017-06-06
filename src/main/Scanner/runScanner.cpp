@@ -1,5 +1,5 @@
 #include <fstream>
-#include "Scanner/Scanner/Scanner.h"
+#include "Scanner/Scanner.h"
 
 void clearOutputFile(const char* outFilename) {
     ofstream ofs;

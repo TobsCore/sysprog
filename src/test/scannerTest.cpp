@@ -8,7 +8,7 @@
 using testing::Eq;
 
 TEST(ScannerTest, Empty) {
-    char const *folderName = "../src/test/testData/testEmpty.txt";
+    char const *folderName = "../src/test/testData/Empty.txt";
     Scanner *scanner = new Scanner(folderName);
 
     Token *token = scanner->nextToken();
@@ -19,7 +19,7 @@ TEST(ScannerTest, Empty) {
 }
 
 TEST(ScannerTest, EmptyGoFurther) {
-    char const *folderName = "../src/test/testData/testEmpty.txt";
+    char const *folderName = "../src/test/testData/Empty.txt";
     Scanner *scanner = new Scanner(folderName);
 
     Token *token = scanner->nextToken();
@@ -34,7 +34,7 @@ TEST(ScannerTest, EmptyGoFurther) {
 }
 
 TEST(ScannerTest, ArithmaticExpressionTokenType) {
-    char const *folderName = "../src/test/testData/testCloseArithmeticExp.txt";
+    char const *folderName = "../src/test/testData/CloseArithmeticExp.txt";
     Scanner *scanner = new Scanner(folderName);
 
     Token *token;
@@ -66,7 +66,7 @@ TEST(ScannerTest, ArithmaticExpressionTokenType) {
 }
 
 TEST(ScannerTest, ReadSomeIdentifier) {
-    char const *folderName = "../src/test/testData/testIdentifier.txt";
+    char const *folderName = "../src/test/testData/Identifier.txt";
     Scanner *scanner = new Scanner(folderName);
 
     Token *token;
@@ -88,7 +88,7 @@ TEST(ScannerTest, ReadSomeIdentifier) {
 }
 
 TEST(ScannerTest, Plus) {
-    char const *folderName = "../src/test/testData/testPluses.txt";
+    char const *folderName = "../src/test/testData/Pluses.txt";
     Scanner *scanner = new Scanner(folderName);
 
     Token *token;
@@ -133,7 +133,7 @@ TEST(ScannerTest, Plus) {
 }
 
 TEST(ScannerTest, Spaces) {
-    char const *folderName = "../src/test/testData/testSpaces.txt";
+    char const *folderName = "../src/test/testData/Spaces.txt";
     Scanner *scanner = new Scanner(folderName);
 
     Token *token;
@@ -163,7 +163,7 @@ TEST(ScannerTest, Spaces) {
 }
 
 TEST(ScannerTest, ArithmeticExpPosition) {
-    char const *folderName = "../src/test/testData/testCloseArithmeticExp.txt";
+    char const *folderName = "../src/test/testData/CloseArithmeticExp.txt";
     Scanner *scanner = new Scanner(folderName);
 
     Token *token;
@@ -204,7 +204,7 @@ TEST(ScannerTest, ArithmeticExpPosition) {
 
 
 TEST(ScannerTest, IdentifierExPositionsOneAtBeginning) {
-    char const *folderName = "../src/test/testData/testIdentifier.txt";
+    char const *folderName = "../src/test/testData/Identifier.txt";
     Scanner *scanner = new Scanner(folderName);
 
     Token *token = scanner->nextToken();
@@ -217,7 +217,7 @@ TEST(ScannerTest, IdentifierExPositionsOneAtBeginning) {
 }
 
 TEST(ScannerTest, LongerIdentifier) {
-    char const *folderName = "../src/test/testData/testIdentifierLonger.txt";
+    char const *folderName = "../src/test/testData/IdentifierLonger.txt";
     Scanner *scanner = new Scanner(folderName);
 
     Token *token;
@@ -252,7 +252,7 @@ TEST(ScannerTest, LongerIdentifier) {
 }
 
 TEST(ScannerTest, Parenthesis) {
-    char const *folderName = "../src/test/testData/testParenthesis.txt";
+    char const *folderName = "../src/test/testData/Parenthesis.txt";
     Scanner *scanner = new Scanner(folderName);
 
     Token *token;
@@ -303,7 +303,7 @@ TEST(ScannerTest, Parenthesis) {
 }
 
 TEST(ScannerTest, SimpleMultiline) {
-    char const *folderName = "../src/test/testData/testSimpleMultiline.txt";
+    char const *folderName = "../src/test/testData/SimpleMultiline.txt";
     Scanner *scanner = new Scanner(folderName);
 
     Token *token;
@@ -343,7 +343,7 @@ TEST(ScannerTest, SimpleMultiline) {
 }
 
 TEST(ScannerTest, SpecialCharsSpaces) {
-    char const *folderName = "../src/test/testData/testSpecialCharsSpaces.txt";
+    char const *folderName = "../src/test/testData/SpecialCharsSpaces.txt";
     Scanner *scanner = new Scanner(folderName);
 
     Token *token;
@@ -388,7 +388,7 @@ TEST(ScannerTest, SpecialCharsSpaces) {
 }
 
 TEST(ScannerTest, SpecialChars) {
-    char const *folderName = "../src/test/testData/testSpecialChars.txt";
+    char const *folderName = "../src/test/testData/SpecialChars.txt";
     Scanner *scanner = new Scanner(folderName);
 
     Token *token;
@@ -433,7 +433,7 @@ TEST(ScannerTest, SpecialChars) {
 }
 
 TEST(ScannerTest, SimpleIdentifier) {
-    char const *folderName = "../src/test/testData/testIdentifier.txt";
+    char const *folderName = "../src/test/testData/Identifier.txt";
     Scanner *scanner = new Scanner(folderName);
 
     Token *token;
@@ -453,7 +453,7 @@ TEST(ScannerTest, SimpleIdentifier) {
 }
 
 TEST(ScannerTest, Comment) {
-    char const *folderName = "../src/test/testData/testComment.txt";
+    char const *folderName = "../src/test/testData/Comment.txt";
     Scanner *scanner = new Scanner(folderName);
 
     Token *token;
@@ -493,7 +493,7 @@ TEST(ScannerTest, Comment) {
 }
 
 TEST(ScannerTest, Comment2) {
-    char const *folderName = "../src/test/testData/testComment2.txt";
+    char const *folderName = "../src/test/testData/Comment2.txt";
     Scanner *scanner = new Scanner(folderName);
 
     Token *token;
@@ -532,7 +532,7 @@ TEST(ScannerTest, Comment2) {
 }
 
 TEST(ScannerTest, CommentWith2Spaces) {
-    char const *folderName = "../src/test/testData/testCommentWith2Spaces.txt";
+    char const *folderName = "../src/test/testData/CommentWith2Spaces.txt";
     Scanner *scanner = new Scanner(folderName);
 
     Token *token;
@@ -572,7 +572,7 @@ TEST(ScannerTest, CommentWith2Spaces) {
 }
 
 TEST(ScannerTest, CommentWithMultipleSpaces) {
-    char const *folderName = "../src/test/testData/testCommentWithMultipleSpaces.txt";
+    char const *folderName = "../src/test/testData/CommentWithMultipleSpaces.txt";
     Scanner *scanner = new Scanner(folderName);
 
     Token *token;
@@ -612,7 +612,7 @@ TEST(ScannerTest, CommentWithMultipleSpaces) {
 }
 
 TEST(ScannerTest, CommentWithSpace) {
-    char const *folderName = "../src/test/testData/testCommentWithSpace.txt";
+    char const *folderName = "../src/test/testData/CommentWithSpace.txt";
     Scanner *scanner = new Scanner(folderName);
 
     Token *token;
@@ -653,7 +653,7 @@ TEST(ScannerTest, CommentWithSpace) {
 
 TEST(ScannerTest, ErronuousSpecialChar) {
     // a =:+ b;
-    char const *folderName = "../src/test/testData/testErroneousSpecial.txt";
+    char const *folderName = "../src/test/testData/ErroneousSpecial.txt";
     Scanner *scanner = new Scanner(folderName);
 
     Token *token;
@@ -694,7 +694,7 @@ TEST(ScannerTest, ErronuousSpecialChar) {
 
 TEST(ScannerTest, IdentifierExValues) {
 
-    char const *folderName = "../src/test/testData/testIdentifier.txt";
+    char const *folderName = "../src/test/testData/Identifier.txt";
     Scanner *scanner = new Scanner(folderName);
 
     Token *token = scanner->nextToken();
@@ -713,7 +713,7 @@ TEST(ScannerTest, IdentifierExValues) {
 }
 
 TEST(ScannerTest, ReallyLongIdentifier) {
-    char const *folderName = "../src/test/testData/testReallyLongIdentifier.txt";
+    char const *folderName = "../src/test/testData/ReallyLongIdentifier.txt";
     Scanner *scanner = new Scanner(folderName);
 
     Token *token = scanner->nextToken();
@@ -726,7 +726,7 @@ TEST(ScannerTest, ReallyLongIdentifier) {
 
 
 TEST(ScannerTest, ExampleProgram) {
-    char const *folderName = "../src/test/testData/testProgramm.txt";
+    char const *folderName = "../src/test/testData/Programm.txt";
     Scanner *scanner = new Scanner(folderName);
 
     Token *token = scanner->nextToken();
@@ -941,7 +941,7 @@ TEST(ScannerTest, ExampleProgram) {
 
 
 TEST(ScannerTest, toStringOfIdentifierAndNormaleToken)  {
-	char const *folderName = "../src/test/testData/testProgramm.txt";
+	char const *folderName = "../src/test/testData/Programm.txt";
 	Scanner *scanner = new Scanner(folderName);
 
 	Token *token = scanner->nextToken();
@@ -955,7 +955,7 @@ TEST(ScannerTest, toStringOfIdentifierAndNormaleToken)  {
 }
 
 TEST(ScannerTest, BibleMinimized) {
-    char const *bible = "../src/test/testData/bible.min.txt";
+    char const *bible = "../src/test/testData/Bible.min.txt";
     Scanner *scanner = new Scanner(bible);
     Token *token = scanner->nextToken();
     int i = 0;
