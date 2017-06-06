@@ -492,7 +492,7 @@ TEST(ScannerTest, Comment) {
     delete token;
 }
 
-TEST(ScannerTest, DISABLED_Comment2) {
+TEST(ScannerTest, Comment2) {
     char const *folderName = "../src/test/testData/testComment2.txt";
     Scanner *scanner = new Scanner(folderName);
 

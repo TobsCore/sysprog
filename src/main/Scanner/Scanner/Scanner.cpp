@@ -123,6 +123,8 @@ Token *Scanner::nextToken() {
             nextToken = new IfToken();
             i = 0;
             break;
+        } case COMMENT: {
+            i = 0;
         }
         default: {
             nextToken = new Token();
