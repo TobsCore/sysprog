@@ -1,9 +1,9 @@
 #include "Scanner.h"
-#include "../../Token/IdentifierToken.h"
-#include "../../Token/IntegerToken.h"
-#include "../../Token/ErrorToken.h"
-#include "../../Token/WhileToken.h"
-#include "../../Token/IfToken.h"
+#include "../Token/IdentifierToken.h"
+#include "../Token/IntegerToken.h"
+#include "../Token/ErrorToken.h"
+#include "../Token/WhileToken.h"
+#include "../Token/IfToken.h"
 #include "../../String/StringOp.h"
 #include <climits>
 

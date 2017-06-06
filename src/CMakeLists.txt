@@ -8,38 +8,38 @@ include_directories(lib/googletest/googletest/include)
 include_directories(lib/googletest/googlemock/include)
 
 set(SOURCE_FILES
-        main/Position/Position.cpp
-        main/Position/Position.h
+        main/Scanner/Position/Position.cpp
+        main/Scanner/Position/Position.h
         main/Scanner/Automat/Automat.cpp
         main/Scanner/Automat/Automat.h
         main/Scanner/Buffer/Buffer.cpp
         main/Scanner/Buffer/Buffer.h
         main/Scanner/Scanner/Scanner.cpp
         main/Scanner/Scanner/Scanner.h
-        main/SymbolType/Symboltype.h
-        main/SymbolTable/Information.cpp
-        main/SymbolTable/Information.h
-        main/SymbolTable/SymbolItem.h
-        main/SymbolTable/Keyword.h
-        main/SymbolTable/SymbolTable.cpp
-        main/SymbolTable/SymbolTable.h
-        main/Token/Token.cpp
-        main/Token/Token.h
-        main/Token/IdentifierToken.cpp
-        main/Token/IdentifierToken.h
-        main/Token/IntegerToken.cpp
-        main/Token/IntegerToken.h
-        main/SymbolTable/Keywords.h
-        main/SymbolTable/StringTable/StringTable.cpp
-        main/SymbolTable/StringTable/StringTable.h
+        main/Scanner/SymbolType/Symboltype.h
+        main/Scanner/SymbolTable/Information.cpp
+        main/Scanner/SymbolTable/Information.h
+        main/Scanner/SymbolTable/SymbolItem.h
+        main/Scanner/SymbolTable/Keyword.h
+        main/Scanner/SymbolTable/SymbolTable.cpp
+        main/Scanner/SymbolTable/SymbolTable.h
+        main/Scanner/Token/Token.cpp
+        main/Scanner/Token/Token.h
+        main/Scanner/Token/IdentifierToken.cpp
+        main/Scanner/Token/IdentifierToken.h
+        main/Scanner/Token/IntegerToken.cpp
+        main/Scanner/Token/IntegerToken.h
+        main/Scanner/SymbolTable/Keywords.h
+        main/Scanner/SymbolTable/StringTable/StringTable.cpp
+        main/Scanner/SymbolTable/StringTable/StringTable.h
         main/String/StringOp.cpp
         main/String/StringOp.h
-        main/Token/IfToken.cpp
-        main/Token/IfToken.h
-        main/Token/WhileToken.cpp
-        main/Token/WhileToken.h
-        main/Token/ErrorToken.cpp
-        main/Token/ErrorToken.h
+        main/Scanner/Token/IfToken.cpp
+        main/Scanner/Token/IfToken.h
+        main/Scanner/Token/WhileToken.cpp
+        main/Scanner/Token/WhileToken.h
+        main/Scanner/Token/ErrorToken.cpp
+        main/Scanner/Token/ErrorToken.h
 	    main/Scanner/Automat/State.h)
 
 set(SOURCE_TEST

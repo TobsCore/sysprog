@@ -1,8 +1,8 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-#include "../main/Token/IntegerToken.h"
-#include "../main/Token/IdentifierToken.h"
-#include "../main/SymbolTable/SymbolTable.h"
+#include "../main/Scanner/Token/IntegerToken.h"
+#include "../main/Scanner/Token/IdentifierToken.h"
+#include "../main/Scanner/SymbolTable/SymbolTable.h"
 
 using testing::Eq;
 

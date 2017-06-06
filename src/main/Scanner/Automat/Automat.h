@@ -1,7 +1,7 @@
 #ifndef SYMTYPE
 #define SYMTYPE
 
-#include "../../SymbolType/Symboltype.h"
+#include "../SymbolType/Symboltype.h"
 
 #endif
 

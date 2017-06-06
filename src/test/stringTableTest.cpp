@@ -3,7 +3,7 @@
 //
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
-#include "../main/SymbolTable/StringTable/StringTable.h"
+#include "../main/Scanner/SymbolTable/StringTable/StringTable.h"
 
 TEST(StringTableTest, SimpleInsert) {
     char const *lexem = "example";

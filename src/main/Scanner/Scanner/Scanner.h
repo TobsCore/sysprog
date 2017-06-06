@@ -1,7 +1,7 @@
 #ifndef TOKEN
 #define TOKEN
 
-#include "../../Token/Token.h"
+#include "../Token/Token.h"
 
 #endif
 
@@ -28,7 +28,7 @@
 #define SYMBOLTABLE
 static const int bufferSize = 255;
 
-#include "../../SymbolTable/SymbolTable.h"
+#include "../SymbolTable/SymbolTable.h"
 
 #endif
 

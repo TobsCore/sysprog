@@ -1,9 +1,9 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include "../main/Scanner/Scanner/Scanner.h"
-#include "../main/Token/IdentifierToken.h"
-#include "../main/Token/IntegerToken.h"
-#include "../main/Token/ErrorToken.h"
+#include "../main/Scanner/Token/IdentifierToken.h"
+#include "../main/Scanner/Token/IntegerToken.h"
+#include "../main/Scanner/Token/ErrorToken.h"
 
 using testing::Eq;
 
