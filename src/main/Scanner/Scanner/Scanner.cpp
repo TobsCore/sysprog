@@ -179,19 +179,3 @@ Position *Scanner::tokenPosition() {
 
     return currentTokenPosition;
 }
-
-
-/*
-
-void Scanner::tokenPosition(Token *token) {
-    if (firstToken) {
-        lineDistance -= 1;
-    }
-    int tokenRow = currentPosition->getRow();
-    int tokenCol = currentPosition->getCol() - lineDistance - lineSpaces - 1;
-
-    token->setPosition(tokenRow, tokenCol);
-
-    lineDistance = 1;
-    lineSpaces = 0;
-}*/
