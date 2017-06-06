@@ -2,9 +2,9 @@
 [![Build Status](https://travis-ci.org/TobsCore/sysprog.svg?branch=master)](https://travis-ci.org/TobsCore/sysprog)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/06486b00fd554980aa6120ae4e208eb4)](https://www.codacy.com/app/TobsCore/sysprog?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=TobsCore/sysprog&amp;utm_campaign=Badge_Grade)
 
-In our course ''Systemnahes Programmieren'' that we had to take in our 3. semester at HS Karlsruhe, we had to build a compiler for a simple programming language.
+This is our compiler that we had to program for the course __Systemnahes Programmieren__ at Hochschule Karlsruhe.
 
-You might want to check out the course's [webpage](http://www.iwi.hs-karlsruhe.de/Intranetaccess/mhb/module/MKIB/MIB%20310/1).
+You might want to check out the course's [webpage](http://www.iwi.hs-karlsruhe.de/Intranetaccess/mhb/module/MKIB/MIB%20310/1). The project's tasks are in the folder `Aufagbenstellung`.
 
 The first part is writing a scanner, that analyzes a given input file and tokenizes it. It checks for errors and will print those with line and row number. The recognized tokens will be saved in a specified output file.
 
