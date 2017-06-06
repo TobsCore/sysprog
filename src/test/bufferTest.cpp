@@ -242,13 +242,6 @@ TEST(BufferTest, BibleMinimized) {
     char const *bible = "../src/test/testData/Bible.min.txt";
     Buffer* buffer = new Buffer(bible);
 
-    // TODO: This still gets out of bounds. Check, why it gets out of bounds.
-//    for (int i = 0; i < 21805; i++) {
-//        char letter = buffer->getChar();
-//        if (i == 21805) {
-//            ASSERT_EQ('\0', letter);
-//        }
-//    }
     int i = 0;
     char letter;
     while (buffer->hasNext()) {

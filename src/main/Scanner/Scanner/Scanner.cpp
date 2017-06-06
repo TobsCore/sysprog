@@ -71,7 +71,8 @@ Token *Scanner::nextToken() {
         symbol = FILE_END;
     }
 
-    // TODO: Document this.
+    // If the scanner suspeced the token to be a special token, but it turned out it wasn't, the scanner will move
+    // back in the buffer and set the current symbol to an equals sign, which is the first symbol of the special sign.
     if (symbol == ERROR_SPECIAL) {
         symbol = EQUALS;
         buffer->ungetChar(1);
@@ -97,7 +98,7 @@ Token *Scanner::nextToken() {
                 nextToken = new ErrorToken();
                 static_cast<ErrorToken *>(nextToken)->setInfo("Integer out of range");
             } else {
-                // Conversion was succesful
+                // Conversion was successful
                 nextToken = new IntegerToken();
                 static_cast<IntegerToken *>(nextToken)->setValue(integerValue);
             }
@@ -123,7 +124,8 @@ Token *Scanner::nextToken() {
             nextToken = new IfToken();
             i = 0;
             break;
-        } case COMMENT: {
+        }
+        case COMMENT: {
             i = 0;
         }
         default: {
