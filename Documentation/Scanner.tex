@@ -141,6 +141,97 @@ Das \texttt{src/} Verzeichnis enthält den Code für unser Programm, die Tests u
 
 In dem \texttt{lib/} Verzeichnis befindet sich die \textit{Google Test} Bibliothek, welche wir verwendet haben um unsere Unit Tests zu schreiben.
 
-Die Unit Tests sind im Verzeichnis \texttt{test/}, wobei dort einige Testdateien im Verzeichnis \texttt{testData/} liegen. In dieser Ausarbeitung soll jedoch nicht näher auf die Tests eingegangen werden, da das Resultat zum Testen benutzt werden kann.
+Die Unit-Tests sind im Verzeichnis \texttt{test/}, wobei dort einige Testdateien im Verzeichnis \texttt{testData/} liegen. Ausführlichere Informationen zu den Unit-Tests gibt es bei~\ref{sec:UnitTests}.
 
 Der eigentlich Source Code liegt dann unter \texttt{main/}.
+
+\section{Buffer}
+Der Buffer hat die Aufgabe eine Textdatei einzulesen und deren Inhalt zu speichern.
+
+Um dies zu realisieren werden zwei Speicherblöcke mit der gleichen, festen Größe erstellt. Diese Speicherblöcke speichern dann den Inhalt der einzulesenden Textdatei. Die Speicherblöcke werden dazu abwechselnd gefüllt. Die Notwendigkeit dafür resultiert aus der Anforderung, gegebenenfalls ein Zeichen zurückzugehen. Ein Speicherblock würde die dieser Anforderung nicht gerecht, da dieser beim Überlaufen überschrieben werden würde, damit vorherige Zeichen nicht mehr vorhanden sind und entsprechend auch nicht mehr gelesen werden können.
+
+Mit der Funktion \texttt{getChar()} des Buffers wird das nächste Zeichen geholt. Wird das letzte Zeichen eines Speicherblocks gelesen wird die Methode \texttt{fillBuffer()} aufgerufen, die den jeweils anderen Speicherblock, in dem man sich zurzeit nicht befindet, befüllt. Dann wird der neu befüllte Speicherblock zum aktuellen gemacht.
+
+Die Methode \texttt{ungetChar()} dient dazu Zeichen gegebenenfalls zurückzugehen, damit ein Zeichen nach Tokenerstellung erneut gelesen werden muss. Sofern diese Aktion im selben Speicherblock stattfindet wird ganz simpel ein Index zurückgegangen, sollte das aktuelle Zeichen am Anfang einer der Speicherblöcke stehen, wird der aktuelle Block gewechselt, und die Indexposition neu berechnet.
+
+Wird der Buffer nicht mehr benötigt, wird auch die einzulesende Datei geschlossen.
+
+\section{Symboltabelle}
+Die Symboltabelle speichert für alle Identifier und Schlüsselworte eine Token-Info-Container. Dies ist relevant, da sich so gleiche Lexeme, die als Identifier erkannt werden, denselben Info-Container teilen. Um ein performantes überprüfen, ob ein Lexem bereits einen Info-Container besitzt, zu ermöglichen, ist die Symboltabelle als HashMap implementiert. Kollisionsauflösung wurde durch Verkettung realisiert.
+
+Soll ein Lexem eingefügt werden, muss für jedes ein Info-Container mit entsprechendem Typ erstellt werden.
+Soll ein noch nicht vorhandener Container in die Liste eingetragen werden, wird zunächst der Hashwert des Lexems berechnet. Dieser gibt an, in welcher der verketteten Listen das Lexem abgelegt wird bzw.~gesucht werden muss.
+
+Sollte noch keine Liste vorhanden sein, wird diese erstellt und ein Hashwert generiert, der das erneute auffinden realisiert. Dieser wird zurückgegeben.
+
+Ist diese Liste leer, kann der Container einfach eingefügt werden. Enthält diese aber bereits Elemente, wird überprüft ob es für das Lexem bereits ein Container in ihr vorhanden ist. Sollte dieser Fall nicht eintreten wird der neue Container an die Liste angehängt und der generierte Hashwert zurückgegeben. Sollte aber bereits ein passender Container gefunden werden, wird dessen Hashwert zurückgegeben.
+
+\begin{figure}[!htb]
+    \centering
+      \includegraphics[width=0.6\linewidth]{Symboltabelle.png}
+    \caption{Aktivitätsdiagramm Symboltabelle}\label{fig:symboltabelle}
+\end{figure}
+
+\section{Stringtabelle}
+Die Stringtabelle speichert alle Lexeme als String ab.
+Das Vorgehen sieht dabei wie folgt aus: Beginnend mit dem ersten Element des Lexemstrings werden eben diese der Reihe nach in die Stringtabelle eingefügt. Die Position, an der Eingefügt werden soll,  ist über einen Pointer auf die Stringtable bekannt. Dies geschieht solange, bis das letzte Element des Lexemstrings erreicht wurde. Dadurch wird die Länge des Lexems bestimmt.
+
+Nun muss abgefragt werden ob das Lexem größer ist, als der bereitgestellte Stringspeicher (\texttt{int stringMemorySize = 1024}). Ist dies der Fall, wird Null zurückgegeben und es kommt zu einem Fehlerfall. Sollte der bereitgestellte Speicher aber ausreichen, wird der String entsprechend abgelegt.
+
+Der restliche Speicher wird dann für ein neues Element bereitgestellt und der Index in der Stringtabelle um die entsprechende Länge des Lexems angepasst, um ein neu gelesenes Lexem zu speichern. Sollte der restliche Speicher nicht für ein weiteres Lexem ausreichen, wird eine neue Stringtable erstellt, welche mit der vorherigen verknüpft werden muss.
+
+\begin{figure}[!htb]
+    \centering
+      \includegraphics[width=0.6\linewidth]{Stringtabelle.png}
+    \caption{Aktivitätsdiagramm Stringtabelle}\label{fig:stringtabelle}
+\end{figure}
+
+\section{Unit-Testing}\label{sec:UnitTests}
+Damit das Programm auch verlässlich funktioniert, haben wir uns dafür entschieden, Unit Tests einzusetzten, anstatt händisch verschiedene Dateien zu testen. Somit können wir garantieren, dass gewisse Dinge funktionieren und diese Unit Tests dienen gleichzeitig auch dem \textit{Regression Testing}, da das Verändern von Code ohne weiteres problemlos möglich ist. Somit war es einigermaßen einfach, den Code zu verbessern und \textit{Refactoring} zu betreiben.
+
+Wir setzen das Google Test\footnote{\url{https://github.com/google/googletest}} Framework ein, was es ermöglicht, Tests in Gruppen einzusortieren, einzelne Tests auszuschalten und auch Ausgabe-Dateien zu schreiben, die von anderen Tools dann gelesen und analysiert werden können. Es gibt die Möglichkeit Objekte ein einziges Mal zu erstellen und danach wieder zu benutzen.
+
+\begin{lstlisting}[language=C++]
+using testing::Eq;
+
+namespace {
+  class AutomatTest : public testing::Test {
+  public:
+      Automat testAutomat;
+  };
+}
+
+TEST_F(AutomatTest, IntegerAddition) {
+  ASSERT_EQ(testAutomat.checkExpression('1'), NEXTCHAR);
+}
+\end{lstlisting}
+
+In dem Beispielcode erkennt man, dass das Objekt \texttt{testAutomat} in dem TestFall \emph{IntegerAddition} verwendet werden kann, ohne es in dem Testfall zu deklarieren. Hierzu dient die \texttt{TEST\_F} Notation. Im Normalfall konnte man jedoch einen einfachen Test wie folgt schreiben:
+
+\begin{lstlisting}[language=C++]
+TEST(BufferTest, LongFileWithLoopSwitchOnce) {
+  char const *testFile = "../src/test/testData/LongFile.txt";
+  Buffer* buffer = new Buffer(testFile);
+
+  // With a buffer size of 1024, the buffer should be switched at least once
+  for (int i = 0; i < 1050; i++) {
+      char charVal = (i % 10) + 48;
+      ASSERT_EQ(charVal, buffer->getChar());
+  }
+  delete buffer;
+}
+\end{lstlisting}
+
+Würde man den Test mit dem Namen \emph{LongFileWithLoopSwitchOnce} in \emph{DISABLED\-\_LongFileWithLoopSwitchOnce} umbenennen, so würde das Testing Framework diesen Test ignorieren, was besonders im Zusammenspiel mit unserem Continuous Integration System \textit{TravisCI} (mehr dazu unter~\ref{sec:ContinousIntegration}) sehr praktisch war, weil man so Testfälle vorbereiten konnte, die jedoch noch nicht direkt korrekt liefen, ohne, dass der Build fehlschlägt.
+
+\subsection{Was getestet wurde}
+Die Unit Tests konnten sehr gut dazu benutzt werden, um Randfälle zu betrachten. So konnten wir die einzelnen Komponenten (Buffer, Scanner) z.B. darauf testen, wie sie mit leeren (Eingabe-) Dateien umgehen. Zudem konnte das Programm so inkrementell entwickelt werden. Hier ist der Buffer ein gutes Beispiel.
+
+Zuerst wurde ermöglicht, dass der Buffer nur einzelne Zeichen einlesen kann, dann wurden so viele Zeichen eingelesen, dass der 2. Buffer genutzt werden musste. Dann so viele, dass der 1. Teil des Buffers erneut genutzt werden musste. Und im Anschluss wurde dann die Funktionalität von \texttt{unhgetchar()} implementiert, welche dann auf die Bufferwechsel angepasst wurde. Dadurch konnte dann auch sichergestellt werden, dass das Zeichen \texttt{=:=} korrekt behandelt werden kann, auch wenn es fehlerhaft an einem Bufferwechsel-Ort steht.
+
+Wir haben in den Unit Tests zudem überlange Integer und Identifier getestet, um so zu gewährleisten, dass das Programm nicht unerwartet crashed. Zum Zeitpunkt haben wir knapp 100 Unit Tests.
+
+\section{Continuous Integration}\label{sec:ContinousIntegration}
+Um die Lauffähigkeit unseres Programms zu gewährleisten, setzen wir \texttt{TravisCI} ein, ein Tool mit dem man Continuous Integration umsetzen kann und das sehr gut mit Github Repositories zusammenarbeitet. Dem Repository wird eine \texttt{.travis.yml} Datei hinzugefügt, die konfiguriert, wie das Projekt gebaut werden soll und welche Schritte zusätzlich ausgeführt werden sollen.
+
+Wir haben uns dafür entschieden, das Projekt für MacOS und für Linux zu testen. Hierzu wählen wir sowohl \texttt{clang}, als auch \texttt{gcc}, da wir somit die wichtigsten Compiler abdecken. Das Programm wird dann von Travis für diese 4 Konfigurationen gebaut und jedes Mal werden alle Unit-Tests ausgeführt, sodass gewährleistet ist, dass nichts schief geht. Sollte es jedoch zu einem Fehler kommen, so wird derjenige, der den Commit gemacht hat, per E-Mail über diesen Fehlschlag benachrichtigt.
