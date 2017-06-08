@@ -7,7 +7,7 @@
 Nodes::Nodes() {
     this->currentBranch = 0;
     this->nodeTypeInfo = NO_TYPE;
-    this->type = NOT_SET;
+    this->type = ?; //tokenType
     this->isTreeLeaf = false;
     //add rule
     //add tokeninfo
