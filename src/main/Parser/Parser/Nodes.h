@@ -3,19 +3,24 @@
 //
 
 /*
- * Nodes sind Teil des Baumes, oder der Baum selbst.
+ * Nodes sind Teil des Baumes, oder der Baum selbst!
  * Node kann also Root, Branch, Leaf sein.
  *
  * Node hat Info über sich selbst.
  * Enthält er selbst weitere Nodes ist er eine Root.
  * Enthält er keine weiteren Nodes ist er Leaf.
  * Nodes werden Grammatikregeln zugeordnet.
+ *
+ * Dies wird für Typisierrung/TypeCheck wichtig, denn dann kann man den Teilbaum (für jede regel ein neuer) ablaufen,
+ * und dann entsprechend prüfen und erkennen ob die syntax korrekt ist!
 */
 #ifndef SYSPROG_NODES_H
 #define SYSPROG_NODES_H
 
 #include "NodeType.h"
 #include "Nodes.h
+
+class Rules;
 
 class Nodes{
 
@@ -32,8 +37,8 @@ private:
     // Nodes einer Root
     Nodes* branches[__SIZE];
 
-    // zugeordnete Regel
-    Rule* rule;
+    // dem Node zugeordnete Regel
+    Rules* rule;
 
     // NodeType
     NodeInfo nodeTypeInfo;
@@ -45,14 +50,11 @@ private:
     //ToDO
 
 public:
-    // allgemeiner Konstruktor
+    // Konstruktor
     Nodes();
 
-    // Konstruktor für ein Blatt
+    // Konstruktor für Leaf
     //ToDo
-
-    // Dekonstruktor
-    virtual ~Nodes();
 
     // Fügt eine Node zu einer Wurzel hinzu
     void newBranch(Nodes* branch);
@@ -72,3 +74,5 @@ public:
 };
 
 #endif //SYSPROG_NODES_H
+
+//auch ToDo: Leaf mit Token Informationen befüllen (lexem, lexemtyp, nodetyp ??)
