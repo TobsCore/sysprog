@@ -1,6 +1,6 @@
 //
 // Created by Kevin Wolf on 08.06.17.
-//Als BitShift (Performance)?
+// Als BitShift (Performance)?
 //
 
 #ifndef SYSPROG_NODETYPE_H
@@ -25,4 +25,4 @@ enum NodeInfo : unsigned long long {
     EPSILON = (unsigned long long) 1<<15
 };
 
-#endif //SYSPROG_NODETYPE_H
+#endif SYSPROG_NODETYPE_H

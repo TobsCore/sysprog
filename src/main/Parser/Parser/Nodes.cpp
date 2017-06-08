@@ -3,51 +3,50 @@
 //
 
 #include "Nodes.h"
-#include "NodeType.h"
-#include "../../Scanner/SymbolType/Symboltype.h"
 
-Node::Node() {
+Nodes::Nodes() {
     this->currentBranch = 0;
     this->nodeTypeInfo = NO_TYPE;
-    this->rule = 0L;
     this->type = NOT_SET;
     this->isTreeLeaf = false;
-    this->tokenInfo = 0L;
+    //add rule
+    //add tokeninfo
+    this->tokenInfo = 0L;  //Filler, muss noch besorgt werden! tokenInfo gleich Info zum Inhalt
 }
 
 
-Node::~Node() {
+Nodes::~Nodes() {
     // TODO Auto-generated destructor stub
 }
 
-bool Node::isLeaf() {
-    return this->isALeaf;
+bool Nodes::isTreeLeaf() {
+    return this->isTreeLeaf;
 }
 
-void Node::setTreeLeaf() {
-    this->isALeaf = true;
+void Nodes::setTreeLeaf() {
+    this->isTreeLeaf = true;
     this->setNodeTypeInfo(NO_TYPE);
 }
 
-void Node::newBranch(Node* branch) {
+void Nodes::newBranch(Nodes* branch) {
     if (branch != 0L)
         this->branches[this->currentBranch++] = branch;
 }
 
-Node* Node::getBranch(int pos) {
+Nodes* Nodes::getBranch(int pos) {
     return this->branches[pos];
 }
 
-void Node::setNodeTypeInfo(NodeInfo info) {
-    if(this->isALeaf) {
+void Nodes::setNodeTypeInfo(NodeInfo info) {
+    if(this->isTreeLeaf) {
         this->tokenInfo->setNodeTypeInfo(info);
     } else {
         this->nodeTypeInfo = info;
     }
 }
 
-NodeInfo Node::getNodeTypeInfo() {
-    if(this->isALeaf) {
+NodeInfo Nodes::getNodeTypeInfo() {
+    if(this->isTreeLeaf) {
         return this->tokenInfo->getNodeTypeInfo();
     } else {
         return this->nodeTypeInfo;

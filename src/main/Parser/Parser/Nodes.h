@@ -27,58 +27,48 @@ private:
     int currentBranch = 0;
 
     // Node = Leaf? Wegen Get und Set
-    bool isALeaf;
+    bool isTreeLeaf;
 
     // Nodes einer Root
-    Node* branches[__SIZE];
+    Nodes* branches[__SIZE];
 
     // zugeordnete Regel
     Rule* rule;
-
-    // Informationen über den Inhalt
-    TokenInfo* tokenInfo;
 
     // NodeType
     NodeInfo nodeTypeInfo;
 
     // Typ des Inhaltes
-    TType type;
+    //ToDo
+
+    // Informationen über den Inhalt
+    //ToDO
 
 public:
     // allgemeiner Konstruktor
-    Node();
+    Nodes();
 
     // Konstruktor für ein Blatt
-    Node(TokenInfo* info);
+    //ToDo
 
     // Dekonstruktor
-    virtual ~Node();
+    virtual ~Nodes();
 
     // Fügt eine Node zu einer Wurzel hinzu
-    void addBranch(Node* branch);
+    void newBranch(Nodes* branch);
 
     // gibt ein  Blatt oder ein Teilbaum einer Wurzel zurück
-    Node* getBranch(int pos);
+    Nodes* getBranch(int pos);
 
-    void setRule(Rule* rule);
-
-    Rule* getRule();
+//setter getter rules noch zu machen
 
     void setNodeTypeInfo(NodeInfo info);
 
     NodeInfo getNodeTypeInfo();
 
-    void setType(TType type);
+    void setTreeLeaf();
 
-    TType getType();
-
-    void setTokenInfo(TokenInfo* tokenInfo);
-
-    TokenInfo* getTokenInfo();
-
-    void setLeaf();
-
-    bool isLeaf();
+    bool isTreeLeaf();
 };
 
 #endif //SYSPROG_NODES_H
