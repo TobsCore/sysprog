@@ -191,7 +191,7 @@ Damit das Programm auch verlässlich funktioniert, haben wir uns dafür entschie
 
 Wir setzen das Google Test\footnote{\url{https://github.com/google/googletest}} Framework ein, was es ermöglicht, Tests in Gruppen einzusortieren, einzelne Tests auszuschalten und auch Ausgabe-Dateien zu schreiben, die von anderen Tools dann gelesen und analysiert werden können. Es gibt die Möglichkeit Objekte ein einziges Mal zu erstellen und danach wieder zu benutzen.
 
-\begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++, caption=Unit Test mit wiederverwendbarem Objekt]
 using testing::Eq;
 
 namespace {
@@ -208,7 +208,7 @@ TEST_F(AutomatTest, IntegerAddition) {
 
 In dem Beispielcode erkennt man, dass das Objekt \texttt{testAutomat} in dem TestFall \emph{IntegerAddition} verwendet werden kann, ohne es in dem Testfall zu deklarieren. Hierzu dient die \texttt{TEST\_F} Notation. Im Normalfall konnte man jedoch einen einfachen Test wie folgt schreiben:
 
-\begin{lstlisting}[language=C++]
+\begin{lstlisting}[language=C++, caption=Einfacher Unit Test]
 TEST(BufferTest, LongFileWithLoopSwitchOnce) {
   char const *testFile = "../src/test/testData/LongFile.txt";
   Buffer* buffer = new Buffer(testFile);
