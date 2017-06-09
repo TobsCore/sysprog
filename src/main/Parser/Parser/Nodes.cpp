@@ -37,15 +37,15 @@ Nodes* Nodes::getBranch(int pos) {
     return this->branches[pos];
 }
 
-void Nodes::setNodeTypeInfo(NodeInfo info) {
+void Nodes::setNodeTypeInfo(NodeType info) {
     if(this->isTreeLeaf) {
         this->tokenInfo->setNodeTypeInfo(info);
     } else {
-        this->nodeTypeInfo = info;
+        this->nodeTypeInfo = info; //macht eventuell sinn eine Fassade zu bauen bezüglich relevanter informationen fürs parsen. (tokeninfo)
     }
 }
 
-NodeInfo Nodes::getNodeTypeInfo() {
+NodeType Nodes::getNodeTypeInfo() {
     if(this->isTreeLeaf) {
         return this->tokenInfo->getNodeTypeInfo();
     } else {

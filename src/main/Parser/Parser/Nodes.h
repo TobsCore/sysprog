@@ -41,7 +41,7 @@ private:
     Rules* rule;
 
     // NodeType
-    NodeInfo nodeTypeInfo;
+    NodeType nodeTypeInfo;
 
     // Typ des Inhaltes
     //ToDo
@@ -64,9 +64,9 @@ public:
 
 //setter getter rules noch zu machen
 
-    void setNodeTypeInfo(NodeInfo info);
+    void setNodeTypeInfo(NodeType info);
 
-    NodeInfo getNodeTypeInfo();
+    NodeType getNodeTypeInfo();
 
     void setTreeLeaf();
 

@@ -6,7 +6,7 @@
 #ifndef SYSPROG_NODETYPE_H
 #define SYSPROG_NODETYPE_H
 
-enum NodeInfo : unsigned long long {
+enum NodeType : unsigned long long {
     UNDEFINED = (unsigned long long) 0,
     INT_TYPE = (unsigned long long) 1,
     INT_ARRAY_TYPE = (unsigned long long) 1<<2,
