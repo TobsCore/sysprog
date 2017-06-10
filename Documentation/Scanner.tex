@@ -235,3 +235,41 @@ Wir haben in den Unit Tests zudem überlange Integer und Identifier getestet, um
 Um die Lauffähigkeit unseres Programms zu gewährleisten, setzen wir \texttt{TravisCI} ein, ein Tool mit dem man Continuous Integration umsetzen kann und das sehr gut mit Github Repositories zusammenarbeitet. Dem Repository wird eine \texttt{.travis.yml} Datei hinzugefügt, die konfiguriert, wie das Projekt gebaut werden soll und welche Schritte zusätzlich ausgeführt werden sollen.
 
 Wir haben uns dafür entschieden, das Projekt für MacOS und für Linux zu testen. Hierzu wählen wir sowohl \texttt{clang}, als auch \texttt{gcc}, da wir somit die wichtigsten Compiler abdecken. Das Programm wird dann von Travis für diese 4 Konfigurationen gebaut und jedes Mal werden alle Unit-Tests ausgeführt, sodass gewährleistet ist, dass nichts schief geht. Sollte es jedoch zu einem Fehler kommen, so wird derjenige, der den Commit gemacht hat, per E-Mail über diesen Fehlschlag benachrichtigt.
+
+\section{Programmausführung}
+Wenn man das Programm mit make kompiliert, bekommt man eine ausführbare Datei (auch \textit{Executable}) mit dem Namen \texttt{scanner}. Diese kann man dann im Terminal einfach ausführen:
+
+\begin{lstlisting}[language=bash,numbers=none]
+>./scanner
+\end{lstlisting}
+
+Hierbei bekommt man dann die Ausgabe
+
+\begin{lstlisting}[language=bash,numbers=none]
+>./scanner
+usage:
+scanner <inputfile> <outputfile>
+\end{lstlisting}
+
+Diese Ausgabe bekommt man, damit man weiß, dass man zusätzlich auch noch die Ein- und Ausgabedatei mit angeben muss. Wenn dies gemacht wird, so wird die Eingabedatei gelesen und in die verschiedenen Token aufgeteilt. Zum Schluss wird die Ausgabedatei geschrieben.
+
+\begin{lstlisting}[language=bash,numbers=none]
+>./scanner EingabeKorrekt.txt out.txt
+./scanner ../src/test/testData/Programm.txt out.txt
+Running...
+Finished!
+Output written to <out.txt>
+\end{lstlisting}
+
+Sollte es zu Fehlern kommen, so werden diese direkt ausgegeben.
+\begin{lstlisting}[language=bash,numbers=none]
+>./scanner ./EingabeMitFehler.txt out.txt
+Running...
+Error Found! Line:   2 Column:   1  Info: Integer out of range
+Finished!
+Output written to <out.txt>
+\end{lstlisting}
+
+Hierbei wird der Fehler zudem farblich hervorgehoben, sodass der Nutzer des Programms definitiv mitbekommt, dass es zu einem Fehler gekommen ist. Das Programm bricht jedoch nicht ab, sondern versucht weiter die Eingabedatei in Token zu unterteilen.
+
+Bei dem oben gezeigten Fehler, wird zudem die Ursache für den Fehler mit angegeben, dies ist jedoch nicht immer möglich und ist somit von dem Fehlertyp abhängig.
