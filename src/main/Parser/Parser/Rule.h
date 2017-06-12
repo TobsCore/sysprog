@@ -6,7 +6,7 @@
 #ifndef SYSPROG_RULES_H
 #define SYSPROG_RULES_H
 
-class Rules {
+class Rule {
 private:
     RuleType type;
 
@@ -23,7 +23,7 @@ private:
     unsigned long long codeFollow(RuleType type);
 
 public:
-    Rules(RuleType type);
+    Rule(RuleType type);
 
     unsigned long long getFirst();
 

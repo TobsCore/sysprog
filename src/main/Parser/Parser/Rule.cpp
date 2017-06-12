@@ -2,32 +2,32 @@
 // Created by Kevin Wolf on 08.06.17.
 //
 
-#include "Rules.h"
+#include "Rule.h"
 
-Rules::Rules(RuleType type) {
+Rule::Rule(RuleType type) {
     this->type = type;
     this->first = this->codeFirst(type);
     this->follow = this->codeFollow(type);
 }
 
-RuleType Rules::getRuleType() {
+RuleType Rule::getRuleType() {
     return this->type;
 }
 
-unsigned long long Rules::getFirst() {
+unsigned long long Rule::getFirst() {
     return this->first;
 }
 
-unsigned long long Rules::getFollow() {
+unsigned long long Rule::getFollow() {
     return this->follow;
 }
 
-void Rules::setRuleType(RuleType ruleType) {
+void Rule::setRuleType(RuleType ruleType) {
     this->type = ruleType;
 }
 
 
-unsigned long long Rules::codeFirst(RuleType type) {
+unsigned long long Rule::codeFirst(RuleType type) {
     switch (type) {
         case PROG:
             //return
@@ -77,7 +77,7 @@ unsigned long long Rules::codeFirst(RuleType type) {
             return 0;
     }}
 
-unsigned long long Rules::codeFollow(RuleType type) {
+unsigned long long Rule::codeFollow(RuleType type) {
     switch (type) {
         case DECLS:
         case DECLS_EMPTY:

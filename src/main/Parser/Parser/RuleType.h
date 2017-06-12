@@ -42,7 +42,7 @@ enum RuleType {
     RULE_NOT_SET
 };
 
-inline const char *ToString(RuleType type) {
+inline const char *toString(RuleType type) {
     switch (type) {
         case PROG:
             return "PROG";

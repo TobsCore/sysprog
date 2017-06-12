@@ -43,11 +43,11 @@ set(SCANNER_SOURCE
 set(PARSER_SOURCE
         main/Parser/Parser/Parser.h
         main/Parser/Parser/Parser.cpp
-        main/Parser/Parser/Nodes.h
-        main/Parser/Parser/Nodes.cpp
+        main/Parser/Parser/Node.h
+        main/Parser/Parser/Node.cpp
         main/Parser/Parser/NodeType.h
-        main/Parser/Parser/Rules.h
-        main/Parser/Parser/Rules.cpp
+        main/Parser/Parser/Rule.h
+        main/Parser/Parser/Rule.cpp
         main/Parser/Parser/RuleType.h
         )
 

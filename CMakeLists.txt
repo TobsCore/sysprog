@@ -43,11 +43,11 @@ set(SCANNER_SOURCE
 set(PARSER_SOURCE
         src/main/Parser/Parser/Parser.h
         src/main/Parser/Parser/Parser.cpp
-        src/main/Parser/Parser/Nodes.h
-        src/main/Parser/Parser/Nodes.cpp
+        src/main/Parser/Parser/Node.h
+        src/main/Parser/Parser/Node.cpp
         src/main/Parser/Parser/NodeType.h
-        src/main/Parser/Parser/Rules.h
-        src/main/Parser/Parser/Rules.cpp
+        src/main/Parser/Parser/Rule.h
+        src/main/Parser/Parser/Rule.cpp
         src/main/Parser/Parser/RuleType.h
         )
 
@@ -58,7 +58,7 @@ set(TEST
         src/test/bufferTest.cpp
         src/test/symtableTest.cpp
         src/test/stringTableTest.cpp
-        src/test/scannerErrorTest.cpp)
+        src/test/scannerErrorTest.cpp src/test/nodeTest.cpp)
 
 add_executable(scanner src/main/Scanner/runScanner.cpp ${SCANNER_SOURCE})
 add_executable(parser src/main/Parser/runParser.cpp ${PARSER_SOURCE} ${SCANNER_SOURCE})
