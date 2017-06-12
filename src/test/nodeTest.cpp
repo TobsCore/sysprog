@@ -2,6 +2,7 @@
 #include <gmock/gmock.h>
 #include "../main/Parser/Parser/Node.h"
 
+
 using testing::Eq;
 
 namespace {
@@ -54,3 +55,4 @@ TEST_F(NodeTest, DeleteNode) {
 
     delete deleteNode;
 }
+

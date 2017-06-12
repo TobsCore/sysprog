@@ -6,6 +6,7 @@
 #include "../../Scanner/SymbolType/Symboltype.h"
 #include <stdexcept>
 
+
 Node::Node() {
     this->currentChild = 0;
     this->nodeType = NO_TYPE;
@@ -17,6 +18,7 @@ Node::~Node() {
         delete children[i];
     }
     // Possibly clean up the properties of the object
+
 }
 
 bool Node::isLeaf() {
@@ -33,7 +35,9 @@ void Node::addChild(Node *newChild) {
 
 Node *Node::getChild(unsigned char pos) {
     if (pos >= currentChild) {
+
         throw std::out_of_range("Position is out of range");
+
     }
     return this->children[pos];
 }
@@ -62,6 +66,7 @@ void Node::setRuleType(RuleType ruleType) {
     Node::ruleType = ruleType;
 }
 
+
 const char *Node::getLexem() const {
     return lexem;
 }
@@ -77,6 +82,7 @@ long Node::getIntegerValue() const {
 void Node::setIntegerValue(long integerValue) {
     Node::integerValue = integerValue;
 }
+
 
 
 

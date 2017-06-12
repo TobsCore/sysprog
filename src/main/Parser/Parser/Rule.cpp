@@ -31,15 +31,15 @@ void Rule::setRuleType(RuleType ruleType) {
 unsigned long long Rule::codeFirst(RuleType type) {
     switch (type) {
         case PROG:
-            return INTTOKEN | IDENTIFIER | WRITETOKEN | READTOKEN | BRACES_LEFT | IFTOKEN | WHILETOKEN | FILE_END;
+            //return
         case DECLS:
         case DECLS_EMPTY:
-            return INTTOKEN;
+            //return
         case DECL:
-            return INTTOKEN;
+            //return
         case ARRAY:
         case ARRAY_EMPTY:
-            return BRACKET_LEFT;
+            //return
         case STATEMENTS:
         case STATEMENTS_EMPTY:
             return IDENTIFIER | WRITETOKEN | READTOKEN | BRACES_LEFT | IFTOKEN | WHILETOKEN;
@@ -51,7 +51,7 @@ unsigned long long Rule::codeFirst(RuleType type) {
         case STATEMENT_WHILE:
             return IDENTIFIER | WRITETOKEN | READTOKEN | BRACES_LEFT | IFTOKEN | WHILETOKEN;
         case EXP:
-            return PARANTHESES_LEFT | IDENTIFIER | INTEGER | MINUS | EXCLAMATION;
+            //return
         case EXP2:
         case EXP2_INBRACKETS:
         case EXP2_IDENTIFIER:
@@ -61,7 +61,7 @@ unsigned long long Rule::codeFirst(RuleType type) {
             return PARANTHESES_LEFT | IDENTIFIER | INTEGER | MINUS | EXCLAMATION;
         case INDEX:
         case INDEX_EMPTY:
-            return BRACKET_LEFT;
+            //return
         case OP_EXP:
         case OP_EXP_EMPTY:
             return PLUS | MINUS | STAR | COLON | LESS | GREATER | EQUALS | SPECIAL | AND;
@@ -83,20 +83,23 @@ unsigned long long Rule::codeFollow(RuleType type) {
     switch (type) {
         case DECLS:
         case DECLS_EMPTY:
-            return IDENTIFIER | WRITETOKEN | READTOKEN | BRACES_LEFT | IFTOKEN | WHILETOKEN | FILE_END;
+            //return
         case ARRAY:
         case ARRAY_EMPTY:
-            return IDENTIFIER;
+            //return
         case STATEMENTS:
         case STATEMENTS_EMPTY:
-            return BRACES_RIGHT | FILE_END;
+            //return
         case INDEX:
         case INDEX_EMPTY:
-            return ASSIGN | PARANTHESES_RIGHT | PLUS | MINUS | STAR | COLON | LESS | GREATER | EQUALS | AND | BRACKET_RIGHT | ELSETOKEN | SEMICOLON;
+            //return
         case OP_EXP:
         case OP_EXP_EMPTY:
-            return BRACKET_RIGHT | PARANTHESES_RIGHT | ELSETOKEN | SEMICOLON;
+            //return
         default:
             return 0;
     }}
 
+// ToDo man muss noch die neuen Teile der Grammatik in den Automaten adden.
+// also: add return values to the cases. therefore we should discuss the given grammar in the group.
+// this is propably easy (pdfs), but i'd like to discuss it just to be sure. better safe that awp! *dies by headshot*

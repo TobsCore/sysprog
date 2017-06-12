@@ -74,6 +74,7 @@ set(TEST
         src/test/newTokenTypeTest.cpp
         src/test/parserTest.cpp)
 
+
 add_executable(scanner src/main/Scanner/runScanner.cpp ${SCANNER_SOURCE})
 add_executable(parser src/main/Parser/runParser.cpp ${PARSER_SOURCE} ${SCANNER_SOURCE})
 add_executable(unitTests src/test/main.cpp ${SCANNER_SOURCE} ${PARSER_SOURCE} ${TEST})

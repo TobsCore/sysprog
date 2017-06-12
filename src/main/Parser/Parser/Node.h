@@ -20,8 +20,10 @@
 #include <climits>
 #include "NodeType.h"
 #include "Node.h"
+
 #include "Rule.h"
 #include "../../Scanner/SymbolType/Symboltype.h"
+
 
 class Node{
 
@@ -43,6 +45,7 @@ public:
     RuleType getRuleType() const;
     void setRuleType(RuleType ruleType);
 
+
     void setLexem(const char *lexem);
     const char *getLexem() const;
 
@@ -55,6 +58,7 @@ private:
     unsigned char currentChild = 0;
 
     Node* children[MAX_CHILDREN];
+
     //Rule* rule; // TODO: Ich checke das mit der Rule noch nicht so wirklich.
     NodeType nodeType;
     RuleType ruleType;
@@ -64,3 +68,4 @@ private:
 };
 
 #endif //SYSPROG_NODES_H
+
