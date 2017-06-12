@@ -42,7 +42,14 @@ set(SCANNER_SOURCE
 
 set(PARSER_SOURCE
         src/main/Parser/Parser/Parser.h
-        src/main/Parser/Parser/Parser.cpp)
+        src/main/Parser/Parser/Parser.cpp
+        src/main/Parser/Parser/Nodes.h
+        src/main/Parser/Parser/Nodes.cpp
+        src/main/Parser/Parser/NodeType.h
+        src/main/Parser/Parser/Rules.h
+        src/main/Parser/Parser/Rules.cpp
+        src/main/Parser/Parser/RuleType.h
+        )
 
 set(TEST
         src/test/automatTest.cpp
