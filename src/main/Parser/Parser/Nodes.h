@@ -18,7 +18,7 @@
 #define SYSPROG_NODES_H
 
 #include "NodeType.h"
-#include "Nodes.h
+#include "Nodes.h"
 
 class Rules;
 
@@ -32,7 +32,7 @@ private:
     int currentBranch = 0;
 
     // Node = Leaf? Wegen Get und Set
-    bool isTreeLeaf;
+    bool isLeaf;
 
     // Nodes einer Root
     Nodes* branches[__SIZE];
@@ -50,8 +50,8 @@ private:
     //ToDO
 
 public:
-    // Konstruktor
     Nodes();
+    ~Nodes();
 
     // Konstruktor für Leaf
     //ToDo
@@ -59,7 +59,6 @@ public:
     // Fügt eine Node zu einer Wurzel hinzu
     void newBranch(Nodes* branch);
 
-    // gibt ein  Blatt oder ein Teilbaum einer Wurzel zurück
     Nodes* getBranch(int pos);
 
 //setter getter rules noch zu machen

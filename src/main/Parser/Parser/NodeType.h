@@ -3,9 +3,6 @@
 // Als BitShift (Performance)?
 //
 
-#ifndef SYSPROG_NODETYPE_H
-#define SYSPROG_NODETYPE_H
-
 enum NodeType : unsigned long long {
     UNDEFINED = (unsigned long long) 0,
     INT_TYPE = (unsigned long long) 1,
@@ -24,5 +21,3 @@ enum NodeType : unsigned long long {
     OP_AND = (unsigned long long) 1<<14,
     EPSILON = (unsigned long long) 1<<15
 };
-
-#endif SYSPROG_NODETYPE_H

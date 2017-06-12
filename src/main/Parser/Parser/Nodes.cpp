@@ -7,11 +7,11 @@
 Nodes::Nodes() {
     this->currentBranch = 0;
     this->nodeTypeInfo = NO_TYPE;
-    this->type = ?; //tokenType Filler
-    this->isTreeLeaf = false;
+    // TODO(Toby): this->type = ?; //tokenType Filler
+    this->isLeaf = false;
     //add rule
     //add tokeninfo
-    this->tokenInfo = 0L;  //Filler, muss noch besorgt werden! tokenInfo gleich Info zum Inhalt
+    // TODO(Toby): this->tokenInfo = 0L;  //Filler, muss noch besorgt werden! tokenInfo gleich Info zum Inhalt
 }
 
 
@@ -20,11 +20,11 @@ Nodes::~Nodes() {
 }
 
 bool Nodes::isTreeLeaf() {
-    return this->isTreeLeaf;
+    return this->isLeaf;
 }
 
 void Nodes::setTreeLeaf() {
-    this->isTreeLeaf = true;
+    this->isLeaf = true;
     this->setNodeTypeInfo(NO_TYPE);
 }
 
@@ -38,16 +38,16 @@ Nodes* Nodes::getBranch(int pos) {
 }
 
 void Nodes::setNodeTypeInfo(NodeType info) {
-    if(this->isTreeLeaf) {
-        this->tokenInfo->setNodeTypeInfo(info);
+    if(this->isTreeLeaf()) {
+        //TODO(Toby): this->tokenInfo->setNodeTypeInfo(info);
     } else {
         this->nodeTypeInfo = info; //macht eventuell sinn eine Fassade zu bauen bezüglich relevanter informationen fürs parsen. (tokeninfo)
     }
 }
 
 NodeType Nodes::getNodeTypeInfo() {
-    if(this->isTreeLeaf) {
-        return this->tokenInfo->getNodeTypeInfo();
+    if(this->isTreeLeaf()) {
+        //TODO(Toby): return this->tokenInfo->getNodeTypeInfo();
     } else {
         return this->nodeTypeInfo;
     }

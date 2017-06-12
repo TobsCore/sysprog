@@ -31,47 +31,47 @@ unsigned long long Rules::codeFirst(RuleType type) {
     switch (type) {
         case PROG:
             //return
-        case DECLS1:
-        case DECLS2:
+        case DECLS:
+        case DECLS_EMPTY:
             //return
         case DECL:
             //return
-        case ARRAY1:
-        case ARRAY2:
+        case ARRAY:
+        case ARRAY_EMPTY:
             //return
-        case STATEMENTS1:
-        case STATEMENTS2:
+        case STATEMENTS:
+        case STATEMENTS_EMPTY:
             //return
-        case STATEMENT1:
-        case STATEMENT2:
-        case STATEMENT3:
-        case STATEMENT4:
-        case STATEMENT5:
-        case STATEMENT6:
+        case STATEMENT:
+        case STATEMENT_2:
+        case STATEMENT_3:
+        case STATEMENT_4:
+        case STATEMENT_5:
+        case STATEMENT_6:
             //return
         case EXP:
             //return
-        case EXP2_1:
+        case EXP2:
         case EXP2_2:
         case EXP2_3:
         case EXP2_4:
         case EXP2_5:
             //return
-        case INDEX1:
-        case INDEX2:
+        case INDEX:
+        case INDEX_EMPTY:
             //return
-        case OP_EXP1:
-        case OP_EXP2:
+        case OP_EXP:
+        case OP_EXP_EMPTY:
             //return
-        case OP1:
-        case OP2:
-        case OP3:
-        case OP4:
-        case OP5:
-        case OP6:
-        case OP7:
-        case OP8:
-        case OP9:
+        case OP:
+        case OP_2:
+        case OP_3:
+        case OP_4:
+        case OP_5:
+        case OP_6:
+        case OP_7:
+        case OP_8:
+        case OP_9:
             //return
         default:
             return 0;
@@ -79,20 +79,20 @@ unsigned long long Rules::codeFirst(RuleType type) {
 
 unsigned long long Rules::codeFollow(RuleType type) {
     switch (type) {
-        case DECLS1:
-        case DECLS2:
+        case DECLS:
+        case DECLS_EMPTY:
             //return
-        case ARRAY1:
-        case ARRAY2:
+        case ARRAY:
+        case ARRAY_EMPTY:
             //return
-        case STATEMENTS1:
-        case STATEMENTS2:
+        case STATEMENTS:
+        case STATEMENTS_EMPTY:
             //return
-        case INDEX1:
-        case INDEX2:
+        case INDEX:
+        case INDEX_EMPTY:
             //return
-        case OP_EXP1:
-        case OP_EXP2:
+        case OP_EXP:
+        case OP_EXP_EMPTY:
             //return
         default:
             return 0;
