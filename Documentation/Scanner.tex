@@ -1,6 +1,5 @@
 \chapter{Scanner}\label{chap:intro}
 
-\section{Einleitung}
 Aufgabe des Labors \textit{Systemnahes Programmieren} ist die Implementierung eines Compilers. Ein Compiler übersetzt ein Programm in einer vorgegebenen Sprache, in ein Programm in maschinennaher Sprache. Es sollen auch Fehler im Programmcode erkannt werden.
 
 Die Aufgabe wurde in zwei Teilaufgaben aufgeteilt. Dieses Dokument befasst sich mit der ersten Teilaufgabe, der Implementierung eines Scanners.
@@ -28,6 +27,8 @@ Zu dieser Sprache wird ein Automat erstellt. Dieser akzeptiert die Sprache und b
 
 Erkannte Identifier werden in einer Symboltabelle gespeichert. Das Token enthält neben einem Verweis darauf auch die Informationen Zeile, Spalte, Typ. Sollten Symbole außerhalb der Menge der gültigen Zeichen oder Bezeichner gefunden werden, wird ein Fehlertoken erstellt.
 
+\section{Implementierung}
+Im Folgenden soll gezeigt werden, wie der Scanner implementiert wurde. Dazu wird zum Einem gezeigt, wie das Programm gebaut und ausgeführt werden kann. Außerdem wird erklärt, wie die Einzelnen Komponenten des Scanners funktionieren. Zuletzt wird gezeigt, wie wir die Funktionstüchtigkeit des Scanners gewährleistet haben, was mit Hilfe von Unit-Testing und Continuous Integration gemacht wurde.
 
 \subsection{Voraussetzungen}
 Um unser Projekt korrekt kompilieren zu können, sind einige Programme notwendig, die an dieser Stelle genannt werden sollen.
@@ -52,7 +53,7 @@ Um das Projekt korrekt in Eclipse zu importieren, muss das Projekt zuerst gelade
 Das Projekt kann man wie folgt laden:
 
 \begin{lstlisting}[language=bash,numbers=none]
-git clone https://github.com/TobsCore/sysprog.git
+>git clone https://github.com/TobsCore/sysprog.git
 \end{lstlisting}
 
 Man erkennt, dass ein neues Verzeichnis mit dem Namen \texttt{sysprog/} erstellt wurde. Dies ist unser Projekt-Verzeichnis. Wie das Projekt organisiert ist, wird genauer in~\ref{sec:orga_code} genauer beleuchtet.
@@ -76,7 +77,7 @@ sysprog/src/CMakeLists.txt}.
 Es wurde ja bereits beschrieben, das das Projekt in ein Eclipse Projekt umwandelt. Dieses Script kann man einfach per
 
 \begin{lstlisting}[language=bash,numbers=none]
-./init_eclipse.sh
+>./init_eclipse.sh
 \end{lstlisting}
 
 aufrufen. Hierbei wird der Ordner \texttt{cmake-build-debug/} generiert, in den dann die Executables nach erfolgreichem Kompilieren landen.
@@ -115,23 +116,23 @@ Wie man erkennen kann, werden die Tests ausgeführt und in der Konsole innerhalb
 Möchte man das Projekt zum Laufen bringen, ohne sich an Eclipse binden zu müssen, so reicht es ein neues Verzeichnis zu erstellen, in dem dann durch CMake ein Makefile generiert wird. Dieses kann man dann sehr einfach ansprechen um BuildTargets zu bauen. Dies wird wie folgt gemacht.
 
 \begin{lstlisting}[language=bash,numbers=none]
-mkdir cmake-build-debug
-cd cmake-build-debug
-cmake ..
-make all
+>mkdir cmake-build-debug
+>cd cmake-build-debug
+>cmake ..
+>make all
 \end{lstlisting}
 
 Es lassen sich die Build Targets \texttt{sysprogMain} und \texttt{unitTests} auch gezielt bauen, durch den Aufruf
 
 \begin{lstlisting}[language=bash,numbers=none]
-make sysprogMain
-make unitTests
+>make sysprogMain
+>make unitTests
 \end{lstlisting}
 
 In diesem Ordner werden dann die Binaries gebaut, die dann ausgeführt werden können.
 \begin{lstlisting}[language=bash,numbers=none]
-make unitTests
-./unitTests
+>make unitTests
+>./unitTests
 \end{lstlisting}
 
 \subsection{Organisation des Codes}\label{sec:orga_code}
@@ -144,6 +145,44 @@ In dem \texttt{lib/} Verzeichnis befindet sich die \textit{Google Test} Biblioth
 Die Unit-Tests sind im Verzeichnis \texttt{test/}, wobei dort einige Testdateien im Verzeichnis \texttt{testData/} liegen. Ausführlichere Informationen zu den Unit-Tests gibt es bei~\ref{sec:UnitTests}.
 
 Der eigentlich Source Code liegt dann unter \texttt{main/}.
+
+\subsection{Programmausführung}
+Wenn man das Programm mit make kompiliert, bekommt man eine ausführbare Datei (auch \textit{Executable}) mit dem Namen \texttt{scanner}. Diese kann man dann im Terminal einfach ausführen:
+
+\begin{lstlisting}[language=bash,numbers=none]
+>./scanner
+\end{lstlisting}
+
+Hierbei bekommt man dann die Ausgabe
+
+\begin{lstlisting}[language=bash,numbers=none]
+>./scanner
+usage:
+scanner <inputfile> <outputfile>
+\end{lstlisting}
+
+Diese Ausgabe bekommt man, damit man weiß, dass man zusätzlich auch noch die Ein- und Ausgabedatei mit angeben muss. Wenn dies gemacht wird, so wird die Eingabedatei gelesen und in die verschiedenen Token aufgeteilt. Zum Schluss wird die Ausgabedatei geschrieben.
+
+\begin{lstlisting}[language=bash,numbers=none]
+>./scanner EingabeKorrekt.txt out.txt
+./scanner ../src/test/testData/Programm.txt out.txt
+Running...
+Finished!
+Output written to <out.txt>
+\end{lstlisting}
+
+Sollte es zu Fehlern kommen, so werden diese direkt ausgegeben.
+\begin{lstlisting}[language=bash,numbers=none]
+>./scanner ./EingabeMitFehler.txt out.txt
+Running...
+Error Found! Line:   1 Column:   0  Info: Integer out of range
+Finished!
+Output written to <out.txt>
+\end{lstlisting}
+
+Hierbei wird der Fehler zudem farblich hervorgehoben, sodass der Nutzer des Programms definitiv mitbekommt, dass es zu einem Fehler gekommen ist. Das Programm bricht jedoch nicht ab, sondern versucht weiter die Eingabedatei in Token zu unterteilen.
+
+Bei dem oben gezeigten Fehler, wird zudem die Ursache für den Fehler mit angegeben, dies ist jedoch nicht immer möglich und ist somit von dem Fehlertyp abhängig.
 
 \section{Buffer}
 Der Buffer hat die Aufgabe eine Textdatei einzulesen und deren Inhalt zu speichern.
@@ -235,41 +274,3 @@ Wir haben in den Unit Tests zudem überlange Integer und Identifier getestet, um
 Um die Lauffähigkeit unseres Programms zu gewährleisten, setzen wir \texttt{TravisCI} ein, ein Tool mit dem man Continuous Integration umsetzen kann und das sehr gut mit Github Repositories zusammenarbeitet. Dem Repository wird eine \texttt{.travis.yml} Datei hinzugefügt, die konfiguriert, wie das Projekt gebaut werden soll und welche Schritte zusätzlich ausgeführt werden sollen.
 
 Wir haben uns dafür entschieden, das Projekt für MacOS und für Linux zu testen. Hierzu wählen wir sowohl \texttt{clang}, als auch \texttt{gcc}, da wir somit die wichtigsten Compiler abdecken. Das Programm wird dann von Travis für diese 4 Konfigurationen gebaut und jedes Mal werden alle Unit-Tests ausgeführt, sodass gewährleistet ist, dass nichts schief geht. Sollte es jedoch zu einem Fehler kommen, so wird derjenige, der den Commit gemacht hat, per E-Mail über diesen Fehlschlag benachrichtigt.
-
-\section{Programmausführung}
-Wenn man das Programm mit make kompiliert, bekommt man eine ausführbare Datei (auch \textit{Executable}) mit dem Namen \texttt{scanner}. Diese kann man dann im Terminal einfach ausführen:
-
-\begin{lstlisting}[language=bash,numbers=none]
->./scanner
-\end{lstlisting}
-
-Hierbei bekommt man dann die Ausgabe
-
-\begin{lstlisting}[language=bash,numbers=none]
->./scanner
-usage:
-scanner <inputfile> <outputfile>
-\end{lstlisting}
-
-Diese Ausgabe bekommt man, damit man weiß, dass man zusätzlich auch noch die Ein- und Ausgabedatei mit angeben muss. Wenn dies gemacht wird, so wird die Eingabedatei gelesen und in die verschiedenen Token aufgeteilt. Zum Schluss wird die Ausgabedatei geschrieben.
-
-\begin{lstlisting}[language=bash,numbers=none]
->./scanner EingabeKorrekt.txt out.txt
-./scanner ../src/test/testData/Programm.txt out.txt
-Running...
-Finished!
-Output written to <out.txt>
-\end{lstlisting}
-
-Sollte es zu Fehlern kommen, so werden diese direkt ausgegeben.
-\begin{lstlisting}[language=bash,numbers=none]
->./scanner ./EingabeMitFehler.txt out.txt
-Running...
-Error Found! Line:   2 Column:   1  Info: Integer out of range
-Finished!
-Output written to <out.txt>
-\end{lstlisting}
-
-Hierbei wird der Fehler zudem farblich hervorgehoben, sodass der Nutzer des Programms definitiv mitbekommt, dass es zu einem Fehler gekommen ist. Das Programm bricht jedoch nicht ab, sondern versucht weiter die Eingabedatei in Token zu unterteilen.
-
-Bei dem oben gezeigten Fehler, wird zudem die Ursache für den Fehler mit angegeben, dies ist jedoch nicht immer möglich und ist somit von dem Fehlertyp abhängig.
