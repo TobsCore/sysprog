@@ -43,6 +43,12 @@ public:
     RuleType getRuleType() const;
     void setRuleType(RuleType ruleType);
 
+    void setLexem(const char *lexem);
+    const char *getLexem() const;
+
+    void setIntegerValue(long integerValue);
+    long getIntegerValue() const;
+
 private:
     // Maximale Anzahl an Node, die Root besitzen kann
     static const unsigned char MAX_CHILDREN = UCHAR_MAX;
@@ -53,8 +59,8 @@ private:
     NodeType nodeType;
     RuleType ruleType;
     SymbolType tokenType;
+    const char* lexem;
+    long integerValue;
 };
 
 #endif //SYSPROG_NODES_H
-
-//auch ToDo: Leaf mit Token Informationen befüllen (lexem, lexemtyp, nodetyp ??)

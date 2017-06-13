@@ -125,3 +125,83 @@ void CodeGenerator::makeCode(Node* node) {
     }
 }
 
+void CodeGenerator::makeCodeProg(Node* node) {
+    Node* decls = node->getChild(0);
+    Node* statements = node->getChild(1);
+
+    if(decls != 0L) {
+        makeCode(decls);
+    }
+    if(statements != 0L) {
+        makeCode(statements);
+    }
+
+    file << " STP ";
+    file.close();
+}
+
+void CodeGenerator::makeCodeDecls(Node* node) {
+    Node* decl = node->getChild(0);
+    Node* decls = node->getChild(1);
+    if (decls != 0l) {
+        makeCode(decl);
+    }
+    if (decls != 0L) {
+        makeCode(decls);
+    }
+}
+
+void CodeGenerator::makeCodeDecls_Empty(Node* node) {}
+
+void CodeGenerator::makeCodeDecl(Node* node) {
+    Node* array = node->getChild(0);
+    Node* identifier = node->getChild(1);
+
+    file << " DS " << "$" << identifier->getLexem();
+
+  	if(array != 0L) {
+    makeCode(array);
+	}
+}
+
+void CodeGenerator::makeCodeArray(Node* node) {
+    Node* integer = node->getChild(0);
+
+    file << " " << integer->getIntegerValue();
+}
+
+void CodeGenerator::makeCodeArray_Empty(Node* node) {
+    file << " " << 1;
+}
+
+void CodeGenerator::makeCodeStatements(Node* node) {
+    Node* statement = node->getChild(0);
+    Node* statements = node->getChild(1);
+
+    if(statement != 0L)
+        makeCode(statement);
+    if(statements != 0L)
+        makeCode(statements);
+}
+
+void CodeGenerator::makeCodeStatements_Empty(Node* node) {
+    file << " NOP ";
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
