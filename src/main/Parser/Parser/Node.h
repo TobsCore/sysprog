@@ -49,7 +49,7 @@ private:
     unsigned char currentChild = 0;
 
     Node* children[MAX_CHILDREN];
-    Rule* rule; // TODO: Ich checke das mit der Rule noch nicht so wirklich.
+    //Rule* rule; // TODO: Ich checke das mit der Rule noch nicht so wirklich.
     NodeType nodeType;
     RuleType ruleType;
     SymbolType tokenType;

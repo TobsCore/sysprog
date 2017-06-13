@@ -61,7 +61,6 @@ void Node::setRuleType(RuleType ruleType) {
     Node::ruleType = ruleType;
 }
 
-//ToDo: Regeln getter/setter; TokenInfo in node speichern
 
 
 
