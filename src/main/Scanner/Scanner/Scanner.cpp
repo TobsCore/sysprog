@@ -6,6 +6,9 @@
 #include "../Token/IfToken.h"
 #include "../../String/StringOp.h"
 #include "../Token/IntToken.h"
+#include "../Token/WriteToken.h"
+#include "../Token/ReadToken.h"
+#include "../Token/ElseToken.h"
 #include <climits>
 
 Scanner::Scanner(char const *filePath) {
@@ -128,6 +131,21 @@ Token *Scanner::nextToken() {
         }
         case IFTOKEN: {
             nextToken = new IfToken();
+            i = 0;
+            break;
+        }
+        case WRITETOKEN: {
+            nextToken = new WriteToken();
+            i = 0;
+            break;
+        }
+        case READTOKEN: {
+            nextToken = new ReadToken();
+            i = 0;
+            break;
+        }
+        case ELSETOKEN: {
+            nextToken = new ElseToken();
             i = 0;
             break;
         }
