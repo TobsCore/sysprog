@@ -32,13 +32,21 @@ set(SCANNER_SOURCE
         src/main/Scanner/SymbolTable/StringTable/StringTable.h
         src/main/String/StringOp.cpp
         src/main/String/StringOp.h
+        src/main/Scanner/Automat/State.h
         src/main/Scanner/Token/IfToken.cpp
         src/main/Scanner/Token/IfToken.h
         src/main/Scanner/Token/WhileToken.cpp
         src/main/Scanner/Token/WhileToken.h
         src/main/Scanner/Token/ErrorToken.cpp
         src/main/Scanner/Token/ErrorToken.h
-        src/main/Scanner/Automat/State.h)
+        src/main/Scanner/Token/ReadToken.cpp
+        src/main/Scanner/Token/ReadToken.h
+        src/main/Scanner/Token/WriteToken.cpp
+        src/main/Scanner/Token/WriteToken.h
+        src/main/Scanner/Token/ElseToken.cpp
+        src/main/Scanner/Token/ElseToken.h
+        src/main/Scanner/Token/IntToken.cpp
+        src/main/Scanner/Token/IntToken.h)
 
 set(PARSER_SOURCE
         src/main/Parser/Parser/Parser.h
@@ -59,7 +67,8 @@ set(TEST
         src/test/bufferTest.cpp
         src/test/symtableTest.cpp
         src/test/stringTableTest.cpp
-        src/test/scannerErrorTest.cpp src/test/nodeTest.cpp)
+        src/test/scannerErrorTest.cpp
+        src/test/nodeTest.cpp)
 
 add_executable(scanner src/main/Scanner/runScanner.cpp ${SCANNER_SOURCE})
 add_executable(parser src/main/Parser/runParser.cpp ${PARSER_SOURCE} ${SCANNER_SOURCE})

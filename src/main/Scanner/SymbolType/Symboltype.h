@@ -30,6 +30,10 @@ enum SymbolType {
     IN_COMMENT = 23,        // Beginning of Comment
     IFTOKEN = 24,
     WHILETOKEN = 25,
+    WRITETOKEN = 26,
+    READTOKEN = 27,
+    ELSETOKEN = 28,
+    INTTOKEN = 29,
     FILE_END = 50            // End of file
 };
 
@@ -37,7 +41,7 @@ static const char *EnumStrings[] = {"EOF", "Error", "Nextchar", "Integer", "Iden
                                     "Star", "Less", "Greater", "Equals",
                                     "Exclamation", "And", "Semicolon", "Parenthesis (open)", "Parenthesis (close)",
                                     "Brace (open)", "Brace (close)", "Bracket (open)", "Bracket (close)",
-                                    "Assign", "Special", "Comment", "Error Special", "In Comment", "If", "While"};
+                                    "Assign", "Special", "Comment", "Error Special", "In Comment", "If", "While", "Write", "Read", "Else", "int"}; //kp
 
 #endif
 

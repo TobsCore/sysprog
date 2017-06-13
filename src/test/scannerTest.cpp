@@ -73,7 +73,7 @@ TEST(ScannerTest, ReadSomeIdentifier) {
     IdentifierToken *idToken;
 
     idToken = static_cast<IdentifierToken *>(scanner->nextToken());
-    ASSERT_EQ(IDENTIFIER, idToken->getType());
+    ASSERT_EQ(INTTOKEN, idToken->getType());
     delete idToken;
 
     idToken = static_cast<IdentifierToken *>(scanner->nextToken());
@@ -208,7 +208,7 @@ TEST(ScannerTest, IdentifierExPositionsOneAtBeginning) {
     Scanner *scanner = new Scanner(folderName);
 
     Token *token = scanner->nextToken();
-    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(INTTOKEN, token->getType());
     ASSERT_EQ(1, token->getRow());
     ASSERT_EQ(1, token->getCol());
 
@@ -223,7 +223,7 @@ TEST(ScannerTest, LongerIdentifier) {
     Token *token;
 
     token = scanner->nextToken();
-    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(INTTOKEN, token->getType());
     ASSERT_EQ(1, token->getRow());
     ASSERT_EQ(1, token->getCol());
 
@@ -238,7 +238,7 @@ TEST(ScannerTest, LongerIdentifier) {
     ASSERT_EQ(7, token->getCol());
 
     token = scanner->nextToken();
-    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(INTTOKEN, token->getType());
     ASSERT_EQ(1, token->getRow());
     ASSERT_EQ(9, token->getCol());
 
@@ -439,7 +439,7 @@ TEST(ScannerTest, SimpleIdentifier) {
     Token *token;
 
     token = scanner->nextToken();
-    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(INTTOKEN, token->getType());
     ASSERT_EQ(1, token->getRow());
     ASSERT_EQ(1, token->getCol());
 
@@ -459,7 +459,7 @@ TEST(ScannerTest, Comment) {
     Token *token;
 
     token = scanner->nextToken();
-    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(INTTOKEN, token->getType());
     ASSERT_EQ(1, token->getRow());
     ASSERT_EQ(1, token->getCol());
 
@@ -538,7 +538,7 @@ TEST(ScannerTest, CommentWith2Spaces) {
     Token *token;
 
     token = scanner->nextToken();
-    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(INTTOKEN, token->getType());
     ASSERT_EQ(1, token->getRow());
     ASSERT_EQ(1, token->getCol());
 
@@ -578,7 +578,7 @@ TEST(ScannerTest, CommentWithMultipleSpaces) {
     Token *token;
 
     token = scanner->nextToken();
-    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(INTTOKEN, token->getType());
     ASSERT_EQ(1, token->getRow());
     ASSERT_EQ(1, token->getCol());
 
@@ -618,7 +618,7 @@ TEST(ScannerTest, CommentWithSpace) {
     Token *token;
 
     token = scanner->nextToken();
-    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(INTTOKEN, token->getType());
     ASSERT_EQ(1, token->getRow());
     ASSERT_EQ(1, token->getCol());
 
@@ -698,8 +698,7 @@ TEST(ScannerTest, IdentifierExValues) {
     Scanner *scanner = new Scanner(folderName);
 
     Token *token = scanner->nextToken();
-    ASSERT_EQ(IDENTIFIER, token->getType());
-    ASSERT_STREQ("int", static_cast<IdentifierToken *>(token)->getLexem());
+    ASSERT_EQ(INTTOKEN, token->getType());
 
     token = scanner->nextToken();
     ASSERT_EQ(IDENTIFIER, token->getType());
@@ -730,7 +729,7 @@ TEST(ScannerTest, ExampleProgram) {
     Scanner *scanner = new Scanner(folderName);
 
     Token *token = scanner->nextToken();
-    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(INTTOKEN, token->getType());
     ASSERT_EQ(1, token->getRow());
 
     token = scanner->nextToken();
@@ -758,7 +757,7 @@ TEST(ScannerTest, ExampleProgram) {
     ASSERT_EQ(2, token->getRow());
 
     token = scanner->nextToken();
-    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(INTTOKEN, token->getType());
     ASSERT_EQ(3, token->getRow());
 
     token = scanner->nextToken();
@@ -778,7 +777,7 @@ TEST(ScannerTest, ExampleProgram) {
     ASSERT_EQ(3, token->getRow());
 
     token = scanner->nextToken();
-    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(INTTOKEN, token->getType());
     ASSERT_EQ(4, token->getRow());
 
     token = scanner->nextToken();
@@ -806,7 +805,7 @@ TEST(ScannerTest, ExampleProgram) {
     ASSERT_EQ(4, token->getRow());
 
     token = scanner->nextToken();
-    ASSERT_EQ(IDENTIFIER, token->getType());
+    ASSERT_EQ(INTTOKEN, token->getType());
     ASSERT_EQ(7, token->getRow());
 
     token = scanner->nextToken();
@@ -945,8 +944,8 @@ TEST(ScannerTest, toStringOfIdentifierAndNormaleToken)  {
 	Scanner *scanner = new Scanner(folderName);
 
 	Token *token = scanner->nextToken();
-	ASSERT_EQ(IDENTIFIER, token->getType());
-	ASSERT_STREQ("Token Identifier           Line:     1  Column:   1  Lexem: int", token->toString());
+	ASSERT_EQ(INTTOKEN, token->getType());
+    ASSERT_STREQ("Token int                  Line:     1  Column:   1", token->toString());
 
 	scanner->nextToken();
 	token = scanner->nextToken();

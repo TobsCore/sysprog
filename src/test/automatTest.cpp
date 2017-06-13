@@ -27,7 +27,7 @@ TEST_F(AutomatTest, VariableIdentification) {
     ASSERT_EQ(testAutomat.checkExpression('i'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('n'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('t'), NEXTCHAR);
-    ASSERT_EQ(testAutomat.checkExpression(' '), IDENTIFIER);
+    ASSERT_EQ(testAutomat.checkExpression(' '), INTTOKEN);
     ASSERT_EQ(testAutomat.checkExpression('v'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('a'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('r'), NEXTCHAR);
@@ -61,7 +61,7 @@ TEST_F(AutomatTest, Assignment) {
     ASSERT_EQ(testAutomat.checkExpression('i'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('n'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('t'), NEXTCHAR);
-    ASSERT_EQ(testAutomat.checkExpression(' '), IDENTIFIER);
+    ASSERT_EQ(testAutomat.checkExpression(' '), INTTOKEN);
     ASSERT_EQ(testAutomat.checkExpression('v'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('a'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('r'), NEXTCHAR);
@@ -549,7 +549,117 @@ TEST_F(AutomatTest, CheckDot) {
     ASSERT_EQ(testAutomat.checkExpression('.'), INTEGER);
     ASSERT_EQ(testAutomat.checkExpression('3'), ERROR);
     ASSERT_EQ(testAutomat.checkExpression('\0'), INTEGER);
+
 }
 
+TEST_F(AutomatTest, ReadTokenTest1) {
+    ASSERT_EQ(testAutomat.checkExpression('r'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('e'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('a'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('d'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression(':'), READTOKEN);
+    ASSERT_EQ(testAutomat.checkExpression('='), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('b'), ASSIGN);
+    ASSERT_EQ(testAutomat.checkExpression('+'), IDENTIFIER);
+    ASSERT_EQ(testAutomat.checkExpression('c'), PLUS);
+    ASSERT_EQ(testAutomat.checkExpression(';'), IDENTIFIER);
+    ASSERT_EQ(testAutomat.checkExpression(':'), SEMICOLON);
+    ASSERT_EQ(testAutomat.checkExpression('*'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('a'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression('+'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression('b'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression('*'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression(':'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression('\0'), COMMENT);
+}
+
+TEST_F(AutomatTest, WriteTokenTest1) {
+    ASSERT_EQ(testAutomat.checkExpression('w'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('r'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('i'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('t'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('e'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression(':'), WRITETOKEN);
+    ASSERT_EQ(testAutomat.checkExpression('='), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('b'), ASSIGN);
+    ASSERT_EQ(testAutomat.checkExpression('+'), IDENTIFIER);
+    ASSERT_EQ(testAutomat.checkExpression('c'), PLUS);
+    ASSERT_EQ(testAutomat.checkExpression(';'), IDENTIFIER);
+    ASSERT_EQ(testAutomat.checkExpression(':'), SEMICOLON);
+    ASSERT_EQ(testAutomat.checkExpression('*'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('a'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression('+'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression('b'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression('*'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression(':'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression('\0'), COMMENT);
+}
+
+TEST_F(AutomatTest, ElseTokenTest1) {
+    ASSERT_EQ(testAutomat.checkExpression('e'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('l'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('s'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('e'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression(':'), ELSETOKEN);
+    ASSERT_EQ(testAutomat.checkExpression('='), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('b'), ASSIGN);
+    ASSERT_EQ(testAutomat.checkExpression('+'), IDENTIFIER);
+    ASSERT_EQ(testAutomat.checkExpression('c'), PLUS);
+    ASSERT_EQ(testAutomat.checkExpression(';'), IDENTIFIER);
+    ASSERT_EQ(testAutomat.checkExpression(':'), SEMICOLON);
+    ASSERT_EQ(testAutomat.checkExpression('*'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('a'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression('+'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression('b'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression('*'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression(':'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression('\0'), COMMENT);
+}
+
+TEST_F(AutomatTest, NoWriteNoReadNoElse) {
+ASSERT_EQ(testAutomat.checkExpression('w'), NEXTCHAR);
+ASSERT_EQ(testAutomat.checkExpression('r'), NEXTCHAR);
+ASSERT_EQ(testAutomat.checkExpression('i'), NEXTCHAR);
+ASSERT_EQ(testAutomat.checkExpression('t'), NEXTCHAR);
+ASSERT_EQ(testAutomat.checkExpression('e'), NEXTCHAR);
+ASSERT_EQ(testAutomat.checkExpression('e'), NEXTCHAR);
+ASSERT_EQ(testAutomat.checkExpression('l'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('s'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('e'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('r'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('e'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('a'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('d'), NEXTCHAR);
+ASSERT_EQ(testAutomat.checkExpression(':'), IDENTIFIER);
+ASSERT_EQ(testAutomat.checkExpression('='), NEXTCHAR);
+ASSERT_EQ(testAutomat.checkExpression('b'), ASSIGN);
+ASSERT_EQ(testAutomat.checkExpression('+'), IDENTIFIER);
+ASSERT_EQ(testAutomat.checkExpression('c'), PLUS);
+ASSERT_EQ(testAutomat.checkExpression(';'), IDENTIFIER);
+ASSERT_EQ(testAutomat.checkExpression(':'), SEMICOLON);
+ASSERT_EQ(testAutomat.checkExpression('*'), NEXTCHAR);
+ASSERT_EQ(testAutomat.checkExpression('a'), IN_COMMENT);
+ASSERT_EQ(testAutomat.checkExpression('+'), IN_COMMENT);
+ASSERT_EQ(testAutomat.checkExpression('b'), IN_COMMENT);
+ASSERT_EQ(testAutomat.checkExpression('*'), IN_COMMENT);
+ASSERT_EQ(testAutomat.checkExpression(':'), IN_COMMENT);
+ASSERT_EQ(testAutomat.checkExpression('\0'), COMMENT);
+}
+
+TEST_F(AutomatTest, IntTokenTest1) {
+    ASSERT_EQ(testAutomat.checkExpression('i'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('n'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('t'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression(' '), INTTOKEN);
+    ASSERT_EQ(testAutomat.checkExpression('t'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('o'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('b'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('s'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('='), IDENTIFIER);
+    ASSERT_EQ(testAutomat.checkExpression('8'), EQUALS);
+    ASSERT_EQ(testAutomat.checkExpression('8'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression(';'), INTEGER);
+    ASSERT_EQ(testAutomat.checkExpression('\0'), SEMICOLON);
+}
 
 

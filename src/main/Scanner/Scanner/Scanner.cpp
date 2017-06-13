@@ -5,6 +5,7 @@
 #include "../Token/WhileToken.h"
 #include "../Token/IfToken.h"
 #include "../../String/StringOp.h"
+#include "../Token/IntToken.h"
 #include <climits>
 
 Scanner::Scanner(char const *filePath) {
@@ -88,6 +89,11 @@ Token *Scanner::nextToken() {
             i = 0;
             break;
         }
+        case INTTOKEN: {
+            nextToken = new IntToken();
+            i = 0;
+            break;
+            }
         case INTEGER: {
             lexem[i] = '\0';
             char *conversionResult;

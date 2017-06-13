@@ -33,6 +33,18 @@ int Automat::findColumn(char currentChar) {
         return 23;
     } else if ((currentChar == 'e' || currentChar == 'E')) {
         return 24;
+    } else if ((currentChar == 's' || currentChar == 'S')) {
+        return 25;
+    } else if ((currentChar == 'r' || currentChar == 'R')) {
+        return 26;
+    } else if ((currentChar == 'a' || currentChar == 'A')) {
+        return 27;
+    } else if ((currentChar == 'd' || currentChar == 'D')) {
+        return 28;
+    } else if ((currentChar == 't' || currentChar == 'T')) {
+        return 29;
+    } else if ((currentChar == 'n' || currentChar == 'N')) {
+        return 30;
     } else if (((int) currentChar > 64 && (int) currentChar < 91) // uppercase Letter
                || ((int) currentChar > 96 && (int) currentChar < 123)) // lowercase Letter
     {
@@ -73,13 +85,13 @@ int Automat::findColumn(char currentChar) {
             case ']':
                 return 17;
             case '$':
-                return 25;
+                return 31;
             case '#':
-                return 25;
+                return 31;
             case ',':
-                return 25;
+                return 31;
             case '.':
-                return 25;
+                return 31;
             default:
                 return 18;
         }
