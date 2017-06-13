@@ -79,5 +79,127 @@ TEST(NewTokenTypeTest, SomeTokens) {
 
     delete scanner;
     delete token;
-
 }
+
+// TODO: Patty, du kannst diese Tests hier nutzen um den Automaten anzupassen.
+TEST(NewTokenTypeTest, DISABLED_LowerCaseWhile) {
+    Automat *testAutomat = new Automat();
+    // while
+    ASSERT_EQ(testAutomat->checkExpression('w'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('h'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('i'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('l'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('e'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('\0'), WHILETOKEN);
+}
+
+TEST(NewTokenTypeTest, DISABLED_UpperCaseWhile) {
+    Automat *testAutomat = new Automat();
+    // WHILE
+    ASSERT_EQ(testAutomat->checkExpression('W'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('H'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('I'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('L'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('E'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('\0'), WHILETOKEN);
+}
+
+TEST(NewTokenTypeTest, DISABLED_DifferentCasesWhile) {
+    Automat *testAutomat = new Automat();
+    // WhiLe
+    ASSERT_EQ(testAutomat->checkExpression('W'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('h'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('i'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('L'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('e'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('\0'), IDENTIFIER);
+}
+
+TEST(NewTokenTypeTest, DISABLED_SpellingMistakeWhile) {
+    Automat *testAutomat = new Automat();
+    // WHILE
+    ASSERT_EQ(testAutomat->checkExpression('W'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('H'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('I'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('H'), NEXTCHAR); //Spelling mistake here
+    ASSERT_EQ(testAutomat->checkExpression('E'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('\0'), IDENTIFIER);
+}
+
+TEST(NewTokenTypeTest, DISABLED_UpperCaseIf) {
+    Automat *testAutomat = new Automat();
+    // IF
+    ASSERT_EQ(testAutomat->checkExpression('I'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('F'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('\0'), IFTOKEN);
+}
+
+TEST(NewTokenTypeTest, DISABLED_DifferentCasesIf) {
+    Automat *testAutomat = new Automat();
+    // If
+    ASSERT_EQ(testAutomat->checkExpression('I'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('f'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('\0'), IDENTIFIER);
+}
+
+TEST(NewTokenTypeTest, DISABLED_DifferentCasesIf2) {
+    Automat *testAutomat = new Automat();
+    // iF
+    ASSERT_EQ(testAutomat->checkExpression('i'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('F'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('\0'), IDENTIFIER);
+}
+
+TEST(NewTokenTypeTest, DISABLED_UpperCaseRead) {
+    Automat *testAutomat = new Automat();
+    // READ
+    ASSERT_EQ(testAutomat->checkExpression('R'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('E'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('A'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('D'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('\0'), IDENTIFIER);
+}
+
+TEST(NewTokenTypeTest, DISABLED_DifferentCasesRead) {
+    Automat *testAutomat = new Automat();
+    // ReAd
+    ASSERT_EQ(testAutomat->checkExpression('R'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('e'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('A'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('d'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('\0'), IDENTIFIER);
+}
+
+TEST(NewTokenTypeTest, DISABLED_UpperCaseWrite) {
+    Automat *testAutomat = new Automat();
+    // WRITE
+    ASSERT_EQ(testAutomat->checkExpression('W'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('R'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('I'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('T'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('E'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('\0'), IDENTIFIER);
+}
+
+TEST(NewTokenTypeTest, DISABLED_WriteToken) {
+    Automat *testAutomat = new Automat();
+    // write
+    ASSERT_EQ(testAutomat->checkExpression('w'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('r'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('i'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('t'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('e'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('\0'), WRITETOKEN);
+}
+
+TEST(NewTokenTypeTest, DISABLED_DifferentCasesWrite) {
+    Automat *testAutomat = new Automat();
+    // WrItE
+    ASSERT_EQ(testAutomat->checkExpression('W'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('r'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('I'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('t'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('E'), NEXTCHAR);
+    ASSERT_EQ(testAutomat->checkExpression('\0'), IDENTIFIER);
+}
+
