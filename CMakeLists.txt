@@ -17,8 +17,6 @@ set(SCANNER_SOURCE
         src/main/Scanner/Scanner/Scanner.cpp
         src/main/Scanner/Scanner/Scanner.h
         src/main/Scanner/SymbolType/Symboltype.h
-        src/main/Scanner/SymbolTable/Information.cpp
-        src/main/Scanner/SymbolTable/Information.h
         src/main/Scanner/SymbolTable/SymbolItem.h
         src/main/Scanner/SymbolTable/Keyword.h
         src/main/Scanner/SymbolTable/SymbolTable.cpp

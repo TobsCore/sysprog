@@ -9,6 +9,7 @@
 #include "SymbolTable.h"
 #include "Keywords.h"
 #include "../../String/StringOp.h"
+#include <iostream>
 
 using namespace std;
 
@@ -71,7 +72,6 @@ SymbolItem *SymbolTable::insert(const char *lexem) {
     ptrItem = new SymbolItem;
 
     // Fügt ale Werte in das neues Element ein
-    ptrItem->infoContainer.setName(lexem);
     ptrItem->lexem = stringTable->insertString(lexem);
 
     // Fügt neues Element in die Hashtabelle ein

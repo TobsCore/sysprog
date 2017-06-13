@@ -2,7 +2,10 @@
 // Created by Tobias Kerst on 11.05.17.
 //
 
+#include <cstdlib>
+#include <iostream>
 #include "ErrorToken.h"
+
 
 ErrorToken::ErrorToken() {
     this->type = ERROR;

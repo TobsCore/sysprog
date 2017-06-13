@@ -8,7 +8,6 @@
 #ifndef INFOMATION
 #define INFOMATION
 
-#include "Information.h"
 
 #endif
 
@@ -21,7 +20,6 @@
 struct SymbolItem {
     SymbolItem() {}
 
-    Information infoContainer;
     const char *lexem;
     SymbolItem *next;
 };

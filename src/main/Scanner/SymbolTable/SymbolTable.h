@@ -5,7 +5,7 @@
  *      Author: holger
  */
 
-#include "Information.h"
+#include <iostream>
 #include "../SymbolType/Symboltype.h"
 #include "SymbolItem.h"
 #include "StringTable/StringTable.h"
