@@ -196,12 +196,12 @@ Die Methode \texttt{ungetChar()} dient dazu Zeichen gegebenenfalls zurückzugehe
 Wird der Buffer nicht mehr benötigt, wird auch die einzulesende Datei geschlossen.
 
 \section{Symboltabelle}
-Die Symboltabelle speichert für alle Identifier und Schlüsselworte eine Token-Info-Container. Dies ist relevant, da sich so gleiche Lexeme, die als Identifier erkannt werden, denselben Info-Container teilen. Um ein performantes überprüfen, ob ein Lexem bereits einen Info-Container besitzt, zu ermöglichen, ist die Symboltabelle als HashMap implementiert. Kollisionsauflösung wurde durch Verkettung realisiert.
+Die Symboltabelle speichert für alle Identifier und Schlüsselworte einen Token-Info-Container. Dies ist relevant, da sich so gleiche Lexeme, die als Identifier erkannt werden, denselben Info-Container teilen. Um ein performantes Überprüfen, ob ein Lexem bereits einen Info-Container besitzt, zu ermöglichen, ist die Symboltabelle als Hash-Map implementiert. Kollisionen von gleichen Hashes bei unterschiedlichen Lexemen wird vermieden, indem eine Verlinkte Liste eingesetzt wird.
 
-Soll ein Lexem eingefügt werden, muss für jedes ein Info-Container mit entsprechendem Typ erstellt werden.
+Soll ein Lexem eingefügt werden, muss für jedes Lexem ein Info-Container mit entsprechendem Typ erstellt werden.
 Soll ein noch nicht vorhandener Container in die Liste eingetragen werden, wird zunächst der Hashwert des Lexems berechnet. Dieser gibt an, in welcher der verketteten Listen das Lexem abgelegt wird bzw.~gesucht werden muss.
 
-Sollte noch keine Liste vorhanden sein, wird diese erstellt und ein Hashwert generiert, der das erneute auffinden realisiert. Dieser wird zurückgegeben.
+Sollte noch keine Liste vorhanden sein, wird eine neue Liste erstellt.
 
 Ist diese Liste leer, kann der Container einfach eingefügt werden. Enthält diese aber bereits Elemente, wird überprüft ob es für das Lexem bereits ein Container in ihr vorhanden ist. Sollte dieser Fall nicht eintreten wird der neue Container an die Liste angehängt und der generierte Hashwert zurückgegeben. Sollte aber bereits ein passender Container gefunden werden, wird dessen Hashwert zurückgegeben.
 
@@ -213,11 +213,11 @@ Ist diese Liste leer, kann der Container einfach eingefügt werden. Enthält die
 
 \section{Stringtabelle}
 Die Stringtabelle speichert alle Lexeme als String ab.
-Das Vorgehen sieht dabei wie folgt aus: Beginnend mit dem ersten Element des Lexemstrings werden eben diese der Reihe nach in die Stringtabelle eingefügt. Die Position, an der Eingefügt werden soll,  ist über einen Pointer auf die Stringtable bekannt. Dies geschieht solange, bis das letzte Element des Lexemstrings erreicht wurde. Dadurch wird die Länge des Lexems bestimmt.
+Das Vorgehen sieht dabei wie folgt aus: Beginnend mit dem ersten Element des Lexemstrings werden eben diese der Reihe nach in die Stringtabelle eingefügt. Die Position, an der Eingefügt werden soll,  ist über einen Pointer auf die Stringtabelle bekannt. Dies geschieht solange, bis das letzte Element des Lexemstrings erreicht wurde. Dadurch wird die Länge des Lexems bestimmt.
 
 Nun muss abgefragt werden ob das Lexem größer ist, als der bereitgestellte Stringspeicher (\texttt{int stringMemorySize = 1024}). Ist dies der Fall, wird Null zurückgegeben und es kommt zu einem Fehlerfall. Sollte der bereitgestellte Speicher aber ausreichen, wird der String entsprechend abgelegt.
 
-Der restliche Speicher wird dann für ein neues Element bereitgestellt und der Index in der Stringtabelle um die entsprechende Länge des Lexems angepasst, um ein neu gelesenes Lexem zu speichern. Sollte der restliche Speicher nicht für ein weiteres Lexem ausreichen, wird eine neue Stringtable erstellt, welche mit der vorherigen verknüpft werden muss.
+Der restliche Speicher wird dann für ein neues Element bereitgestellt und der Index in der Stringtabelle um die entsprechende Länge des Lexems angepasst, um ein neu gelesenes Lexem zu speichern. Sollte der restliche Speicher nicht für ein weiteres Lexem ausreichen, wird eine neue Stringtabelle erstellt, welche mit der vorherigen verknüpft werden muss.
 
 \begin{figure}[!htb]
     \centering
