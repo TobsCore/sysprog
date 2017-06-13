@@ -12,6 +12,10 @@ Node::Node() {
 
 
 Node::~Node() {
+    for (int i = 0; i < currentChild; i++) {
+        delete children[i];
+    }
+    // Possibly clean up the properties of the object
 }
 
 bool Node::isLeaf() {
@@ -28,7 +32,7 @@ void Node::addChild(Node *newChild) {
 
 Node *Node::getChild(unsigned char pos) {
     if (pos >= currentChild) {
-        throw std::out_of_range ("Position is out of range");
+        throw std::out_of_range("Position is out of range");
     }
     return this->children[pos];
 }

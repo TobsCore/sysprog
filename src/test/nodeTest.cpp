@@ -46,3 +46,11 @@ TEST_F(NodeTest, IsLeafAfterAddingChil) {
     node.addChild(new Node());
     ASSERT_FALSE(node.isLeaf());
 }
+
+TEST_F(NodeTest, DeleteNode) {
+    Node *deleteNode = new Node();
+    deleteNode->setType(NodeType::INT_TYPE);
+    deleteNode->setTokenType(SymbolType::INTEGER);
+
+    delete deleteNode;
+}

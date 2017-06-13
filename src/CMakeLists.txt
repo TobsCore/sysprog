@@ -49,6 +49,8 @@ set(PARSER_SOURCE
         main/Parser/Parser/Rule.h
         main/Parser/Parser/Rule.cpp
         main/Parser/Parser/RuleType.h
+        main/Parser/Parser/ParseTree.cpp
+        main/Parser/Parser/ParseTree.h
         )
 
 set(TEST
