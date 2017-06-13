@@ -3,6 +3,7 @@
 //
 
 #include "Rule.h"
+#include "../../Scanner/SymbolType/Symboltype.h"
 
 Rule::Rule(RuleType type) {
     this->type = type;
@@ -30,39 +31,39 @@ void Rule::setRuleType(RuleType ruleType) {
 unsigned long long Rule::codeFirst(RuleType type) {
     switch (type) {
         case PROG:
-            //return
+            return INT | IDENTIFIER | WRITETOKEN | READTOKEN | BRACES_LEFT | IFTOKEN | WHILETOKEN | FILE_END;
         case DECLS:
         case DECLS_EMPTY:
-            //return
+            return INT;
         case DECL:
-            //return
+            return INT;
         case ARRAY:
         case ARRAY_EMPTY:
-            //return
+            return BRACKET_LEFT;
         case STATEMENTS:
         case STATEMENTS_EMPTY:
-            //return
+            return IDENTIFIER | WRITETOKEN | READTOKEN | BRACES_LEFT | IFTOKEN | WHILETOKEN;
         case STATEMENT:
         case STATEMENT_2:
         case STATEMENT_3:
         case STATEMENT_4:
         case STATEMENT_5:
         case STATEMENT_6:
-            //return
+            return IDENTIFIER | WRITETOKEN | READTOKEN | BRACES_LEFT | IFTOKEN | WHILETOKEN;
         case EXP:
-            //return
+            return PARANTHESES_LEFT | IDENTIFIER | INTEGER | MINUS | EXCLAMATION;
         case EXP2:
         case EXP2_2:
         case EXP2_3:
         case EXP2_4:
         case EXP2_5:
-            //return
+            return PARANTHESES_LEFT | IDENTIFIER | INTEGER | MINUS | EXCLAMATION;
         case INDEX:
         case INDEX_EMPTY:
-            //return
+            return BRACKET_LEFT;
         case OP_EXP:
         case OP_EXP_EMPTY:
-            //return
+            return PLUS | MINUS | STAR | COLON | LESS | GREATER | EQUALS | SPECIAL | AND;
         case OP:
         case OP_2:
         case OP_3:
@@ -72,7 +73,7 @@ unsigned long long Rule::codeFirst(RuleType type) {
         case OP_7:
         case OP_8:
         case OP_9:
-            //return
+            return PLUS | MINUS | STAR | COLON | LESS | GREATER | EQUALS | SPECIAL | AND;
         default:
             return 0;
     }}
@@ -81,23 +82,20 @@ unsigned long long Rule::codeFollow(RuleType type) {
     switch (type) {
         case DECLS:
         case DECLS_EMPTY:
-            //return
+            return IDENTIFIER | WRITETOKEN | READTOKEN | BRACES_LEFT | IFTOKEN | WHILETOKEN | FILE_END;
         case ARRAY:
         case ARRAY_EMPTY:
-            //return
+            return IDENTIFIER;
         case STATEMENTS:
         case STATEMENTS_EMPTY:
-            //return
+            return BRACES_RIGHT | FILE_END;
         case INDEX:
         case INDEX_EMPTY:
-            //return
+            return ASSIGN | PARANTHESES_RIGHT | PLUS | MINUS | STAR | COLON | LESS | GREATER | EQUALS | AND | BRACKET_RIGHT | ELSETOKEN | SEMICOLON;
         case OP_EXP:
         case OP_EXP_EMPTY:
-            //return
+            return BRACKET_RIGHT | PARANTHESES_RIGHT | ELSETOKEN | SEMICOLON;
         default:
             return 0;
     }}
 
-// ToDo man muss noch die neuen Teile der Grammatik in den Automaten adden.
-// also: add return values to the cases. therefore we should discuss the given grammar in the group.
-// this is propably easy (pdfs), but i'd like to discuss it just to be sure. better safe that awp! *dies by headshot*
