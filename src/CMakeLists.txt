@@ -62,7 +62,7 @@ set(TEST
 
 add_executable(scanner main/Scanner/runScanner.cpp ${SCANNER_SOURCE})
 add_executable(parser main/Parser/runParser.cpp ${PARSER_SOURCE} ${SCANNER_SOURCE})
-add_executable(unitTests test/main.cpp ${SCANNER_SOURCE} ${PARSER_SOURCE} ${TEST})
+add_executable(unitTests test/main.cpp ${SCANNER_SOURCE} ${PARSER_SOURCE} ${TEST})
 
 target_link_libraries(scanner)
 target_link_libraries(parser)
