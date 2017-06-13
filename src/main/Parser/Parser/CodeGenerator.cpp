@@ -160,7 +160,7 @@ void CodeGenerator::makeCodeDecl(Node* node) {
     file << " DS " << "$" << identifier->getLexem();
 
   	if(array != 0L) {
-    makeCode(array);
+        makeCode(array);
 	}
 }
 
@@ -178,30 +178,232 @@ void CodeGenerator::makeCodeStatements(Node* node) {
     Node* statement = node->getChild(0);
     Node* statements = node->getChild(1);
 
-    if(statement != 0L)
+    if(statement != 0L){
         makeCode(statement);
-    if(statements != 0L)
+    }
+    if(statements != 0L){
         makeCode(statements);
+    }
 }
 
 void CodeGenerator::makeCodeStatements_Empty(Node* node) {
     file << " NOP ";
 }
 
+void CodeGenerator::makeCodeStatement(Node* node) {
+    Node* exp = node->getChild(2);
+    Node* index = node->getChild(1);
+    Node* identifier = node->getChild(0);
+
+	if(exp != 0L){
+        makeCode(exp);
+    }
+    file << " LA " << "$" << identifier->getLexem();
+
+    if(index != 0L){
+        makeCode(index);
+    }
+    file << " STR ";
+}
+
+void CodeGenerator::makeCodeStatement_2(Node* node) {
+    Node* exp = node->getChild(0);
+
+	if (exp != 0L) {
+        makeCode(exp);
+	}
+    file << " PRI ";
+}
+
+void CodeGenerator::makeCodeStatement_3(Node* node) {
+    Node* identifier = node->getChild(0);
+    Node* index = node->getChild(1);
+
+    file << " REA ";
+    file << " LA " << "$" << identifier->getLexem();
+	if (index != 0L) {
+        makeCode(index);
+	}
+    file << " STR ";
+}
+
+void CodeGenerator::makeCodeStatement_4(Node* node) {
+    Node* statements = node->getChild(0);
+	if (statements != 0L) {
+        makeCode(statements);
+	}
+}
+
+void CodeGenerator::makeCodeStatement_5(Node* node) {
+    Node* exp = node->getChild(0);
+    Node* statement1 = node->getChild(1);
+    Node* statement2 = node->getChild(2);
+
+    int label1 = ++labelCounter;
+    int label2 = ++labelCounter;
+
+	if (exp != 0L) {
+        makeCode(exp);
+	}
+    file << " JIN " << "#label" << label1 <<" ";
+
+    if (statement1 != 0L) {
+        makeCode(statement1);
+	}
+    file << " JMP " << "#label" << label2 <<" "; // label2 ist neu
+    file << "#label" << label1 << " NOP ";
+
+    if (statement2 != 0L) {
+        makeCode(statement2);
+	}
+    file << "#label" << label2 << " NOP ";
+}
+
+void CodeGenerator::makeCodeStatement_6(Node* node) {
+    Node* exp = node->getChild(0);
+    Node* statement = node->getChild(1);
+
+    int label1 = ++labelCounter;
+    int label2 = ++labelCounter;
+
+    file << "#label" << label1 << " NOP "; // label1 ist neu
+
+    if (exp != 0L) {
+        makeCode(exp);
+	}
+    file << " JIN " << "#label" << label2 <<" ";
+
+    if (statement != 0l) {
+        makeCode(statement);
+	}
+    file << " JMP " << "#label" << label1 <<" ";
+    file << "#label" << label2 << " NOP ";
+}
 
 
+void CodeGenerator::makeCodeExp(Node* node) {
+    Node* exp2 = node->getChild(0);
+    Node* op_exp = node->getChild(1);
+
+	if(op_exp != 0L) {
+        if (op_exp->getType() == NO_TYPE) {
+            makeCode(exp2);
+        } else if (op_exp->getChild(0)->getType() == GREATER) {
+            makeCode(op_exp);
+            makeCode(exp2);
+            file << " LES ";
+        } else if (op_exp->getChild(0)->getType() == SPECIAL) { //UNEQUAL = SPECIAL???
+            makeCode(exp2);
+            makeCode(op_exp);
+            file << " NOT ";
+        } else {
+            makeCode(exp2);
+            makeCode(op_exp);
+        }
+    }
+}
+
+void CodeGenerator::makeCodeExp2(Node* node) {
+    Node* exp = node->getChild(0);
+
+    if (exp != 0l) {
+        makeCode(exp);
+	}
+}
+
+void CodeGenerator::makeCodeExp2_2(Node* node) {
+    Node* identifier = node->getChild(0);
+    Node* index = node->getChild(1);
+
+    file << " LA " << "$" << identifier->getLexem() ;
+
+    if (index != 0L) {
+        makeCode(index);
+    }
+    file << " LV ";
+}
+
+void CodeGenerator::makeCodeExp2_3(Node* node) {
+    file << " LC " << node->getChild(0)->getLexem();
+}
+
+void CodeGenerator::makeCodeExp2_4(Node* node) {
+    Node* exp2 = node->getChild(0);
+
+    file << "LC " << 0;
+
+    if(exp2 != 0L){
+        makeCode(exp2);
+    }
+    file << " SUB ";
+}
+
+void CodeGenerator::makeCodeExp2_5(Node* node) {
+    Node* exp2 = node->getChild(0);
+
+    if(exp2 != 0L){
+        makeCode(exp2);
+    }
+    file << " NOT ";
+}
+
+void CodeGenerator::makeCodeIndex(Node* node) {
+    Node* exp = node->getChild(0);
+
+    if (exp != 0L) {
+        makeCode(exp);
+	}
+    file << " ADD ";
+}
+void CodeGenerator::makeCodeIndex_Empty(Node* node) {}
+
+void CodeGenerator::makeCodeOp_Exp(Node* node) {
+    Node* op = node->getChild(0);
+    Node* exp = node->getChild(1);
+
+    if (op != 0L) {
+        makeCode(exp);
+	}
+
+    if (exp != 0L) {
+        makeCode(op);
+	}
+}
+void CodeGenerator::makeCodeOp_Exp_Empty(Node *root){}
 
 
+void CodeGenerator::makeCodeOp(Node* node) {
+    file << " ADD ";
+}
 
+void CodeGenerator::makeCodeOp_2(Node* node) {
+    file << " SUB ";
+}
 
+void CodeGenerator::makeCodeOp_3(Node* node) {
+    file << " MUL ";
+}
 
+void CodeGenerator::makeCodeOp_4(Node* node) {
+    file << " DIV ";
+}
 
+void CodeGenerator::makeCodeOp_5(Node* node) {
+    file << " LES ";
+}
 
+void CodeGenerator::makeCodeOp_6(Node* node) {
+    file << " ";
+}
 
+void CodeGenerator::makeCodeOp_7(Node* node) {
+    file << " EQU ";
+}
 
+void CodeGenerator::makeCodeOp_8(Node* node) {
+    file << " EQU ";
+}
 
-
-
-
-
-
+void CodeGenerator::makeCodeOp_9(Node* node) {
+    file << " AND ";
+}
