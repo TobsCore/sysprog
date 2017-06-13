@@ -3,6 +3,7 @@
 //
 
 #include "Node.h"
+#include <stdexcept>
 
 Node::Node() {
     this->currentChild = 0;
@@ -27,7 +28,7 @@ void Node::addChild(Node *newChild) {
 
 Node *Node::getChild(unsigned char pos) {
     if (pos >= currentChild) {
-        throw std::out_of_range ("Position " + std::to_string(pos) + " is out of range");
+        throw std::out_of_range ("Position is out of range");
     }
     return this->children[pos];
 }
