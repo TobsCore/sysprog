@@ -31,12 +31,12 @@ void Rule::setRuleType(RuleType ruleType) {
 unsigned long long Rule::codeFirst(RuleType type) {
     switch (type) {
         case PROG:
-            return INT | IDENTIFIER | WRITETOKEN | READTOKEN | BRACES_LEFT | IFTOKEN | WHILETOKEN | FILE_END;
+            return INTTOKEN | IDENTIFIER | WRITETOKEN | READTOKEN | BRACES_LEFT | IFTOKEN | WHILETOKEN | FILE_END;
         case DECLS:
         case DECLS_EMPTY:
-            return INT;
+            return INTTOKEN;
         case DECL:
-            return INT;
+            return INTTOKEN;
         case ARRAY:
         case ARRAY_EMPTY:
             return BRACKET_LEFT;
