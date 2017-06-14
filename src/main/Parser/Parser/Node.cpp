@@ -3,6 +3,7 @@
 //
 
 #include "Node.h"
+#include "../../Scanner/SymbolType/Symboltype.h"
 #include <stdexcept>
 
 Node::Node() {
