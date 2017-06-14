@@ -14,9 +14,8 @@ CodeGenerator::~CodeGenerator(){
     // TODO Auto-generated destructor stub
 }
 
-void CodeGenerator::error(char* string) {
-    std::cerr << string << std::endl;
-    exit(1);
+void CodeGenerator::error(const char* string) {
+    throw std::exception();
 }
 
 void CodeGenerator::makeCode(Node* node) {
@@ -288,11 +287,11 @@ void CodeGenerator::makeCodeExp(Node* node) {
 	if(op_exp != 0L) {
         if (op_exp->getType() == NO_TYPE) {
             makeCode(exp2);
-        } else if (op_exp->getChild(0)->getType() == GREATER) {
+        } else if (op_exp->getChild(0)->getTokenType() == GREATER) {
             makeCode(op_exp);
             makeCode(exp2);
             file << " LES ";
-        } else if (op_exp->getChild(0)->getType() == SPECIAL) { //UNEQUAL = SPECIAL???
+        } else if (op_exp->getChild(0)->getTokenType() == SPECIAL) { //UNEQUAL = SPECIAL???
             makeCode(exp2);
             makeCode(op_exp);
             file << " NOT ";

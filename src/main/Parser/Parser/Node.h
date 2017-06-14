@@ -20,8 +20,8 @@
 #include <climits>
 #include "NodeType.h"
 #include "Node.h"
-#include "../../Scanner/SymbolTable/Information.h"
 #include "Rule.h"
+#include "../../Scanner/SymbolType/Symboltype.h"
 
 class Node{
 

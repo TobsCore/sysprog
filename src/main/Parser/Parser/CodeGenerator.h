@@ -15,7 +15,7 @@ class CodeGenerator {
     private:
 
         // Gibt den Fehler auf der Konsole aus, beendet dann das Programm.
-        void error(char* string);
+        void error(const char* string);
 
         // globaler Sprungmarkenzähler
         unsigned int labelCounter;
