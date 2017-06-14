@@ -5,7 +5,7 @@
 #include "CodeGenerator.h"
 
 
-CodeGenerator::CodeGenerator(char* out) {
+CodeGenerator::CodeGenerator(const char* out) {
     this->labelCounter = 0;
     file.open(out);
 }

@@ -13,13 +13,12 @@
 
 class Parser {
 public:
-    Parser(char* filePath, char* logFilePath);
-    virtual ~Parser();
+    Parser(const char* inputFilePath, const char* outputFilePath);
+    ~Parser();
 
     ParseTree* parse();
 
 private:
-    Node* tree;
     Token * currentToken;
     Token* lastToken;
 
@@ -36,12 +35,11 @@ private:
     Node* array();
     Node* statements();
     Node* statement();
-/*    Node* exp2();
+    Node* exp();
+    Node* exp2();
     Node* op_exp();
     Node* op();
-    */
     Node* createLeaf();
-    Node* exp();
     Node* index();
 
     Node* createNode();

@@ -72,7 +72,7 @@ class CodeGenerator {
         void makeCodeOpAnd(Node *root);
 
         // Konstruktor und Dekonstruktor;
-        CodeGenerator(char* out);
+        CodeGenerator(const char* out);
         virtual ~CodeGenerator();
 };
 

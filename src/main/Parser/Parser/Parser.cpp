@@ -3,40 +3,41 @@
 //
 
 #include "Parser.h"
-#include "../../Scanner/SymbolType/Symboltype.h"
 
 
+Parser::Parser(const char* inputFilePath, const char* outputFilePath) {
+    currentToken = 0L;
+    lastToken = 0L;
+    scanner = new Scanner(inputFilePath);
+    codeGenerator = new CodeGenerator(outputFilePath);
+}
 
-
-Node* Parser::createNode() {
-    Node* node = new Node();
+Node *Parser::createNode() {
+    Node *node = new Node();
     node->setTokenType(currentToken->getType());
     return node;
 }
 
-Node* Parser::createEpsilonNode() {
-    Node* node = new Node();
+Node *Parser::createEpsilonNode() {
+    Node *node = new Node();
     node->setType(NO_TYPE);
     return node;
 }
 
 void Parser::match(SymbolType tokenType) {
-
     if (currentToken->getType() != tokenType) {
         //printError ToDo: print error
     }
     nextToken();
 }
 
-void Parser::nextToken(){
+void Parser::nextToken() {
     currentToken = scanner->nextToken();
-
 }
 
-ParseTree* Parser::prog(){
-
+ParseTree *Parser::prog() {
     nextToken();
-    Node* node = createNode();
+    Node *node = createNode();
     node->addChild(decls());
     node->addChild(statements());
     node->setRuleType(PROG);
@@ -44,9 +45,8 @@ ParseTree* Parser::prog(){
     return new ParseTree(node);
 };
 
-Node* Parser::decls() {
-
-    Node* node = createNode();
+Node *Parser::decls() {
+    Node *node = createNode();
 
     if (currentToken->getType() == INTTOKEN) {
         node->addChild(decl());
@@ -57,15 +57,14 @@ Node* Parser::decls() {
         node->addChild(decls());
         return node;
     } else {
-        Node* epsilon = createEpsilonNode();
+        Node *epsilon = createEpsilonNode();
         epsilon->setRuleType(DECLS_EMPTY);
         return epsilon;
     }
 }
 
-Node* Parser::decl() {
-
-    Node* node = createNode();
+Node *Parser::decl() {
+    Node *node = createNode();
     match(INTTOKEN);
     node->addChild(this->array());
 
@@ -79,10 +78,9 @@ Node* Parser::decl() {
     return node;
 }
 
-Node* Parser::array() {
-
+Node *Parser::array() {
     if (currentToken->getType() == BRACKET_LEFT) {
-        Node* node = createNode();
+        Node *node = createNode();
 
         match(BRACKET_LEFT);
         if (currentToken->getType() == INTEGER) {
@@ -101,18 +99,16 @@ Node* Parser::array() {
     }
 }
 
-Node* Parser::statements() {
-
-    Node* node = createNode();
+Node *Parser::statements() {
+    Node *node = createNode();
     SymbolType currentType = currentToken->getType();
 
-
-    if(currentType == IDENTIFIER
-       || currentType == WRITETOKEN
-       || currentType == READTOKEN
-       || currentType == IFTOKEN
-       || currentType == WHILETOKEN
-       || currentType == BRACKET_LEFT) {
+    if (currentType == IDENTIFIER
+        || currentType == WRITETOKEN
+        || currentType == READTOKEN
+        || currentType == IFTOKEN
+        || currentType == WHILETOKEN
+        || currentType == BRACKET_LEFT) {
 
         node->addChild(statement());
         node->setRuleType(STATEMENTS);
@@ -120,15 +116,14 @@ Node* Parser::statements() {
         node->addChild(statements());
         return node;
     } else {
-        Node* epsilon = createEpsilonNode();
+        Node *epsilon = createEpsilonNode();
         epsilon->setRuleType(STATEMENTS_EMPTY);
         return epsilon;
     }
 }
 
-Node* Parser::statement() {
-
-    Node* node = createNode();
+Node *Parser::statement() {
+    Node *node = createNode();
     if (currentToken->getType() == IDENTIFIER) {
         if (currentToken->getType() == IDENTIFIER) {
             node->addChild(createLeaf());
@@ -152,7 +147,7 @@ Node* Parser::statement() {
         match(READTOKEN);
         match(PARANTHESES_LEFT);
 
-        if(currentToken->getType() == IDENTIFIER) {
+        if (currentToken->getType() == IDENTIFIER) {
             node->addChild(createLeaf());
             nextToken();
         } else {
@@ -187,8 +182,122 @@ Node* Parser::statement() {
         node->setRuleType(STATEMENT_WHILE);
     }
     else {
-        //printError
+        throw std::exception();
     }
+    return node;
+}
+
+
+Node *Parser::exp() {
+    Node *node = createNode();
+    node->addChild(exp2());
+    node->addChild(op_exp());
+    node->setRuleType(EXP);
+
+    return node;
+}
+
+Node *Parser::exp2() {
+    Node *node = createNode();
+
+    if (currentToken->getType() == PARANTHESES_LEFT) {
+        match(PARANTHESES_LEFT);
+        node->addChild(exp());
+        match(PARANTHESES_RIGHT);
+        node->setRuleType(EXP2);
+
+    } else if (currentToken->getType() == IDENTIFIER) {
+        node->addChild(createLeaf());
+        nextToken();
+        node->addChild(index());
+        node->setRuleType(EXP2_IDENTIFIER);
+
+    } else if (currentToken->getType() == INTEGER) {
+        node->addChild(createLeaf());
+        nextToken();
+        node->setRuleType(EXP2_INTEGER);
+
+    } else if (currentToken->getType() == MINUS) {
+        match(MINUS);
+        node->addChild(exp2());
+        node->setRuleType(EXP2_MINUS);
+
+    } else if (currentToken->getType() == EXCLAMATION) {
+        match(EXCLAMATION);
+        node->addChild(exp2());
+        node->setRuleType(EXP2_NEGATION);
+
+    } else {
+        throw std::exception();
+    }
+    return node;
+}
+
+Node *Parser::index() {
+    if (currentToken->getType() == BRACKET_LEFT) {
+        Node *root = createNode();
+        match(BRACKET_LEFT);
+        root->addChild(exp());
+        match(BRACKET_RIGHT);
+        root->setRuleType(INDEX);
+        return root;
+    } else {
+        Node *epsilon = this->createEpsilonNode();
+        epsilon->setRuleType(INDEX_EMPTY);
+        return epsilon;
+    }
+}
+
+Node *Parser::op_exp() {
+    SymbolType currentType = currentToken->getType();
+
+    if (currentType == PLUS
+        || currentType == MINUS
+        || currentType == STAR
+        || currentType == COLON
+        || currentType == LESS
+        || currentType == GREATER
+        || currentType == EQUALS
+        || currentType == SPECIAL
+        || currentType == AND) {
+
+        Node *root = createNode();
+        root->addChild(op());
+        root->addChild(exp());
+        root->setRuleType(OP_EXP);
+        return root;
+    } else {
+        Node *epsilon = this->createEpsilonNode();
+        epsilon->setRuleType(OP_EXP_EMPTY);
+        return epsilon;
+    }
+}
+
+Node *Parser::op() {
+    Node *node = createNode();
+    if (currentToken->getType() == PLUS) {
+        node->setRuleType(OP_PLUS);
+    } else if (currentToken->getType() == MINUS) {
+        node->setRuleType(OP_MINUS);
+    } else if (currentToken->getType() == STAR) {
+        node->setRuleType(OP_MUL);
+    } else if (currentToken->getType() == COLON) {
+        node->setRuleType(OP_DIV);
+    } else if (currentToken->getType() == LESS) {
+        node->setRuleType(OP_LESS);
+    } else if (currentToken->getType() == GREATER) {
+        node->setRuleType(OP_GREATER);
+    } else if (currentToken->getType() == EQUALS) {
+        node->setRuleType(OP_EQUAL);
+    } else if (currentToken->getType() == SPECIAL) {
+        node->setRuleType(OP_SPECIAL);
+    } else if (currentToken->getType() == AND) {
+        node->setRuleType(OP_AND);
+    } else {
+        throw std::exception();
+    }
+
+    nextToken();
     return node;
 }
 
@@ -197,12 +306,12 @@ Node *Parser::createLeaf() {
     // TODO: Do dis shit!
 }
 
-Node *Parser::exp() {
-    return nullptr;
-    // TODO: Do dis shit two
-}
+ParseTree *Parser::parse() {
+    parseTree = this->prog();
 
-Node *Parser::index() {
-    return nullptr;
-    // TODO: And dis
+    //Node* typedTree = semanticAnalyser->typeCheck(parseTree);
+
+    //codeGenerator->runCodeGenerator(typedTree);
+
+    return parseTree;
 }
