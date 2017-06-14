@@ -82,7 +82,7 @@ TEST(NewTokenTypeTest, SomeTokens) {
 }
 
 // TODO: Patty, du kannst diese Tests hier nutzen um den Automaten anzupassen.
-TEST(NewTokenTypeTest, DISABLED_LowerCaseWhile) {
+TEST(NewTokenTypeTest, LowerCaseWhile) {
     Automat *testAutomat = new Automat();
     // while
     ASSERT_EQ(testAutomat->checkExpression('w'), NEXTCHAR);
@@ -93,7 +93,7 @@ TEST(NewTokenTypeTest, DISABLED_LowerCaseWhile) {
     ASSERT_EQ(testAutomat->checkExpression('\0'), WHILETOKEN);
 }
 
-TEST(NewTokenTypeTest, DISABLED_UpperCaseWhile) {
+TEST(NewTokenTypeTest, UpperCaseWhile) {
     Automat *testAutomat = new Automat();
     // WHILE
     ASSERT_EQ(testAutomat->checkExpression('W'), NEXTCHAR);
@@ -104,7 +104,7 @@ TEST(NewTokenTypeTest, DISABLED_UpperCaseWhile) {
     ASSERT_EQ(testAutomat->checkExpression('\0'), WHILETOKEN);
 }
 
-TEST(NewTokenTypeTest, DISABLED_DifferentCasesWhile) {
+TEST(NewTokenTypeTest, DifferentCasesWhile) {
     Automat *testAutomat = new Automat();
     // WhiLe
     ASSERT_EQ(testAutomat->checkExpression('W'), NEXTCHAR);
@@ -115,7 +115,7 @@ TEST(NewTokenTypeTest, DISABLED_DifferentCasesWhile) {
     ASSERT_EQ(testAutomat->checkExpression('\0'), IDENTIFIER);
 }
 
-TEST(NewTokenTypeTest, DISABLED_SpellingMistakeWhile) {
+TEST(NewTokenTypeTest, SpellingMistakeWhile) {
     Automat *testAutomat = new Automat();
     // WHILE
     ASSERT_EQ(testAutomat->checkExpression('W'), NEXTCHAR);
@@ -126,7 +126,7 @@ TEST(NewTokenTypeTest, DISABLED_SpellingMistakeWhile) {
     ASSERT_EQ(testAutomat->checkExpression('\0'), IDENTIFIER);
 }
 
-TEST(NewTokenTypeTest, DISABLED_UpperCaseIf) {
+TEST(NewTokenTypeTest, UpperCaseIf) {
     Automat *testAutomat = new Automat();
     // IF
     ASSERT_EQ(testAutomat->checkExpression('I'), NEXTCHAR);
@@ -134,7 +134,7 @@ TEST(NewTokenTypeTest, DISABLED_UpperCaseIf) {
     ASSERT_EQ(testAutomat->checkExpression('\0'), IFTOKEN);
 }
 
-TEST(NewTokenTypeTest, DISABLED_DifferentCasesIf) {
+TEST(NewTokenTypeTest, DifferentCasesIf) {
     Automat *testAutomat = new Automat();
     // If
     ASSERT_EQ(testAutomat->checkExpression('I'), NEXTCHAR);
@@ -142,7 +142,7 @@ TEST(NewTokenTypeTest, DISABLED_DifferentCasesIf) {
     ASSERT_EQ(testAutomat->checkExpression('\0'), IDENTIFIER);
 }
 
-TEST(NewTokenTypeTest, DISABLED_DifferentCasesIf2) {
+TEST(NewTokenTypeTest, DifferentCasesIf2) {
     Automat *testAutomat = new Automat();
     // iF
     ASSERT_EQ(testAutomat->checkExpression('i'), NEXTCHAR);
@@ -150,7 +150,7 @@ TEST(NewTokenTypeTest, DISABLED_DifferentCasesIf2) {
     ASSERT_EQ(testAutomat->checkExpression('\0'), IDENTIFIER);
 }
 
-TEST(NewTokenTypeTest, DISABLED_UpperCaseRead) {
+TEST(NewTokenTypeTest, UpperCaseRead) {
     Automat *testAutomat = new Automat();
     // READ
     ASSERT_EQ(testAutomat->checkExpression('R'), NEXTCHAR);
@@ -160,7 +160,7 @@ TEST(NewTokenTypeTest, DISABLED_UpperCaseRead) {
     ASSERT_EQ(testAutomat->checkExpression('\0'), IDENTIFIER);
 }
 
-TEST(NewTokenTypeTest, DISABLED_DifferentCasesRead) {
+TEST(NewTokenTypeTest, DifferentCasesRead) {
     Automat *testAutomat = new Automat();
     // ReAd
     ASSERT_EQ(testAutomat->checkExpression('R'), NEXTCHAR);
@@ -170,7 +170,7 @@ TEST(NewTokenTypeTest, DISABLED_DifferentCasesRead) {
     ASSERT_EQ(testAutomat->checkExpression('\0'), IDENTIFIER);
 }
 
-TEST(NewTokenTypeTest, DISABLED_UpperCaseWrite) {
+TEST(NewTokenTypeTest, UpperCaseWrite) {
     Automat *testAutomat = new Automat();
     // WRITE
     ASSERT_EQ(testAutomat->checkExpression('W'), NEXTCHAR);
@@ -181,7 +181,7 @@ TEST(NewTokenTypeTest, DISABLED_UpperCaseWrite) {
     ASSERT_EQ(testAutomat->checkExpression('\0'), IDENTIFIER);
 }
 
-TEST(NewTokenTypeTest, DISABLED_WriteToken) {
+TEST(NewTokenTypeTest, WriteToken) {
     Automat *testAutomat = new Automat();
     // write
     ASSERT_EQ(testAutomat->checkExpression('w'), NEXTCHAR);
@@ -192,7 +192,7 @@ TEST(NewTokenTypeTest, DISABLED_WriteToken) {
     ASSERT_EQ(testAutomat->checkExpression('\0'), WRITETOKEN);
 }
 
-TEST(NewTokenTypeTest, DISABLED_DifferentCasesWrite) {
+TEST(NewTokenTypeTest, DifferentCasesWrite) {
     Automat *testAutomat = new Automat();
     // WrItE
     ASSERT_EQ(testAutomat->checkExpression('W'), NEXTCHAR);
