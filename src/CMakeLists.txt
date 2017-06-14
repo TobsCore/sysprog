@@ -59,7 +59,8 @@ set(PARSER_SOURCE
         main/Parser/Parser/RuleType.h
         main/Parser/Parser/ParseTree.cpp
         main/Parser/Parser/ParseTree.h
-        )
+        src/main/Parser/Parser/CodeGenerator.h
+        src/main/Parser/Parser/CodeGenerator.cpp)
 
 set(TEST
         test/automatTest.cpp
