@@ -662,4 +662,41 @@ TEST_F(AutomatTest, IntTokenTest1) {
     ASSERT_EQ(testAutomat.checkExpression('\0'), SEMICOLON);
 }
 
+TEST_F(AutomatTest, IfTokenTest4) {
+    ASSERT_EQ(testAutomat.checkExpression('I'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('F'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression(':'), IFTOKEN);
+    ASSERT_EQ(testAutomat.checkExpression('='), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('b'), ASSIGN);
+    ASSERT_EQ(testAutomat.checkExpression('+'), IDENTIFIER);
+    ASSERT_EQ(testAutomat.checkExpression('c'), PLUS);
+    ASSERT_EQ(testAutomat.checkExpression(';'), IDENTIFIER);
+    ASSERT_EQ(testAutomat.checkExpression(':'), SEMICOLON);
+    ASSERT_EQ(testAutomat.checkExpression('*'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('a'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression('+'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression('b'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression('*'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression(':'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression('\0'), COMMENT);
+}
+
+TEST_F(AutomatTest, IfTokenTest5) {
+    ASSERT_EQ(testAutomat.checkExpression('I'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('f'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression(':'), IDENTIFIER);
+    ASSERT_EQ(testAutomat.checkExpression('='), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('b'), ASSIGN);
+    ASSERT_EQ(testAutomat.checkExpression('+'), IDENTIFIER);
+    ASSERT_EQ(testAutomat.checkExpression('c'), PLUS);
+    ASSERT_EQ(testAutomat.checkExpression(';'), IDENTIFIER);
+    ASSERT_EQ(testAutomat.checkExpression(':'), SEMICOLON);
+    ASSERT_EQ(testAutomat.checkExpression('*'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('a'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression('+'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression('b'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression('*'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression(':'), IN_COMMENT);
+    ASSERT_EQ(testAutomat.checkExpression('\0'), COMMENT);
+}
 
