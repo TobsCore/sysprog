@@ -21,30 +21,44 @@ int Automat::findColumn(char currentChar) {
         //digit
         return 0;
 
-    } else if ((currentChar == 'i' || currentChar == 'I')) {
+    } else if ((currentChar == 'i')) {
         return 19;
-    } else if ((currentChar == 'f' || currentChar == 'F')) {
+    } else if ((currentChar == 'f' )) {
         return 20;
-    } else if ((currentChar == 'w' || currentChar == 'W')) {
+    } else if ((currentChar == 'w')) {
         return 21;
-    } else if ((currentChar == 'h' || currentChar == 'H')) {
+    } else if ((currentChar == 'h')) {
         return 22;
-    } else if ((currentChar == 'l' || currentChar == 'L')) {
+    } else if ((currentChar == 'l')) {
         return 23;
-    } else if ((currentChar == 'e' || currentChar == 'E')) {
+    } else if ((currentChar == 'e')) {
         return 24;
-    } else if ((currentChar == 's' || currentChar == 'S')) {
+    } else if ((currentChar == 's')) {
         return 25;
-    } else if ((currentChar == 'r' || currentChar == 'R')) {
+    } else if ((currentChar == 'r')) {
         return 26;
-    } else if ((currentChar == 'a' || currentChar == 'A')) {
+    } else if ((currentChar == 'a')) {
         return 27;
-    } else if ((currentChar == 'd' || currentChar == 'D')) {
+    } else if ((currentChar == 'd')) {
         return 28;
-    } else if ((currentChar == 't' || currentChar == 'T')) {
+    } else if ((currentChar == 't')) {
         return 29;
-    } else if ((currentChar == 'n' || currentChar == 'N')) {
+    } else if ((currentChar == 'n')) {
         return 30;
+    } else if ((currentChar == 'I')) {
+        return 31;
+    } else if ((currentChar == 'F')) {
+        return 32;
+    } else if ((currentChar == 'W')) {
+        return 33;
+    } else if ((currentChar == 'H')) {
+        return 34;
+    } else if ((currentChar == 'L')) {
+        return 35;
+    } else if ((currentChar == 'E')) {
+        return 36;
+    } else if ((currentChar == 'S')) {
+        return 37;
     } else if (((int) currentChar > 64 && (int) currentChar < 91) // uppercase Letter
                || ((int) currentChar > 96 && (int) currentChar < 123)) // lowercase Letter
     {
@@ -85,13 +99,13 @@ int Automat::findColumn(char currentChar) {
             case ']':
                 return 17;
             case '$':
-                return 31;
+                return 38;
             case '#':
-                return 31;
+                return 38;
             case ',':
-                return 31;
+                return 38;
             case '.':
-                return 31;
+                return 38;
             default:
                 return 18;
         }
