@@ -40,6 +40,8 @@
 *.tps
 *.synctex
 .project
+interpreter.jar
+
 
 #Shitty Mac file
 *.DS_Store
