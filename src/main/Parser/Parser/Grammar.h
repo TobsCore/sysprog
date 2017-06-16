@@ -8,6 +8,8 @@
 #ifndef SYSPROG_GRAMMAR_H_
 #define SYSPROG_GRAMMAR_H_
 
+#include "Node.h"
+
 class Grammar {
 private:
 	Node* node;

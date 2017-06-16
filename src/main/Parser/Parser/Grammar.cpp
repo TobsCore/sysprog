@@ -5,9 +5,8 @@
  *      Author: holger
  */
 
+#include <exception>
 #include "Grammar.h"
-#include "Node.h"
-#include "Rule.h"
 
 Grammar::Grammar() {
 	node = new Node();
@@ -30,7 +29,7 @@ Grammar::~Grammar() {
  */
 void Grammar::typeCheck(Node* node){
 	this->node = node;
-	switch(node->ruleType()){
+	switch(node->getRuleType()){
 
 		// Startsymbol
 		case PROG:
@@ -50,7 +49,7 @@ void Grammar::typeCheck(Node* node){
 		case DECL:
 			if(node->getType() != NO_TYPE) {
 				node->setType(ERROR_TYPE);
-				exit(1);
+                throw std::exception();
 			} else {
 				if(this->array() != nullptr) {
 					this->typeCheck(this->array());
@@ -62,11 +61,11 @@ void Grammar::typeCheck(Node* node){
 			break;
 
 		case ARRAY:
-			if(*(node->integerValue) > 0) {
+			if(node->getIntegerValue() > 0) {
 				node->setType(INT_ARRAY_TYPE);
 			} else {
 				node->setType(ERROR_TYPE);
-				exit(1);
+				throw std::exception();
 			}
 			break;
 
@@ -86,7 +85,7 @@ void Grammar::typeCheck(Node* node){
 			this->typeCheck(this->index());
 			if(node->getType() == NO_TYPE) {
 				node->setType(ERROR_TYPE);
-				exit(1);
+				throw std::exception();
 			} else {
 					if(!(this->exp()->getType() == INT_TYPE
 					&& ((node->getType() == INT_TYPE
@@ -95,7 +94,7 @@ void Grammar::typeCheck(Node* node){
 					&& this->index()->getType() == INT_ARRAY_TYPE)))) {
 
 						node->setType(ERROR_TYPE);
-						exit(1);
+						throw std::exception();
 					}
 			}
 			break;
@@ -105,18 +104,17 @@ void Grammar::typeCheck(Node* node){
 			break;
 
 		case STATEMENT_READ:
-			std::cout << "read" << std::endl;
 			this->typeCheck(this->index());
 			if(node->getType() == NO_TYPE) {
 				node->setType(ERROR_TYPE);
-				exit(1);
+				throw std::exception();
 			} else {
 				if(!((node->getType() == INT_TYPE
 				&& this->index()->getType() == NO_TYPE)
 				|| (node->getType() == INT_ARRAY_TYPE
 				&& this->index()->getType() == INT_ARRAY_TYPE))) {
 					node->setType(ERROR_TYPE);
-					exit(1);
+					throw std::exception();
 				}
 			}
 			break;
@@ -139,11 +137,11 @@ void Grammar::typeCheck(Node* node){
 		case EXP:
 			this->typeCheck(this->exp2());
 			this->typeCheck(this->op());
-			if(this->op() == NO_TYPE) {
+			if(this->op()->getType() == NO_TYPE) {
 				node->setType(this->exp2()->getType());
 			} else if(this->op()->getType() != this->exp2()->getType()) {
 				node->setType(ERROR_TYPE);
-				exit(1);
+				throw std::exception();
 			} else {
 				node->setType(this->exp2()->getType());
 			}
@@ -163,7 +161,7 @@ void Grammar::typeCheck(Node* node){
 			this->typeCheck(this->index());
 			if(node->getType() == NO_TYPE) {
 				node->setType(ERROR_TYPE);
-				exit(1);
+				throw std::exception();
 			} else if(node->getType() == INT_TYPE
 			&& this->index()->getType() == NO_TYPE) {
 				node->setType(node->getType());
@@ -172,7 +170,7 @@ void Grammar::typeCheck(Node* node){
 				node->setType(INT_TYPE);
 			} else {
 				node->setType(ERROR_TYPE);
-				exit(1);
+				throw std::exception();
 			}
 			break;
 
@@ -190,7 +188,7 @@ void Grammar::typeCheck(Node* node){
 			this->typeCheck(this->exp2());
 			if(this->exp2()->getType() != INT_TYPE) {
 				node->setType(ERROR_TYPE);
-				exit(1);
+				throw std::exception();
 			} else {
 				node->setType(INT_TYPE);
 			}
@@ -250,7 +248,7 @@ void Grammar::typeCheck(Node* node){
 
 		case RULE_NOT_SET:
 			node->setType(ERROR_TYPE);
-			exit(1);
+			throw std::exception();
 			break;
 
 		default:
@@ -269,8 +267,8 @@ Node* Grammar::decls(){
 }
 
 Node* Grammar::decl(){
-	if(node->ruleType == DECLS
-	|| node->ruleType == DECLS_EMPTY){
+	if(node->getRuleType() == DECLS
+	|| node->getRuleType() == DECLS_EMPTY){
 		return node->getChild(1);
 	} else {
 		node->setRuleType(RULE_NOT_SET);
@@ -279,15 +277,16 @@ Node* Grammar::decl(){
 }
 
 Node* Grammar::nextDecl() {
-	if(node->ruleType == DECLS) {
+	if(node->getRuleType() == DECLS) {
 		return node->getChild(2);
 	}
+	return nullptr;
 }
 
 Node* Grammar::statements() {
-  if(node->ruleType == PROG){
+  if(node->getRuleType() == PROG){
 	  return node->getChild(2);
-  } else if(node->ruleType == STATEMENT_BLOCK) {
+  } else if(node->getRuleType() == STATEMENT_BLOCK) {
 	  return node->getChild(1);
   } else {
 	  node->setRuleType(RULE_NOT_SET);
@@ -296,10 +295,10 @@ Node* Grammar::statements() {
 }
 
 Node * Grammar::statement() {
-  if(node->ruleType == STATEMENTS
-  || node->ruleType == STATEMENTS_EMPTY ) {
+  if(node->getRuleType() == STATEMENTS
+  || node->getRuleType() == STATEMENTS_EMPTY ) {
 	  return node->getChild(1);
-  } else if(node->ruleType  == STATEMENT_WHILE) {
+  } else if(node->getRuleType()  == STATEMENT_WHILE) {
 	  return node->getChild(2);
   } else {
 	  node->setRuleType(RULE_NOT_SET);
@@ -308,7 +307,7 @@ Node * Grammar::statement() {
 }
 
 Node* Grammar::nextStatement() {
-  if(node->ruleType == STATEMENTS) {
+  if(node->getRuleType() == STATEMENTS) {
 	  return node->getChild(2);
   } else {
 	  node->setRuleType(RULE_NOT_SET);
@@ -317,7 +316,7 @@ Node* Grammar::nextStatement() {
 }
 
 Node* Grammar::array() {
-  if(node->ruleType == DECL) {
+  if(node->getRuleType() == DECL) {
 	  return node->getChild(1);
   } else {
 	  node->setRuleType(RULE_NOT_SET);
@@ -326,25 +325,25 @@ Node* Grammar::array() {
 }
 
 Node* Grammar::exp() {
-  if(node->ruleType == STATEMENT_IDENTIFIER) {
+  if(node->getRuleType() == STATEMENT_IDENTIFIER) {
 	  return node->getChild(2);
 
-  } else if(node->ruleType == STATEMENT_WRITE) {
+  } else if(node->getRuleType() == STATEMENT_WRITE) {
 	  return node->getChild(1);
 
-  } else if(node->ruleType == STATEMENT_IF) {
+  } else if(node->getRuleType() == STATEMENT_IF) {
 	  return node->getChild(1);
 
-  } else if(node->ruleType == STATEMENT_WHILE) {
+  } else if(node->getRuleType() == STATEMENT_WHILE) {
 	  return node->getChild(1);
 
-  } else if(node->ruleType == EXP2_IDENTIFIER) {
+  } else if(node->getRuleType() == EXP2_IDENTIFIER) {
 	  return node->getChild(1);
 
-  } else if(node->ruleType == INDEX) {
+  } else if(node->getRuleType() == INDEX) {
 	  return node->getChild(1);
 
-  } else if(node->ruleType == OP_EXP) {
+  } else if(node->getRuleType() == OP_EXP) {
 	  return node->getChild(2);
 
   } else {
@@ -354,9 +353,9 @@ Node* Grammar::exp() {
 }
 
 Node* Grammar::exp2() {
-	if(node->ruleType == EXP
-	|| node->ruleType == EXP2_MINUS
-	|| node->ruleType == EXP2_NEGATION) {
+	if(node->getRuleType() == EXP
+	|| node->getRuleType() == EXP2_MINUS
+	|| node->getRuleType() == EXP2_NEGATION) {
 		return node->getChild(1);
 	} else {
 		node->setRuleType(RULE_NOT_SET);
@@ -365,10 +364,10 @@ Node* Grammar::exp2() {
 }
 
 Node* Grammar::op() {
-  if(node->ruleType == EXP) {
+  if(node->getRuleType() == EXP) {
 	  return node->getChild(2);
 
-  } else if(node->ruleType == OP_EXP){
+  } else if(node->getRuleType() == OP_EXP){
 	  return node->getChild(1);
 
   } else {
@@ -378,9 +377,9 @@ Node* Grammar::op() {
 }
 
 Node* Grammar::index() {
-	if(node->ruleType == STATEMENT_IDENTIFIER
-	|| node->ruleType == STATEMENT_READ
-	|| node->ruleType == EXP2_IDENTIFIER) {
+	if(node->getRuleType() == STATEMENT_IDENTIFIER
+	|| node->getRuleType() == STATEMENT_READ
+	|| node->getRuleType() == EXP2_IDENTIFIER) {
 	  return node->getChild(1);
 
   } else {
@@ -390,7 +389,7 @@ Node* Grammar::index() {
 }
 
 Node* Grammar::statement_if() {
-  if(node->ruleType == STATEMENT_IF) {
+  if(node->getRuleType() == STATEMENT_IF) {
 	  return node->getChild(2);
   } else {
 	  node->setRuleType(RULE_NOT_SET);
@@ -399,7 +398,7 @@ Node* Grammar::statement_if() {
 }
 
 Node* Grammar::statement_else() {
-  if(node->ruleType == STATEMENT_IF) {
+  if(node->getRuleType() == STATEMENT_IF) {
 	  return node->getChild(3);
   } else {
 	  node->setRuleType(RULE_NOT_SET);
