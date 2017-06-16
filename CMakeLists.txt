@@ -58,7 +58,9 @@ set(PARSER_SOURCE
         src/main/Parser/Parser/ParseTree.cpp
         src/main/Parser/Parser/ParseTree.h
         src/main/Parser/Parser/CodeGenerator.h
-        src/main/Parser/Parser/CodeGenerator.cpp)
+        src/main/Parser/Parser/CodeGenerator.cpp
+        src/main/Parser/Parser/Grammar.h
+        src/main/Parser/Parser/Grammar.cpp)
 
 set(TEST
         src/test/automatTest.cpp
