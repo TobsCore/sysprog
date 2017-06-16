@@ -54,8 +54,6 @@ set(PARSER_SOURCE
         main/Parser/Parser/Node.h
         main/Parser/Parser/Node.cpp
         main/Parser/Parser/NodeType.h
-        main/Parser/Parser/Rule.h
-        main/Parser/Parser/Rule.cpp
         main/Parser/Parser/RuleType.h
         main/Parser/Parser/ParseTree.cpp
         main/Parser/Parser/ParseTree.h

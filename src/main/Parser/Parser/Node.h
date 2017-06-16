@@ -21,8 +21,8 @@
 #include "NodeType.h"
 #include "Node.h"
 
-#include "Rule.h"
 #include "../../Scanner/SymbolType/Symboltype.h"
+#include "RuleType.h"
 
 
 class Node{
