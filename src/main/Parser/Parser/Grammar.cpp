@@ -240,7 +240,7 @@ void Grammar::typeCheck(Node* node){
 			node->setType(INT_TYPE);
 			break;
 
-		case OP_SPEZIAL:
+		case OP_SPECIAL:
 			node->setType(INT_TYPE);
 			break;
 

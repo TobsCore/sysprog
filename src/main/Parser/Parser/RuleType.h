@@ -38,7 +38,7 @@ enum RuleType {
     OP_LESS,
     OP_GREATER,
     OP_EQUAL,
-    OP_SPEZIAL,
+    OP_SPECIAL,
 	OP_AND,
     RULE_NOT_SET
 };
@@ -83,8 +83,8 @@ inline const char *toString(RuleType type) {
             return "EXP2_INTEGER";
         case EXP2_MINUS:
             return "EXP2_MINUS";
-        case EXP2_EXCLAMATIONMARK:
-            return "EXP2_EXCLAMATIONMARK";
+        case EXP2_NEGATION:
+            return "EXP2_NEGATION";
         case INDEX:
             return "INDEX";
         case INDEX_EMPTY:
@@ -107,8 +107,8 @@ inline const char *toString(RuleType type) {
             return "OP_GREATER";
         case OP_EQUAL:
             return "OP_EQUAL";
-        case OP_SPEZIAL:
-            return "OP_SPEZIAL";
+        case OP_SPECIAL:
+            return "OP_SPECIAL";
         case OP_AND:
             return "OP_AND";
         case RULE_NOT_SET:

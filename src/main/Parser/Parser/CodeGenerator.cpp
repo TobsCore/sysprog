@@ -44,23 +44,23 @@ void CodeGenerator::makeCode(Node* node) {
         case STATEMENTS_EMPTY:
             makeCodeStatements_Empty(node);
             break;
-        case STATEMENT:
+        case STATEMENT_IDENTIFIER:
             makeCodeStatement(node);
             break;
-        case STATEMENT_2:
-            makeCodeStatement_2(node);
+        case STATEMENT_WRITE:
+            makeCodeStatementWrite(node);
             break;
-        case STATEMENT_3:
-            makeCodeStatement_3(node);
+        case STATEMENT_READ:
+            makeCodeStatementRead(node);
             break;
-        case STATEMENT_4:
-            makeCodeStatement_4(node);
+        case STATEMENT_BLOCK:
+            makeCodeStatementBlock(node);
             break;
-        case STATEMENT_5:
-            makeCodeStatement_5(node);
+        case STATEMENT_IF:
+            makeCodeStatementIf(node);
             break;
-        case STATEMENT_6:
-            makeCodeStatement_6(node);
+        case STATEMENT_WHILE:
+            makeCodeStatementWhile(node);
             break;
         case EXP:
             makeCodeExp(node);
@@ -68,17 +68,21 @@ void CodeGenerator::makeCode(Node* node) {
         case EXP2:
             makeCodeExp2(node);
             break;
-        case EXP2_2:
-            makeCodeExp2_2(node);
+        case EXP2_INBRACKETS:
+            //makeCodeExp2InBrackets(node);
+            // TODO(Toby): Methode noch implementieren.
             break;
-        case EXP2_3:
-            makeCodeExp2_3(node);
+        case EXP2_IDENTIFIER:
+            makeCodeExp2Identifier(node);
             break;
-        case EXP2_4:
-            makeCodeExp2_4(node);
+        case EXP2_INTEGER:
+            makeCodeExp2Integer(node);
             break;
-        case EXP2_5:
-            makeCodeExp2_5(node);
+        case EXP2_MINUS:
+            makeCodeExp2Minus(node);
+            break;
+        case EXP2_NEGATION:
+            makeCodeExp2Negation(node);
             break;
         case INDEX:
             makeCodeIndex(node);
@@ -92,32 +96,32 @@ void CodeGenerator::makeCode(Node* node) {
         case OP_EXP_EMPTY:
             makeCodeOp_Exp_Empty(node);
             break;
-        case OP:
-            makeCodeOp(node);
+        case OP_PLUS:
+            makeCodeOpPlus(node);
             break;
-        case OP_2:
-            makeCodeOp_2(node);
+        case OP_MINUS:
+            makeCodeOpMinus(node);
             break;
-        case OP_3:
-            makeCodeOp_3(node);
+        case OP_MUL:
+            makeCodeOpMultiplication(node);
             break;
-        case OP_4:
-            makeCodeOp_4(node);
+        case OP_DIV:
+            makeCodeOpDivision(node);
             break;
-        case OP_5:
-            makeCodeOp_5(node);
+        case OP_LESS:
+            makeCodeOpLess(node);
             break;
-        case OP_6:
-            makeCodeOp_6(node);
+        case OP_GREATER:
+            makeCodeOpGreater(node);
             break;
-        case OP_7:
-            makeCodeOp_7(node);
+        case OP_EQUAL:
+            makeCodeOpEqual(node);
             break;
-        case OP_8:
-            makeCodeOp_8(node);
+        case OP_SPECIAL:
+            makeCodeOpSpecial(node);
             break;
-        case OP_9:
-            makeCodeOp_9(node);
+        case OP_AND:
+            makeCodeOpAnd(node);
             break;
         default:
             error("empty Node!");
@@ -205,7 +209,7 @@ void CodeGenerator::makeCodeStatement(Node* node) {
     file << " STR ";
 }
 
-void CodeGenerator::makeCodeStatement_2(Node* node) {
+void CodeGenerator::makeCodeStatementWrite(Node *node) {
     Node* exp = node->getChild(0);
 
 	if (exp != 0L) {
@@ -214,7 +218,7 @@ void CodeGenerator::makeCodeStatement_2(Node* node) {
     file << " PRI ";
 }
 
-void CodeGenerator::makeCodeStatement_3(Node* node) {
+void CodeGenerator::makeCodeStatementRead(Node *node) {
     Node* identifier = node->getChild(0);
     Node* index = node->getChild(1);
 
@@ -226,14 +230,14 @@ void CodeGenerator::makeCodeStatement_3(Node* node) {
     file << " STR ";
 }
 
-void CodeGenerator::makeCodeStatement_4(Node* node) {
+void CodeGenerator::makeCodeStatementBlock(Node *node) {
     Node* statements = node->getChild(0);
 	if (statements != 0L) {
         makeCode(statements);
 	}
 }
 
-void CodeGenerator::makeCodeStatement_5(Node* node) {
+void CodeGenerator::makeCodeStatementIf(Node *node) {
     Node* exp = node->getChild(0);
     Node* statement1 = node->getChild(1);
     Node* statement2 = node->getChild(2);
@@ -258,7 +262,7 @@ void CodeGenerator::makeCodeStatement_5(Node* node) {
     file << "#label" << label2 << " NOP ";
 }
 
-void CodeGenerator::makeCodeStatement_6(Node* node) {
+void CodeGenerator::makeCodeStatementWhile(Node *node) {
     Node* exp = node->getChild(0);
     Node* statement = node->getChild(1);
 
@@ -310,7 +314,7 @@ void CodeGenerator::makeCodeExp2(Node* node) {
 	}
 }
 
-void CodeGenerator::makeCodeExp2_2(Node* node) {
+void CodeGenerator::makeCodeExp2Identifier(Node *node) {
     Node* identifier = node->getChild(0);
     Node* index = node->getChild(1);
 
@@ -322,11 +326,11 @@ void CodeGenerator::makeCodeExp2_2(Node* node) {
     file << " LV ";
 }
 
-void CodeGenerator::makeCodeExp2_3(Node* node) {
+void CodeGenerator::makeCodeExp2Integer(Node *node) {
     file << " LC " << node->getChild(0)->getLexem();
 }
 
-void CodeGenerator::makeCodeExp2_4(Node* node) {
+void CodeGenerator::makeCodeExp2Minus(Node *node) {
     Node* exp2 = node->getChild(0);
 
     file << "LC " << 0;
@@ -337,7 +341,7 @@ void CodeGenerator::makeCodeExp2_4(Node* node) {
     file << " SUB ";
 }
 
-void CodeGenerator::makeCodeExp2_5(Node* node) {
+void CodeGenerator::makeCodeExp2Negation(Node *node) {
     Node* exp2 = node->getChild(0);
 
     if(exp2 != 0L){
@@ -371,38 +375,38 @@ void CodeGenerator::makeCodeOp_Exp(Node* node) {
 void CodeGenerator::makeCodeOp_Exp_Empty(Node *root){}
 
 
-void CodeGenerator::makeCodeOp(Node* node) {
+void CodeGenerator::makeCodeOpPlus(Node *node) {
     file << " ADD ";
 }
 
-void CodeGenerator::makeCodeOp_2(Node* node) {
+void CodeGenerator::makeCodeOpMinus(Node *node) {
     file << " SUB ";
 }
 
-void CodeGenerator::makeCodeOp_3(Node* node) {
+void CodeGenerator::makeCodeOpMultiplication(Node *node) {
     file << " MUL ";
 }
 
-void CodeGenerator::makeCodeOp_4(Node* node) {
+void CodeGenerator::makeCodeOpDivision(Node *node) {
     file << " DIV ";
 }
 
-void CodeGenerator::makeCodeOp_5(Node* node) {
+void CodeGenerator::makeCodeOpLess(Node *node) {
     file << " LES ";
 }
 
-void CodeGenerator::makeCodeOp_6(Node* node) {
+void CodeGenerator::makeCodeOpGreater(Node *node) {
     file << " ";
 }
 
-void CodeGenerator::makeCodeOp_7(Node* node) {
+void CodeGenerator::makeCodeOpEqual(Node *node) {
     file << " EQU ";
 }
 
-void CodeGenerator::makeCodeOp_8(Node* node) {
+void CodeGenerator::makeCodeOpSpecial(Node *node) {
     file << " EQU ";
 }
 
-void CodeGenerator::makeCodeOp_9(Node* node) {
+void CodeGenerator::makeCodeOpAnd(Node *node) {
     file << " AND ";
 }

@@ -43,20 +43,21 @@ unsigned long long Rule::codeFirst(RuleType type) {
         case STATEMENTS:
         case STATEMENTS_EMPTY:
             return IDENTIFIER | WRITETOKEN | READTOKEN | BRACES_LEFT | IFTOKEN | WHILETOKEN;
-        case STATEMENT:
-        case STATEMENT_2:
-        case STATEMENT_3:
-        case STATEMENT_4:
-        case STATEMENT_5:
-        case STATEMENT_6:
+        case STATEMENT_IDENTIFIER:
+        case STATEMENT_WRITE:
+        case STATEMENT_READ:
+        case STATEMENT_BLOCK:
+        case STATEMENT_IF:
+        case STATEMENT_WHILE:
             return IDENTIFIER | WRITETOKEN | READTOKEN | BRACES_LEFT | IFTOKEN | WHILETOKEN;
         case EXP:
             return PARANTHESES_LEFT | IDENTIFIER | INTEGER | MINUS | EXCLAMATION;
         case EXP2:
-        case EXP2_2:
-        case EXP2_3:
-        case EXP2_4:
-        case EXP2_5:
+        case EXP2_INBRACKETS:
+        case EXP2_IDENTIFIER:
+        case EXP2_INTEGER:
+        case EXP2_MINUS:
+        case EXP2_NEGATION:
             return PARANTHESES_LEFT | IDENTIFIER | INTEGER | MINUS | EXCLAMATION;
         case INDEX:
         case INDEX_EMPTY:
@@ -64,15 +65,15 @@ unsigned long long Rule::codeFirst(RuleType type) {
         case OP_EXP:
         case OP_EXP_EMPTY:
             return PLUS | MINUS | STAR | COLON | LESS | GREATER | EQUALS | SPECIAL | AND;
-        case OP:
-        case OP_2:
-        case OP_3:
-        case OP_4:
-        case OP_5:
-        case OP_6:
-        case OP_7:
-        case OP_8:
-        case OP_9:
+        case OP_PLUS:
+        case OP_MINUS:
+        case OP_MUL:
+        case OP_DIV:
+        case OP_LESS:
+        case OP_GREATER:
+        case OP_EQUAL:
+        case OP_SPECIAL:
+        case OP_AND:
             return PLUS | MINUS | STAR | COLON | LESS | GREATER | EQUALS | SPECIAL | AND;
         default:
             return 0;

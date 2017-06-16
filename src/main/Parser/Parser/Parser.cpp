@@ -139,14 +139,14 @@ Node* Parser::statement() {
         node->addChild(index());
         match(ASSIGN);
         node->addChild(exp());
-        node->setRuleType(STATEMENT);
+        node->setRuleType(STATEMENT_IDENTIFIER);
 
     } else if (currentToken->getType() == WRITETOKEN) {
         match(WRITETOKEN);
         match(PARANTHESES_LEFT);
         node->addChild(exp());
         match(PARANTHESES_RIGHT);
-        node->setRuleType(STATEMENT_2);
+        node->setRuleType(STATEMENT_WRITE);
 
     } else if (currentToken->getType() == READTOKEN) {
         match(READTOKEN);
@@ -160,12 +160,12 @@ Node* Parser::statement() {
         }
         node->addChild(index());
         match(PARANTHESES_RIGHT);
-        node->setRuleType(STATEMENT_3);
+        node->setRuleType(STATEMENT_READ);
 
     } else if (currentToken->getType() == BRACES_LEFT) {
         match(BRACES_LEFT);
         node->addChild(statements());
-        node->setRuleType(STATEMENT_4);
+        node->setRuleType(STATEMENT_BLOCK);
         match(BRACES_RIGHT);
 
     } else if (currentToken->getType() == IFTOKEN) {
@@ -176,7 +176,7 @@ Node* Parser::statement() {
         node->addChild(statement());
         match(ELSETOKEN);
         node->addChild(statement());
-        node->setRuleType(STATEMENT_5);
+        node->setRuleType(STATEMENT_IF);
 
     } else if (currentToken->getType() == WHILETOKEN) {
         match(WHILETOKEN);
@@ -184,7 +184,7 @@ Node* Parser::statement() {
         node->addChild(exp());
         match(PARANTHESES_RIGHT);
         node->addChild(statement());
-        node->setRuleType(STATEMENT_6);
+        node->setRuleType(STATEMENT_WHILE);
     }
     else {
         //printError
