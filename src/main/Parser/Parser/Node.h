@@ -29,6 +29,7 @@ class Node{
 
 public:
     Node();
+    Node(RuleType ruleType);
     ~Node();
 
     Node* getChild(unsigned char pos);

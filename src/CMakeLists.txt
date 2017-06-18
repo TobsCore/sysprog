@@ -72,7 +72,8 @@ set(TEST
         test/scannerErrorTest.cpp
         test/nodeTest.cpp
         test/newTokenTypeTest.cpp
-        test/parserTest.cpp)
+        test/parserTest.cpp
+        src/test/parseTreeTest.cpp)
 
 add_executable(scanner main/Scanner/runScanner.cpp ${SCANNER_SOURCE})
 add_executable(parser main/Parser/runParser.cpp ${PARSER_SOURCE} ${SCANNER_SOURCE})

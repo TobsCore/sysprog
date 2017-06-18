@@ -3,15 +3,19 @@
 //
 
 #include "Node.h"
-#include "../../Scanner/SymbolType/Symboltype.h"
 #include <stdexcept>
 
-
 Node::Node() {
+    this->ruleType = RULE_NOT_SET;
     this->currentChild = 0;
     this->nodeType = NO_TYPE;
 }
 
+Node::Node(RuleType ruleType) {
+    this->ruleType = ruleType;
+    this->currentChild = 0;
+    this->nodeType = NO_TYPE;
+}
 
 Node::~Node() {
     for (int i = 0; i < currentChild; i++) {

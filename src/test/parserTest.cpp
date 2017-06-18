@@ -7,5 +7,4 @@
 TEST(ParserTest, ReadSimpleIntFile) {
     Parser *parser = new Parser("../src/test/testData/IntSimple.txt", "testout.txt");
     parser->parse();
-
 }

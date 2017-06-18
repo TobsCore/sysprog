@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include "../main/Parser/Parser/Node.h"
+#include "../main/Scanner/SymbolTable/SymbolTable.h"
 
 
 using testing::Eq;
@@ -54,5 +55,15 @@ TEST_F(NodeTest, DeleteNode) {
     deleteNode->setTokenType(SymbolType::INTEGER);
 
     delete deleteNode;
+}
+
+TEST_F(NodeTest, SetLexem) {
+    const char* lexem = "Hello World";
+    SymbolTable *table = new SymbolTable();
+    SymbolItem *item = table->insert(lexem);
+
+    node.setLexem(item->lexem);
+    const char* returnLexem = node.getLexem();
+    ASSERT_STREQ(lexem, returnLexem);
 }
 
