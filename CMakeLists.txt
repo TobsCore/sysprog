@@ -60,7 +60,8 @@ set(PARSER_SOURCE
         src/main/Parser/Parser/CodeGenerator.h
         src/main/Parser/Parser/CodeGenerator.cpp
         src/main/Parser/Parser/Grammar.h
-        src/main/Parser/Parser/Grammar.cpp)
+        src/main/Parser/Parser/Grammar.cpp
+        src/main/Parser/Exceptions/GrammarException.h)
 
 set(TEST
         src/test/automatTest.cpp

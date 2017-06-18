@@ -7,6 +7,8 @@
 
 #include <exception>
 #include "Grammar.h"
+#include "../Exceptions/GrammarException.h"
+#include <iostream>
 
 Grammar::Grammar() {
     node = new Node();
@@ -49,7 +51,7 @@ void Grammar::typeCheck(Node *node) {
         case DECL:
             if (node->getType() != NO_TYPE) {
                 node->setType(ERROR_TYPE);
-                throw std::exception();
+                throw GrammarException(std::string("Error"));
             } else {
                 if (this->array() != nullptr) {
                     this->typeCheck(this->array());
@@ -65,7 +67,7 @@ void Grammar::typeCheck(Node *node) {
                 node->setType(INT_ARRAY_TYPE);
             } else {
                 node->setType(ERROR_TYPE);
-                throw std::exception();
+                throw GrammarException(std::string("Error"));
             }
             break;
 
@@ -85,7 +87,7 @@ void Grammar::typeCheck(Node *node) {
             this->typeCheck(this->index());
             if (node->getType() == NO_TYPE) {
                 node->setType(ERROR_TYPE);
-                throw std::exception();
+                throw GrammarException(std::string("Error"));
             } else {
                 if (!(this->exp()->getType() == INT_TYPE
                       && ((node->getType() == INT_TYPE
@@ -94,7 +96,7 @@ void Grammar::typeCheck(Node *node) {
                               && this->index()->getType() == INT_ARRAY_TYPE)))) {
 
                     node->setType(ERROR_TYPE);
-                    throw std::exception();
+                    throw GrammarException(std::string("Error"));
                 }
             }
             break;
@@ -107,14 +109,14 @@ void Grammar::typeCheck(Node *node) {
             this->typeCheck(this->index());
             if (node->getType() == NO_TYPE) {
                 node->setType(ERROR_TYPE);
-                throw std::exception();
+                throw GrammarException(std::string("Error"));
             } else {
                 if (!((node->getType() == INT_TYPE
                        && this->index()->getType() == NO_TYPE)
                       || (node->getType() == INT_ARRAY_TYPE
                           && this->index()->getType() == INT_ARRAY_TYPE))) {
                     node->setType(ERROR_TYPE);
-                    throw std::exception();
+                    throw GrammarException(std::string("Error"));
                 }
             }
             break;
@@ -141,7 +143,7 @@ void Grammar::typeCheck(Node *node) {
                 node->setType(this->exp2()->getType());
             } else if (this->op()->getType() != this->exp2()->getType()) {
                 node->setType(ERROR_TYPE);
-                throw std::exception();
+                throw GrammarException(std::string("Error"));
             } else {
                 node->setType(this->exp2()->getType());
             }
@@ -161,7 +163,7 @@ void Grammar::typeCheck(Node *node) {
             this->typeCheck(this->index());
             if (node->getType() == NO_TYPE) {
                 node->setType(ERROR_TYPE);
-                throw std::exception();
+                throw GrammarException(std::string("Error"));
             } else if (node->getType() == INT_TYPE
                        && this->index()->getType() == NO_TYPE) {
                 node->setType(node->getType());
@@ -170,7 +172,7 @@ void Grammar::typeCheck(Node *node) {
                 node->setType(INT_TYPE);
             } else {
                 node->setType(ERROR_TYPE);
-                throw std::exception();
+                throw GrammarException(std::string("Error"));
             }
             break;
 
@@ -188,7 +190,7 @@ void Grammar::typeCheck(Node *node) {
             this->typeCheck(this->exp2());
             if (this->exp2()->getType() != INT_TYPE) {
                 node->setType(ERROR_TYPE);
-                throw std::exception();
+                throw GrammarException(std::string("Error"));
             } else {
                 node->setType(INT_TYPE);
             }
@@ -248,7 +250,7 @@ void Grammar::typeCheck(Node *node) {
 
         case RULE_NOT_SET:
             node->setType(ERROR_TYPE);
-            throw std::exception();
+            throw GrammarException(std::string("Error"));
 
         default:
             break;
@@ -261,7 +263,7 @@ Node *Grammar::decls() {
         return node->getChild(1);
     } else {
         node->setRuleType(RULE_NOT_SET);
-        throw std::exception();
+        throw GrammarException(std::string("Error"));
     }
 }
 
@@ -271,7 +273,7 @@ Node *Grammar::decl() {
         return node->getChild(1);
     } else {
         node->setRuleType(RULE_NOT_SET);
-        throw std::exception();
+        throw GrammarException(std::string("Error"));
     }
 }
 
@@ -279,7 +281,7 @@ Node *Grammar::nextDecl() {
     if (node->getRuleType() == DECLS) {
         return node->getChild(2);
     }
-    throw std::exception();
+    throw GrammarException(std::string("Error"));
 }
 
 Node *Grammar::statements() {
@@ -289,7 +291,7 @@ Node *Grammar::statements() {
         return node->getChild(1);
     } else {
         node->setRuleType(RULE_NOT_SET);
-        throw std::exception();
+        throw GrammarException(std::string("Error"));
     }
 }
 
@@ -301,7 +303,7 @@ Node *Grammar::statement() {
         return node->getChild(2);
     } else {
         node->setRuleType(RULE_NOT_SET);
-        throw std::exception();
+        throw GrammarException(std::string("Error"));
     }
 }
 
@@ -310,7 +312,7 @@ Node *Grammar::nextStatement() {
         return node->getChild(2);
     } else {
         node->setRuleType(RULE_NOT_SET);
-        throw std::exception();
+        throw GrammarException(std::string("Error"));
     }
 }
 
@@ -319,7 +321,7 @@ Node *Grammar::array() {
         return node->getChild(1);
     } else {
         node->setRuleType(RULE_NOT_SET);
-        throw std::exception();
+        throw GrammarException(std::string("Error"));
     }
 }
 
@@ -347,7 +349,7 @@ Node *Grammar::exp() {
 
     } else {
         node->setRuleType(RULE_NOT_SET);
-        throw std::exception();
+        throw GrammarException(std::string("Error"));
     }
 }
 
@@ -358,7 +360,7 @@ Node *Grammar::exp2() {
         return node->getChild(1);
     } else {
         node->setRuleType(RULE_NOT_SET);
-        throw std::exception();
+        throw GrammarException(std::string("Error"));
     }
 }
 
@@ -371,7 +373,7 @@ Node *Grammar::op() {
 
     } else {
         node->setRuleType(RULE_NOT_SET);
-        throw std::exception();
+        throw GrammarException(std::string("Error"));
     }
 }
 
@@ -383,7 +385,7 @@ Node *Grammar::index() {
 
     } else {
         node->setRuleType(RULE_NOT_SET);
-        throw std::exception();
+        throw GrammarException(std::string("Error"));
     }
 }
 
@@ -392,7 +394,7 @@ Node *Grammar::statement_if() {
         return node->getChild(2);
     } else {
         node->setRuleType(RULE_NOT_SET);
-        throw std::exception();
+        throw GrammarException(std::string("Error"));
     }
 }
 
@@ -401,7 +403,7 @@ Node *Grammar::statement_else() {
         return node->getChild(3);
     } else {
         node->setRuleType(RULE_NOT_SET);
-        throw std::exception();
+        throw GrammarException(std::string("Error"));
     }
 }
 
