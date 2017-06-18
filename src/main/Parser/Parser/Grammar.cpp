@@ -33,7 +33,7 @@ void Grammar::typeCheck(Node *node) {
 
         // Startsymbol
         case PROG:
-            this->typeCheck(this->decl());
+            this->typeCheck(this->decls());
             this->typeCheck(this->statements());
             node->setType(NO_TYPE);
             break;
