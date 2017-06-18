@@ -26,7 +26,7 @@ Node *Parser::createEpsilonNode() {
 
 void Parser::match(SymbolType tokenType) {
     if (currentToken->getType() != tokenType) {
-        //printError ToDo: print error
+        throw std::exception();
     }
     nextToken();
 }
@@ -73,7 +73,7 @@ Node *Parser::decl() {
         node->addChild(createLeaf());
         nextToken();
     } else {
-        //printError
+        throw std::exception();
     }
     return node;
 }
@@ -88,7 +88,7 @@ Node *Parser::array() {
             node->setRuleType(ARRAY);
             nextToken();
         } else {
-            //printError
+            throw std::exception();
         }
         match(BRACKET_RIGHT);
         return node;
@@ -129,7 +129,7 @@ Node *Parser::statement() {
             node->addChild(createLeaf());
             nextToken();
         } else {
-            //printError
+            throw std::exception();
         }
         node->addChild(index());
         match(ASSIGN);
@@ -151,7 +151,7 @@ Node *Parser::statement() {
             node->addChild(createLeaf());
             nextToken();
         } else {
-            //printError
+            throw std::exception();
         }
         node->addChild(index());
         match(PARANTHESES_RIGHT);
