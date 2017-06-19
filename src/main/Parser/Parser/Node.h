@@ -48,13 +48,6 @@ public:
     RuleType getRuleType() const;
     void setRuleType(RuleType ruleType);
 
-
-    void setLexem(const char *lexem);
-    const char *getLexem() const;
-
-    void setIntegerValue(long integerValue);
-    long getIntegerValue() const;
-
     Token *getTokenType() const;
     void setTokenType(Token *tokenType);
 
@@ -70,10 +63,6 @@ private:
     NodeType nodeType;
     RuleType ruleType;
     Token *tokenType;
-
-private:
-    const char* lexem;
-    long integerValue;
 };
 
 #endif //SYSPROG_NODES_H

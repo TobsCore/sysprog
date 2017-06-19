@@ -57,14 +57,3 @@ TEST_F(NodeTest, DeleteNode) {
 
     delete deleteNode;
 }
-
-TEST_F(NodeTest, SetLexem) {
-    const char* lexem = "Hello World";
-    SymbolTable *table = new SymbolTable();
-    SymbolItem *item = table->insert(lexem);
-
-    node.setLexem(item->lexem);
-    const char* returnLexem = node.getLexem();
-    ASSERT_STREQ(lexem, returnLexem);
-}
-

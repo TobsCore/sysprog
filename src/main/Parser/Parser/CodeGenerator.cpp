@@ -3,6 +3,8 @@
 //
 
 #include "CodeGenerator.h"
+#include "../../Scanner/Token/IdentifierToken.h"
+#include "../../Scanner/Token/IntegerToken.h"
 
 
 CodeGenerator::CodeGenerator(const char* out) {
@@ -160,7 +162,7 @@ void CodeGenerator::makeCodeDecl(Node* node) {
     Node* array = node->getChild(0);
     Node* identifier = node->getChild(1);
 
-    file << " DS " << "$" << identifier->getLexem();
+    file << " DS " << "$" << static_cast<IdentifierToken *>(identifier->getTokenType())->getLexem();
 
   	if(array != 0L) {
         makeCode(array);
@@ -170,7 +172,7 @@ void CodeGenerator::makeCodeDecl(Node* node) {
 void CodeGenerator::makeCodeArray(Node* node) {
     Node* integer = node->getChild(0);
 
-    file << " " << integer->getIntegerValue();
+    file << " " << static_cast<IntegerToken *>(integer->getTokenType())->getValue();
 }
 
 void CodeGenerator::makeCodeArray_Empty(Node* node) {
@@ -201,7 +203,7 @@ void CodeGenerator::makeCodeStatement(Node* node) {
 	if(exp != 0L){
         makeCode(exp);
     }
-    file << " LA " << "$" << identifier->getLexem();
+    file << " LA " << "$" << static_cast<IdentifierToken *>(identifier->getTokenType())->getLexem();
 
     if(index != 0L){
         makeCode(index);
@@ -223,7 +225,7 @@ void CodeGenerator::makeCodeStatementRead(Node *node) {
     Node* index = node->getChild(1);
 
     file << " REA ";
-    file << " LA " << "$" << identifier->getLexem();
+    file << " LA " << "$" << static_cast<IdentifierToken *>(identifier->getTokenType())->getLexem();
 	if (index != 0L) {
         makeCode(index);
 	}
@@ -318,7 +320,7 @@ void CodeGenerator::makeCodeExp2Identifier(Node *node) {
     Node* identifier = node->getChild(0);
     Node* index = node->getChild(1);
 
-    file << " LA " << "$" << identifier->getLexem() ;
+    file << " LA " << "$" << static_cast<IdentifierToken *>(identifier->getTokenType())->getLexem();
 
     if (index != 0L) {
         makeCode(index);
@@ -327,7 +329,7 @@ void CodeGenerator::makeCodeExp2Identifier(Node *node) {
 }
 
 void CodeGenerator::makeCodeExp2Integer(Node *node) {
-    file << " LC " << node->getChild(0)->getLexem();
+    file << " LC " << static_cast<IdentifierToken *>(node->getChild(0)->getTokenType())->getLexem();
 }
 
 void CodeGenerator::makeCodeExp2Minus(Node *node) {

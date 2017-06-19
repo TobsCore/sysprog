@@ -62,19 +62,6 @@ void Node::setRuleType(RuleType ruleType) {
     Node::ruleType = ruleType;
 }
 
-
-const char *Node::getLexem() const {
-    return lexem;
-}
-
-void Node::setLexem(const char *lexem) {
-    Node::lexem = lexem;
-}
-
-long Node::getIntegerValue() const {
-    return integerValue;
-}
-
 Token *Node::getTokenType() const {
     return tokenType;
 }

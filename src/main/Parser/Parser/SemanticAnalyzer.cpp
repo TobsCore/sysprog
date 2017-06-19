@@ -4,6 +4,7 @@
 
 #include "SemanticAnalyzer.h"
 #include "../../colors.h"
+#include "../../Scanner/Token/IntegerToken.h"
 #include <iostream>
 
 using namespace std;
@@ -78,7 +79,8 @@ void SemanticAnalyzer::typeCheckDecl(Node *node) {
 void SemanticAnalyzer::typeCheckArray(Node *node) {
     Node *integer = node->getChild(0);
 
-    if (integer->getTokenType()->getType() == INTEGER && integer->getIntegerValue() > 0) {
+    if (integer->getTokenType()->getType() == INTEGER && static_cast<IntegerToken *>(integer->getTokenType())->getValue() >
+                                                                 0) {
         node->setType(ARRAY_TYPE);
     } else {
         printError("no valid integer", 0L);

@@ -8,6 +8,7 @@
 #include <exception>
 #include "Grammar.h"
 #include "../Exceptions/GrammarException.h"
+#include "../../Scanner/Token/IntegerToken.h"
 #include <iostream>
 
 Grammar::Grammar() {
@@ -63,7 +64,7 @@ void Grammar::typeCheck(Node *node) {
             break;
 
         case ARRAY:
-            if (node->getIntegerValue() > 0) {
+            if (static_cast<IntegerToken *>(node->getTokenType())->getValue() > 0) {
                 node->setType(INT_ARRAY_TYPE);
             } else {
                 node->setType(ERROR_TYPE);
