@@ -61,7 +61,9 @@ set(PARSER_SOURCE
         main/Parser/Parser/CodeGenerator.h
         main/Parser/Parser/CodeGenerator.cpp
         main/Parser/Parser/Grammar.h
-        main/Parser/Parser/Grammar.cpp)
+        main/Parser/Parser/Grammar.cpp
+        main/Parser/Parser/SemanticAnalyzer.cpp
+        main/Parser/Parser/SemanticAnalyzer.h)
 
 set(TEST
         test/automatTest.cpp

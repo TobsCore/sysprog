@@ -1,11 +1,11 @@
 
 #ifndef SYMTYPE
 #define SYMTYPE
-
 #include "../SymbolType/Symboltype.h"
+#endif
+
 #include "../Position/Position.h"
 
-#endif
 
 class Token {
 public:

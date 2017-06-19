@@ -19,10 +19,15 @@
 
 #include <climits>
 #include "NodeType.h"
+
+#ifndef TOKEN
+#define TOKEN
 #include "Node.h"
+#endif
 
 #include "../../Scanner/SymbolType/Symboltype.h"
 #include "RuleType.h"
+#include "../../Scanner/Token/Token.h"
 
 
 class Node{
@@ -40,9 +45,6 @@ public:
 
     bool isLeaf();
 
-    SymbolType getTokenType() const;
-    void setTokenType(SymbolType tokenType);
-
     RuleType getRuleType() const;
     void setRuleType(RuleType ruleType);
 
@@ -53,6 +55,11 @@ public:
     void setIntegerValue(long integerValue);
     long getIntegerValue() const;
 
+    Token *getTokenType() const;
+    void setTokenType(Token *tokenType);
+
+    unsigned char getAmountOfChildren();
+
 private:
     // Maximale Anzahl an Node, die Root besitzen kann
     static const unsigned char MAX_CHILDREN = UCHAR_MAX;
@@ -62,7 +69,9 @@ private:
 
     NodeType nodeType;
     RuleType ruleType;
-    SymbolType tokenType;
+    Token *tokenType;
+
+private:
     const char* lexem;
     long integerValue;
 };

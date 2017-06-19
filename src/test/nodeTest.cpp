@@ -2,6 +2,7 @@
 #include <gmock/gmock.h>
 #include "../main/Parser/Parser/Node.h"
 #include "../main/Scanner/SymbolTable/SymbolTable.h"
+#include "../main/Scanner/Token/IntegerToken.h"
 
 
 using testing::Eq;
@@ -52,7 +53,7 @@ TEST_F(NodeTest, IsLeafAfterAddingChil) {
 TEST_F(NodeTest, DeleteNode) {
     Node *deleteNode = new Node();
     deleteNode->setType(NodeType::INT_TYPE);
-    deleteNode->setTokenType(SymbolType::INTEGER);
+    deleteNode->setTokenType(new IntegerToken());
 
     delete deleteNode;
 }

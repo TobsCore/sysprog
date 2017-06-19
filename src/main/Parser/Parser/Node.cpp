@@ -6,9 +6,9 @@
 #include <stdexcept>
 
 Node::Node() {
-    this->ruleType = RULE_NOT_SET;
     this->currentChild = 0;
     this->nodeType = NO_TYPE;
+    this->ruleType = RULE_NOT_SET;
 }
 
 Node::Node(RuleType ruleType) {
@@ -54,14 +54,6 @@ NodeType Node::getType() {
     return this->nodeType;
 }
 
-SymbolType Node::getTokenType() const {
-    return tokenType;
-}
-
-void Node::setTokenType(SymbolType tokenType) {
-    Node::tokenType = tokenType;
-}
-
 RuleType Node::getRuleType() const {
     return ruleType;
 }
@@ -83,11 +75,14 @@ long Node::getIntegerValue() const {
     return integerValue;
 }
 
-void Node::setIntegerValue(long integerValue) {
-    Node::integerValue = integerValue;
+Token *Node::getTokenType() const {
+    return tokenType;
 }
 
+void Node::setTokenType(Token *tokenType) {
+    Node::tokenType = tokenType;
+}
 
-
-
-
+unsigned char Node::getAmountOfChildren() {
+    return currentChild;
+}

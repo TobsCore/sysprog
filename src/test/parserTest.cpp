@@ -4,6 +4,7 @@
 #include "../main/Parser/Parser/Parser.h"
 #include "../main/Parser/Parser/Grammar.h"
 #include "../main/Parser/Exceptions/GrammarException.h"
+#include "../main/Parser/Parser/SemanticAnalyzer.h"
 
 
 TEST(ParserTest, ReadSimpleIntFile) {
@@ -23,16 +24,18 @@ TEST(ParserTest, ReadSimpleIntFile) {
 
     Node *decl = decls->getChild(0);
     ASSERT_EQ(decl->getChild(0)->getRuleType(), ARRAY_EMPTY);
+    ASSERT_EQ(decl->getAmountOfChildren(), 2);
     ASSERT_FALSE(decl->isLeaf());
 
     ASSERT_TRUE(decl->getChild(0)->isLeaf());
 }
 
-TEST(ParserTest, DISABLED_CheckSimplestWithGrammar) {
+TEST(ParserTest, CheckSimplestWithGrammar) {
     Parser *parser = new Parser("../src/test/testData/programs/simplestProgram.txt", "testout.txt");
     ParseTree *parseTree = parser->parse();
 
-    Grammar *grammar = new Grammar();
-    //TODO: Check, what's wrong here
-    ASSERT_NO_THROW(grammar->typeCheck(parseTree->getTree()));
+//     Grammar *grammar = new Grammar();
+//     ASSERT_NO_THROW(grammar->typeCheck(parseTree->getTree()));
+    SemanticAnalyzer *analyzer = new SemanticAnalyzer();
+    analyzer->typeCheck(parseTree);
 }

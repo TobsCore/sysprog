@@ -291,11 +291,11 @@ void CodeGenerator::makeCodeExp(Node* node) {
 	if(op_exp != 0L) {
         if (op_exp->getType() == NO_TYPE) {
             makeCode(exp2);
-        } else if (op_exp->getChild(0)->getTokenType() == GREATER) {
+        } else if (op_exp->getChild(0)->getTokenType()->getType() == GREATER) {
             makeCode(op_exp);
             makeCode(exp2);
             file << " LES ";
-        } else if (op_exp->getChild(0)->getTokenType() == SPECIAL) { //UNEQUAL = SPECIAL???
+        } else if (op_exp->getChild(0)->getTokenType()->getType() == SPECIAL) { //UNEQUAL = SPECIAL???
             makeCode(exp2);
             makeCode(op_exp);
             file << " NOT ";

@@ -5,7 +5,7 @@
 #include "Parser.h"
 
 
-Parser::Parser(const char* inputFilePath, const char* outputFilePath) {
+Parser::Parser(const char *inputFilePath, const char *outputFilePath) {
     currentToken = 0L;
     lastToken = 0L;
     scanner = new Scanner(inputFilePath);
@@ -14,7 +14,7 @@ Parser::Parser(const char* inputFilePath, const char* outputFilePath) {
 
 Node *Parser::createNode() {
     Node *node = new Node();
-    node->setTokenType(currentToken->getType());
+    node->setTokenType(currentToken);
     return node;
 }
 
@@ -180,8 +180,7 @@ Node *Parser::statement() {
         match(PARANTHESES_RIGHT);
         node->addChild(statement());
         node->setRuleType(STATEMENT_WHILE);
-    }
-    else {
+    } else {
         throw std::exception();
     }
     return node;
@@ -302,14 +301,16 @@ Node *Parser::op() {
 }
 
 Node *Parser::createLeaf() {
-    return nullptr;
-    // TODO: Do dis shit!
+    Node *leaf = new Node();
+    leaf->setTokenType(currentToken);
+
+    return leaf;
 }
 
 ParseTree *Parser::parse() {
     parseTree = this->prog();
 
-    //Node* typedTree = semanticAnalyser->typeCheck(parseTree);
+    //Node* typedTree = semanticAnalyzer->typeCheck(parseTree);
 
     //codeGenerator->runCodeGenerator(typedTree);
 

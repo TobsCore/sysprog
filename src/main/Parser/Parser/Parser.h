@@ -24,7 +24,7 @@ private:
 
     Scanner* scanner;
     ParseTree* parseTree;
-    //SemanticAnalyser* semanticAnalyser;
+    //SemanticAnalyzer* semanticAnalyser;
     CodeGenerator* codeGenerator;
 
     //Function for every non-terminal
