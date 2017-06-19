@@ -62,12 +62,12 @@ void Node::setRuleType(RuleType ruleType) {
     Node::ruleType = ruleType;
 }
 
-Token *Node::getTokenType() const {
-    return tokenType;
+Token *Node::getToken() const {
+    return token;
 }
 
-void Node::setTokenType(Token *tokenType) {
-    Node::tokenType = tokenType;
+void Node::setToken(Token *token) {
+    Node::token = token;
 }
 
 unsigned char Node::getAmountOfChildren() {

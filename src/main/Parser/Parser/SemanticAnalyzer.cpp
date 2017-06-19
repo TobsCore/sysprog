@@ -79,7 +79,7 @@ void SemanticAnalyzer::typeCheckDecl(Node *node) {
 void SemanticAnalyzer::typeCheckArray(Node *node) {
     Node *integer = node->getChild(0);
 
-    if (integer->getTokenType()->getType() == INTEGER && static_cast<IntegerToken *>(integer->getTokenType())->getValue() >
+    if (integer->getToken()->getType() == INTEGER && static_cast<IntegerToken *>(integer->getToken())->getValue() >
                                                                  0) {
         node->setType(ARRAY_TYPE);
     } else {
@@ -350,7 +350,7 @@ void SemanticAnalyzer::typeCheckOp_9(Node *node) {
 
 void SemanticAnalyzer::printError(string msg, Node *node = 0L) {
     if (node != 0L) {
-        Token *token = node->getTokenType();
+        Token *token = node->getToken();
         cerr << RED << "Semantic ERROR: " << msg << " in line: "
              << token->getRow() << " column: " << token->getCol() << COLOR_RESET << endl;
     } else {

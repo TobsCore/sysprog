@@ -14,7 +14,7 @@ Parser::Parser(const char *inputFilePath, const char *outputFilePath) {
 
 Node *Parser::createNode() {
     Node *node = new Node();
-    node->setTokenType(currentToken);
+    node->setToken(currentToken);
     return node;
 }
 
@@ -302,7 +302,7 @@ Node *Parser::op() {
 
 Node *Parser::createLeaf() {
     Node *leaf = new Node();
-    leaf->setTokenType(currentToken);
+    leaf->setToken(currentToken);
 
     return leaf;
 }

@@ -48,8 +48,8 @@ public:
     RuleType getRuleType() const;
     void setRuleType(RuleType ruleType);
 
-    Token *getTokenType() const;
-    void setTokenType(Token *tokenType);
+    Token *getToken() const;
+    void setToken(Token *token);
 
     unsigned char getAmountOfChildren();
 
@@ -62,7 +62,7 @@ private:
 
     NodeType nodeType;
     RuleType ruleType;
-    Token *tokenType;
+    Token *token;
 };
 
 #endif //SYSPROG_NODES_H

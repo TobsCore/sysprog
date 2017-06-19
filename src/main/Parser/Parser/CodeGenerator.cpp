@@ -162,7 +162,7 @@ void CodeGenerator::makeCodeDecl(Node* node) {
     Node* array = node->getChild(0);
     Node* identifier = node->getChild(1);
 
-    file << " DS " << "$" << static_cast<IdentifierToken *>(identifier->getTokenType())->getLexem();
+    file << " DS " << "$" << static_cast<IdentifierToken *>(identifier->getToken())->getLexem();
 
   	if(array != 0L) {
         makeCode(array);
@@ -172,7 +172,7 @@ void CodeGenerator::makeCodeDecl(Node* node) {
 void CodeGenerator::makeCodeArray(Node* node) {
     Node* integer = node->getChild(0);
 
-    file << " " << static_cast<IntegerToken *>(integer->getTokenType())->getValue();
+    file << " " << static_cast<IntegerToken *>(integer->getToken())->getValue();
 }
 
 void CodeGenerator::makeCodeArray_Empty(Node* node) {
@@ -203,7 +203,7 @@ void CodeGenerator::makeCodeStatement(Node* node) {
 	if(exp != 0L){
         makeCode(exp);
     }
-    file << " LA " << "$" << static_cast<IdentifierToken *>(identifier->getTokenType())->getLexem();
+    file << " LA " << "$" << static_cast<IdentifierToken *>(identifier->getToken())->getLexem();
 
     if(index != 0L){
         makeCode(index);
@@ -225,7 +225,7 @@ void CodeGenerator::makeCodeStatementRead(Node *node) {
     Node* index = node->getChild(1);
 
     file << " REA ";
-    file << " LA " << "$" << static_cast<IdentifierToken *>(identifier->getTokenType())->getLexem();
+    file << " LA " << "$" << static_cast<IdentifierToken *>(identifier->getToken())->getLexem();
 	if (index != 0L) {
         makeCode(index);
 	}
@@ -293,11 +293,11 @@ void CodeGenerator::makeCodeExp(Node* node) {
 	if(op_exp != 0L) {
         if (op_exp->getType() == NO_TYPE) {
             makeCode(exp2);
-        } else if (op_exp->getChild(0)->getTokenType()->getType() == GREATER) {
+        } else if (op_exp->getChild(0)->getToken()->getType() == GREATER) {
             makeCode(op_exp);
             makeCode(exp2);
             file << " LES ";
-        } else if (op_exp->getChild(0)->getTokenType()->getType() == SPECIAL) { //UNEQUAL = SPECIAL???
+        } else if (op_exp->getChild(0)->getToken()->getType() == SPECIAL) { //UNEQUAL = SPECIAL???
             makeCode(exp2);
             makeCode(op_exp);
             file << " NOT ";
@@ -320,7 +320,7 @@ void CodeGenerator::makeCodeExp2Identifier(Node *node) {
     Node* identifier = node->getChild(0);
     Node* index = node->getChild(1);
 
-    file << " LA " << "$" << static_cast<IdentifierToken *>(identifier->getTokenType())->getLexem();
+    file << " LA " << "$" << static_cast<IdentifierToken *>(identifier->getToken())->getLexem();
 
     if (index != 0L) {
         makeCode(index);
@@ -329,7 +329,7 @@ void CodeGenerator::makeCodeExp2Identifier(Node *node) {
 }
 
 void CodeGenerator::makeCodeExp2Integer(Node *node) {
-    file << " LC " << static_cast<IdentifierToken *>(node->getChild(0)->getTokenType())->getLexem();
+    file << " LC " << static_cast<IdentifierToken *>(node->getChild(0)->getToken())->getLexem();
 }
 
 void CodeGenerator::makeCodeExp2Minus(Node *node) {

@@ -53,7 +53,7 @@ TEST_F(NodeTest, IsLeafAfterAddingChil) {
 TEST_F(NodeTest, DeleteNode) {
     Node *deleteNode = new Node();
     deleteNode->setType(NodeType::INT_TYPE);
-    deleteNode->setTokenType(new IntegerToken());
+    deleteNode->setToken(new IntegerToken());
 
     delete deleteNode;
 }

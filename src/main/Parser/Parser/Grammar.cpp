@@ -64,7 +64,7 @@ void Grammar::typeCheck(Node *node) {
             break;
 
         case ARRAY:
-            if (static_cast<IntegerToken *>(node->getTokenType())->getValue() > 0) {
+            if (static_cast<IntegerToken *>(node->getToken())->getValue() > 0) {
                 node->setType(INT_ARRAY_TYPE);
             } else {
                 node->setType(ERROR_TYPE);
@@ -256,7 +256,6 @@ void Grammar::typeCheck(Node *node) {
         default:
             break;
     }
-
 }
 
 Node *Grammar::decls() {
