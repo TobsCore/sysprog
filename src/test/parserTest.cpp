@@ -2,8 +2,6 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include "../main/Parser/Parser/Parser.h"
-#include "../main/Parser/Parser/Grammar.h"
-#include "../main/Parser/Exceptions/GrammarException.h"
 #include "../main/Parser/Parser/SemanticAnalyzer.h"
 
 
@@ -38,4 +36,7 @@ TEST(ParserTest, CheckSimplestWithGrammar) {
 //     ASSERT_NO_THROW(grammar->typeCheck(parseTree->getTree()));
     SemanticAnalyzer *analyzer = new SemanticAnalyzer();
     analyzer->typeCheck(parseTree);
+
+    CodeGenerator *codeGenerator = new CodeGenerator("out.code");
+    codeGenerator->run(parseTree);
 }

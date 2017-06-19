@@ -5,6 +5,7 @@
 #include "CodeGenerator.h"
 #include "../../Scanner/Token/IdentifierToken.h"
 #include "../../Scanner/Token/IntegerToken.h"
+#include "../Exceptions/CodeGenerationException.h"
 
 
 CodeGenerator::CodeGenerator(const char* out) {
@@ -16,8 +17,8 @@ CodeGenerator::~CodeGenerator(){
     // TODO Auto-generated destructor stub
 }
 
-void CodeGenerator::error(const char* string) {
-    throw std::exception();
+void CodeGenerator::run(ParseTree* parseTree) {
+    makeCode(parseTree->getTree());
 }
 
 void CodeGenerator::makeCode(Node* node) {
@@ -29,7 +30,7 @@ void CodeGenerator::makeCode(Node* node) {
             makeCodeDecls(node);
             break;
         case DECLS_EMPTY:
-            makeCodeDecls_Empty(node);
+            makeCodeDecls_Empty();
             break;
         case DECL:
             makeCodeDecl(node);
@@ -38,13 +39,13 @@ void CodeGenerator::makeCode(Node* node) {
             makeCodeArray(node);
             break;
         case ARRAY_EMPTY:
-            makeCodeArray_Empty(node);
+            makeCodeArray_Empty();
             break;
         case STATEMENTS:
             makeCodeStatements(node);
             break;
         case STATEMENTS_EMPTY:
-            makeCodeStatements_Empty(node);
+            makeCodeStatements_Empty();
             break;
         case STATEMENT_IDENTIFIER:
             makeCodeStatement(node);
@@ -90,43 +91,43 @@ void CodeGenerator::makeCode(Node* node) {
             makeCodeIndex(node);
             break;
         case INDEX_EMPTY:
-            makeCodeIndex_Empty(node);
+            makeCodeIndex_Empty();
             break;
         case OP_EXP:
             makeCodeOp_Exp(node);
             break;
         case OP_EXP_EMPTY:
-            makeCodeOp_Exp_Empty(node);
+            makeCodeOp_Exp_Empty();
             break;
         case OP_PLUS:
-            makeCodeOpPlus(node);
+            makeCodeOpPlus();
             break;
         case OP_MINUS:
-            makeCodeOpMinus(node);
+            makeCodeOpMinus();
             break;
         case OP_MUL:
-            makeCodeOpMultiplication(node);
+            makeCodeOpMultiplication();
             break;
         case OP_DIV:
-            makeCodeOpDivision(node);
+            makeCodeOpDivision();
             break;
         case OP_LESS:
-            makeCodeOpLess(node);
+            makeCodeOpLess();
             break;
         case OP_GREATER:
-            makeCodeOpGreater(node);
+            makeCodeOpGreater();
             break;
         case OP_EQUAL:
-            makeCodeOpEqual(node);
+            makeCodeOpEqual();
             break;
         case OP_SPECIAL:
-            makeCodeOpSpecial(node);
+            makeCodeOpSpecial();
             break;
         case OP_AND:
-            makeCodeOpAnd(node);
+            makeCodeOpAnd();
             break;
         default:
-            error("empty Node!");
+            throw CodeGenerationException(std::string("Node is empty!"));
     }
 }
 
@@ -156,7 +157,7 @@ void CodeGenerator::makeCodeDecls(Node* node) {
     }
 }
 
-void CodeGenerator::makeCodeDecls_Empty(Node* node) {}
+void CodeGenerator::makeCodeDecls_Empty() {}
 
 void CodeGenerator::makeCodeDecl(Node* node) {
     Node* array = node->getChild(0);
@@ -175,7 +176,7 @@ void CodeGenerator::makeCodeArray(Node* node) {
     file << " " << static_cast<IntegerToken *>(integer->getToken())->getValue();
 }
 
-void CodeGenerator::makeCodeArray_Empty(Node* node) {
+void CodeGenerator::makeCodeArray_Empty() {
     file << " " << 1;
 }
 
@@ -191,7 +192,7 @@ void CodeGenerator::makeCodeStatements(Node* node) {
     }
 }
 
-void CodeGenerator::makeCodeStatements_Empty(Node* node) {
+void CodeGenerator::makeCodeStatements_Empty() {
     file << " NOP ";
 }
 
@@ -360,7 +361,7 @@ void CodeGenerator::makeCodeIndex(Node* node) {
 	}
     file << " ADD ";
 }
-void CodeGenerator::makeCodeIndex_Empty(Node* node) {}
+void CodeGenerator::makeCodeIndex_Empty() {}
 
 void CodeGenerator::makeCodeOp_Exp(Node* node) {
     Node* op = node->getChild(0);
@@ -374,41 +375,42 @@ void CodeGenerator::makeCodeOp_Exp(Node* node) {
         makeCode(op);
 	}
 }
-void CodeGenerator::makeCodeOp_Exp_Empty(Node *root){}
+
+void CodeGenerator::makeCodeOp_Exp_Empty() {}
 
 
-void CodeGenerator::makeCodeOpPlus(Node *node) {
+void CodeGenerator::makeCodeOpPlus() {
     file << " ADD ";
 }
 
-void CodeGenerator::makeCodeOpMinus(Node *node) {
+void CodeGenerator::makeCodeOpMinus() {
     file << " SUB ";
 }
 
-void CodeGenerator::makeCodeOpMultiplication(Node *node) {
+void CodeGenerator::makeCodeOpMultiplication() {
     file << " MUL ";
 }
 
-void CodeGenerator::makeCodeOpDivision(Node *node) {
+void CodeGenerator::makeCodeOpDivision() {
     file << " DIV ";
 }
 
-void CodeGenerator::makeCodeOpLess(Node *node) {
+void CodeGenerator::makeCodeOpLess() {
     file << " LES ";
 }
 
-void CodeGenerator::makeCodeOpGreater(Node *node) {
+void CodeGenerator::makeCodeOpGreater() {
     file << " ";
 }
 
-void CodeGenerator::makeCodeOpEqual(Node *node) {
+void CodeGenerator::makeCodeOpEqual() {
     file << " EQU ";
 }
 
-void CodeGenerator::makeCodeOpSpecial(Node *node) {
+void CodeGenerator::makeCodeOpSpecial() {
     file << " EQU ";
 }
 
-void CodeGenerator::makeCodeOpAnd(Node *node) {
+void CodeGenerator::makeCodeOpAnd() {
     file << " AND ";
 }

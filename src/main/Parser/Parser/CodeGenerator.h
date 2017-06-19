@@ -14,16 +14,12 @@ class Node;
 class CodeGenerator {
     private:
 
-        // Gibt den Fehler auf der Konsole aus, beendet dann das Programm.
-        void error(const char* string);
-
         // globaler Sprungmarkenzähler
         unsigned int labelCounter;
 
         // Filestream zur Ausgabe des Maschinencodes
         std::ofstream file;
 
-    public:
         /* Erzeugt je nach Regel der Grammatik den Code für einen Teilbaum.
          * Dabei wird je nach Regel eine andere Methode zur Codeerzeugung aufgerufen,
          * die dann die Reihenfolge der abarbeitung einhalten und nach den Vorgaben
@@ -39,12 +35,12 @@ class CodeGenerator {
         void makeCode(Node* root);
         void makeCodeProg(Node* root);
         void makeCodeDecls(Node* root);
-        void makeCodeDecls_Empty(Node* root);
+        void makeCodeDecls_Empty();
         void makeCodeDecl(Node* root);
         void makeCodeArray(Node* root);
-        void makeCodeArray_Empty(Node* root);
+        void makeCodeArray_Empty();
         void makeCodeStatements(Node* root);
-        void makeCodeStatements_Empty(Node* root);
+        void makeCodeStatements_Empty();
         void makeCodeStatement(Node* root);
         void makeCodeStatementWrite(Node *root);
         void makeCodeStatementRead(Node *root);
@@ -58,18 +54,23 @@ class CodeGenerator {
         void makeCodeExp2Minus(Node *root);
         void makeCodeExp2Negation(Node *root);
         void makeCodeIndex(Node* root);
-        void makeCodeIndex_Empty(Node* root);
+        void makeCodeIndex_Empty();
         void makeCodeOp_Exp(Node* root);
-        void makeCodeOp_Exp_Empty(Node* root);
-        void makeCodeOpPlus(Node *root);
-        void makeCodeOpMinus(Node *root);
-        void makeCodeOpMultiplication(Node *root);
-        void makeCodeOpDivision(Node *root);
-        void makeCodeOpLess(Node *root);
-        void makeCodeOpGreater(Node *root);
-        void makeCodeOpEqual(Node *root);
-        void makeCodeOpSpecial(Node *root);
-        void makeCodeOpAnd(Node *root);
+        void makeCodeOp_Exp_Empty();
+        void makeCodeOpPlus();
+        void makeCodeOpMinus();
+        void makeCodeOpMultiplication();
+        void makeCodeOpDivision();
+        void makeCodeOpLess();
+        void makeCodeOpGreater();
+        void makeCodeOpEqual();
+        void makeCodeOpSpecial();
+        void makeCodeOpAnd();
+
+    public:
+
+        // This is the main method which should be called in order to start generating the code.
+        void run(ParseTree* parseTree);
 
         // Konstruktor und Dekonstruktor;
         CodeGenerator(const char* out);
