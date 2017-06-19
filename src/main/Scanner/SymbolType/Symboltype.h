@@ -1,5 +1,5 @@
-#ifndef SYMBOLTYPE_H_
-#define SYMBOLTYPE_H_
+#ifndef SYMBOLTYPE
+#define SYMBOLTYPE
 
 enum SymbolType {
 

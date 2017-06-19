@@ -2,11 +2,6 @@
 #define O_DIRECT 0
 #endif
 
-#ifndef BUFFER_H_
-#define BUFFER_H_
-
-static const int chunkSize = 1024;
-
 #include <stdio.h>
 #include <fcntl.h>
 #include <stdio.h>
@@ -14,6 +9,12 @@ static const int chunkSize = 1024;
 #include <unistd.h>
 //zum testen
 #include <iostream>
+
+#ifndef BUFFER
+#define BUFFER
+
+static const int chunkSize = 1024;
+
 
 using namespace std;
 
@@ -58,4 +59,4 @@ public:
     void closeFiles();
 };
 
-#endif /* BUFFER_H_ */
+#endif /* BUFFER */

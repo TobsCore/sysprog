@@ -1,12 +1,7 @@
 //
 // Created by Tobias Kerst on 08.04.17.
 //
-#ifndef TOKEN
-#define TOKEN
-
 #include "Token.h"
-
-#endif
 
 class IntegerToken : public Token {
 public:

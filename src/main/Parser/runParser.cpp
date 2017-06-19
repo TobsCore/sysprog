@@ -1,11 +1,13 @@
 #include <fstream>
+#include "../colors.h"
 #include "../Scanner/Scanner/Scanner.h"
+#include "Parser/Parser.h"
 
 void clearOutputFile(const char* outFilename) {
     ofstream ofs;
     ofs.open(outFilename, std::ofstream::out | std::ofstream::trunc);
     if (!ofs.is_open()) {
-        cerr << "\033[1;31m" << "Error!" << "\033[0m" << " Cannot write to output file <" << outFilename << ">"
+        cerr << RED << "Error!" << COLOR_RESET << " Cannot write to output file <" << outFilename << ">"
              << endl;
         exit(EXIT_FAILURE);
     }
@@ -13,15 +15,15 @@ void clearOutputFile(const char* outFilename) {
 }
 
 int main(int argc, char **argv) {
-    if (argc != 4) {
-        cerr << "usage:" << endl << "parser <inputfile> -c <outputfile>" << endl;
+    if (argc != 3) {
+        cerr << "usage:" << endl << "parser <inputfile> <outputfile>" << endl;
         return 1;
     }
 
-    const char *inFile = argv[1];
-    const char *outFilename = argv[3];
+    const char *inFilename = argv[1];
+    const char *outFilename = argv[2];
     try {
-        Scanner *sc = new Scanner(inFile);
+        Scanner *sc = new Scanner(inFilename);
 
         // Clear output file
         clearOutputFile(outFilename);
@@ -29,12 +31,15 @@ int main(int argc, char **argv) {
         // Creates file appender for output file
         ofstream result(outFilename, std::ios_base::app);
 
-        //TODO: Insert Parser execution code here
+        Parser *parser = new Parser(inFilename, outFilename);
+        parser->parse();
+        parser->typeCheck();
+        parser->makeCode();
 
         result.close();
 
     } catch (std::exception &ex) {
-        cerr << "\033[1;31m" << "Error! " << "\033[0m" << "Cannot read input file <" << inFile << ">" << endl;
+        cerr << RED << "Error! " << COLOR_RESET << "Cannot read input file <" << inFilename << ">" << endl;
         exit(EXIT_FAILURE);
 
     }

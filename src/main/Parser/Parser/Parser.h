@@ -7,9 +7,16 @@
 
 
 #include "ParseTree.h"
+#ifndef NODE
+#define NODE
 #include "Node.h"
+#endif
+#ifndef CODEGENERATOR
+#define CODEGENERATOR
 #include "CodeGenerator.h"
+#endif
 #include "../../Scanner/Scanner/Scanner.h"
+#include "SemanticAnalyzer.h"
 
 class Parser {
 public:
@@ -17,6 +24,8 @@ public:
     ~Parser();
 
     ParseTree* parse();
+    void typeCheck();
+    void makeCode();
 
 private:
     Token * currentToken;
@@ -24,7 +33,7 @@ private:
 
     Scanner* scanner;
     ParseTree* parseTree;
-    //SemanticAnalyzer* semanticAnalyser;
+    SemanticAnalyzer* semanticAnalyser;
     CodeGenerator* codeGenerator;
 
     //Function for every non-terminal

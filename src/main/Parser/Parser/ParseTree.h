@@ -1,5 +1,5 @@
-#ifndef SYSPROG_PARSETREE_H
-#define SYSPROG_PARSETREE_H
+#ifndef PARSETREE
+#define PARSETREE
 
 #include "Node.h"
 
@@ -15,4 +15,4 @@ private:
     Node* root;
 };
 
-#endif //SYSPROG_PARSETREE_H
+#endif //PARSETREE

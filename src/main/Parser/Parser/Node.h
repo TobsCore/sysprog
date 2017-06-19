@@ -14,22 +14,13 @@
  * Dies wird für Typisierrung/TypeCheck wichtig, denn dann kann man den Teilbaum (für jede regel ein neuer) ablaufen,
  * und dann entsprechend prüfen und erkennen ob die syntax korrekt ist!
 */
-#ifndef SYSPROG_NODES_H
-#define SYSPROG_NODES_H
-
 #include <climits>
 #include "NodeType.h"
-
-#ifndef TOKEN
-#define TOKEN
-#include "Node.h"
-#endif
-
-#include "../../Scanner/SymbolType/Symboltype.h"
 #include "RuleType.h"
 #include "../../Scanner/Token/Token.h"
 
-
+#ifndef NODE_H
+#define NODE_H
 class Node{
 
 public:
@@ -64,6 +55,4 @@ private:
     RuleType ruleType;
     Token *token;
 };
-
-#endif //SYSPROG_NODES_H
-
+#endif

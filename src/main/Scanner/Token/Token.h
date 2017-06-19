@@ -1,11 +1,8 @@
-
-#ifndef SYMTYPE
-#define SYMTYPE
 #include "../SymbolType/Symboltype.h"
-#endif
-
 #include "../Position/Position.h"
 
+#ifndef TOKEN
+#define TOKEN
 
 class Token {
 public:
@@ -37,3 +34,4 @@ protected:
     SymbolType type;
     Position *position;
 };
+#endif

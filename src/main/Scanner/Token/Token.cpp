@@ -1,10 +1,4 @@
-#ifndef TOKEN
-#define TOKEN
-
 #include "Token.h"
-
-#endif
-
 #include <iostream>
 
 Token::Token() {

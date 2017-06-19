@@ -2,19 +2,8 @@
 // Gibt Integer Werte zurück, die jeweils für die entsprechenden Typen des Tokens stehen.
 
 
-#ifndef AUTOMAT
-#define AUTOMAT
-
 #include "Automat.h"
-
-#endif
-
-#ifndef SYSPROG_STATE_H
-#define SYSPROG_STATE_H
-
 #include "State.h"
-
-#endif
 
 int Automat::findColumn(char currentChar) {
     if ((int) currentChar > 47 && (int) currentChar < 58) {

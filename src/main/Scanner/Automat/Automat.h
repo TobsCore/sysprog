@@ -1,10 +1,7 @@
-#ifndef SYMTYPE
-#define SYMTYPE
-
 #include "../SymbolType/Symboltype.h"
 
-#endif
-
+#ifndef AUTOMAT
+#define AUTOMAT
 class Automat {
 
 public:
@@ -18,6 +15,5 @@ private:
     int currentState;
     int newState;
     int column;
-
-
 };
+#endif

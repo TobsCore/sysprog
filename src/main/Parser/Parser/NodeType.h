@@ -2,6 +2,8 @@
 // Created by Kevin Wolf und Tobias Kerst on 08.06.17.
 //
 
+#ifndef NODETYPE_H
+#define NODETYPE_H
 enum NodeType {
     INT_TYPE,
     INT_ARRAY_TYPE,
@@ -53,3 +55,5 @@ inline const char *toString(NodeType type) {
             return "Unknown Type";
     }
 };
+
+#endif

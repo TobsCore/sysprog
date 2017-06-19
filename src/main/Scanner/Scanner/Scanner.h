@@ -1,36 +1,12 @@
-#ifndef TOKEN
-#define TOKEN
-
 #include "../Token/Token.h"
-
-#endif
-
-#ifndef SYMTYPE
-#define SYMTYPE
-#include "../../SymbolType/symboltype.h"
-#endif
-
-#ifndef BUFFER
-#define BUFFER
-
+#include "../SymbolType/Symboltype.h"
 #include "../Buffer/Buffer.h"
-
-#endif
-
-#ifndef AUTOMAT
-#define AUTOMAT
-
 #include "../Automat/Automat.h"
-
-#endif
-
-#ifndef SYMBOLTABLE
-#define SYMBOLTABLE
-static const int bufferSize = 255;
-
 #include "../SymbolTable/SymbolTable.h"
 
-#endif
+#ifndef SCANNER_H
+#define SCANNER_H
+static const int bufferSize = 255;
 
 class Scanner {
 
@@ -66,3 +42,5 @@ private:
 
     void checkInComment(const SymbolType &symbol);
 };
+
+#endif

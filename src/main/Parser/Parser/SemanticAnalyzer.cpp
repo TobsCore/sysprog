@@ -17,7 +17,7 @@ SemanticAnalyzer::~SemanticAnalyzer() {
     //NOP
 }
 
-Node *SemanticAnalyzer::typeCheck(ParseTree *tree) {
+Node *SemanticAnalyzer::run(ParseTree *tree) {
     return typeCheckProg(tree->getTree());
 }
 

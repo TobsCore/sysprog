@@ -25,7 +25,7 @@ Grammar::~Grammar() {
  * die rekursive Methode benutzt. Je nach RuleTyp, dass
  * im Node gespeichert wurde. Werden die Kindblätter daraufhin
  * überprüft, ob sie auch die entsprechenden RuleTypen
- * haben. Zur Überprüfung der Kindblätter wird typeCheck
+ * haben. Zur Überprüfung der Kindblätter wird run
  * wieder aufgerufen. Gibt es da ein Fehler, dann wird dem
  * Node_Type in ERROR_TYPE überschrieben.
  *
@@ -52,7 +52,7 @@ void Grammar::typeCheck(Node *node) {
         case DECL:
             if (node->getType() != NO_TYPE) {
                 node->setType(ERROR_TYPE);
-                throw GrammarException(std::string("Error in method") + " typeCheck() - case DECL");
+                throw GrammarException(std::string("Error in method") + " run() - case DECL");
             } else {
                 if (this->array() != nullptr) {
                     this->typeCheck(this->array());
@@ -68,7 +68,7 @@ void Grammar::typeCheck(Node *node) {
                 node->setType(INT_ARRAY_TYPE);
             } else {
                 node->setType(ERROR_TYPE);
-                throw GrammarException(std::string("Error in method") + " typeCheck() - case ARRAY");
+                throw GrammarException(std::string("Error in method") + " run() - case ARRAY");
             }
             break;
 
@@ -88,7 +88,7 @@ void Grammar::typeCheck(Node *node) {
             this->typeCheck(this->index());
             if (node->getType() == NO_TYPE) {
                 node->setType(ERROR_TYPE);
-                throw GrammarException(std::string("Error in method") + " typeCheck() - case STATEMENT_IDENTIFIER");
+                throw GrammarException(std::string("Error in method") + " run() - case STATEMENT_IDENTIFIER");
             } else {
                 if (!(this->exp()->getType() == INT_TYPE
                       && ((node->getType() == INT_TYPE
@@ -97,7 +97,7 @@ void Grammar::typeCheck(Node *node) {
                               && this->index()->getType() == INT_ARRAY_TYPE)))) {
 
                     node->setType(ERROR_TYPE);
-                    throw GrammarException(std::string("Error in method") + " typeCheck() - case STATEMENT_IDENTIFIER");
+                    throw GrammarException(std::string("Error in method") + " run() - case STATEMENT_IDENTIFIER");
                 }
             }
             break;
@@ -110,14 +110,14 @@ void Grammar::typeCheck(Node *node) {
             this->typeCheck(this->index());
             if (node->getType() == NO_TYPE) {
                 node->setType(ERROR_TYPE);
-                throw GrammarException(std::string("Error in method") + " typeCheck() - case STATEMENT_READ");
+                throw GrammarException(std::string("Error in method") + " run() - case STATEMENT_READ");
             } else {
                 if (!((node->getType() == INT_TYPE
                        && this->index()->getType() == NO_TYPE)
                       || (node->getType() == INT_ARRAY_TYPE
                           && this->index()->getType() == INT_ARRAY_TYPE))) {
                     node->setType(ERROR_TYPE);
-                    throw GrammarException(std::string("Error in method") + " typeCheck - case STATEMENT_READ");
+                    throw GrammarException(std::string("Error in method") + " run - case STATEMENT_READ");
                 }
             }
             break;
@@ -144,7 +144,7 @@ void Grammar::typeCheck(Node *node) {
                 node->setType(this->exp2()->getType());
             } else if (this->op()->getType() != this->exp2()->getType()) {
                 node->setType(ERROR_TYPE);
-                throw GrammarException(std::string("Error in method") + " typeCheck() - case EXP");
+                throw GrammarException(std::string("Error in method") + " run() - case EXP");
             } else {
                 node->setType(this->exp2()->getType());
             }
@@ -164,7 +164,7 @@ void Grammar::typeCheck(Node *node) {
             this->typeCheck(this->index());
             if (node->getType() == NO_TYPE) {
                 node->setType(ERROR_TYPE);
-                throw GrammarException(std::string("Error in method") + " typeCheck() - case EXP2_IDENTIFIER");
+                throw GrammarException(std::string("Error in method") + " run() - case EXP2_IDENTIFIER");
             } else if (node->getType() == INT_TYPE
                        && this->index()->getType() == NO_TYPE) {
                 node->setType(node->getType());
@@ -173,7 +173,7 @@ void Grammar::typeCheck(Node *node) {
                 node->setType(INT_TYPE);
             } else {
                 node->setType(ERROR_TYPE);
-                throw GrammarException(std::string("Error in method") + " typeCheck() - case EXP2_IDENTIFIER");
+                throw GrammarException(std::string("Error in method") + " run() - case EXP2_IDENTIFIER");
             }
             break;
 
@@ -191,7 +191,7 @@ void Grammar::typeCheck(Node *node) {
             this->typeCheck(this->exp2());
             if (this->exp2()->getType() != INT_TYPE) {
                 node->setType(ERROR_TYPE);
-                throw GrammarException(std::string("Error in method") + " typeCheck() - case EXP2_NEGATION");
+                throw GrammarException(std::string("Error in method") + " run() - case EXP2_NEGATION");
             } else {
                 node->setType(INT_TYPE);
             }
@@ -251,7 +251,7 @@ void Grammar::typeCheck(Node *node) {
 
         case RULE_NOT_SET:
             node->setType(ERROR_TYPE);
-            throw GrammarException(std::string("Error in method") + " typeCheck() - case RULE_NOT_SET");
+            throw GrammarException(std::string("Error in method") + " run() - case RULE_NOT_SET");
 
         default:
             break;

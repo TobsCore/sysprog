@@ -33,9 +33,9 @@ TEST(ParserTest, CheckSimplestWithGrammar) {
     ParseTree *parseTree = parser->parse();
 
 //     Grammar *grammar = new Grammar();
-//     ASSERT_NO_THROW(grammar->typeCheck(parseTree->getTree()));
+//     ASSERT_NO_THROW(grammar->run(parseTree->getTree()));
     SemanticAnalyzer *analyzer = new SemanticAnalyzer();
-    analyzer->typeCheck(parseTree);
+    analyzer->run(parseTree);
 
     CodeGenerator *codeGenerator = new CodeGenerator("out.code");
     codeGenerator->run(parseTree);
