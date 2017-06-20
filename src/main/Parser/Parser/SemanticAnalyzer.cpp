@@ -1,6 +1,7 @@
 //
 // Created by Tobias Kerst on 19.06.17.
 //
+//TODO(Toby): Rename methods according to other conventions
 
 #include "SemanticAnalyzer.h"
 #include "../../colors.h"
@@ -58,7 +59,7 @@ void SemanticAnalyzer::typeCheckDecl(Node *node) {
     analyze(array);
 
     if (identifier->getType() != NO_TYPE) {
-        printError("identifier already defined!", identifier);
+        printError("Identifier is already defined!", identifier);
         node->setType(ERROR_TYPE);
 
     } else if (array->getType() == ERROR_TYPE) {
@@ -83,7 +84,7 @@ void SemanticAnalyzer::typeCheckArray(Node *node) {
                                                                  0) {
         node->setType(ARRAY_TYPE);
     } else {
-        printError("no valid integer", 0L);
+        printError("No valid integer", 0L);
         node->setType(ERROR_TYPE);
     }
 }
@@ -123,7 +124,7 @@ void SemanticAnalyzer::typeCheckStatement(Node *node) {
     analyze(index);
 
     if (identifier->getType() == NO_TYPE) {
-        printError("identifier not defined", identifier);
+        printError("Identifier not defined", identifier);
         node->setType(ERROR_TYPE);
 
     } else if (exp->getType() == INT_TYPE && (
@@ -132,7 +133,7 @@ void SemanticAnalyzer::typeCheckStatement(Node *node) {
         node->setType(NO_TYPE);
 
     } else {
-        printError("incompatible types", identifier);
+        printError("Incompatible types", identifier);
         node->setType(ERROR_TYPE);
     }
 }
@@ -152,7 +153,7 @@ void SemanticAnalyzer::typeCheckStatement_3(Node *node) {
     analyze(index);
 
     if (identifier->getType() == NO_TYPE) {
-        printError("identifier not defined", identifier);
+        printError("Identifier not defined", identifier);
         node->setType(ERROR_TYPE);
 
     } else if (((identifier->getType() == INT_TYPE) && (index->getType() == NO_TYPE))
@@ -160,7 +161,7 @@ void SemanticAnalyzer::typeCheckStatement_3(Node *node) {
         node->setType(NO_TYPE);
 
     } else {
-        printError("incompatible types in statement_3", identifier);
+        printError("Incompatible types in statement_3", identifier);
         node->setType(ERROR_TYPE);
     }
 }
@@ -238,7 +239,7 @@ void SemanticAnalyzer::typeCheckExp2_2(Node *node) {
     analyze(index);
 
     if (identifier->getType() == NO_TYPE) {
-        printError("identifier not defined", identifier);
+        printError("Identifier not defined", identifier);
         node->setType(ERROR_TYPE);
     } else if (identifier->getType() == INT_TYPE
                && index->getType() == NO_TYPE) {
@@ -247,7 +248,7 @@ void SemanticAnalyzer::typeCheckExp2_2(Node *node) {
                && index->getType() == ARRAY_TYPE) {
         node->setType(INT_TYPE);
     } else {
-        printError("no primitive Type", 0L);
+        printError("No primitive Type", 0L);
         node->setType(ERROR_TYPE);
     }
 }
