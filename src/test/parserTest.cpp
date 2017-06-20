@@ -35,8 +35,19 @@ TEST(ParserTest, CheckSimplestWithGrammar) {
 //     Grammar *grammar = new Grammar();
 //     ASSERT_NO_THROW(grammar->run(parseTree->getTree()));
     SemanticAnalyzer *analyzer = new SemanticAnalyzer();
-    analyzer->run(parseTree);
+    ASSERT_NO_THROW(analyzer->run(parseTree));
 
     CodeGenerator *codeGenerator = new CodeGenerator("out.code");
-    codeGenerator->run(parseTree);
+    ASSERT_NO_THROW(codeGenerator->run(parseTree));
+}
+
+TEST(ParserTest, DISABLED_SimplestAddition) {
+    Parser *parser = new Parser("../src/test/testData/programs/simplestAddition.txt", "testout.txt");
+    ParseTree *parseTree = parser->parse();
+
+    SemanticAnalyzer *analyzer = new SemanticAnalyzer();
+    ASSERT_NO_THROW(analyzer->run(parseTree));
+
+    CodeGenerator *codeGenerator = new CodeGenerator("out.code");
+    ASSERT_NO_THROW(codeGenerator->run(parseTree));
 }
