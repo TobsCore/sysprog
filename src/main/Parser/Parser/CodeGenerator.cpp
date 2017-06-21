@@ -14,7 +14,6 @@ CodeGenerator::CodeGenerator(const char* out) {
 }
 
 CodeGenerator::~CodeGenerator(){
-    // TODO Auto-generated destructor stub
 }
 
 void CodeGenerator::run(ParseTree* parseTree) {
@@ -72,8 +71,7 @@ void CodeGenerator::makeCode(Node* node) {
             makeCodeExp2(node);
             break;
         case EXP2_INBRACKETS:
-            //makeCodeExp2InBrackets(node);
-            // TODO(Toby): Methode noch implementieren.
+            makeCodeExp2InBrackets(node);
             break;
         case EXP2_IDENTIFIER:
             makeCodeExp2Identifier(node);
@@ -315,6 +313,11 @@ void CodeGenerator::makeCodeExp2(Node* node) {
     if (exp != 0l) {
         makeCode(exp);
 	}
+}
+
+void CodeGenerator::makeCodeExp2InBrackets(Node *node) {
+    Node* exp = node->getChild(0);
+    makeCode(exp);
 }
 
 void CodeGenerator::makeCodeExp2Identifier(Node *node) {

@@ -85,7 +85,7 @@ Node *Parser::array() {
 
         match(BRACKET_LEFT);
         if (currentToken->getType() == INTEGER) {
-            node->addChild(createLeaf()); //ToDo: create leaf
+            node->addChild(createLeaf());
             node->setRuleType(ARRAY);
             nextToken();
         } else {

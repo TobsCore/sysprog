@@ -81,7 +81,6 @@ TEST(NewTokenTypeTest, SomeTokens) {
     delete token;
 }
 
-// TODO: Patty, du kannst diese Tests hier nutzen um den Automaten anzupassen.
 TEST(NewTokenTypeTest, LowerCaseWhile) {
     Automat *testAutomat = new Automat();
     // while

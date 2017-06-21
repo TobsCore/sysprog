@@ -49,6 +49,7 @@ class CodeGenerator {
         void makeCodeStatementWhile(Node *root);
         void makeCodeExp(Node* root);
         void makeCodeExp2(Node* root);
+        void makeCodeExp2InBrackets(Node* root);
         void makeCodeExp2Identifier(Node *root);
         void makeCodeExp2Integer(Node *root);
         void makeCodeExp2Minus(Node *root);

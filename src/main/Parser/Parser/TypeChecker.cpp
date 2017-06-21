@@ -1,7 +1,6 @@
 //
 // Created by Tobias Kerst on 19.06.17.
 //
-//TODO(Toby): Rename methods according to other conventions
 
 #include "TypeChecker.h"
 #include "../../colors.h"
