@@ -75,6 +75,8 @@ inline const char *toString(RuleType type) {
             return "STATEMENT_WHILE";
         case EXP:
             return "EXP";
+        case EXP2:
+            return "EXP2";
         case EXP2_INBRACKETS:
             return "EXP2_INBRACKETS";
         case EXP2_IDENTIFIER:

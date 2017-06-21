@@ -47,7 +47,7 @@ void SemanticAnalyzer::typeCheckDecls(Node *node) {
 }
 
 //DECLS ::= e
-void SemanticAnalyzer::typeCheckDecls_2(Node *node) {
+void SemanticAnalyzer::typeCheckDecls_Empty(Node *node) {
     node->setType(NO_TYPE);
 }
 
@@ -90,7 +90,7 @@ void SemanticAnalyzer::typeCheckArray(Node *node) {
 }
 
 //ARRAY ::= e
-void SemanticAnalyzer::typeCheckArray_2(Node *node) {
+void SemanticAnalyzer::typeCheckArray_Empty(Node *node) {
     node->setType(NO_TYPE);
 }
 
@@ -109,12 +109,12 @@ void SemanticAnalyzer::typeCheckStatements(Node *node) {
 }
 
 //STATEMENTS ::= e
-void SemanticAnalyzer::typeCheckStatements_2(Node *node) {
+void SemanticAnalyzer::typeCheckStatements_Empty(Node *node) {
     node->setType(NO_TYPE);
 }
 
 //STATEMENT ::= identifier INDEX := EXP
-void SemanticAnalyzer::typeCheckStatement(Node *node) {
+void SemanticAnalyzer::typeCheckStatement_Identifier(Node *node) {
 
     Node *exp = node->getChild(2);
     Node *index = node->getChild(1);
@@ -139,14 +139,14 @@ void SemanticAnalyzer::typeCheckStatement(Node *node) {
 }
 
 //STATEMENT ::= write( EXP )
-void SemanticAnalyzer::typeCheckStatement_2(Node *node) {
+void SemanticAnalyzer::typeCheckStatement_Write(Node *node) {
     Node *exp = node->getChild(0);
     analyze(exp);
     node->setType(NO_TYPE);
 }
 
 //STATEMENT ::= read( identifier INDEX)
-void SemanticAnalyzer::typeCheckStatement_3(Node *node) {
+void SemanticAnalyzer::typeCheckStatement_Read(Node *node) {
     Node *identifier = node->getChild(0);
     Node *index = node->getChild(1);
 
@@ -167,14 +167,14 @@ void SemanticAnalyzer::typeCheckStatement_3(Node *node) {
 }
 
 //STATEMENT ::= { STATEMENTS }
-void SemanticAnalyzer::typeCheckStatement_4(Node *node) {
+void SemanticAnalyzer::typeCheckStatement_Block(Node *node) {
     Node *statements = node->getChild(0);
     analyze(statements);
     node->setType(NO_TYPE);
 }
 
 //STATEMENT ::= if ( EXP ) STATEMENT else STATEMENT
-void SemanticAnalyzer::typeCheckStatement_5(Node *node) {
+void SemanticAnalyzer::typeCheckStatement_If(Node *node) {
     Node *exp = node->getChild(0);
     Node *statement1 = node->getChild(1);
     Node *statement2 = node->getChild(2);
@@ -191,7 +191,7 @@ void SemanticAnalyzer::typeCheckStatement_5(Node *node) {
 }
 
 //STATEMENT ::= while ( EXP ) STATEMENT)
-void SemanticAnalyzer::typeCheckStatement_6(Node *node) {
+void SemanticAnalyzer::typeCheckStatement_While(Node *node) {
     Node *exp = node->getChild(0);
     Node *statement = node->getChild(1);
 
@@ -292,7 +292,7 @@ void SemanticAnalyzer::typeCheckIndex(Node *node) {
 }
 
 //INDEX ::= e
-void SemanticAnalyzer::typeCheckIndex_2(Node *node) {
+void SemanticAnalyzer::typeCheckIndex_Empty(Node *node) {
     node->setType(NO_TYPE);
 }
 
@@ -308,44 +308,44 @@ void SemanticAnalyzer::typeCheckOp_Exp(Node *node) {
 }
 
 //OP_EXP ::= e
-void SemanticAnalyzer::typeCheckOp_Exp_2(Node *node) {
+void SemanticAnalyzer::typeCheckOp_Exp_Empty(Node *node) {
     node->setType(NO_TYPE);
 }
 
-void SemanticAnalyzer::typeCheckOp(Node *node) {
+void SemanticAnalyzer::typeCheckOp_Plus(Node *node) {
     node->setType(OP_PLUS_TYPE);
 }
 
 
-void SemanticAnalyzer::typeCheckOp_2(Node *node) {
+void SemanticAnalyzer::typeCheckOp_Minus(Node *node) {
     node->setType(OP_MINUS_TYPE);
 }
 
-void SemanticAnalyzer::typeCheckOp_3(Node *node) {
+void SemanticAnalyzer::typeCheckOp_Mul(Node *node) {
     node->setType(OP_MULT_TYPE);
 }
 
-void SemanticAnalyzer::typeCheckOp_4(Node *node) {
+void SemanticAnalyzer::typeCheckOp_Div(Node *node) {
     node->setType(OP_DIV_TYPE);
 }
 
-void SemanticAnalyzer::typeCheckOp_5(Node *node) {
+void SemanticAnalyzer::typeCheckOp_Less(Node *node) {
     node->setType(OP_LESS_TYPE);
 }
 
-void SemanticAnalyzer::typeCheckOp_6(Node *node) {
+void SemanticAnalyzer::typeCheckOp_Greater(Node *node) {
     node->setType(OP_GREATER_TYPE);
 }
 
-void SemanticAnalyzer::typeCheckOp_7(Node *node) {
+void SemanticAnalyzer::typeCheckOp_Equal(Node *node) {
     node->setType(OP_EQUAL_TYPE);
 }
 
-void SemanticAnalyzer::typeCheckOp_8(Node *node) {
+void SemanticAnalyzer::typeCheckOp_Special(Node *node) {
     node->setType(OP_UN_EQUAL_TYPE);
 }
 
-void SemanticAnalyzer::typeCheckOp_9(Node *node) {
+void SemanticAnalyzer::typeCheckOp_And(Node *node) {
     node->setType(OP_AND_TYPE);
 }
 
@@ -368,7 +368,7 @@ void SemanticAnalyzer::analyze(Node *node) {
             typeCheckDecls(node);
             break;
         case DECLS_EMPTY:
-            typeCheckDecls_2(node);
+            typeCheckDecls_Empty(node);
             break;
         case DECL:
             typeCheckDecl(node);
@@ -377,31 +377,31 @@ void SemanticAnalyzer::analyze(Node *node) {
             typeCheckArray(node);
             break;
         case ARRAY_EMPTY:
-            typeCheckArray_2(node);
+            typeCheckArray_Empty(node);
             break;
         case STATEMENTS:
             typeCheckStatements(node);
             break;
         case STATEMENTS_EMPTY:
-            typeCheckStatements_2(node);
+            typeCheckStatements_Empty(node);
             break;
         case STATEMENT_IDENTIFIER:
-            typeCheckStatement(node);
+            typeCheckStatement_Identifier(node);
             break;
         case STATEMENT_WRITE:
-            typeCheckStatement_2(node);
+            typeCheckStatement_Write(node);
             break;
         case STATEMENT_READ:
-            typeCheckStatement_3(node);
+            typeCheckStatement_Read(node);
             break;
         case STATEMENT_BLOCK:
-            typeCheckStatement_4(node);
+            typeCheckStatement_Block(node);
             break;
         case STATEMENT_IF:
-            typeCheckStatement_5(node);
+            typeCheckStatement_If(node);
             break;
         case STATEMENT_WHILE:
-            typeCheckStatement_6(node);
+            typeCheckStatement_While(node);
             break;
         case EXP:
             typeCheckExp(node);
@@ -425,40 +425,40 @@ void SemanticAnalyzer::analyze(Node *node) {
             typeCheckIndex(node);
             break;
         case INDEX_EMPTY:
-            typeCheckIndex_2(node);
+            typeCheckIndex_Empty(node);
             break;
         case OP_EXP:
             typeCheckOp_Exp(node);
             break;
         case OP_EXP_EMPTY:
-            typeCheckOp_Exp_2(node);
+            typeCheckOp_Exp_Empty(node);
             break;
         case OP_PLUS:
-            typeCheckOp(node);
+            typeCheckOp_Plus(node);
             break;
         case OP_MINUS:
-            typeCheckOp_2(node);
+            typeCheckOp_Minus(node);
             break;
         case OP_MUL:
-            typeCheckOp_3(node);
+            typeCheckOp_Mul(node);
             break;
         case OP_DIV:
-            typeCheckOp_4(node);
+            typeCheckOp_Div(node);
             break;
         case OP_LESS:
-            typeCheckOp_5(node);
+            typeCheckOp_Less(node);
             break;
         case OP_GREATER:
-            typeCheckOp_6(node);
+            typeCheckOp_Greater(node);
             break;
         case OP_EQUAL:
-            typeCheckOp_7(node);
+            typeCheckOp_Equal(node);
             break;
         case OP_SPECIAL:
-            typeCheckOp_8(node);
+            typeCheckOp_Special(node);
             break;
         case OP_AND:
-            typeCheckOp_9(node);
+            typeCheckOp_And(node);
             break;
         default:
             cerr << "node is empty" << endl;
