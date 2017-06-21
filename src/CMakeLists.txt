@@ -61,8 +61,6 @@ set(PARSER_SOURCE
         main/Parser/Parser/ParseTree.h
         main/Parser/Parser/CodeGenerator.h
         main/Parser/Parser/CodeGenerator.cpp
-        main/Parser/Parser/Grammar.h
-        main/Parser/Parser/Grammar.cpp
         main/Parser/Parser/TypeChecker.cpp
         main/Parser/Parser/TypeChecker.h)
 

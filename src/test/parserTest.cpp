@@ -32,8 +32,6 @@ TEST(ParserTest, CheckSimplestWithGrammar) {
     Parser *parser = new Parser("../src/test/testData/programs/simplestProgram.txt", "testout.txt");
     ParseTree *parseTree = parser->parse();
 
-//     Grammar *grammar = new Grammar();
-//     ASSERT_NO_THROW(grammar->run(parseTree->getTree()));
     TypeChecker *analyzer = new TypeChecker();
     ASSERT_NO_THROW(analyzer->run(parseTree));
 
