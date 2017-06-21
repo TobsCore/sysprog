@@ -39,11 +39,11 @@ public:
     void typeCheckStatement_If(Node *root);
     void typeCheckStatement_While(Node *root);
     void typeCheckExp(Node* root);
-    void typeCheckExp2(Node* root);
-    void typeCheckExp2_2(Node* root);
-    void typeCheckExp2_3(Node* root);
-    void typeCheckExp2_4(Node* root);
-    void typeCheckExp2_5(Node* root);
+    void typeCheckExp_InBrackets(Node *root);
+    void typeCheckExp2_Identifier(Node *root);
+    void typeCheckExp2_Integer(Node *root);
+    void typeCheckExp2_Minus(Node *root);
+    void typeCheckExp2_Negation(Node *root);
     void typeCheckIndex(Node* root);
     void typeCheckIndex_Empty(Node *root);
     void typeCheckOp_Exp(Node* root);

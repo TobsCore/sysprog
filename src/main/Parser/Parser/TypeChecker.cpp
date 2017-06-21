@@ -225,14 +225,14 @@ void TypeChecker::typeCheckExp(Node *node) {
 }
 
 //INDEX ::= [ EXP ]
-void TypeChecker::typeCheckExp2(Node *node) {
+void TypeChecker::typeCheckExp_InBrackets(Node *node) {
     Node *exp = node->getChild(0);
     analyze(exp);
     node->setType(exp->getType());
 }
 
 //EXP2 ::= identifier INDEX
-void TypeChecker::typeCheckExp2_2(Node *node) {
+void TypeChecker::typeCheckExp2_Identifier(Node *node) {
     Node *identifier = node->getChild(0);
     Node *index = node->getChild(1);
 
@@ -254,19 +254,19 @@ void TypeChecker::typeCheckExp2_2(Node *node) {
 }
 
 //EXP2 ::= integer
-void TypeChecker::typeCheckExp2_3(Node *node) {
+void TypeChecker::typeCheckExp2_Integer(Node *node) {
     node->setType(INT_TYPE);
 }
 
 //EXP2 ::= - EXP2
-void TypeChecker::typeCheckExp2_4(Node *node) {
+void TypeChecker::typeCheckExp2_Minus(Node *node) {
     Node *exp2 = node->getChild(0);
     analyze(exp2);
     node->setType(exp2->getType());
 }
 
 //EXP2 ::= ! EXP2
-void TypeChecker::typeCheckExp2_5(Node *node) {
+void TypeChecker::typeCheckExp2_Negation(Node *node) {
     Node *exp2 = node->getChild(0);
 
     analyze(exp2);
@@ -407,19 +407,19 @@ void TypeChecker::analyze(Node *node) {
             typeCheckExp(node);
             break;
         case EXP2:
-            typeCheckExp2(node);
+            typeCheckExp_InBrackets(node);
             break;
         case EXP2_INBRACKETS:
-            typeCheckExp2_2(node);
+            typeCheckExp2_Identifier(node);
             break;
         case EXP2_IDENTIFIER:
-            typeCheckExp2_3(node);
+            typeCheckExp2_Integer(node);
             break;
         case EXP2_INTEGER:
-            typeCheckExp2_4(node);
+            typeCheckExp2_Minus(node);
             break;
         case EXP2_MINUS:
-            typeCheckExp2_5(node);
+            typeCheckExp2_Negation(node);
             break;
         case INDEX:
             typeCheckIndex(node);
