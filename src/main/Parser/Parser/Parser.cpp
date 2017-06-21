@@ -9,7 +9,7 @@ Parser::Parser(const char *inputFilePath, const char *outputFilePath) {
     currentToken = 0L;
     lastToken = 0L;
     scanner = new Scanner(inputFilePath);
-    semanticAnalyser = new SemanticAnalyzer();
+    semanticAnalyser = new TypeChecker();
     codeGenerator = new CodeGenerator(outputFilePath);
 }
 
@@ -310,10 +310,6 @@ Node *Parser::createLeaf() {
 
 ParseTree *Parser::parse() {
     parseTree = this->prog();
-
-    //Node* typedTree = semanticAnalyzer->run(parseTree);
-
-    //codeGenerator->runCodeGenerator(typedTree);
 
     return parseTree;
 }

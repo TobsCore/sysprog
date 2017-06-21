@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include "../main/Parser/Parser/Parser.h"
-#include "../main/Parser/Parser/SemanticAnalyzer.h"
+#include "../main/Parser/Parser/TypeChecker.h"
 
 
 TEST(ParserTest, ReadSimpleIntFile) {
@@ -34,7 +34,7 @@ TEST(ParserTest, CheckSimplestWithGrammar) {
 
 //     Grammar *grammar = new Grammar();
 //     ASSERT_NO_THROW(grammar->run(parseTree->getTree()));
-    SemanticAnalyzer *analyzer = new SemanticAnalyzer();
+    TypeChecker *analyzer = new TypeChecker();
     ASSERT_NO_THROW(analyzer->run(parseTree));
 
     CodeGenerator *codeGenerator = new CodeGenerator("out.code");
@@ -45,7 +45,7 @@ TEST(ParserTest, DISABLED_SimplestAddition) {
     Parser *parser = new Parser("../src/test/testData/programs/simplestAddition.txt", "testout.txt");
     ParseTree *parseTree = parser->parse();
 
-    SemanticAnalyzer *analyzer = new SemanticAnalyzer();
+    TypeChecker *analyzer = new TypeChecker();
     ASSERT_NO_THROW(analyzer->run(parseTree));
 
     CodeGenerator *codeGenerator = new CodeGenerator("out.code");

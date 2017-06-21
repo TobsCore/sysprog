@@ -62,8 +62,8 @@ set(PARSER_SOURCE
         src/main/Parser/Parser/Grammar.h
         src/main/Parser/Parser/Grammar.cpp
         src/main/Parser/Exceptions/GrammarException.h
-        src/main/Parser/Parser/SemanticAnalyzer.cpp
-        src/main/Parser/Parser/SemanticAnalyzer.h
+        src/main/Parser/Parser/TypeChecker.cpp
+        src/main/Parser/Parser/TypeChecker.h
         src/main/Parser/Exceptions/GrammarException.h
         src/main/Parser/Exceptions/CodeGenerationException.h)
 

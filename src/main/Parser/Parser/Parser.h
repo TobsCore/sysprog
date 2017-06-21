@@ -16,7 +16,7 @@
 #include "CodeGenerator.h"
 #endif
 #include "../../Scanner/Scanner/Scanner.h"
-#include "SemanticAnalyzer.h"
+#include "TypeChecker.h"
 
 class Parser {
 public:
@@ -33,7 +33,7 @@ private:
 
     Scanner* scanner;
     ParseTree* parseTree;
-    SemanticAnalyzer* semanticAnalyser;
+    TypeChecker* semanticAnalyser;
     CodeGenerator* codeGenerator;
 
     //Function for every non-terminal

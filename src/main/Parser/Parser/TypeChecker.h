@@ -15,12 +15,12 @@
 using namespace std;
 
 
-class SemanticAnalyzer {
+class TypeChecker {
 private:
 
 public:
-    SemanticAnalyzer();
-    virtual ~SemanticAnalyzer();
+    TypeChecker();
+    virtual ~TypeChecker();
 
     Node* run(ParseTree *tree);
     void analyze(Node *root);
