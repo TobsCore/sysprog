@@ -1,5 +1,5 @@
 #include "SemanticAnalyser.h"
-#include "../constants.h"
+#include "../../colors.h"
 #include <iostream>
 #include <stdlib.h>
 
@@ -75,7 +75,7 @@ void SemanticAnalyser::typeCheckDecl(Node *node) {
 void SemanticAnalyser::typeCheckArray(Node* node) {
     Node* integer = node->getChildren(0);
 
-    if(integer->getTokenType() == INTEGER && integer->getIntegerValue() > 0) {
+    if(integer->getSymbolType() == INTEGER && integer->getIntegerValue() > 0) {
         node->setNodeType(ARRAY_TYPE);
     } else {
         printError("no valid integer", 0L);
@@ -346,12 +346,12 @@ void SemanticAnalyser::typeCheckOp_9(Node* node) {
 void SemanticAnalyser::printError(string msg, Node* node = 0L) {
     if(node != 0L) {
         Token* token = node->getToken();
-        cerr << COL_RED << "Semantic ERROR: "<< msg << " in line: "
-             << token->getLine() << " column: " << token->getColumn() << COL_RST << endl;
+        cerr << RED << "Semantic ERROR: "<< msg << " in line: "
+             << token->getRow() << " column: " << token->getCol() << COLOR_RESET << endl;
     } else {
-        cerr << COL_RED << "Semantic ERROR: "<< msg << COL_RST << endl;
+        cerr << RED << "Semantic ERROR: "<< msg << COLOR_RESET << endl;
     }
-    exit(EXIT_PARSER_SEMANTIC_ERR);
+    exit(1);
 }
 
 void SemanticAnalyser::analyze(Node* node) {

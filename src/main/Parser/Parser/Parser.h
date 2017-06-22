@@ -3,7 +3,6 @@
 
 #include "ParseTree.h"
 #include "Node.h"
-#include "../scanner/Token.h"
 #include "../../Scanner/Scanner/Scanner.h"
 
 class Parser {
@@ -13,7 +12,7 @@ public:
 
 private:
     Token* currentToken;
-    TokenType before;
+    SymbolType before;
 
     ParseTree* parseTree;
     Scanner* scanner;
@@ -35,11 +34,11 @@ private:
     Node* createLeaf();
     Node* createEpsilonNode();
 
-    void match(TokenType tokenType);
+    void match(SymbolType tokenType);
     void nextToken();
     void printError();
 
-    bool checkFollowSet(RuleType rule, TokenType type);
+    bool checkFollowSet(RuleType rule, SymbolType type);
 };
 
 #endif //SYSPROG_PARSER_H

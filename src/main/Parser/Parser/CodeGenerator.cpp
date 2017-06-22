@@ -1,4 +1,5 @@
 #include "CodeGenerator.h"
+#include "../../Scanner/Token/IdentifierToken.h"
 #include <iostream>
 #include <sstream>
 #include <iomanip>
@@ -54,7 +55,7 @@ void CodeGenerator::generateCodeDecl(Node *node) {
 	Node* array = node->getChildren(0);
 	Node* identifier = node->getChildren(1);
 
-	*outText << " DS " << "$" << identifier->getInformation()->getLexem();
+	*outText << " DS " << "$" << static_cast<IdentifierToken*>(identifier->getToken())->getLexem();
 
 	generateCode(array);
 }
@@ -94,7 +95,7 @@ void CodeGenerator::generateCodeStatement(Node *node) {
 	Node* identifier = node->getChildren(0);
 
 	generateCode(exp);
-	*outText << " LA " << "$" << identifier->getInformation()->getLexem();
+	*outText << " LA " << "$" << static_cast<IdentifierToken*>(identifier->getToken())->getLexem();
 	generateCode(index);
 	*outText << " STR ";
 }
@@ -114,7 +115,7 @@ void CodeGenerator::generateCodeStatement_3(Node* node) {
 
 
 	*outText << " REA ";
-	*outText << " LA " << "$" << identifier->getInformation()->getLexem();
+	*outText << " LA " << "$" << static_cast<IdentifierToken*>(identifier->getToken())->getLexem();
 
 	generateCode(index);
 
@@ -205,7 +206,7 @@ void CodeGenerator::generateCodeExp2_2(Node* node) {
 	Node* identifier = node->getChildren(0);
 	Node* index = node->getChildren(1);
 
-	*outText << " LA " << "$" << identifier->getInformation()->getLexem() ;
+	*outText << " LA " << "$" << static_cast<IdentifierToken*>(identifier->getToken())->getLexem() ;
 
 	generateCode(index);
 

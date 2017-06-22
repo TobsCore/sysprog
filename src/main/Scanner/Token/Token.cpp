@@ -24,7 +24,7 @@ bool Token::isEOF() {
 
 
 const char *Token::getTypeString() {
-    return EnumStrings[this->type + 2];
+    return ToString(this->type);
 }
 
 void Token::setPosition(Position *pos) {

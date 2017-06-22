@@ -1,12 +1,10 @@
 #include "Node.h"
-#include "../constants.h"
 #include <iostream>
 
 using namespace std;
 
 Node::Node() {
-    tokenType = NOT_SET;
-    information = 0L;
+    symbolType = NOT_SET;
     ruleType = RULE_NOT_SET;
     currentChildren = 0;
     leaf = 0L;
@@ -14,9 +12,8 @@ Node::Node() {
     token = 0L;
 }
 
-Node::Node(Information* info, Token* currentToken) {
-    tokenType = NOT_SET;
-    information = info;
+Node::Node(Token *currentToken) {
+    symbolType = NOT_SET;
     ruleType = RULE_NOT_SET;
     currentChildren = 0;
     leaf = 0L;
@@ -24,9 +21,8 @@ Node::Node(Information* info, Token* currentToken) {
     token = currentToken;
 }
 
-Node::Node(Information* info, long value, Token* currentToken) {
-    tokenType = NOT_SET;
-    information = info;
+Node::Node(long value, Token *currentToken) {
+    symbolType = NOT_SET;
     ruleType = RULE_NOT_SET;
     currentChildren = 0;
     leaf = 0L;
@@ -34,16 +30,16 @@ Node::Node(Information* info, long value, Token* currentToken) {
     token = currentToken;
 }
 
-Node::~Node() { }
+Node::~Node() {}
 
-void Node::addChildren(Node* child) {
-    if(child != 0L) {
+void Node::addChildren(Node *child) {
+    if (child != 0L) {
         //cout << "add Children " << currentChildren << endl;
         this->children[currentChildren++] = child;
     }
 }
 
-Node* Node::getChildren(int position) {
+Node *Node::getChildren(int position) {
     return children[position];
 }
 
@@ -57,30 +53,19 @@ RuleType Node::getRuleType() {
 }
 
 void Node::setNodeType(NodeType type) {
-    if(leaf) {
-        this->information->setNodeType(type);
-    } else {
-        this->nodeType = type;
-    }
+    this->nodeType = type;
 }
 
 NodeType Node::getNodeType() {
-    if(leaf) {
-        return this->information->getNodeType();
-    } else {
-        return this->nodeType;
-    }
+    return this->nodeType;
 }
 
-void Node::setTokenType(TokenType type) {
-    tokenType = type;
-}
 
-TokenType Node::getTokenType() {
-    if(isLeaf()){
-        return this->information->getTokenType();
+SymbolType Node::getSymbolType() {
+    if (isLeaf()) {
+        return this->token->getType();
     }
-    return tokenType;
+    return symbolType;
 }
 
 void Node::flagAsLeaf() {
@@ -95,10 +80,6 @@ bool Node::isLeaf() {
     return leaf;
 }
 
-Token* Node::getToken() {
+Token *Node::getToken() {
     return token;
-}
-
-Information* Node::getInformation() {
-    return information;
 }

@@ -1,18 +1,17 @@
 #ifndef SYSPROG_NODE_H
 #define SYSPROG_NODE_H
 
-#include "../automat/TokenType.h"
 #include "RuleType.h"
 #include "NodeType.h"
-#include "../scanner/Token.h"
+#include "../../Scanner/Token/Token.h"
 
 class Information;
 
 class Node {
 public:
     Node();
-    Node(Information* information,Token* currentToken);
-    Node(Information* info, long value, Token* currentToken);
+    Node(Token* currentToken);
+    Node(long value, Token* currentToken);
 
     virtual ~Node();
 
@@ -21,8 +20,8 @@ public:
     void setNodeType(NodeType type);
     NodeType getNodeType();
 
-    void setTokenType(TokenType type);
-    TokenType getTokenType();
+    void setSymbolType(SymbolType type);
+    SymbolType getSymbolType();
 
     void setRuleType(RuleType ruleType);
     RuleType getRuleType();
@@ -31,18 +30,14 @@ public:
     Node* getChildren(int position);
 
     long getIntegerValue();
-
-    Information* getInformation();
-
     Token* getToken();
 
     void flagAsLeaf();
     bool isLeaf();
 
 private:
-    Information* information;
     RuleType ruleType;
-    TokenType tokenType;
+    SymbolType symbolType;
     NodeType nodeType;
     Node* children[30];
     bool leaf;

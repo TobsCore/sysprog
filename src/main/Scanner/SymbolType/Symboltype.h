@@ -1,8 +1,12 @@
 #ifndef SYMBOLTYPE
 #define SYMBOLTYPE
 
+#include <exception>
+#include <stdexcept>
+
 enum SymbolType {
 
+    NOT_SET = -2,
     ERROR = -1,             // If error occurs
     NEXTCHAR = 0,           // Expects the next char
     INTEGER = 1,            // Integer
@@ -37,11 +41,80 @@ enum SymbolType {
     FILE_END = 50            // End of file
 };
 
-static const char *EnumStrings[] = {"EOF", "Error", "Nextchar", "Integer", "Identifier", "Plus", "Minus", "Colon",
-                                    "Star", "Less", "Greater", "Equals",
-                                    "Exclamation", "And", "Semicolon", "Parenthesis (open)", "Parenthesis (close)",
-                                    "Brace (open)", "Brace (close)", "Bracket (open)", "Bracket (close)",
-                                    "Assign", "Special", "Comment", "Error Special", "In Comment", "If", "While", "Write", "Read", "Else", "int"}; //kp
+
+inline const char* ToString(SymbolType type) {
+    switch (type) {
+        case NOT_SET:
+            return "Not Set";
+        case ERROR:
+            return "Error";
+        case NEXTCHAR:
+            return "Nextchar";
+        case INTEGER:
+            return "Integer";
+        case IDENTIFIER:
+            return "Identifier";
+        case PLUS:
+            return "Plus";
+        case MINUS:
+            return "Minus";
+        case COLON:
+            return "Colon";
+        case STAR:
+            return "Star";
+        case LESS:
+            return "Less";
+        case GREATER:
+            return "Greater";
+        case EQUALS:
+            return "Equals";
+        case EXCLAMATION:
+            return "Exclamation";
+        case AND:
+            return "And";
+        case SEMICOLON:
+            return "Semicolon";
+        case PARANTHESES_LEFT:
+            return "Parens left";
+        case PARANTHESES_RIGHT:
+            return "Parens right";
+        case BRACES_LEFT:
+            return "Braces left";
+        case BRACES_RIGHT:
+            return "Braces right";
+        case BRACKET_LEFT:
+            return "Brackets left";
+        case BRACKET_RIGHT:
+            return "Brackets right";
+        case ASSIGN:
+            return "Assign";
+        case SPECIAL:
+            return "Sprecial";
+        case COMMENT:
+            return "Comment";
+        case ERROR_SPECIAL:
+            return "Error in Special";
+        case IN_COMMENT:
+            return "In Comment";
+        case IFTOKEN:
+            return "If Token";
+        case WHILETOKEN:
+            return "While Token";
+        case READTOKEN:
+            return "Read Token";
+        case WRITETOKEN:
+            return "Write Token";
+        case ELSETOKEN:
+            return "Else Token";
+        case INTTOKEN:
+            return "Int Token";
+        case FILE_END:
+            return "File End";
+        default:
+            throw std::invalid_argument("Unknown Type");
+
+    }
+};
 
 #endif
 
