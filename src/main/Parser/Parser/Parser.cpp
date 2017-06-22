@@ -2,6 +2,7 @@
 #include "../../colors.h"
 #include "../../Scanner/Token/IntegerToken.h"
 #include "../../Scanner/Token/IdentifierToken.h"
+#include <limits.h>
 
 using namespace std;
 
