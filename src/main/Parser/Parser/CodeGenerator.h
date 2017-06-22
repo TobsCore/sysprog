@@ -7,7 +7,7 @@
 
 class CodeGenerator {
 public:
-    CodeGenerator(char* outfile);
+    CodeGenerator(const char* outfile);
     virtual ~CodeGenerator();
     void runCodeGenerator(Node* tree);
 

@@ -2,6 +2,7 @@
 #include "../colors.h"
 #include "../Scanner/Scanner/Scanner.h"
 #include "Parser/Parser.h"
+#include "Parser/Compiler.h"
 
 void clearOutputFile(const char* outFilename) {
     ofstream ofs;
@@ -23,20 +24,8 @@ int main(int argc, char **argv) {
     const char *inFilename = argv[1];
     const char *outFilename = argv[2];
     try {
-        Scanner *sc = new Scanner(inFilename);
-
-        // Clear output file
-        clearOutputFile(outFilename);
-
-        // Creates file appender for output file
-        ofstream result(outFilename, std::ios_base::app);
-
-        Parser *parser = new Parser(inFilename, outFilename);
-        parser->parse();
-        parser->typeCheck();
-        parser->makeCode();
-
-        result.close();
+        Compiler* compiler = new Compiler (inFilename, outFilename);
+        compiler->compile();
 
     } catch (std::exception &ex) {
         cerr << RED << "Error! " << COLOR_RESET << "Cannot read input file <" << inFilename << ">" << endl;

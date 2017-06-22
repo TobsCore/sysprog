@@ -6,7 +6,7 @@
 
 using namespace std;
 
-CodeGenerator::CodeGenerator(char* outfile) {
+CodeGenerator::CodeGenerator(const char* outfile) {
 	codeFile = new ofstream(outfile);
 	outText = new stringstream();
 	labelCounter = 0;

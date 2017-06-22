@@ -39,7 +39,7 @@ private:
     RuleType ruleType;
     SymbolType symbolType;
     NodeType nodeType;
-    Node* children[30];
+    Node* children[9];
     bool leaf;
     long integerValue;
 

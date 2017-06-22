@@ -5,7 +5,7 @@
 
 using namespace std;
 
-Compiler::Compiler (char* inputfile, char* outfile) {
+Compiler::Compiler (const char* inputfile, const char* outfile) {
 	scanner = new Scanner(inputfile);
 	parser = new Parser(scanner);
 	semanticAnalyser = new SemanticAnalyser();

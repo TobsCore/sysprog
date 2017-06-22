@@ -6,6 +6,7 @@ using namespace std;
 Node::Node() {
     symbolType = NOT_SET;
     ruleType = RULE_NOT_SET;
+    nodeType = NO_TYPE;
     currentChildren = 0;
     leaf = 0L;
     integerValue = 0L;
@@ -15,6 +16,7 @@ Node::Node() {
 Node::Node(Token *currentToken) {
     symbolType = NOT_SET;
     ruleType = RULE_NOT_SET;
+    nodeType = NO_TYPE;
     currentChildren = 0;
     leaf = 0L;
     integerValue = 0L;
@@ -24,6 +26,7 @@ Node::Node(Token *currentToken) {
 Node::Node(long value, Token *currentToken) {
     symbolType = NOT_SET;
     ruleType = RULE_NOT_SET;
+    nodeType = NO_TYPE;
     currentChildren = 0;
     leaf = 0L;
     integerValue = value;

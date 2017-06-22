@@ -7,7 +7,7 @@
 
 class Compiler {
 public:
-	Compiler (char* inputfile, char* outfile);
+	Compiler (const char* inputfile, const char* outfile);
 	~Compiler();
 	void compile();
 

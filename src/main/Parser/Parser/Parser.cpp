@@ -24,9 +24,6 @@ void Parser::nextToken() {
     if (currentToken->getType() == ERROR) {
         cerr << RED << "Error in Scanner" << COLOR_RESET << endl;
         exit(1);
-    } else if (currentToken->getType() == ERROR) {
-        cerr << RED << "Error in Scanner - invalid char!" << COLOR_RESET << endl;
-        exit(1);
     }
 }
 
@@ -143,7 +140,7 @@ Node *Parser::statements() {
         node->setRuleType(STATEMENTS);
         match(SEMICOLON);
 
-        if (currentToken->getType() == EOF) {
+        if (currentToken->getType() == FILE_END) {
             return node;
         }
 
@@ -406,11 +403,11 @@ bool Parser::checkFollowSet(RuleType rule, SymbolType type) {
                     || type == BRACES_LEFT
                     || type == IFTOKEN
                     || type == WHILETOKEN
-                    || type == EOF);
+                    || type == FILE_END);
         case ARRAY:
             return (type == IDENTIFIER);
         case STATEMENTS:
-            return (type == BRACES_RIGHT || type == EOF);
+            return (type == BRACES_RIGHT || type == FILE_END);
         case INDEX:
             return type == PLUS
                    || type == MINUS || type == STAR || type == COLON
