@@ -60,10 +60,10 @@ set(PARSER_SOURCE
         src/main/Parser/Parser/CodeGenerator.h
         src/main/Parser/Parser/CodeGenerator.cpp
         src/main/Parser/Exceptions/GrammarException.h
-        src/main/Parser/Parser/TypeChecker.cpp
-        src/main/Parser/Parser/TypeChecker.h
+        src/main/Parser/Parser/SemanticAnalyser.cpp
+        src/main/Parser/Parser/SemanticAnalyser.h
         src/main/Parser/Exceptions/GrammarException.h
-        src/main/Parser/Exceptions/CodeGenerationException.h)
+        src/main/Parser/Exceptions/CodeGenerationException.h src/main/Parser/Parser/Leaf.cpp src/main/Parser/Parser/Leaf.h)
 
 set(TEST
         src/test/automatTest.cpp

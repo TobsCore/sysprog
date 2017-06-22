@@ -1,64 +1,45 @@
-//
-// Created by Tobias Kerst on 06.06.17.
-//
-
 #ifndef SYSPROG_PARSER_H
 #define SYSPROG_PARSER_H
 
-
 #include "ParseTree.h"
-#ifndef NODE
-#define NODE
 #include "Node.h"
-#endif
-#ifndef CODEGENERATOR
-#define CODEGENERATOR
-#include "CodeGenerator.h"
-#endif
+#include "../scanner/Token.h"
 #include "../../Scanner/Scanner/Scanner.h"
-#include "TypeChecker.h"
 
 class Parser {
 public:
-    Parser(const char* inputFilePath, const char* outputFilePath);
-    ~Parser();
-
+    Parser(Scanner* scanner);
     ParseTree* parse();
-    void typeCheck();
-    void makeCode();
 
 private:
-    Token * currentToken;
-    Token* lastToken;
+    Token* currentToken;
+    TokenType before;
 
-    Scanner* scanner;
     ParseTree* parseTree;
-    TypeChecker* semanticAnalyser;
-    CodeGenerator* codeGenerator;
+    Scanner* scanner;
 
     //Function for every non-terminal
     ParseTree* prog();
-
-  Node* decls();
+    Node* decls();
     Node* decl();
     Node* array();
     Node* statements();
     Node* statement();
     Node* exp();
     Node* exp2();
+    Node* index();
     Node* op_exp();
     Node* op();
-    Node* createLeaf();
-    Node* index();
 
     Node* createNode();
+    Node* createLeaf();
     Node* createEpsilonNode();
 
-    void match(SymbolType tokenType);
+    void match(TokenType tokenType);
     void nextToken();
-    //void printError();
+    void printError();
 
+    bool checkFollowSet(RuleType rule, TokenType type);
 };
-
 
 #endif //SYSPROG_PARSER_H

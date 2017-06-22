@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
 #include "../main/Parser/Parser/Parser.h"
-#include "../main/Parser/Parser/TypeChecker.h"
+#include "../main/Parser/Parser/SemanticAnalyser.h"
 
 
 TEST(ParserTest, ReadSimpleIntFile) {

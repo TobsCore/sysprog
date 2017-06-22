@@ -1,75 +1,104 @@
-//
-// Created by Kevin Wolf on 08.06.17.
-//
-
 #include "Node.h"
-#include <stdexcept>
+#include "../constants.h"
+#include <iostream>
+
+using namespace std;
 
 Node::Node() {
-    this->currentChild = 0;
-    this->nodeType = NO_TYPE;
-    this->ruleType = RULE_NOT_SET;
+    tokenType = NOT_SET;
+    information = 0L;
+    ruleType = RULE_NOT_SET;
+    currentChildren = 0;
+    leaf = 0L;
+    integerValue = 0L;
+    token = 0L;
 }
 
-Node::Node(RuleType ruleType) {
-    this->ruleType = ruleType;
-    this->currentChild = 0;
-    this->nodeType = NO_TYPE;
+Node::Node(Information* info, Token* currentToken) {
+    tokenType = NOT_SET;
+    information = info;
+    ruleType = RULE_NOT_SET;
+    currentChildren = 0;
+    leaf = 0L;
+    integerValue = 0L;
+    token = currentToken;
 }
 
-Node::~Node() {
-    for (int i = 0; i < currentChild; i++) {
-        delete children[i];
+Node::Node(Information* info, long value, Token* currentToken) {
+    tokenType = NOT_SET;
+    information = info;
+    ruleType = RULE_NOT_SET;
+    currentChildren = 0;
+    leaf = 0L;
+    integerValue = value;
+    token = currentToken;
+}
+
+Node::~Node() { }
+
+void Node::addChildren(Node* child) {
+    if(child != 0L) {
+        //cout << "add Children " << currentChildren << endl;
+        this->children[currentChildren++] = child;
     }
-    // Possibly clean up the properties of the object
-
 }
 
-bool Node::isLeaf() {
-    return currentChild == 0;
-}
-
-void Node::addChild(Node *newChild) {
-    if (currentChild != MAX_CHILDREN) {
-        this->children[this->currentChild++] = newChild;
-    } else {
-        throw std::out_of_range("Too many children in node");
-    }
-}
-
-Node *Node::getChild(unsigned char pos) {
-    if (pos >= currentChild) {
-
-        throw std::out_of_range("Position is out of range");
-
-    }
-    return this->children[pos];
-}
-
-void Node::setType(NodeType type) {
-    this->nodeType = type;
-}
-
-NodeType Node::getType() {
-    return this->nodeType;
-}
-
-RuleType Node::getRuleType() const {
-    return ruleType;
+Node* Node::getChildren(int position) {
+    return children[position];
 }
 
 void Node::setRuleType(RuleType ruleType) {
-    Node::ruleType = ruleType;
+    //cout << COL_CYAN << "create Node: " << ToString(ruleType)<< COL_RST << endl;
+    this->ruleType = ruleType;
 }
 
-Token *Node::getToken() const {
+RuleType Node::getRuleType() {
+    return this->ruleType;
+}
+
+void Node::setNodeType(NodeType type) {
+    if(leaf) {
+        this->information->setNodeType(type);
+    } else {
+        this->nodeType = type;
+    }
+}
+
+NodeType Node::getNodeType() {
+    if(leaf) {
+        return this->information->getNodeType();
+    } else {
+        return this->nodeType;
+    }
+}
+
+void Node::setTokenType(TokenType type) {
+    tokenType = type;
+}
+
+TokenType Node::getTokenType() {
+    if(isLeaf()){
+        return this->information->getTokenType();
+    }
+    return tokenType;
+}
+
+void Node::flagAsLeaf() {
+    leaf = true;
+}
+
+long Node::getIntegerValue() {
+    return integerValue;
+}
+
+bool Node::isLeaf() {
+    return leaf;
+}
+
+Token* Node::getToken() {
     return token;
 }
 
-void Node::setToken(Token *token) {
-    Node::token = token;
-}
-
-unsigned char Node::getAmountOfChildren() {
-    return currentChild;
+Information* Node::getInformation() {
+    return information;
 }

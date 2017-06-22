@@ -1,7 +1,3 @@
-//
-// Created by Kevin Wolf on 13.06.17.
-//
-
 #ifndef SYSPROG_CODEGENERATOR_H
 #define SYSPROG_CODEGENERATOR_H
 
@@ -9,73 +5,54 @@
 #include "Node.h"
 #include "ParseTree.h"
 
-class Node;
-
 class CodeGenerator {
-    private:
+public:
+    CodeGenerator(char* outfile);
+    virtual ~CodeGenerator();
+    void runCodeGenerator(Node* tree);
 
-        // globaler Sprungmarkenzähler
-        unsigned int labelCounter;
+private:
 
-        // Filestream zur Ausgabe des Maschinencodes
-        std::ofstream file;
+    std::ofstream* codeFile;
+    std::stringstream* outText;
 
-        /* Erzeugt je nach Regel der Grammatik den Code für einen Teilbaum.
-         * Dabei wird je nach Regel eine andere Methode zur Codeerzeugung aufgerufen,
-         * die dann die Reihenfolge der abarbeitung einhalten und nach den Vorgaben
-         * aus dem Skript Code erzeugen.
-         *
-         * Die Nummerierung und bennenung der Methoden geben an um welche Regel und
-         * um welchen Fall es sich handelt. So ist die Methode makeCodeDecls_2()
-         * für die Grammatikregel "Decls" und dort für den zweiten Fall (Epsilon).
-         *
-         * makeCode() kann anhand des RuleTypes entscheiden welche dieser Methoden
-         * aufgerufen werden muss.
-         */
-        void makeCode(Node* root);
-        void makeCodeProg(Node* root);
-        void makeCodeDecls(Node* root);
-        void makeCodeDecls_Empty();
-        void makeCodeDecl(Node* root);
-        void makeCodeArray(Node* root);
-        void makeCodeArray_Empty();
-        void makeCodeStatements(Node* root);
-        void makeCodeStatements_Empty();
-        void makeCodeStatement(Node* root);
-        void makeCodeStatementWrite(Node *root);
-        void makeCodeStatementRead(Node *root);
-        void makeCodeStatementBlock(Node *root);
-        void makeCodeStatementIf(Node *root);
-        void makeCodeStatementWhile(Node *root);
-        void makeCodeExp(Node* root);
-        void makeCodeExp2(Node* root);
-        void makeCodeExp2InBrackets(Node* root);
-        void makeCodeExp2Identifier(Node *root);
-        void makeCodeExp2Integer(Node *root);
-        void makeCodeExp2Minus(Node *root);
-        void makeCodeExp2Negation(Node *root);
-        void makeCodeIndex(Node* root);
-        void makeCodeIndex_Empty();
-        void makeCodeOp_Exp(Node* root);
-        void makeCodeOp_Exp_Empty();
-        void makeCodeOpPlus();
-        void makeCodeOpMinus();
-        void makeCodeOpMultiplication();
-        void makeCodeOpDivision();
-        void makeCodeOpLess();
-        void makeCodeOpGreater();
-        void makeCodeOpEqual();
-        void makeCodeOpSpecial();
-        void makeCodeOpAnd();
+    int labelCounter;
 
-    public:
+    void generateCode(Node* root);
 
-        // This is the main method which should be called in order to start generating the code.
-        void run(ParseTree* parseTree);
-
-        // Konstruktor und Dekonstruktor;
-        CodeGenerator(const char* out);
-        virtual ~CodeGenerator();
+    void generateCodeProg(Node* root);
+    void generateCodeDecls(Node* root);
+    void generateCodeDecls_2();
+    void generateCodeDecl(Node* root);
+    void generateCodeArray(Node* root);
+    void generateCodeArray_2();
+    void generateCodeStatements(Node* root);
+    void generateCodeStatements_2();
+    void generateCodeStatement(Node* root);
+    void generateCodeStatement_2(Node* root);
+    void generateCodeStatement_3(Node* root);
+    void generateCodeStatement_4(Node* root);
+    void generateCodeStatement_5(Node* root);
+    void generateCodeStatement_6(Node* root);
+    void generateCodeExp(Node* root);
+    void generateCodeExp2(Node* root);
+    void generateCodeExp2_2(Node* root);
+    void generateCodeExp2_3(Node* root);
+    void generateCodeExp2_4(Node* root);
+    void generateCodeExp2_5(Node* root);
+    void generateCodeIndex(Node* root);
+    void generateCodeIndex_2();
+    void generateCodeOp_Exp(Node* root);
+    void generateCodeOp_Exp_2();
+    void generateCodeOp();
+    void generateCodeOp_2();
+    void generateCodeOp_3();
+    void generateCodeOp_4();
+    void generateCodeOp_5();
+    void generateCodeOp_6();
+    void generateCodeOp_7();
+    void generateCodeOp_8();
+    void generateCodeOp_9();
 };
 
 #endif //SYSPROG_CODEGENERATOR_H

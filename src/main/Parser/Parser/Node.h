@@ -1,58 +1,54 @@
-//
-// Created by Kevin Wolf on 08.06.17.
-//
+#ifndef SYSPROG_NODE_H
+#define SYSPROG_NODE_H
 
-/*
- * Nodes sind Teil des Baumes, oder der Baum selbst!
- * Node kann also Root, Branch, Leaf sein.
- *
- * Node hat Info über sich selbst.
- * Enthält er selbst weitere Nodes ist er ein Root.
- * Enthält er keine weiteren Nodes ist er Leaf.
- * Nodes werden Grammatikregeln zugeordnet.
- *
- * Dies wird für Typisierrung/TypeCheck wichtig, denn dann kann man den Teilbaum (für jede regel ein neuer) ablaufen,
- * und dann entsprechend prüfen und erkennen ob die syntax korrekt ist!
-*/
-#include <climits>
-#include "NodeType.h"
+#include "../automat/TokenType.h"
 #include "RuleType.h"
-#include "../../Scanner/Token/Token.h"
+#include "NodeType.h"
+#include "../scanner/Token.h"
 
-#ifndef NODE_H
-#define NODE_H
-class Node{
+class Information;
 
+class Node {
 public:
     Node();
-    Node(RuleType ruleType);
-    ~Node();
+    Node(Information* information,Token* currentToken);
+    Node(Information* info, long value, Token* currentToken);
 
-    Node* getChild(unsigned char pos);
-    void addChild(Node* newChild);
+    virtual ~Node();
 
-    void setType(NodeType type);
-    NodeType getType();
+    int currentChildren;
 
+    void setNodeType(NodeType type);
+    NodeType getNodeType();
+
+    void setTokenType(TokenType type);
+    TokenType getTokenType();
+
+    void setRuleType(RuleType ruleType);
+    RuleType getRuleType();
+
+    void addChildren(Node* child);
+    Node* getChildren(int position);
+
+    long getIntegerValue();
+
+    Information* getInformation();
+
+    Token* getToken();
+
+    void flagAsLeaf();
     bool isLeaf();
 
-    RuleType getRuleType() const;
-    void setRuleType(RuleType ruleType);
-
-    Token *getToken() const;
-    void setToken(Token *token);
-
-    unsigned char getAmountOfChildren();
-
 private:
-    // Maximale Anzahl an Node, die Root besitzen kann
-    static const unsigned char MAX_CHILDREN = UCHAR_MAX;
-    unsigned char currentChild = 0;
-
-    Node* children[MAX_CHILDREN];
-
-    NodeType nodeType;
+    Information* information;
     RuleType ruleType;
-    Token *token;
+    TokenType tokenType;
+    NodeType nodeType;
+    Node* children[30];
+    bool leaf;
+    long integerValue;
+
+    Token* token;
 };
-#endif
+
+#endif //SYSPROG_NODE_H

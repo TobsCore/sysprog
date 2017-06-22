@@ -1,419 +1,413 @@
-//
-// Created by Kevin Wolf on 13.06.17.
-//
-
 #include "CodeGenerator.h"
-#include "../../Scanner/Token/IdentifierToken.h"
-#include "../../Scanner/Token/IntegerToken.h"
-#include "../Exceptions/CodeGenerationException.h"
+#include <iostream>
+#include <sstream>
+#include <iomanip>
 
+using namespace std;
 
-CodeGenerator::CodeGenerator(const char* out) {
-    this->labelCounter = 0;
-    file.open(out);
+CodeGenerator::CodeGenerator(char* outfile) {
+	codeFile = new ofstream(outfile);
+	outText = new stringstream();
+	labelCounter = 0;
 }
 
-CodeGenerator::~CodeGenerator(){
+CodeGenerator::~CodeGenerator() {
+	codeFile->close();
+	delete codeFile;
+	delete outText;
 }
 
-void CodeGenerator::run(ParseTree* parseTree) {
-    makeCode(parseTree->getTree());
+void CodeGenerator::runCodeGenerator(Node* root) {
+	generateCodeProg(root);
+	*codeFile << outText->rdbuf();
+	codeFile->flush();
+	outText->str(string());
 }
 
-void CodeGenerator::makeCode(Node* node) {
-    switch(node->getRuleType()) {
-        case PROG:
-            makeCodeProg(node);
-            break;
-        case DECLS:
-            makeCodeDecls(node);
-            break;
-        case DECLS_EMPTY:
-            makeCodeDecls_Empty();
-            break;
-        case DECL:
-            makeCodeDecl(node);
-            break;
-        case ARRAY:
-            makeCodeArray(node);
-            break;
-        case ARRAY_EMPTY:
-            makeCodeArray_Empty();
-            break;
-        case STATEMENTS:
-            makeCodeStatements(node);
-            break;
-        case STATEMENTS_EMPTY:
-            makeCodeStatements_Empty();
-            break;
-        case STATEMENT_IDENTIFIER:
-            makeCodeStatement(node);
-            break;
-        case STATEMENT_WRITE:
-            makeCodeStatementWrite(node);
-            break;
-        case STATEMENT_READ:
-            makeCodeStatementRead(node);
-            break;
-        case STATEMENT_BLOCK:
-            makeCodeStatementBlock(node);
-            break;
-        case STATEMENT_IF:
-            makeCodeStatementIf(node);
-            break;
-        case STATEMENT_WHILE:
-            makeCodeStatementWhile(node);
-            break;
-        case EXP:
-            makeCodeExp(node);
-            break;
-        case EXP2:
-            makeCodeExp2(node);
-            break;
-        case EXP2_INBRACKETS:
-            makeCodeExp2InBrackets(node);
-            break;
-        case EXP2_IDENTIFIER:
-            makeCodeExp2Identifier(node);
-            break;
-        case EXP2_INTEGER:
-            makeCodeExp2Integer(node);
-            break;
-        case EXP2_MINUS:
-            makeCodeExp2Minus(node);
-            break;
-        case EXP2_NEGATION:
-            makeCodeExp2Negation(node);
-            break;
-        case INDEX:
-            makeCodeIndex(node);
-            break;
-        case INDEX_EMPTY:
-            makeCodeIndex_Empty();
-            break;
-        case OP_EXP:
-            makeCodeOp_Exp(node);
-            break;
-        case OP_EXP_EMPTY:
-            makeCodeOp_Exp_Empty();
-            break;
-        case OP_PLUS:
-            makeCodeOpPlus();
-            break;
-        case OP_MINUS:
-            makeCodeOpMinus();
-            break;
-        case OP_MUL:
-            makeCodeOpMultiplication();
-            break;
-        case OP_DIV:
-            makeCodeOpDivision();
-            break;
-        case OP_LESS:
-            makeCodeOpLess();
-            break;
-        case OP_GREATER:
-            makeCodeOpGreater();
-            break;
-        case OP_EQUAL:
-            makeCodeOpEqual();
-            break;
-        case OP_SPECIAL:
-            makeCodeOpSpecial();
-            break;
-        case OP_AND:
-            makeCodeOpAnd();
-            break;
-        default:
-            throw CodeGenerationException(std::string("Node is empty!"));
-    }
+//PROG ::= DECLS STATEMENTS
+void CodeGenerator::generateCodeProg(Node *root) {
+	Node* decls = root->getChildren(0);
+	Node* statements = root->getChildren(1);
+
+	generateCode(decls);
+	generateCode(statements);
+
+	*outText << "STP";
 }
 
-void CodeGenerator::makeCodeProg(Node* node) {
-    Node* decls = node->getChild(0);
-    Node* statements = node->getChild(1);
+//DECLS ::= DECL ; DECLS
+void CodeGenerator::generateCodeDecls(Node* node) {
+	Node* decl = node->getChildren(0);
+	Node* decls = node->getChildren(1);
 
-    if(decls != 0L) {
-        makeCode(decls);
-    }
-    if(statements != 0L) {
-        makeCode(statements);
-    }
-
-    file << " STP ";
-    file.close();
+	generateCode(decl);
+	generateCode(decls);
 }
 
-void CodeGenerator::makeCodeDecls(Node* node) {
-    Node* decl = node->getChild(0);
-    Node* decls = node->getChild(1);
-    if (decls != 0l) {
-        makeCode(decl);
-    }
-    if (decls != 0L) {
-        makeCode(decls);
-    }
+//DECLS ::= e
+void CodeGenerator::generateCodeDecls_2() {
+	//NOP
 }
 
-void CodeGenerator::makeCodeDecls_Empty() {}
+//DECL::= int ARRAY identifier
+void CodeGenerator::generateCodeDecl(Node *node) {
+	Node* array = node->getChildren(0);
+	Node* identifier = node->getChildren(1);
 
-void CodeGenerator::makeCodeDecl(Node* node) {
-    Node* array = node->getChild(0);
-    Node* identifier = node->getChild(1);
+	*outText << " DS " << "$" << identifier->getInformation()->getLexem();
 
-    file << " DS " << "$" << static_cast<IdentifierToken *>(identifier->getToken())->getLexem();
+	generateCode(array);
+}
 
-  	if(array != 0L) {
-        makeCode(array);
+//ARRAY::=[integer]
+void CodeGenerator::generateCodeArray(Node* node) {
+	Node* array = node->getChildren(0);
+	*outText << " " <<array->getIntegerValue();
+}
+
+//ARRAY ::= e
+void CodeGenerator::generateCodeArray_2() {
+	*outText << " " << 1;
+}
+
+//STATEMENTS ::= STATEMENT ; STATEMENTS)
+void CodeGenerator::generateCodeStatements(Node *node) {
+	Node* statement = node->getChildren(0);
+	Node* statements = node->getChildren(1);
+
+	generateCode(statement);
+
+	if(statement != 0L) {
+		generateCode(statements);
 	}
 }
 
-void CodeGenerator::makeCodeArray(Node* node) {
-    Node* integer = node->getChild(0);
-
-    file << " " << static_cast<IntegerToken *>(integer->getToken())->getValue();
+//STATEMENTS ::= e
+void CodeGenerator::generateCodeStatements_2() {
+	*outText << " NOP ";
 }
 
-void CodeGenerator::makeCodeArray_Empty() {
-    file << " " << 1;
+//STATEMENT ::= identifier INDEX := EXP
+void CodeGenerator::generateCodeStatement(Node *node) {
+	Node* exp = node->getChildren(2);
+	Node* index = node->getChildren(1);
+	Node* identifier = node->getChildren(0);
+
+	generateCode(exp);
+	*outText << " LA " << "$" << identifier->getInformation()->getLexem();
+	generateCode(index);
+	*outText << " STR ";
 }
 
-void CodeGenerator::makeCodeStatements(Node* node) {
-    Node* statement = node->getChild(0);
-    Node* statements = node->getChild(1);
+//STATEMENT ::= write( EXP )
+void CodeGenerator::generateCodeStatement_2(Node* node) {
+	Node* exp = node->getChildren(0);
+	generateCode(exp);
 
-    if(statement != 0L){
-        makeCode(statement);
-    }
-    if(statements != 0L){
-        makeCode(statements);
-    }
+	*outText << " PRI ";
 }
 
-void CodeGenerator::makeCodeStatements_Empty() {
-    file << " NOP ";
+//STATEMENT ::= read( identifier INDEX)
+void CodeGenerator::generateCodeStatement_3(Node* node) {
+	Node* identifier = node->getChildren(0);
+	Node* index = node->getChildren(1);
+
+
+	*outText << " REA ";
+	*outText << " LA " << "$" << identifier->getInformation()->getLexem();
+
+	generateCode(index);
+
+	*outText << " STR ";
 }
 
-void CodeGenerator::makeCodeStatement(Node* node) {
-    Node* exp = node->getChild(2);
-    Node* index = node->getChild(1);
-    Node* identifier = node->getChild(0);
-
-	if(exp != 0L){
-        makeCode(exp);
-    }
-    file << " LA " << "$" << static_cast<IdentifierToken *>(identifier->getToken())->getLexem();
-
-    if(index != 0L){
-        makeCode(index);
-    }
-    file << " STR ";
+//STATEMENT ::= { STATEMENTS }
+void CodeGenerator::generateCodeStatement_4(Node* node) {
+	Node* statements = node->getChildren(0);
+	generateCode(statements);
 }
 
-void CodeGenerator::makeCodeStatementWrite(Node *node) {
-    Node* exp = node->getChild(0);
+//STATEMENT ::= if ( EXP ) STATEMENT else STATEMENT
+void CodeGenerator::generateCodeStatement_5(Node* node) {
+	Node* exp = node->getChildren(0);
+	Node* statement1 = node->getChildren(1);
+	Node* statement2 = node->getChildren(2);
+	int label1 = ++labelCounter;
+	int label2 = ++labelCounter;
 
-	if (exp != 0L) {
-        makeCode(exp);
-	}
-    file << " PRI ";
+
+	generateCode(exp);
+
+	*outText << " JIN " << "#label" << label1 <<" ";
+
+	generateCode(statement1);
+
+	*outText << " JMP " << "#label" << label2 <<" ";
+	*outText << "#label" << label1 << " NOP ";
+
+	generateCode(statement2);
+
+	*outText << "#label" << label2 << " NOP ";
 }
 
-void CodeGenerator::makeCodeStatementRead(Node *node) {
-    Node* identifier = node->getChild(0);
-    Node* index = node->getChild(1);
+//STATEMENT ::= while ( EXP ) STATEMENT)
+void CodeGenerator::generateCodeStatement_6(Node* node) {
+	Node* exp = node->getChildren(0);
+	Node* statement = node->getChildren(1);
 
-    file << " REA ";
-    file << " LA " << "$" << static_cast<IdentifierToken *>(identifier->getToken())->getLexem();
-	if (index != 0L) {
-        makeCode(index);
-	}
-    file << " STR ";
+	int label1 = ++labelCounter;
+	int label2 = ++labelCounter;
+
+	*outText << "#label" << label1 << " NOP ";
+
+	generateCode(exp);
+
+	*outText << " JIN " << "#label" << label2 <<" ";
+
+	generateCode(statement);
+
+	*outText << " JMP " << "#label" << label1 <<" ";
+	*outText << "#label" << label2 << " NOP ";
 }
 
-void CodeGenerator::makeCodeStatementBlock(Node *node) {
-    Node* statements = node->getChild(0);
-	if (statements != 0L) {
-        makeCode(statements);
-	}
-}
+//EXP ::= EXP2 OP_EXP
+void CodeGenerator::generateCodeExp(Node* node) {
+	Node* exp2 = node->getChildren(0);
+	Node* op_exp = node->getChildren(1);
 
-void CodeGenerator::makeCodeStatementIf(Node *node) {
-    Node* exp = node->getChild(0);
-    Node* statement1 = node->getChild(1);
-    Node* statement2 = node->getChild(2);
+	if(op_exp->getNodeType() == NO_TYPE) {
+		generateCode(exp2);
 
-    int label1 = ++labelCounter;
-    int label2 = ++labelCounter;
+	} else if (op_exp->getChildren(0)->getNodeType() == OP_GREATER_TYPE) {
+		generateCode(op_exp);
+		generateCode(exp2);
+		*outText << " LES ";
 
-	if (exp != 0L) {
-        makeCode(exp);
-	}
-    file << " JIN " << "#label" << label1 <<" ";
+	} else if (op_exp->getChildren(0)->getNodeType() == OP_UN_EQUAL_TYPE) {
+		generateCode(exp2);
+		generateCode(op_exp);
+		*outText << " NOT ";
 
-    if (statement1 != 0L) {
-        makeCode(statement1);
-	}
-    file << " JMP " << "#label" << label2 <<" "; // label2 ist neu
-    file << "#label" << label1 << " NOP ";
-
-    if (statement2 != 0L) {
-        makeCode(statement2);
-	}
-    file << "#label" << label2 << " NOP ";
-}
-
-void CodeGenerator::makeCodeStatementWhile(Node *node) {
-    Node* exp = node->getChild(0);
-    Node* statement = node->getChild(1);
-
-    int label1 = ++labelCounter;
-    int label2 = ++labelCounter;
-
-    file << "#label" << label1 << " NOP "; // label1 ist neu
-
-    if (exp != 0L) {
-        makeCode(exp);
-	}
-    file << " JIN " << "#label" << label2 <<" ";
-
-    if (statement != 0l) {
-        makeCode(statement);
-	}
-    file << " JMP " << "#label" << label1 <<" ";
-    file << "#label" << label2 << " NOP ";
-}
-
-
-void CodeGenerator::makeCodeExp(Node* node) {
-    Node* exp2 = node->getChild(0);
-    Node* op_exp = node->getChild(1);
-
-	if(op_exp != 0L) {
-        if (op_exp->getType() == NO_TYPE) {
-            makeCode(exp2);
-        } else if (op_exp->getChild(0)->getToken()->getType() == GREATER) {
-            makeCode(op_exp);
-            makeCode(exp2);
-            file << " LES ";
-        } else if (op_exp->getChild(0)->getToken()->getType() == SPECIAL) { //UNEQUAL = SPECIAL???
-            makeCode(exp2);
-            makeCode(op_exp);
-            file << " NOT ";
-        } else {
-            makeCode(exp2);
-            makeCode(op_exp);
-        }
-    }
-}
-
-void CodeGenerator::makeCodeExp2(Node* node) {
-    Node* exp = node->getChild(0);
-
-    if (exp != 0l) {
-        makeCode(exp);
+	} else {
+		generateCode(exp2);
+		generateCode(op_exp);
 	}
 }
 
-void CodeGenerator::makeCodeExp2InBrackets(Node *node) {
-    Node* exp = node->getChild(0);
-    makeCode(exp);
+//INDEX ::= [ EXP ]
+void CodeGenerator::generateCodeExp2(Node* node) {
+	Node* exp = node->getChildren(0);
+	generateCode(exp);
 }
 
-void CodeGenerator::makeCodeExp2Identifier(Node *node) {
-    Node* identifier = node->getChild(0);
-    Node* index = node->getChild(1);
+//EXP2 ::= identifier INDEX
+void CodeGenerator::generateCodeExp2_2(Node* node) {
+	Node* identifier = node->getChildren(0);
+	Node* index = node->getChildren(1);
 
-    file << " LA " << "$" << static_cast<IdentifierToken *>(identifier->getToken())->getLexem();
+	*outText << " LA " << "$" << identifier->getInformation()->getLexem() ;
 
-    if (index != 0L) {
-        makeCode(index);
-    }
-    file << " LV ";
+	generateCode(index);
+
+	*outText << " LV ";
 }
 
-void CodeGenerator::makeCodeExp2Integer(Node *node) {
-    file << " LC " << static_cast<IdentifierToken *>(node->getChild(0)->getToken())->getLexem();
+//EXP2 ::= integer
+void CodeGenerator::generateCodeExp2_3(Node* node) {
+	*outText << " LC " << node->getChildren(0)->getIntegerValue();
 }
 
-void CodeGenerator::makeCodeExp2Minus(Node *node) {
-    Node* exp2 = node->getChild(0);
+//EXP2 ::= - EXP2
+void CodeGenerator::generateCodeExp2_4(Node* node) {
+	Node *exp2 = node->getChildren(0);
 
-    file << "LC " << 0;
-
-    if(exp2 != 0L){
-        makeCode(exp2);
-    }
-    file << " SUB ";
+	*outText << "LC " << 0;
+	generateCode(exp2);
+	*outText << " SUB ";
 }
 
-void CodeGenerator::makeCodeExp2Negation(Node *node) {
-    Node* exp2 = node->getChild(0);
+//EXP2 ::= ! EXP2
+void CodeGenerator::generateCodeExp2_5(Node* node) {
+	Node* exp2 = node->getChildren(0);
 
-    if(exp2 != 0L){
-        makeCode(exp2);
-    }
-    file << " NOT ";
+	generateCode(exp2);
+	*outText << " NOT ";
 }
 
-void CodeGenerator::makeCodeIndex(Node* node) {
-    Node* exp = node->getChild(0);
+//INDEX ::= [ EXP ]
+void CodeGenerator::generateCodeIndex(Node* node) {
+	Node* exp = node->getChildren(0);
 
-    if (exp != 0L) {
-        makeCode(exp);
+	generateCode(exp);
+	*outText << " ADD ";
+}
+
+//INDEX ::= e
+void CodeGenerator::generateCodeIndex_2() {
+	//NOP
+}
+
+//OP_EXP ::= OP EXP
+void CodeGenerator::generateCodeOp_Exp(Node* node) {
+	Node* op = node->getChildren(0);
+	Node* exp = node->getChildren(1);
+
+	generateCode(exp);
+	generateCode(op);
+}
+
+//OP_EXP ::= e
+void CodeGenerator::generateCodeOp_Exp_2() {
+	//NOP
+}
+
+void CodeGenerator::generateCodeOp() {
+	*outText << " ADD ";
+}
+
+
+void CodeGenerator::generateCodeOp_2() {
+	*outText << " SUB ";
+}
+
+void CodeGenerator::generateCodeOp_3() {
+	*outText << " MUL ";
+}
+
+void CodeGenerator::generateCodeOp_4() {
+	*outText << " DIV ";
+}
+
+void CodeGenerator::generateCodeOp_5() {
+	*outText << " LES ";
+}
+
+void CodeGenerator::generateCodeOp_6() {
+	*outText << "  ";
+}
+
+void CodeGenerator::generateCodeOp_7() {
+	*outText << " EQU ";
+
+}
+
+void CodeGenerator::generateCodeOp_8() {
+	*outText << " EQU ";
+}
+
+void CodeGenerator::generateCodeOp_9() {
+	*outText << " AND ";
+}
+
+void CodeGenerator::generateCode(Node* node) {
+
+	if(node == 0L) {
+		//cout << "node is null" << endl;
+		return;
 	}
-    file << " ADD ";
-}
-void CodeGenerator::makeCodeIndex_Empty() {}
 
-void CodeGenerator::makeCodeOp_Exp(Node* node) {
-    Node* op = node->getChild(0);
-    Node* exp = node->getChild(1);
-
-    if (op != 0L) {
-        makeCode(exp);
+	//cout << "generateCode: " << ToString(node->getRuleType()) << endl;
+	switch(node->getRuleType()) {
+		case PROG:
+			generateCodeProg(node);
+			break;
+		case DECLS:
+			generateCodeDecls(node);
+			break;
+		case DECLS_2:
+			generateCodeDecls_2();
+			break;
+		case DECL:
+			generateCodeDecl(node);
+			break;
+		case ARRAY:
+			generateCodeArray(node);
+			break;
+		case ARRAY_2:
+			generateCodeArray_2();
+			break;
+		case STATEMENTS:
+			generateCodeStatements(node);
+			break;
+		case STATEMENTS_2:
+			generateCodeStatements_2();
+			break;
+		case STATEMENT:
+			generateCodeStatement(node);
+			break;
+		case STATEMENT_2:
+			generateCodeStatement_2(node);
+			break;
+		case STATEMENT_3:
+			generateCodeStatement_3(node);
+			break;
+		case STATEMENT_4:
+			generateCodeStatement_4(node);
+			break;
+		case STATEMENT_5:
+			generateCodeStatement_5(node);
+			break;
+		case STATEMENT_6:
+			generateCodeStatement_6(node);
+			break;
+		case EXP:
+			generateCodeExp(node);
+			break;
+		case EXP2:
+			generateCodeExp2(node);
+			break;
+		case EXP2_2:
+			generateCodeExp2_2(node);
+			break;
+		case EXP2_3:
+			generateCodeExp2_3(node);
+			break;
+		case EXP2_4:
+			generateCodeExp2_4(node);
+			break;
+		case EXP2_5:
+			generateCodeExp2_5(node);
+			break;
+		case INDEX:
+			generateCodeIndex(node);
+			break;
+		case INDEX_2:
+			generateCodeIndex_2();
+			break;
+		case OP_EXP:
+			generateCodeOp_Exp(node);
+			break;
+		case OP_EXP_2:
+			generateCodeOp_Exp_2();
+			break;
+		case OP:
+			generateCodeOp();
+			break;
+		case OP_2:
+			generateCodeOp_2();
+			break;
+		case OP_3:
+			generateCodeOp_3();
+			break;
+		case OP_4:
+			generateCodeOp_4();
+			break;
+		case OP_5:
+			generateCodeOp_5();
+			break;
+		case OP_6:
+			generateCodeOp_6();
+			break;
+		case OP_7:
+			generateCodeOp_7();
+			break;
+		case OP_8:
+			generateCodeOp_8();
+			break;
+		case OP_9:
+			generateCodeOp_9();
+			break;
+		default:
+			cerr << "node is empty" << endl;
 	}
-
-    if (exp != 0L) {
-        makeCode(op);
-	}
-}
-
-void CodeGenerator::makeCodeOp_Exp_Empty() {}
-
-
-void CodeGenerator::makeCodeOpPlus() {
-    file << " ADD ";
-}
-
-void CodeGenerator::makeCodeOpMinus() {
-    file << " SUB ";
-}
-
-void CodeGenerator::makeCodeOpMultiplication() {
-    file << " MUL ";
-}
-
-void CodeGenerator::makeCodeOpDivision() {
-    file << " DIV ";
-}
-
-void CodeGenerator::makeCodeOpLess() {
-    file << " LES ";
-}
-
-void CodeGenerator::makeCodeOpGreater() {
-    file << " ";
-}
-
-void CodeGenerator::makeCodeOpEqual() {
-    file << " EQU ";
-}
-
-void CodeGenerator::makeCodeOpSpecial() {
-    file << " EQU ";
-}
-
-void CodeGenerator::makeCodeOpAnd() {
-    file << " AND ";
 }
