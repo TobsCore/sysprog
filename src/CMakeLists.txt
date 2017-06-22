@@ -56,13 +56,19 @@ set(PARSER_SOURCE
         main/Parser/Parser/Node.h
         main/Parser/Parser/Node.cpp
         main/Parser/Parser/NodeType.h
-        main/Parser/Parser/RuleType.h
         main/Parser/Parser/ParseTree.cpp
         main/Parser/Parser/ParseTree.h
         main/Parser/Parser/CodeGenerator.h
         main/Parser/Parser/CodeGenerator.cpp
+        main/Parser/Exceptions/GrammarException.h
         main/Parser/Parser/SemanticAnalyser.cpp
-        main/Parser/Parser/SemanticAnalyser.h)
+        main/Parser/Parser/SemanticAnalyser.h
+        main/Parser/Exceptions/GrammarException.h
+        main/Parser/Exceptions/CodeGenerationException.h
+        main/Parser/Parser/Leaf.cpp
+        main/Parser/Parser/Leaf.h
+        main/Parser/Parser/Compiler.cpp
+        main/Parser/Parser/Compiler.h)
 
 set(TEST
         test/automatTest.cpp

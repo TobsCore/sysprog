@@ -945,7 +945,7 @@ TEST(ScannerTest, toStringOfIdentifierAndNormaleToken)  {
 
 	Token *token = scanner->nextToken();
 	ASSERT_EQ(INTTOKEN, token->getType());
-    ASSERT_STREQ("Token int                  Line:     1  Column:   1", token->toString());
+    ASSERT_STREQ("Token Int                  Line:     1  Column:   1", token->toString());
 
 	scanner->nextToken();
 	token = scanner->nextToken();

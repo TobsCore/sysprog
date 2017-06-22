@@ -63,7 +63,11 @@ set(PARSER_SOURCE
         src/main/Parser/Parser/SemanticAnalyser.cpp
         src/main/Parser/Parser/SemanticAnalyser.h
         src/main/Parser/Exceptions/GrammarException.h
-        src/main/Parser/Exceptions/CodeGenerationException.h src/main/Parser/Parser/Leaf.cpp src/main/Parser/Parser/Leaf.h)
+        src/main/Parser/Exceptions/CodeGenerationException.h
+        src/main/Parser/Parser/Leaf.cpp
+        src/main/Parser/Parser/Leaf.h
+        src/main/Parser/Parser/Compiler.cpp
+        src/main/Parser/Parser/Compiler.h)
 
 set(TEST
         src/test/automatTest.cpp

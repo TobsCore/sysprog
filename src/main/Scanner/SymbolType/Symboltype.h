@@ -75,17 +75,17 @@ inline const char* ToString(SymbolType type) {
         case SEMICOLON:
             return "Semicolon";
         case PARANTHESES_LEFT:
-            return "Parens left";
+            return "Parens (left)";
         case PARANTHESES_RIGHT:
-            return "Parens right";
+            return "Parens (right)";
         case BRACES_LEFT:
-            return "Braces left";
+            return "Braces (left)";
         case BRACES_RIGHT:
-            return "Braces right";
+            return "Braces (right)";
         case BRACKET_LEFT:
-            return "Brackets left";
+            return "Brackets (left)";
         case BRACKET_RIGHT:
-            return "Brackets right";
+            return "Brackets (right)";
         case ASSIGN:
             return "Assign";
         case SPECIAL:
@@ -97,17 +97,17 @@ inline const char* ToString(SymbolType type) {
         case IN_COMMENT:
             return "In Comment";
         case IFTOKEN:
-            return "If Token";
+            return "If";
         case WHILETOKEN:
-            return "While Token";
+            return "While";
         case READTOKEN:
-            return "Read Token";
+            return "Read";
         case WRITETOKEN:
-            return "Write Token";
+            return "Write";
         case ELSETOKEN:
-            return "Else Token";
+            return "Else";
         case INTTOKEN:
-            return "Int Token";
+            return "Int";
         case FILE_END:
             return "File End";
         default:

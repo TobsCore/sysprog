@@ -83,3 +83,8 @@ bool Node::isLeaf() {
 Token *Node::getToken() {
     return token;
 }
+
+void Node::setSymbolType(SymbolType type) {
+    this->symbolType = type;
+
+}
