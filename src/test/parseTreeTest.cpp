@@ -17,8 +17,9 @@ TEST(ParseTreeTest, ChangeThisName) {
 TEST(ParseTreeTest, DISABLED_WrongRootNodeType) {
     Node *root = new Node();
     root->setRuleType(RuleType::DECLS);
+    ParseTree *parseTree = new ParseTree(root);
 
-    ASSERT_THROW(new ParseTree(root), std::invalid_argument);
+    ASSERT_THROW(parseTree, std::invalid_argument);
 }
 
 TEST(ParseTreeTest, DISABLED_NoRootNodeType) {

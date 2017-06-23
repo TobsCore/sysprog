@@ -6,50 +6,52 @@
 #include "../main/Parser/Parser/Compiler.h"
 
 
-TEST(ParserTest, DISABLED_ReadSimpleIntFile) {
-    //TODO(Toby): Fix Tests
-/*    Parser *parser = new Compiler("../src/test/testData/programs/simplestProgram.txt", "testout.txt");
-    ParseTree *parseTree = parser->parse();
+TEST(ParserTest, ReadSimpleIntFile) {
+
+	Compiler *compiler = new Compiler("../src/test/testData/programs/simplestProgram.txt", "testout.txt");
+    ParseTree *parseTree = compiler->parser->parse();
 
     Node *root = parseTree->getTree();
     ASSERT_EQ(root->getRuleType(), PROG);
-    ASSERT_EQ(root->getChild(0)->getRuleType(), DECLS);
-    ASSERT_EQ(root->getChild(1)->getRuleType(), STATEMENTS_EMPTY);
+    ASSERT_EQ(root->getChildren(0)->getRuleType(), DECLS);
+    ASSERT_EQ(root->getChildren(1)->getRuleType(), STATEMENTS_2);
     ASSERT_FALSE(root->isLeaf());
 
-    Node *decls = root->getChild(0);
-    ASSERT_EQ(decls->getChild(0)->getRuleType(), DECL);
-    ASSERT_EQ(decls->getChild(1)->getRuleType(), DECLS_EMPTY);
+    Node *decls = root->getChildren(0);
+    ASSERT_EQ(decls->getChildren(0)->getRuleType(), DECL);
+    ASSERT_EQ(decls->getChildren(1)->getRuleType(), DECLS_2);
     ASSERT_FALSE(decls->isLeaf());
 
-    Node *decl = decls->getChild(0);
-    ASSERT_EQ(decl->getChild(0)->getRuleType(), ARRAY_EMPTY);
-    ASSERT_EQ(decl->getAmountOfChildren(), 2);
+    Node *decl = decls->getChildren(0);
+    ASSERT_EQ(decl->getChildren(0)->getRuleType(), ARRAY_2);
+    ASSERT_EQ(decl->currentChildren, 2);
     ASSERT_FALSE(decl->isLeaf());
 
-    ASSERT_TRUE(decl->getChild(0)->isLeaf());*/
+    ASSERT_TRUE(decl->getChildren(1)->isLeaf());
 }
 
-TEST(ParserTest, DISABLED_CheckSimplestWithGrammar) {
+TEST(ParserTest, CheckSimplestWithGrammar) {
     //TODO(Toby): Fix Tests
-/*    Parser *parser = new Parser("../src/test/testData/programs/simplestProgram.txt", "testout.txt");
-    ParseTree *parseTree = parser->parse();
+	Compiler *compiler = new Compiler("../src/test/testData/programs/simplestProgram.txt", "testout.txt");
+    ParseTree *parseTree = compiler->parser->parse();
 
-    TypeChecker *analyzer = new TypeChecker();
-    ASSERT_NO_THROW(analyzer->run(parseTree));
+    SemanticAnalyser *analyzer = new SemanticAnalyser();
+    ASSERT_NO_THROW(analyzer->typeCheck(parseTree));
 
+    Node *root = parseTree->getTree();
     CodeGenerator *codeGenerator = new CodeGenerator("out.code");
-    ASSERT_NO_THROW(codeGenerator->run(parseTree));*/
+    ASSERT_NO_THROW(codeGenerator->runCodeGenerator(root));
 }
 
-TEST(ParserTest, DISABLED_SimplestAddition) {
+TEST(ParserTest, SimplestAddition) {
     //TODO(Toby): Fix tests
-   /* Parser *parser = new Parser("../src/test/testData/programs/simplestAddition.txt", "testout.txt");
-    ParseTree *parseTree = parser->parse();
+	Compiler *compiler = new Compiler("../src/test/testData/programs/simplestAddition.txt", "testout.txt");
+    ParseTree *parseTree = compiler->parser->parse();
 
-    TypeChecker *analyzer = new TypeChecker();
-    ASSERT_NO_THROW(analyzer->run(parseTree));
+    SemanticAnalyser *analyzer = new SemanticAnalyser();
+    analyzer->typeCheck(parseTree);
 
+    Node *root = parseTree->getTree();
     CodeGenerator *codeGenerator = new CodeGenerator("out.code");
-    ASSERT_NO_THROW(codeGenerator->run(parseTree));*/
+    ASSERT_NO_THROW(codeGenerator->runCodeGenerator(root));
 }

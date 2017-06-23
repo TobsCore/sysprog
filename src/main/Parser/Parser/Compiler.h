@@ -10,10 +10,10 @@ public:
 	Compiler (const char* inputfile, const char* outfile);
 	~Compiler();
 	void compile();
+	Parser* parser;
 
 private:
 	Scanner* scanner;
-	Parser* parser;
 	SemanticAnalyser* semanticAnalyser;
 	CodeGenerator* codeGenerator;
 };

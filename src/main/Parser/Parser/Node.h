@@ -12,6 +12,7 @@ public:
     Node();
     Node(Token* currentToken);
     Node(long value, Token* currentToken);
+    Node(const char* lexem, Token* currentToken);
 
     virtual ~Node();
 

@@ -33,6 +33,16 @@ Node::Node(long value, Token *currentToken) {
     token = currentToken;
 }
 
+Node::Node(const char* lexem, Token *currentToken) {
+    symbolType = NOT_SET;
+    ruleType = RULE_NOT_SET;
+    nodeType = INT_TYPE;
+    currentChildren = 0;
+    leaf = 0L;
+    integerValue = 0L;
+    token = currentToken;
+}
+
 Node::~Node() {}
 
 void Node::addChildren(Node *child) {
