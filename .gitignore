@@ -58,3 +58,4 @@ interpreter.jar
 #CLion Files are okay, I guess
 .idea/
 cmake-build-debug/
+build/
