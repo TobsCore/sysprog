@@ -62,7 +62,13 @@ Token *Scanner::nextToken() {
             lexem[i] = nextChar;
             i++;
         }
-    } while ((symbol == NEXTCHAR || symbol == IN_COMMENT) && buffer->hasNext() && i < bufferSize - 1);
+        if (symbol == COMMENT) {
+            // Für die korreket Positionierung, muss diese Methode aufgerufen werden, weil wir jetzt ja kein Comment
+            // Token mehr zurück geben.
+            i = 0;
+            tokenPosition();
+        }
+    } while ((symbol == NEXTCHAR || symbol == IN_COMMENT || symbol == COMMENT) && buffer->hasNext() && i < bufferSize - 1);
 
     // Identifier too long
     if (i >= bufferSize - 1) {

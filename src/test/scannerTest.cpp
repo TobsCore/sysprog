@@ -469,11 +469,6 @@ TEST(ScannerTest, Comment) {
     ASSERT_EQ(5, token->getCol());
 
     token = scanner->nextToken();
-    ASSERT_EQ(COMMENT, token->getType());
-    ASSERT_EQ(1, token->getRow());
-    ASSERT_EQ(7, token->getCol());
-
-    token = scanner->nextToken();
     ASSERT_EQ(EQUALS, token->getType());
     ASSERT_EQ(1, token->getRow());
     ASSERT_EQ(24, token->getCol());
@@ -517,11 +512,6 @@ TEST(ScannerTest, Comment2) {
     ASSERT_STREQ("ein", static_cast<IdentifierToken*>(token)->getLexem());
 
     token = scanner->nextToken();
-    ASSERT_EQ(COMMENT, token->getType());
-    ASSERT_EQ(1, token->getRow());
-    ASSERT_EQ(14, token->getCol());
-
-    token = scanner->nextToken();
     ASSERT_EQ(IDENTIFIER, token->getType());
     ASSERT_EQ(1, token->getRow());
     ASSERT_EQ(32, token->getCol());
@@ -546,11 +536,6 @@ TEST(ScannerTest, CommentWith2Spaces) {
     ASSERT_EQ(IDENTIFIER, token->getType());
     ASSERT_EQ(1, token->getRow());
     ASSERT_EQ(5, token->getCol());
-
-    token = scanner->nextToken();
-    ASSERT_EQ(COMMENT, token->getType());
-    ASSERT_EQ(1, token->getRow());
-    ASSERT_EQ(7, token->getCol());
 
     token = scanner->nextToken();
     ASSERT_EQ(EQUALS, token->getType());
@@ -588,11 +573,6 @@ TEST(ScannerTest, CommentWithMultipleSpaces) {
     ASSERT_EQ(5, token->getCol());
 
     token = scanner->nextToken();
-    ASSERT_EQ(COMMENT, token->getType());
-    ASSERT_EQ(1, token->getRow());
-    ASSERT_EQ(7, token->getCol());
-
-    token = scanner->nextToken();
     ASSERT_EQ(EQUALS, token->getType());
     ASSERT_EQ(1, token->getRow());
     ASSERT_EQ(26, token->getCol());
@@ -626,11 +606,6 @@ TEST(ScannerTest, CommentWithSpace) {
     ASSERT_EQ(IDENTIFIER, token->getType());
     ASSERT_EQ(1, token->getRow());
     ASSERT_EQ(5, token->getCol());
-
-    token = scanner->nextToken();
-    ASSERT_EQ(COMMENT, token->getType());
-    ASSERT_EQ(1, token->getRow());
-    ASSERT_EQ(7, token->getCol());
 
     token = scanner->nextToken();
     ASSERT_EQ(EQUALS, token->getType());
