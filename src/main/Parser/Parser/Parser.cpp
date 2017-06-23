@@ -19,9 +19,6 @@ Parser::Parser(Scanner *scanner) {
 
 void Parser::nextToken() {
     currentToken = scanner->nextToken();
-    // TODO(Toby): Die Zeile (printOutput) hier kann vermutlich gelöscht werden.
-    // scanner->printOutput(currentToken);
-
     if (currentToken->getType() == ERROR) {
         cerr << RED << "Error in Scanner" << COLOR_RESET << endl;
         exit(1);
@@ -100,7 +97,7 @@ Node *Parser::array() {
     if (currentToken->getType() == BRACKET_LEFT) {
         match(BRACKET_LEFT);
         if (currentToken->getType() == INTEGER) {
-            if (static_cast<IntegerToken*>(currentToken)->getValue() > INT_MAX) {
+            if (static_cast<IntegerToken *>(currentToken)->getValue() > INT_MAX) {
                 cerr << RED << "Parser: Integer in Array out of range: value too high!" << COLOR_RESET << endl;
                 printError();
             }
@@ -244,10 +241,10 @@ Node *Parser::exp2() {
         node->addChildren(index());
         node->setRuleType(EXP2_2);
     } else if (currentToken->getType() == INTEGER) {
-        if (before == MINUS && static_cast<IntegerToken*>(currentToken)->getValue() > 2147483648) {
+        if (before == MINUS && static_cast<IntegerToken *>(currentToken)->getValue() > 2147483648) {
             cerr << RED << "Parser: Integer out of range: value too low!" << COLOR_RESET << endl;
             printError();
-        } else if (before != MINUS && static_cast<IntegerToken*>(currentToken)->getValue() > INT_MAX) {
+        } else if (before != MINUS && static_cast<IntegerToken *>(currentToken)->getValue() > INT_MAX) {
             cerr << RED << "Parser: Integer out of range: value too high!" << COLOR_RESET << endl;
             printError();
         }
@@ -368,9 +365,9 @@ void Parser::printError() {
          << ToString(currentToken->getType());
 
     if (currentToken->getType() == IDENTIFIER) {
-        cerr << " lexem: " << static_cast<IdentifierToken*>(currentToken)->getLexem();
+        cerr << " lexem: " << static_cast<IdentifierToken *>(currentToken)->getLexem();
     } else if (currentToken->getType() == INTEGER) {
-        cerr << " value: " << static_cast<IntegerToken*>(currentToken)->getValue();
+        cerr << " value: " << static_cast<IntegerToken *>(currentToken)->getValue();
     }
 
     cerr << COLOR_RESET << endl;
@@ -381,7 +378,7 @@ Node *Parser::createLeaf() {
     Node *leaf;
 
     if (currentToken->getType() == INTEGER) {
-        leaf = new Node(static_cast<IntegerToken*>(currentToken)->getValue(), currentToken);
+        leaf = new Node(static_cast<IntegerToken *>(currentToken)->getValue(), currentToken);
     } else if (currentToken->getType() == IDENTIFIER) {
         leaf = new Node(currentToken);
     } else {

@@ -42,9 +42,22 @@ TEST(ParserTest, CheckSimplestWithGrammar) {
     ASSERT_NO_THROW(codeGenerator->runCodeGenerator(root));
 }
 
+
+TEST(ParserTest, DISABLED_Assign) {
+    Compiler *compiler = new Compiler("../src/test/testData/programs/Assign.txt", "testout.txt");
+    ParseTree *parseTree = compiler->parser->parse();
+
+    SemanticAnalyser *analyzer = new SemanticAnalyser();
+    analyzer->typeCheck(parseTree);
+
+    Node *root = parseTree->getTree();
+    CodeGenerator *codeGenerator = new CodeGenerator("out.code");
+    ASSERT_NO_THROW(codeGenerator->runCodeGenerator(root));
+}
+
 TEST(ParserTest, DISABLED_SimplestAddition) {
     //TODO(Toby): Fix tests
-	Compiler *compiler = new Compiler("../src/test/testData/programs/simplestAddition.txt", "testout.txt");
+    Compiler *compiler = new Compiler("../src/test/testData/programs/simplestAddition.txt", "testout.txt");
     ParseTree *parseTree = compiler->parser->parse();
 
     SemanticAnalyser *analyzer = new SemanticAnalyser();

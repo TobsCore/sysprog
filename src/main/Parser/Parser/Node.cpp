@@ -66,6 +66,7 @@ RuleType Node::getRuleType() {
 }
 
 void Node::setNodeType(NodeType type) {
+    // TODO(Toby): Set Node type in symbolTable, so we can check if identifier has been declared, or not
     this->nodeType = type;
 }
 
