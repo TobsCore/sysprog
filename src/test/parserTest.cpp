@@ -8,7 +8,7 @@
 
 TEST(ParserTest, ReadSimpleIntFile) {
 
-	Compiler *compiler = new Compiler("../src/test/testData/programs/simplestProgram.txt", "testout.txt");
+	Compiler *compiler = new Compiler("../src/test/testData/programs/simplestProgram.txt", "testout.code");
     ParseTree *parseTree = compiler->parser->parse();
 
     Node *root = parseTree->getTree();
@@ -31,36 +31,11 @@ TEST(ParserTest, ReadSimpleIntFile) {
 }
 
 TEST(ParserTest, CheckSimplestWithGrammar) {
-	Compiler *compiler = new Compiler("../src/test/testData/programs/simplestProgram.txt", "testout.txt");
+	Compiler *compiler = new Compiler("../src/test/testData/programs/simplestProgram.txt", "testout.code");
     ParseTree *parseTree = compiler->parser->parse();
 
     SemanticAnalyser *analyzer = new SemanticAnalyser();
     ASSERT_NO_THROW(analyzer->typeCheck(parseTree));
-
-    Node *root = parseTree->getTree();
-    CodeGenerator *codeGenerator = new CodeGenerator("out.code");
-    ASSERT_NO_THROW(codeGenerator->runCodeGenerator(root));
-}
-
-
-TEST(ParserTest, Assign) {
-    Compiler *compiler = new Compiler("../src/test/testData/programs/Assign.txt", "testout.txt");
-    ParseTree *parseTree = compiler->parser->parse();
-
-    SemanticAnalyser *analyzer = new SemanticAnalyser();
-    analyzer->typeCheck(parseTree);
-
-    Node *root = parseTree->getTree();
-    CodeGenerator *codeGenerator = new CodeGenerator("out.code");
-    ASSERT_NO_THROW(codeGenerator->runCodeGenerator(root));
-}
-
-TEST(ParserTest, SimplestAddition) {
-    Compiler *compiler = new Compiler("../src/test/testData/programs/simplestAddition.txt", "testout.txt");
-    ParseTree *parseTree = compiler->parser->parse();
-
-    SemanticAnalyser *analyzer = new SemanticAnalyser();
-    analyzer->typeCheck(parseTree);
 
     Node *root = parseTree->getTree();
     CodeGenerator *codeGenerator = new CodeGenerator("out.code");
