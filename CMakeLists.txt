@@ -60,12 +60,10 @@ set(PARSER_SOURCE
         src/main/Parser/Parser/CodeGenerator.h
         src/main/Parser/Parser/CodeGenerator.cpp
         src/main/Parser/Exceptions/GrammarException.h
-        src/main/Parser/Parser/SemanticAnalyser.cpp
-        src/main/Parser/Parser/SemanticAnalyser.h
+        src/main/Parser/Parser/TypeChecker.cpp
+        src/main/Parser/Parser/TypeChecker.h
         src/main/Parser/Exceptions/GrammarException.h
         src/main/Parser/Exceptions/CodeGenerationException.h
-        src/main/Parser/Parser/Leaf.cpp
-        src/main/Parser/Parser/Leaf.h
         src/main/Parser/Parser/Compiler.cpp
         src/main/Parser/Parser/Compiler.h)
 
@@ -79,7 +77,7 @@ set(TEST
         src/test/scannerErrorTest.cpp
         src/test/nodeTest.cpp
         src/test/newTokenTypeTest.cpp
-        src/test/parserTest.cpp)
+        )
 
 add_executable(scanner src/main/Scanner/runScanner.cpp ${SCANNER_SOURCE})
 add_executable(parser src/main/Parser/runParser.cpp ${PARSER_SOURCE} ${SCANNER_SOURCE})

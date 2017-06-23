@@ -1,4 +1,4 @@
-#include "SemanticAnalyser.h"
+#include "TypeChecker.h"
 #include "../../colors.h"
 #include <iostream>
 #include <stdlib.h>
@@ -13,8 +13,8 @@ SemanticAnalyser::~SemanticAnalyser() {
     //NOP
 }
 
-Node* SemanticAnalyser::typeCheck(ParseTree* tree) {
-    return typeCheckProg(tree->getTree());
+ParseTree * SemanticAnalyser::typeCheck(ParseTree *tree) {
+    return new ParseTree(typeCheckProg(tree->getTree()));
 }
 
 //PROG ::= DECLS STATEMENTS

@@ -25,7 +25,16 @@ int main(int argc, char **argv) {
     const char *outFilename = argv[2];
     try {
         Compiler* compiler = new Compiler (inFilename, outFilename);
-        compiler->compile();
+
+        cout << "Run semantic analyser.." << endl;
+        compiler->parse();
+
+        cout << "Run semantic analyser.." << endl;
+        compiler->typeCheck();
+
+        cout << "Run code generator.." << endl;
+        compiler->runCodeGenerator();
+
 
     } catch (std::exception &ex) {
         cerr << RED << "Error! " << COLOR_RESET << "Cannot read input file <" << inFilename << ">" << endl;

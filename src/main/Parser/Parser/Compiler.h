@@ -2,20 +2,23 @@
 #define SYSPROG_COMPILER_H
 
 #include "Parser.h"
-#include "SemanticAnalyser.h"
+#include "TypeChecker.h"
 #include "CodeGenerator.h"
 
 class Compiler {
 public:
 	Compiler (const char* inputfile, const char* outfile);
 	~Compiler();
-	void compile();
-	Parser* parser;
+    void parse();
+	void typeCheck();
+	void runCodeGenerator();
 
 private:
+	Parser* parser;
 	Scanner* scanner;
 	SemanticAnalyser* semanticAnalyser;
 	CodeGenerator* codeGenerator;
+    ParseTree* parseTree;
 };
 
 #endif

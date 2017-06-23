@@ -9,7 +9,7 @@ class CodeGenerator {
 public:
     CodeGenerator(const char* outfile);
     virtual ~CodeGenerator();
-    void runCodeGenerator(Node* tree);
+    void runCodeGenerator(ParseTree *tree);
 
 private:
 

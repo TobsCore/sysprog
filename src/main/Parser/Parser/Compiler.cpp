@@ -19,15 +19,14 @@ Compiler::~Compiler() {
 	delete codeGenerator;
 }
 
-void Compiler::compile() {
-	ParseTree* parseTree = parser->parse();
+void Compiler::parse() {
+    this->parseTree = parser->parse();
+}
 
-	cerr << GREEN << "run semantic analyser.." << COLOR_RESET << endl;
-	Node* typedTree = semanticAnalyser->typeCheck(parseTree);
+void Compiler::typeCheck() {
+	this->parseTree = semanticAnalyser->typeCheck(parseTree);
+}
 
-	cerr << GREEN << "run code generator.." << COLOR_RESET << endl;
-	codeGenerator->runCodeGenerator(typedTree);
-
-	cerr << GREEN << "finished compile process.." << COLOR_RESET << endl;
-
+void Compiler::runCodeGenerator() {
+	codeGenerator->runCodeGenerator(parseTree);
 }

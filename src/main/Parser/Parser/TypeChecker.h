@@ -14,7 +14,7 @@ public:
     SemanticAnalyser();
     virtual ~SemanticAnalyser();
 
-    Node* typeCheck(ParseTree* tree);
+    ParseTree * typeCheck(ParseTree *tree);
     void analyze(Node *root);
     Node* typeCheckProg(Node* root);
     void typeCheckDecls(Node* root);

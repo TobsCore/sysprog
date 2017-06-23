@@ -18,7 +18,8 @@ CodeGenerator::~CodeGenerator() {
 	delete outText;
 }
 
-void CodeGenerator::runCodeGenerator(Node* root) {
+void CodeGenerator::runCodeGenerator(ParseTree *parseTree) {
+    Node *root = parseTree->getTree();
 	generateCodeProg(root);
 	*codeFile << outText->rdbuf();
 	codeFile->flush();
