@@ -87,8 +87,7 @@ Token *Scanner::nextToken() {
     switch (symbol) {
         case IDENTIFIER: {
             lexem[i] = '\0';
-            nextToken = new IdentifierToken();
-            static_cast<IdentifierToken *>(nextToken)->setKey(symboltable->insert(lexem));
+            nextToken = new IdentifierToken(symboltable->insert(lexem));
             i = 0;
             break;
         }

@@ -37,7 +37,7 @@ void Parser::match(SymbolType tokenType) {
  a function for every non-terminal is necessary (script p. 34)
  **/
 ParseTree *Parser::parse() {
-    cerr << GREEN << "start parsing.." << COLOR_RESET << endl;
+    //cout << GREEN << "start parsing.." << COLOR_RESET << endl;
     parseTree = this->prog();
     return parseTree;
 }

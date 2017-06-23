@@ -5,9 +5,9 @@
 #include "IdentifierToken.h"
 #include "../../String/StringOp.h"
 
-IdentifierToken::IdentifierToken() {
+IdentifierToken::IdentifierToken(SymbolItem *key) {
     this->type = IDENTIFIER;
-    this->key = NULL;
+    this->key = key;
 }
 
 const char *IdentifierToken::toString() {
@@ -28,6 +28,11 @@ SymbolItem *IdentifierToken::getKey() {
     return key;
 }
 
-void IdentifierToken::setKey(SymbolItem *key) {
-    this->key = key;
+void IdentifierToken::setNodeType(NodeType type) {
+    this->key->nodeType = type;
+
+}
+
+NodeType IdentifierToken::getNodeType() {
+    return this->key->nodeType;
 }

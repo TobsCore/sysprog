@@ -25,10 +25,9 @@ TEST(TokenTest, IntegerToken) {
 
 TEST(TokenTest, IdentifierToken) {
 
-    IdentifierToken *testToken = new IdentifierToken();
     SymbolTable *symboltable = new SymbolTable();
+    IdentifierToken *testToken = new IdentifierToken(symboltable->insert("testVar"));
     testToken->setPosition(1,1);
-    testToken->setKey(symboltable->insert("testVar"));
 
     ASSERT_EQ(1, testToken->getRow());
     ASSERT_EQ(1, testToken->getCol());

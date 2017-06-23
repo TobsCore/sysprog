@@ -1,4 +1,5 @@
 #include "Node.h"
+#include "../../Scanner/Token/IdentifierToken.h"
 #include <iostream>
 
 using namespace std;
@@ -66,11 +67,16 @@ RuleType Node::getRuleType() {
 }
 
 void Node::setNodeType(NodeType type) {
-    // TODO(Toby): Set Node type in symbolTable, so we can check if identifier has been declared, or not
+    if (isLeaf()) {
+        static_cast<IdentifierToken *>(this->getToken())->setNodeType(type);
+    }
     this->nodeType = type;
 }
 
 NodeType Node::getNodeType() {
+    if (isLeaf()) {
+        return static_cast<IdentifierToken*>(this->getToken())->getNodeType();
+    }
     return this->nodeType;
 }
 

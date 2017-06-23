@@ -43,7 +43,7 @@ TEST(ParserTest, CheckSimplestWithGrammar) {
 }
 
 
-TEST(ParserTest, DISABLED_Assign) {
+TEST(ParserTest, Assign) {
     Compiler *compiler = new Compiler("../src/test/testData/programs/Assign.txt", "testout.txt");
     ParseTree *parseTree = compiler->parser->parse();
 
@@ -55,8 +55,7 @@ TEST(ParserTest, DISABLED_Assign) {
     ASSERT_NO_THROW(codeGenerator->runCodeGenerator(root));
 }
 
-TEST(ParserTest, DISABLED_SimplestAddition) {
-    //TODO(Toby): Fix tests
+TEST(ParserTest, SimplestAddition) {
     Compiler *compiler = new Compiler("../src/test/testData/programs/simplestAddition.txt", "testout.txt");
     ParseTree *parseTree = compiler->parser->parse();
 

@@ -5,11 +5,7 @@
  *      Author: holger
  */
 
-#ifndef INFOMATION
-#define INFOMATION
-
-
-#endif
+#include "../../Parser/Parser/NodeType.h"
 
 #ifndef SYMBOLITEM_H_
 #define SYMBOLITEM_H_
@@ -22,6 +18,7 @@ struct SymbolItem {
 
     const char *lexem;
     SymbolItem *next;
+    NodeType nodeType = NO_TYPE;
 };
 
 

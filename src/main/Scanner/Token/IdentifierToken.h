@@ -3,18 +3,21 @@
 //
 #include "../SymbolTable/SymbolItem.h"
 #include "Token.h"
+#include "../../Parser/Parser/NodeType.h"
 
 class IdentifierToken : public Token {
 public:
-    IdentifierToken();
+    IdentifierToken(SymbolItem *key);
 
     const char *toString();
 
     const char *getLexem();
 
-    void setKey(SymbolItem *key);
-
     SymbolItem *getKey();
+
+    void setNodeType(NodeType type);
+
+    NodeType getNodeType();
 
 private:
     SymbolItem *key;
