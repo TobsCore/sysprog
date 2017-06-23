@@ -711,7 +711,7 @@ TEST_F(AutomatTest, IntP0) {
     ASSERT_EQ(testAutomat.checkExpression('\0'), SEMICOLON);
 }
 
-TEST_F(AutomatTest, DISABLED_Intr0) {
+TEST_F(AutomatTest, Intr0) {
     ASSERT_EQ(testAutomat.checkExpression('i'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('n'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('t'), NEXTCHAR);
@@ -722,13 +722,26 @@ TEST_F(AutomatTest, DISABLED_Intr0) {
     ASSERT_EQ(testAutomat.checkExpression('\0'), SEMICOLON);
 }
 
-TEST_F(AutomatTest, DISABLED_IntR0) {
+TEST_F(AutomatTest, IntR0) {
     ASSERT_EQ(testAutomat.checkExpression('i'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('n'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('t'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression(' '), INTTOKEN);
     ASSERT_EQ(testAutomat.checkExpression('R'), NEXTCHAR);
     ASSERT_EQ(testAutomat.checkExpression('0'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression(';'), IDENTIFIER);
+    ASSERT_EQ(testAutomat.checkExpression('\0'), SEMICOLON);
+}
+
+TEST_F(AutomatTest, IntegerIdentifier) {
+    ASSERT_EQ(testAutomat.checkExpression('i'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('n'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('t'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression(' '), INTTOKEN);
+    ASSERT_EQ(testAutomat.checkExpression('1'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('2'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('3'), NEXTCHAR);
+    ASSERT_EQ(testAutomat.checkExpression('R'), INTEGER);
     ASSERT_EQ(testAutomat.checkExpression(';'), IDENTIFIER);
     ASSERT_EQ(testAutomat.checkExpression('\0'), SEMICOLON);
 }
