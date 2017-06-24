@@ -46,9 +46,7 @@ set(SCANNER_SOURCE
         main/Scanner/Token/ElseToken.cpp
         main/Scanner/Token/ElseToken.h
         main/Scanner/Token/IntToken.cpp
-        main/Scanner/Token/IntToken.h
-        main/Parser/Exceptions/GrammarException.h
-        main/Parser/Exceptions/CodeGenerationException.h)
+        main/Scanner/Token/IntToken.h)
 
 set(PARSER_SOURCE
         main/Parser/Parser/Parser.h
