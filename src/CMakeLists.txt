@@ -76,7 +76,6 @@ set(TEST
         test/symtableTest.cpp
         test/stringTableTest.cpp
         test/scannerErrorTest.cpp
-        test/nodeTest.cpp
         test/newTokenTypeTest.cpp
         )
 
