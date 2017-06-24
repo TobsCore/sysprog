@@ -6,11 +6,7 @@
 
 using namespace std;
 
-/**
- * A recursive decent parser for a given LL(1) (lookahead of 1) grammar
- * @param filePath
- * @param logFilePath
- */
+
 Parser::Parser(Scanner *scanner) {
     currentToken = 0L;
     before = NOT_SET;
@@ -32,18 +28,12 @@ void Parser::match(SymbolType tokenType) {
     nextToken();
 }
 
-/**
- build the parse tree recursively -
- a function for every non-terminal is necessary (script p. 34)
- **/
 ParseTree *Parser::parse() {
-    //cout << GREEN << "start parsing.." << COLOR_RESET << endl;
     parseTree = this->prog();
     return parseTree;
 }
 
 ParseTree *Parser::prog() {
-    //cout << "parsing [prog].." << endl;
     nextToken();
     Node *node = createNode();
     node->addChildren(decls());
@@ -54,7 +44,6 @@ ParseTree *Parser::prog() {
 
 
 Node *Parser::decls() {
-    //cout << "parsing [decls].." << endl;
     Node *node = createNode();
 
     if (currentToken->getType() == INTTOKEN) {
@@ -74,7 +63,6 @@ Node *Parser::decls() {
 }
 
 Node *Parser::decl() {
-    //cout << "parsing [decl].." << endl;
     Node *node = createNode();
     match(INTTOKEN);
     node->addChildren(this->array());
@@ -91,7 +79,6 @@ Node *Parser::decl() {
 }
 
 Node *Parser::array() {
-    //cout << "parsing [array].." << endl;
     Node *node = createNode();
 
     if (currentToken->getType() == BRACKET_LEFT) {
@@ -123,7 +110,6 @@ Node *Parser::array() {
 
 
 Node *Parser::statements() {
-    //cout << "parsing [statements].." << endl;
     Node *node = createNode();
     SymbolType currentType = currentToken->getType();
 
@@ -155,7 +141,6 @@ Node *Parser::statements() {
 }
 
 Node *Parser::statement() {
-    //cout << "parsing [statement].." << endl;
     Node *node = createNode();
 
     if (currentToken->getType() == IDENTIFIER) {
@@ -218,7 +203,6 @@ Node *Parser::statement() {
 }
 
 Node *Parser::exp() {
-    //cout << "parsing [exp].." << endl;
     Node *node = createNode();
     node->addChildren(exp2());
     node->addChildren(op_exp());
@@ -227,7 +211,6 @@ Node *Parser::exp() {
 }
 
 Node *Parser::exp2() {
-    //cout << "parsing [exp2].." << endl;
     Node *node = createNode();
 
     if (currentToken->getType() == PARANTHESES_LEFT) {
@@ -269,7 +252,6 @@ Node *Parser::exp2() {
 }
 
 Node *Parser::index() {
-    //cout << "parsing [index].." << endl;
     Node *node = createNode();
 
     if (currentToken->getType() == BRACKET_LEFT) {
@@ -317,7 +299,6 @@ Node *Parser::op_exp() {
 }
 
 Node *Parser::op() {
-    //cout << "parsing [op].." << endl;
     Node *node = createNode();
 
     if (currentToken->getType() == PLUS) {
@@ -353,7 +334,6 @@ Node *Parser::createNode() {
 }
 
 Node *Parser::createEpsilonNode() {
-    //cout << "create epsilon node" << endl;
     Node *node = new Node();
     node->setNodeType(NO_TYPE);
     return node;
