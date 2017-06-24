@@ -47,7 +47,7 @@ void CodeGenerator::generateCodeDecls(Node* node) {
 }
 
 //DECLS ::= e
-void CodeGenerator::generateCodeDecls_2() {
+void CodeGenerator::generateCodeDecls_EMPTY() {
 	//NOP
 }
 
@@ -68,7 +68,7 @@ void CodeGenerator::generateCodeArray(Node* node) {
 }
 
 //ARRAY ::= e
-void CodeGenerator::generateCodeArray_2() {
+void CodeGenerator::generateCodeArray_EMPTY() {
 	*outText << " " << 1;
 }
 
@@ -85,12 +85,12 @@ void CodeGenerator::generateCodeStatements(Node *node) {
 }
 
 //STATEMENTS ::= e
-void CodeGenerator::generateCodeStatements_2() {
+void CodeGenerator::generateCodeStatements_EMPTY() {
 	*outText << " NOP ";
 }
 
 //STATEMENT_IDENTIFIER ::= identifier INDEX := EXP
-void CodeGenerator::generateCodeStatement(Node *node) {
+void CodeGenerator::generateCodeStatement_IDENTIFIER(Node *node) {
 	Node* exp = node->getChildren(2);
 	Node* index = node->getChildren(1);
 	Node* identifier = node->getChildren(0);
@@ -102,7 +102,7 @@ void CodeGenerator::generateCodeStatement(Node *node) {
 }
 
 //STATEMENT_IDENTIFIER ::= write( EXP )
-void CodeGenerator::generateCodeStatement_2(Node* node) {
+void CodeGenerator::generateCodeStatement_WRITE(Node *node) {
 	Node* exp = node->getChildren(0);
 	generateCode(exp);
 
@@ -110,7 +110,7 @@ void CodeGenerator::generateCodeStatement_2(Node* node) {
 }
 
 //STATEMENT_IDENTIFIER ::= read( identifier INDEX)
-void CodeGenerator::generateCodeStatement_3(Node* node) {
+void CodeGenerator::generateCodeStatement_READ(Node *node) {
 	Node* identifier = node->getChildren(0);
 	Node* index = node->getChildren(1);
 
@@ -124,13 +124,13 @@ void CodeGenerator::generateCodeStatement_3(Node* node) {
 }
 
 //STATEMENT_IDENTIFIER ::= { STATEMENTS }
-void CodeGenerator::generateCodeStatement_4(Node* node) {
+void CodeGenerator::generateCodeStatement_BRACES(Node *node) {
 	Node* statements = node->getChildren(0);
 	generateCode(statements);
 }
 
 //STATEMENT_IDENTIFIER ::= if ( EXP ) STATEMENT_IDENTIFIER else STATEMENT_IDENTIFIER
-void CodeGenerator::generateCodeStatement_5(Node* node) {
+void CodeGenerator::generateCodeStatement_IF(Node *node) {
 	Node* exp = node->getChildren(0);
 	Node* statement1 = node->getChildren(1);
 	Node* statement2 = node->getChildren(2);
@@ -153,7 +153,7 @@ void CodeGenerator::generateCodeStatement_5(Node* node) {
 }
 
 //STATEMENT_IDENTIFIER ::= while ( EXP ) STATEMENT_IDENTIFIER)
-void CodeGenerator::generateCodeStatement_6(Node* node) {
+void CodeGenerator::generateCodeStatement_WHILE(Node *node) {
 	Node* exp = node->getChildren(0);
 	Node* statement = node->getChildren(1);
 
@@ -197,13 +197,13 @@ void CodeGenerator::generateCodeExp(Node* node) {
 }
 
 //INDEX ::= [ EXP ]
-void CodeGenerator::generateCodeExp2(Node* node) {
+void CodeGenerator::generateCodeExp2_PARENS(Node *node) {
 	Node* exp = node->getChildren(0);
 	generateCode(exp);
 }
 
 //EXP2_PARENS ::= identifier INDEX
-void CodeGenerator::generateCodeExp2_2(Node* node) {
+void CodeGenerator::generateCodeExp2_IDENTIFIER(Node *node) {
 	Node* identifier = node->getChildren(0);
 	Node* index = node->getChildren(1);
 
@@ -215,12 +215,12 @@ void CodeGenerator::generateCodeExp2_2(Node* node) {
 }
 
 //EXP2_PARENS ::= integer
-void CodeGenerator::generateCodeExp2_3(Node* node) {
+void CodeGenerator::generateCodeExp2_INTEGER(Node *node) {
 	*outText << " LC " << node->getChildren(0)->getIntegerValue();
 }
 
 //EXP2_PARENS ::= - EXP2_PARENS
-void CodeGenerator::generateCodeExp2_4(Node* node) {
+void CodeGenerator::generateCodeExp2_NEGATIVE(Node *node) {
 	Node *exp2 = node->getChildren(0);
 
 	*outText << "LC " << 0;
@@ -229,7 +229,7 @@ void CodeGenerator::generateCodeExp2_4(Node* node) {
 }
 
 //EXP2_PARENS ::= ! EXP2_PARENS
-void CodeGenerator::generateCodeExp2_5(Node* node) {
+void CodeGenerator::generateCodeExp2_NEGATION(Node *node) {
 	Node* exp2 = node->getChildren(0);
 
 	generateCode(exp2);
@@ -245,8 +245,7 @@ void CodeGenerator::generateCodeIndex(Node* node) {
 }
 
 //INDEX ::= e
-void CodeGenerator::generateCodeIndex_2() {
-	//NOP
+void CodeGenerator::generateCodeIndex_EMPTY() {
 }
 
 //OP_EXP ::= OP_PLUS EXP
@@ -259,56 +258,52 @@ void CodeGenerator::generateCodeOp_Exp(Node* node) {
 }
 
 //OP_EXP ::= e
-void CodeGenerator::generateCodeOp_Exp_2() {
-	//NOP
+void CodeGenerator::generateCodeOp_Exp_EMPTY() {
 }
 
-void CodeGenerator::generateCodeOp() {
+void CodeGenerator::generateCodeOp_PLUS() {
 	*outText << " ADD ";
 }
 
 
-void CodeGenerator::generateCodeOp_2() {
+void CodeGenerator::generateCodeOp_MINUS() {
 	*outText << " SUB ";
 }
 
-void CodeGenerator::generateCodeOp_3() {
+void CodeGenerator::generateCodeOp_MULTIPLICATION() {
 	*outText << " MUL ";
 }
 
-void CodeGenerator::generateCodeOp_4() {
+void CodeGenerator::generateCodeOp_DIVISION() {
 	*outText << " DIV ";
 }
 
-void CodeGenerator::generateCodeOp_5() {
+void CodeGenerator::generateCodeOp_LESS() {
 	*outText << " LES ";
 }
 
-void CodeGenerator::generateCodeOp_6() {
+void CodeGenerator::generateCodeOp_GREATER() {
 	*outText << "  ";
 }
 
-void CodeGenerator::generateCodeOp_7() {
+void CodeGenerator::generateCodeOp_EQUALS() {
 	*outText << " EQU ";
 
 }
 
-void CodeGenerator::generateCodeOp_8() {
+void CodeGenerator::generateCodeOp_SPECIAL() {
 	*outText << " EQU ";
 }
 
-void CodeGenerator::generateCodeOp_9() {
+void CodeGenerator::generateCodeOp_AND() {
 	*outText << " AND ";
 }
 
 void CodeGenerator::generateCode(Node* node) {
-
 	if(node == 0L) {
-		//cout << "node is null" << endl;
 		return;
 	}
 
-	//cout << "generateCode: " << ToString(node->getRuleType()) << endl;
 	switch(node->getRuleType()) {
 		case PROG:
 			generateCodeProg(node);
@@ -317,7 +312,7 @@ void CodeGenerator::generateCode(Node* node) {
 			generateCodeDecls(node);
 			break;
 		case DECLS_EMPTY:
-			generateCodeDecls_2();
+            generateCodeDecls_EMPTY();
 			break;
 		case DECL:
 			generateCodeDecl(node);
@@ -326,88 +321,88 @@ void CodeGenerator::generateCode(Node* node) {
 			generateCodeArray(node);
 			break;
 		case ARRAY_Empty:
-			generateCodeArray_2();
+            generateCodeArray_EMPTY();
 			break;
 		case STATEMENTS:
 			generateCodeStatements(node);
 			break;
 		case STATEMENTS_EMPTY:
-			generateCodeStatements_2();
+            generateCodeStatements_EMPTY();
 			break;
 		case STATEMENT_IDENTIFIER:
-			generateCodeStatement(node);
+            generateCodeStatement_IDENTIFIER(node);
 			break;
 		case STATEMENT_WRITE:
-			generateCodeStatement_2(node);
+            generateCodeStatement_WRITE(node);
 			break;
 		case STATEMENT_READ:
-			generateCodeStatement_3(node);
+            generateCodeStatement_READ(node);
 			break;
 		case STATEMENT_BRACES:
-			generateCodeStatement_4(node);
+            generateCodeStatement_BRACES(node);
 			break;
 		case STATEMENT_IF:
-			generateCodeStatement_5(node);
+            generateCodeStatement_IF(node);
 			break;
 		case STATEMENT_WHILE:
-			generateCodeStatement_6(node);
+            generateCodeStatement_WHILE(node);
 			break;
 		case EXP:
 			generateCodeExp(node);
 			break;
 		case EXP2_PARENS:
-			generateCodeExp2(node);
+            generateCodeExp2_PARENS(node);
 			break;
 		case EXP2_IDENTIFIER:
-			generateCodeExp2_2(node);
+            generateCodeExp2_IDENTIFIER(node);
 			break;
 		case EXP2_INTEGER:
-			generateCodeExp2_3(node);
+            generateCodeExp2_INTEGER(node);
 			break;
 		case EXP2_NEGATIVE:
-			generateCodeExp2_4(node);
+            generateCodeExp2_NEGATIVE(node);
 			break;
 		case EXP2_NEGATION:
-			generateCodeExp2_5(node);
+            generateCodeExp2_NEGATION(node);
 			break;
 		case INDEX:
 			generateCodeIndex(node);
 			break;
 		case INDEX_EMPTY:
-			generateCodeIndex_2();
+            generateCodeIndex_EMPTY();
 			break;
 		case OP_EXP:
 			generateCodeOp_Exp(node);
 			break;
 		case OP_EXP_EMPTY:
-			generateCodeOp_Exp_2();
+            generateCodeOp_Exp_EMPTY();
 			break;
 		case OP_PLUS:
-			generateCodeOp();
+            generateCodeOp_PLUS();
 			break;
 		case OP_MINUS:
-			generateCodeOp_2();
+            generateCodeOp_MINUS();
 			break;
 		case OP_MULTIPLICATION:
-			generateCodeOp_3();
+            generateCodeOp_MULTIPLICATION();
 			break;
 		case OP_DIVISION:
-			generateCodeOp_4();
+            generateCodeOp_DIVISION();
 			break;
 		case OP_LESS:
-			generateCodeOp_5();
+            generateCodeOp_LESS();
 			break;
 		case OP_GREATER:
-			generateCodeOp_6();
+            generateCodeOp_GREATER();
 			break;
 		case OP_EQUALS:
-			generateCodeOp_7();
+            generateCodeOp_EQUALS();
 			break;
 		case OP_SPECIAL:
-			generateCodeOp_8();
+            generateCodeOp_SPECIAL();
 			break;
 		case OP_AND:
-			generateCodeOp_9();
+            generateCodeOp_AND();
 			break;
 		default:
 			cerr << "node is empty" << endl;
