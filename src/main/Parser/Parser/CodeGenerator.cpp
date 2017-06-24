@@ -72,7 +72,7 @@ void CodeGenerator::generateCodeArray_2() {
 	*outText << " " << 1;
 }
 
-//STATEMENTS ::= STATEMENT ; STATEMENTS)
+//STATEMENTS ::= STATEMENT_IDENTIFIER ; STATEMENTS)
 void CodeGenerator::generateCodeStatements(Node *node) {
 	Node* statement = node->getChildren(0);
 	Node* statements = node->getChildren(1);
@@ -89,7 +89,7 @@ void CodeGenerator::generateCodeStatements_2() {
 	*outText << " NOP ";
 }
 
-//STATEMENT ::= identifier INDEX := EXP
+//STATEMENT_IDENTIFIER ::= identifier INDEX := EXP
 void CodeGenerator::generateCodeStatement(Node *node) {
 	Node* exp = node->getChildren(2);
 	Node* index = node->getChildren(1);
@@ -101,7 +101,7 @@ void CodeGenerator::generateCodeStatement(Node *node) {
 	*outText << " STR ";
 }
 
-//STATEMENT ::= write( EXP )
+//STATEMENT_IDENTIFIER ::= write( EXP )
 void CodeGenerator::generateCodeStatement_2(Node* node) {
 	Node* exp = node->getChildren(0);
 	generateCode(exp);
@@ -109,7 +109,7 @@ void CodeGenerator::generateCodeStatement_2(Node* node) {
 	*outText << " PRI ";
 }
 
-//STATEMENT ::= read( identifier INDEX)
+//STATEMENT_IDENTIFIER ::= read( identifier INDEX)
 void CodeGenerator::generateCodeStatement_3(Node* node) {
 	Node* identifier = node->getChildren(0);
 	Node* index = node->getChildren(1);
@@ -123,13 +123,13 @@ void CodeGenerator::generateCodeStatement_3(Node* node) {
 	*outText << " STR ";
 }
 
-//STATEMENT ::= { STATEMENTS }
+//STATEMENT_IDENTIFIER ::= { STATEMENTS }
 void CodeGenerator::generateCodeStatement_4(Node* node) {
 	Node* statements = node->getChildren(0);
 	generateCode(statements);
 }
 
-//STATEMENT ::= if ( EXP ) STATEMENT else STATEMENT
+//STATEMENT_IDENTIFIER ::= if ( EXP ) STATEMENT_IDENTIFIER else STATEMENT_IDENTIFIER
 void CodeGenerator::generateCodeStatement_5(Node* node) {
 	Node* exp = node->getChildren(0);
 	Node* statement1 = node->getChildren(1);
@@ -152,7 +152,7 @@ void CodeGenerator::generateCodeStatement_5(Node* node) {
 	*outText << "#label" << label2 << " NOP ";
 }
 
-//STATEMENT ::= while ( EXP ) STATEMENT)
+//STATEMENT_IDENTIFIER ::= while ( EXP ) STATEMENT_IDENTIFIER)
 void CodeGenerator::generateCodeStatement_6(Node* node) {
 	Node* exp = node->getChildren(0);
 	Node* statement = node->getChildren(1);
@@ -172,7 +172,7 @@ void CodeGenerator::generateCodeStatement_6(Node* node) {
 	*outText << "#label" << label2 << " NOP ";
 }
 
-//EXP ::= EXP2 OP_EXP
+//EXP ::= EXP2_PARENS OP_EXP
 void CodeGenerator::generateCodeExp(Node* node) {
 	Node* exp2 = node->getChildren(0);
 	Node* op_exp = node->getChildren(1);
@@ -202,7 +202,7 @@ void CodeGenerator::generateCodeExp2(Node* node) {
 	generateCode(exp);
 }
 
-//EXP2 ::= identifier INDEX
+//EXP2_PARENS ::= identifier INDEX
 void CodeGenerator::generateCodeExp2_2(Node* node) {
 	Node* identifier = node->getChildren(0);
 	Node* index = node->getChildren(1);
@@ -214,12 +214,12 @@ void CodeGenerator::generateCodeExp2_2(Node* node) {
 	*outText << " LV ";
 }
 
-//EXP2 ::= integer
+//EXP2_PARENS ::= integer
 void CodeGenerator::generateCodeExp2_3(Node* node) {
 	*outText << " LC " << node->getChildren(0)->getIntegerValue();
 }
 
-//EXP2 ::= - EXP2
+//EXP2_PARENS ::= - EXP2_PARENS
 void CodeGenerator::generateCodeExp2_4(Node* node) {
 	Node *exp2 = node->getChildren(0);
 
@@ -228,7 +228,7 @@ void CodeGenerator::generateCodeExp2_4(Node* node) {
 	*outText << " SUB ";
 }
 
-//EXP2 ::= ! EXP2
+//EXP2_PARENS ::= ! EXP2_PARENS
 void CodeGenerator::generateCodeExp2_5(Node* node) {
 	Node* exp2 = node->getChildren(0);
 
@@ -249,7 +249,7 @@ void CodeGenerator::generateCodeIndex_2() {
 	//NOP
 }
 
-//OP_EXP ::= OP EXP
+//OP_EXP ::= OP_PLUS EXP
 void CodeGenerator::generateCodeOp_Exp(Node* node) {
 	Node* op = node->getChildren(0);
 	Node* exp = node->getChildren(1);
@@ -316,7 +316,7 @@ void CodeGenerator::generateCode(Node* node) {
 		case DECLS:
 			generateCodeDecls(node);
 			break;
-		case DECLS_2:
+		case DECLS_EMPTY:
 			generateCodeDecls_2();
 			break;
 		case DECL:
@@ -325,88 +325,88 @@ void CodeGenerator::generateCode(Node* node) {
 		case ARRAY:
 			generateCodeArray(node);
 			break;
-		case ARRAY_2:
+		case ARRAY_Empty:
 			generateCodeArray_2();
 			break;
 		case STATEMENTS:
 			generateCodeStatements(node);
 			break;
-		case STATEMENTS_2:
+		case STATEMENTS_EMPTY:
 			generateCodeStatements_2();
 			break;
-		case STATEMENT:
+		case STATEMENT_IDENTIFIER:
 			generateCodeStatement(node);
 			break;
-		case STATEMENT_2:
+		case STATEMENT_WRITE:
 			generateCodeStatement_2(node);
 			break;
-		case STATEMENT_3:
+		case STATEMENT_READ:
 			generateCodeStatement_3(node);
 			break;
-		case STATEMENT_4:
+		case STATEMENT_BRACES:
 			generateCodeStatement_4(node);
 			break;
-		case STATEMENT_5:
+		case STATEMENT_IF:
 			generateCodeStatement_5(node);
 			break;
-		case STATEMENT_6:
+		case STATEMENT_WHILE:
 			generateCodeStatement_6(node);
 			break;
 		case EXP:
 			generateCodeExp(node);
 			break;
-		case EXP2:
+		case EXP2_PARENS:
 			generateCodeExp2(node);
 			break;
-		case EXP2_2:
+		case EXP2_IDENTIFIER:
 			generateCodeExp2_2(node);
 			break;
-		case EXP2_3:
+		case EXP2_INTEGER:
 			generateCodeExp2_3(node);
 			break;
-		case EXP2_4:
+		case EXP2_NEGATIVE:
 			generateCodeExp2_4(node);
 			break;
-		case EXP2_5:
+		case EXP2_NEGATION:
 			generateCodeExp2_5(node);
 			break;
 		case INDEX:
 			generateCodeIndex(node);
 			break;
-		case INDEX_2:
+		case INDEX_EMPTY:
 			generateCodeIndex_2();
 			break;
 		case OP_EXP:
 			generateCodeOp_Exp(node);
 			break;
-		case OP_EXP_2:
+		case OP_EXP_EMPTY:
 			generateCodeOp_Exp_2();
 			break;
-		case OP:
+		case OP_PLUS:
 			generateCodeOp();
 			break;
-		case OP_2:
+		case OP_MINUS:
 			generateCodeOp_2();
 			break;
-		case OP_3:
+		case OP_MULTIPLICATION:
 			generateCodeOp_3();
 			break;
-		case OP_4:
+		case OP_DIVISION:
 			generateCodeOp_4();
 			break;
-		case OP_5:
+		case OP_LESS:
 			generateCodeOp_5();
 			break;
-		case OP_6:
+		case OP_GREATER:
 			generateCodeOp_6();
 			break;
-		case OP_7:
+		case OP_EQUALS:
 			generateCodeOp_7();
 			break;
-		case OP_8:
+		case OP_SPECIAL:
 			generateCodeOp_8();
 			break;
-		case OP_9:
+		case OP_AND:
 			generateCodeOp_9();
 			break;
 		default:

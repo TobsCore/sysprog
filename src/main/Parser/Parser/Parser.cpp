@@ -65,7 +65,7 @@ Node *Parser::decls() {
         return node;
     } else if (checkFollowSet(DECLS, currentToken->getType())) {
         Node *epsilon = createEpsilonNode();
-        epsilon->setRuleType(DECLS_2);
+        epsilon->setRuleType(DECLS_EMPTY);
         return epsilon;
     } else {
         printError();
@@ -113,7 +113,7 @@ Node *Parser::array() {
         return node;
     } else if (checkFollowSet(ARRAY, currentToken->getType())) {
         Node *epsilon = createEpsilonNode();
-        epsilon->setRuleType(ARRAY_2);
+        epsilon->setRuleType(ARRAY_Empty);
         return epsilon;
     } else {
         printError();
@@ -146,7 +146,7 @@ Node *Parser::statements() {
         return node;
     } else if (checkFollowSet(STATEMENTS, currentToken->getType())) {
         Node *epsilon = createEpsilonNode();
-        epsilon->setRuleType(STATEMENTS_2);
+        epsilon->setRuleType(STATEMENTS_EMPTY);
         return epsilon;
     } else {
         printError();
@@ -169,13 +169,13 @@ Node *Parser::statement() {
         node->addChildren(index());
         match(ASSIGN);
         node->addChildren(exp());
-        node->setRuleType(STATEMENT);
+        node->setRuleType(STATEMENT_IDENTIFIER);
     } else if (currentToken->getType() == WRITETOKEN) {
         match(WRITETOKEN);
         match(PARANTHESES_LEFT);
         node->addChildren(exp());
         match(PARANTHESES_RIGHT);
-        node->setRuleType(STATEMENT_2);
+        node->setRuleType(STATEMENT_WRITE);
     } else if (currentToken->getType() == READTOKEN) {
         match(READTOKEN);
         match(PARANTHESES_LEFT);
@@ -189,11 +189,11 @@ Node *Parser::statement() {
 
         node->addChildren(index());
         match(PARANTHESES_RIGHT);
-        node->setRuleType(STATEMENT_3);
+        node->setRuleType(STATEMENT_READ);
     } else if (currentToken->getType() == BRACES_LEFT) {
         match(BRACES_LEFT);
         node->addChildren(statements());
-        node->setRuleType(STATEMENT_4);
+        node->setRuleType(STATEMENT_BRACES);
         match(BRACES_RIGHT);
     } else if (currentToken->getType() == IFTOKEN) {
         match(IFTOKEN);
@@ -203,14 +203,14 @@ Node *Parser::statement() {
         node->addChildren(statement());
         match(ELSETOKEN);
         node->addChildren(statement());
-        node->setRuleType(STATEMENT_5);
+        node->setRuleType(STATEMENT_IF);
     } else if (currentToken->getType() == WHILETOKEN) {
         match(WHILETOKEN);
         match(PARANTHESES_LEFT);
         node->addChildren(exp());
         match(PARANTHESES_RIGHT);
         node->addChildren(statement());
-        node->setRuleType(STATEMENT_6);
+        node->setRuleType(STATEMENT_WHILE);
     } else {
         printError();
     }
@@ -234,12 +234,12 @@ Node *Parser::exp2() {
         match(PARANTHESES_LEFT);
         node->addChildren(exp());
         match(PARANTHESES_RIGHT);
-        node->setRuleType(EXP2);
+        node->setRuleType(EXP2_PARENS);
     } else if (currentToken->getType() == IDENTIFIER) {
         node->addChildren(createLeaf());
         nextToken();
         node->addChildren(index());
-        node->setRuleType(EXP2_2);
+        node->setRuleType(EXP2_IDENTIFIER);
     } else if (currentToken->getType() == INTEGER) {
         if (before == MINUS && static_cast<IntegerToken *>(currentToken)->getValue() > 2147483648) {
             cerr << RED << "Parser: Integer out of range: value too low!" << COLOR_RESET << endl;
@@ -250,16 +250,16 @@ Node *Parser::exp2() {
         }
         node->addChildren(createLeaf());
         nextToken();
-        node->setRuleType(EXP2_3);
+        node->setRuleType(EXP2_INTEGER);
     } else if (currentToken->getType() == MINUS) {
         match(MINUS);
         before = MINUS;
         node->addChildren(exp2());
-        node->setRuleType(EXP2_4);
+        node->setRuleType(EXP2_NEGATIVE);
     } else if (currentToken->getType() == EXCLAMATION) {
         match(EXCLAMATION);
         node->addChildren(exp2());
-        node->setRuleType(EXP2_5);
+        node->setRuleType(EXP2_NEGATION);
     } else {
         printError();
     }
@@ -280,7 +280,7 @@ Node *Parser::index() {
         return node;
     } else if (checkFollowSet(INDEX, currentToken->getType())) {
         Node *epsilon = this->createEpsilonNode();
-        epsilon->setRuleType(INDEX_2);
+        epsilon->setRuleType(INDEX_EMPTY);
         return epsilon;
     } else {
         printError();
@@ -308,7 +308,7 @@ Node *Parser::op_exp() {
         return node;
     } else if (checkFollowSet(OP_EXP, currentToken->getType())) {
         Node *empty = this->createEpsilonNode();
-        empty->setRuleType(OP_EXP_2);
+        empty->setRuleType(OP_EXP_EMPTY);
         return empty;
     } else {
         printError();
@@ -321,23 +321,23 @@ Node *Parser::op() {
     Node *node = createNode();
 
     if (currentToken->getType() == PLUS) {
-        node->setRuleType(OP);
+        node->setRuleType(OP_PLUS);
     } else if (currentToken->getType() == MINUS) {
-        node->setRuleType(OP_2);
+        node->setRuleType(OP_MINUS);
     } else if (currentToken->getType() == STAR) {
-        node->setRuleType(OP_3);
+        node->setRuleType(OP_MULTIPLICATION);
     } else if (currentToken->getType() == COLON) {
-        node->setRuleType(OP_4);
+        node->setRuleType(OP_DIVISION);
     } else if (currentToken->getType() == LESS) {
-        node->setRuleType(OP_5);
+        node->setRuleType(OP_LESS);
     } else if (currentToken->getType() == GREATER) {
-        node->setRuleType(OP_6);
+        node->setRuleType(OP_GREATER);
     } else if (currentToken->getType() == EQUALS) {
-        node->setRuleType(OP_7);
+        node->setRuleType(OP_EQUALS);
     } else if (currentToken->getType() == SPECIAL) {
-        node->setRuleType(OP_8);
+        node->setRuleType(OP_SPECIAL);
     } else if (currentToken->getType() == AND) {
-        node->setRuleType(OP_9);
+        node->setRuleType(OP_AND);
     } else {
         printError();
     }
