@@ -42,7 +42,7 @@ void SemanticAnalyser::typeCheckDecls(Node* node) {
 }
 
 //DECLS ::= e
-void SemanticAnalyser::typeCheckDecls_2(Node* node) {
+void SemanticAnalyser::typeCheckDecls_EMPTY(Node *node) {
     node->setNodeType(NO_TYPE);
 }
 
@@ -84,7 +84,7 @@ void SemanticAnalyser::typeCheckArray(Node* node) {
 }
 
 //ARRAY ::= e
-void SemanticAnalyser::typeCheckArray_2(Node* node) {
+void SemanticAnalyser::typeCheckArray_EMPTY(Node *node) {
     node->setNodeType(NO_TYPE);
 }
 
@@ -103,12 +103,12 @@ void SemanticAnalyser::typeCheckStatements(Node *node) {
 }
 
 //STATEMENTS ::= e
-void SemanticAnalyser::typeCheckStatements_2(Node* node) {
+void SemanticAnalyser::typeCheckStatements_EMPTY(Node *node) {
     node->setNodeType(NO_TYPE);
 }
 
 //STATEMENT_IDENTIFIER ::= identifier INDEX := EXP
-void SemanticAnalyser::typeCheckStatement(Node *node) {
+void SemanticAnalyser::typeCheckStatement_IDENTIFIER(Node *node) {
 
     Node* exp = node->getChildren(2);
     Node* index = node->getChildren(1);
@@ -133,14 +133,14 @@ void SemanticAnalyser::typeCheckStatement(Node *node) {
 }
 
 //STATEMENT_IDENTIFIER ::= write( EXP )
-void SemanticAnalyser::typeCheckStatement_2(Node* node) {
+void SemanticAnalyser::typeCheckStatement_WRITE(Node *node) {
     Node* exp = node->getChildren(0);
     analyze(exp);
     node->setNodeType(NO_TYPE);
 }
 
 //STATEMENT_IDENTIFIER ::= read( identifier INDEX)
-void SemanticAnalyser::typeCheckStatement_3(Node* node) {
+void SemanticAnalyser::typeCheckStatement_READ(Node *node) {
     Node* identifier = node->getChildren(0);
     Node* index = node->getChildren(1);
 
@@ -161,14 +161,14 @@ void SemanticAnalyser::typeCheckStatement_3(Node* node) {
 }
 
 //STATEMENT_IDENTIFIER ::= { STATEMENTS }
-void SemanticAnalyser::typeCheckStatement_4(Node* node) {
+void SemanticAnalyser::typeCheckStatement_BRACES(Node *node) {
     Node* statements = node->getChildren(0);
     analyze(statements);
     node->setNodeType(NO_TYPE);
 }
 
 //STATEMENT_IDENTIFIER ::= if ( EXP ) STATEMENT_IDENTIFIER else STATEMENT_IDENTIFIER
-void SemanticAnalyser::typeCheckStatement_5(Node* node) {
+void SemanticAnalyser::typeCheckStatement_IF(Node *node) {
     Node* exp = node->getChildren(0);
     Node* statement1 = node->getChildren(1);
     Node* statement2 = node->getChildren(2);
@@ -185,7 +185,7 @@ void SemanticAnalyser::typeCheckStatement_5(Node* node) {
 }
 
 //STATEMENT_IDENTIFIER ::= while ( EXP ) STATEMENT_IDENTIFIER)
-void SemanticAnalyser::typeCheckStatement_6(Node* node) {
+void SemanticAnalyser::typeCheckStatement_WHILE(Node *node) {
     Node* exp = node->getChildren(0);
     Node* statement = node->getChildren(1);
 
@@ -219,14 +219,14 @@ void SemanticAnalyser::typeCheckExp(Node* node) {
 }
 
 //INDEX ::= [ EXP ]
-void SemanticAnalyser::typeCheckExp2(Node* node) {
+void SemanticAnalyser::typeCheckExp2_PARENS(Node *node) {
     Node* exp = node->getChildren(0);
     analyze(exp);
     node->setNodeType(exp->getNodeType());
 }
 
 //EXP2_PARENS ::= identifier INDEX
-void SemanticAnalyser::typeCheckExp2_2(Node* node) {
+void SemanticAnalyser::typeCheckExp2_IDENTIFIER(Node *node) {
     Node* identifier = node->getChildren(0);
     Node* index = node->getChildren(1);
 
@@ -248,19 +248,19 @@ void SemanticAnalyser::typeCheckExp2_2(Node* node) {
 }
 
 //EXP2_PARENS ::= integer
-void SemanticAnalyser::typeCheckExp2_3(Node* node) {
+void SemanticAnalyser::typeCheckExp2_INTEGER(Node *node) {
     node->setNodeType(INT_TYPE);
 }
 
 //EXP2_PARENS ::= - EXP2_PARENS
-void SemanticAnalyser::typeCheckExp2_4(Node* node) {
+void SemanticAnalyser::typeCheckExp2_NEGATIVE(Node *node) {
     Node* exp2 = node->getChildren(0);
     analyze(exp2);
     node->setNodeType(exp2->getNodeType());
 }
 
 //EXP2_PARENS ::= ! EXP2_PARENS
-void SemanticAnalyser::typeCheckExp2_5(Node* node) {
+void SemanticAnalyser::typeCheckExp2_NEGATION(Node *node) {
     Node* exp2 = node->getChildren(0);
 
     analyze(exp2);
@@ -286,7 +286,7 @@ void SemanticAnalyser::typeCheckIndex(Node* node) {
 }
 
 //INDEX ::= e
-void SemanticAnalyser::typeCheckIndex_2(Node* node) {
+void SemanticAnalyser::typeCheckIndex_EMPTY(Node *node) {
     node->setNodeType(NO_TYPE);
 }
 
@@ -302,44 +302,44 @@ void SemanticAnalyser::typeCheckOp_Exp(Node* node) {
 }
 
 //OP_EXP ::= e
-void SemanticAnalyser::typeCheckOp_Exp_2(Node* node) {
+void SemanticAnalyser::typeCheckOp_Exp_EMPTY(Node *node) {
     node->setNodeType(NO_TYPE);
 }
 
-void SemanticAnalyser::typeCheckOp(Node* node) {
+void SemanticAnalyser::typeCheckOp_PLUS(Node *node) {
     node->setNodeType(OP_PLUS_TYPE);
 }
 
 
-void SemanticAnalyser::typeCheckOp_2(Node* node) {
+void SemanticAnalyser::typeCheckOp_MINUS(Node *node) {
     node->setNodeType(OP_MINUS_TYPE);
 }
 
-void SemanticAnalyser::typeCheckOp_3(Node* node) {
+void SemanticAnalyser::typeCheckOp_MULTIPLICATION(Node *node) {
     node->setNodeType(OP_MULT_TYPE);
 }
 
-void SemanticAnalyser::typeCheckOp_4(Node* node) {
+void SemanticAnalyser::typeCheckOp_DIVISION(Node *node) {
     node->setNodeType(OP_DIV_TYPE);
 }
 
-void SemanticAnalyser::typeCheckOp_5(Node* node) {
+void SemanticAnalyser::typeCheckOp_LESS(Node *node) {
     node->setNodeType(OP_LESS_TYPE);
 }
 
-void SemanticAnalyser::typeCheckOp_6(Node* node) {
+void SemanticAnalyser::typeCheckOp_GREATER(Node *node) {
     node->setNodeType(OP_GREATER_TYPE);
 }
 
-void SemanticAnalyser::typeCheckOp_7(Node* node) {
+void SemanticAnalyser::typeCheckOp_EQUALS(Node *node) {
     node->setNodeType(OP_EQUAL_TYPE);
 }
 
-void SemanticAnalyser::typeCheckOp_8(Node* node) {
+void SemanticAnalyser::typeCheckOp_SPECIAL(Node *node) {
     node->setNodeType(OP_UN_EQUAL_TYPE);
 }
 
-void SemanticAnalyser::typeCheckOp_9(Node* node) {
+void SemanticAnalyser::typeCheckOp_AND(Node *node) {
     node->setNodeType(OP_AND_TYPE);
 }
 
@@ -370,7 +370,7 @@ void SemanticAnalyser::analyze(Node* node) {
             typeCheckDecls(node);
             break;
         case DECLS_EMPTY:
-            typeCheckDecls_2(node);
+            typeCheckDecls_EMPTY(node);
             break;
         case DECL:
             typeCheckDecl(node);
@@ -379,88 +379,88 @@ void SemanticAnalyser::analyze(Node* node) {
             typeCheckArray(node);
             break;
         case ARRAY_Empty:
-            typeCheckArray_2(node);
+            typeCheckArray_EMPTY(node);
             break;
         case STATEMENTS:
             typeCheckStatements(node);
             break;
         case STATEMENTS_EMPTY:
-            typeCheckStatements_2(node);
+            typeCheckStatements_EMPTY(node);
             break;
         case STATEMENT_IDENTIFIER:
-            typeCheckStatement(node);
+            typeCheckStatement_IDENTIFIER(node);
             break;
         case STATEMENT_WRITE:
-            typeCheckStatement_2(node);
+            typeCheckStatement_WRITE(node);
             break;
         case STATEMENT_READ:
-            typeCheckStatement_3(node);
+            typeCheckStatement_READ(node);
             break;
         case STATEMENT_BRACES:
-            typeCheckStatement_4(node);
+            typeCheckStatement_BRACES(node);
             break;
         case STATEMENT_IF:
-            typeCheckStatement_5(node);
+            typeCheckStatement_IF(node);
             break;
         case STATEMENT_WHILE:
-            typeCheckStatement_6(node);
+            typeCheckStatement_WHILE(node);
             break;
         case EXP:
             typeCheckExp(node);
             break;
         case EXP2_PARENS:
-            typeCheckExp2(node);
+            typeCheckExp2_PARENS(node);
             break;
         case EXP2_IDENTIFIER:
-            typeCheckExp2_2(node);
+            typeCheckExp2_IDENTIFIER(node);
             break;
         case EXP2_INTEGER:
-            typeCheckExp2_3(node);
+            typeCheckExp2_INTEGER(node);
             break;
         case EXP2_NEGATIVE:
-            typeCheckExp2_4(node);
+            typeCheckExp2_NEGATIVE(node);
             break;
         case EXP2_NEGATION:
-            typeCheckExp2_5(node);
+            typeCheckExp2_NEGATION(node);
             break;
         case INDEX:
             typeCheckIndex(node);
             break;
         case INDEX_EMPTY:
-            typeCheckIndex_2(node);
+            typeCheckIndex_EMPTY(node);
             break;
         case OP_EXP:
             typeCheckOp_Exp(node);
             break;
         case OP_EXP_EMPTY:
-            typeCheckOp_Exp_2(node);
+            typeCheckOp_Exp_EMPTY(node);
             break;
         case OP_PLUS:
-            typeCheckOp(node);
+            typeCheckOp_PLUS(node);
             break;
         case OP_MINUS:
-            typeCheckOp_2(node);
+            typeCheckOp_MINUS(node);
             break;
         case OP_MULTIPLICATION:
-            typeCheckOp_3(node);
+            typeCheckOp_MULTIPLICATION(node);
             break;
         case OP_DIVISION:
-            typeCheckOp_4(node);
+            typeCheckOp_DIVISION(node);
             break;
         case OP_LESS:
-            typeCheckOp_5(node);
+            typeCheckOp_LESS(node);
             break;
         case OP_GREATER:
-            typeCheckOp_6(node);
+            typeCheckOp_GREATER(node);
             break;
         case OP_EQUALS:
-            typeCheckOp_7(node);
+            typeCheckOp_EQUALS(node);
             break;
         case OP_SPECIAL:
-            typeCheckOp_8(node);
+            typeCheckOp_SPECIAL(node);
             break;
         case OP_AND:
-            typeCheckOp_9(node);
+            typeCheckOp_AND(node);
             break;
         default:
             cerr << "node is empty" << endl;
