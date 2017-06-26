@@ -14,7 +14,6 @@ private:
     Token* currentToken;
     SymbolType before;
 
-    ParseTree* parseTree;
     Scanner* scanner;
 
     //Function for every non-terminal

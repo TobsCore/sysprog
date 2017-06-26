@@ -46,7 +46,7 @@ Node::Node(const char* lexem, Token *currentToken) {
 
 Node::~Node() {}
 
-void Node::addChildren(Node *child) {
+void Node::addChild(Node *child) {
     if (child != 0L) {
         //cout << "add Children " << currentChildren << endl;
         this->children[currentChildren++] = child;

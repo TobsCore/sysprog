@@ -27,7 +27,7 @@ public:
     void setRuleType(RuleType ruleType);
     RuleType getRuleType();
 
-    void addChildren(Node* child);
+    void addChild(Node *child);
     Node* getChildren(int position);
 
     long getIntegerValue();
