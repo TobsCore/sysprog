@@ -7,12 +7,12 @@
 
 using namespace std;
 
-class SemanticAnalyser {
+class TypeChecker {
 private:
 
 public:
-    SemanticAnalyser();
-    virtual ~SemanticAnalyser();
+    TypeChecker();
+    virtual ~TypeChecker();
 
     ParseTree * typeCheck(ParseTree *tree);
     void analyze(Node *root);

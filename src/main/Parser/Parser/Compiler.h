@@ -16,7 +16,7 @@ public:
 private:
 	Parser* parser;
 	Scanner* scanner;
-	SemanticAnalyser* semanticAnalyser;
+	TypeChecker* typeChecker;
 	CodeGenerator* codeGenerator;
     ParseTree* parseTree;
 };

@@ -8,14 +8,14 @@ using namespace std;
 Compiler::Compiler (const char* inputfile, const char* outfile) {
 	scanner = new Scanner(inputfile);
 	parser = new Parser(scanner);
-	semanticAnalyser = new SemanticAnalyser();
+	typeChecker = new TypeChecker();
 	codeGenerator = new CodeGenerator(outfile);
 }
 
 Compiler::~Compiler() {
 	delete scanner;
 	delete parser;
-	delete semanticAnalyser;
+	delete typeChecker;
 	delete codeGenerator;
 }
 
@@ -24,7 +24,7 @@ void Compiler::parse() {
 }
 
 void Compiler::typeCheck() {
-	this->parseTree = semanticAnalyser->typeCheck(parseTree);
+	this->parseTree = typeChecker->typeCheck(parseTree);
 }
 
 void Compiler::runCodeGenerator() {
