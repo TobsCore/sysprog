@@ -1,5 +1,6 @@
 #include "Node.h"
 #include "../../Scanner/Token/IdentifierToken.h"
+#include "../../Scanner/Token/IntegerToken.h"
 #include <iostream>
 
 using namespace std;
@@ -10,7 +11,6 @@ Node::Node() {
     nodeType = NO_TYPE;
     currentChildren = 0;
     leaf = 0L;
-    integerValue = 0L;
     token = 0L;
 }
 
@@ -20,27 +20,6 @@ Node::Node(Token *currentToken) {
     nodeType = NO_TYPE;
     currentChildren = 0;
     leaf = 0L;
-    integerValue = 0L;
-    token = currentToken;
-}
-
-Node::Node(long value, Token *currentToken) {
-    symbolType = NOT_SET;
-    ruleType = RULE_NOT_SET;
-    nodeType = NO_TYPE;
-    currentChildren = 0;
-    leaf = 0L;
-    integerValue = value;
-    token = currentToken;
-}
-
-Node::Node(const char* lexem, Token *currentToken) {
-    symbolType = NOT_SET;
-    ruleType = RULE_NOT_SET;
-    nodeType = INT_TYPE;
-    currentChildren = 0;
-    leaf = 0L;
-    integerValue = 0L;
     token = currentToken;
 }
 
@@ -93,7 +72,7 @@ void Node::flagAsLeaf() {
 }
 
 long Node::getIntegerValue() {
-    return integerValue;
+    return static_cast<IntegerToken*>(token)->getValue();
 }
 
 bool Node::isLeaf() {

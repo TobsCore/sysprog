@@ -354,16 +354,7 @@ void Parser::printError() {
 }
 
 Node *Parser::createLeaf() {
-    Node *leaf;
-
-    if (currentToken->getType() == INTEGER) {
-        leaf = new Node(static_cast<IntegerToken *>(currentToken)->getValue(), currentToken);
-    } else if (currentToken->getType() == IDENTIFIER) {
-        leaf = new Node(currentToken);
-    } else {
-        leaf = new Node(currentToken);
-    }
-
+    Node *leaf = new Node(currentToken);
     leaf->flagAsLeaf();
     return leaf;
 }

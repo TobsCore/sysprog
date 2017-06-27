@@ -11,8 +11,6 @@ class Node {
 public:
     Node();
     Node(Token* currentToken);
-    Node(long value, Token* currentToken);
-    Node(const char* lexem, Token* currentToken);
 
     virtual ~Node();
 
@@ -42,7 +40,6 @@ private:
     NodeType nodeType;
     Node* children[9];
     bool leaf;
-    long integerValue;
 
     Token* token;
 };
