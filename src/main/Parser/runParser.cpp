@@ -26,13 +26,13 @@ int main(int argc, char **argv) {
     try {
         Compiler* compiler = new Compiler (inFilename, outFilename);
 
-        cout << "Run semantic analyser.." << endl;
+        cout << "Parsing..." << endl;
         compiler->parse();
 
-        cout << "Run semantic analyser.." << endl;
+        cout << "Checking type information.." << endl;
         compiler->typeCheck();
 
-        cout << "Run code generator.." << endl;
+        cout << "Generating code.." << endl;
         compiler->runCodeGenerator();
 
 
