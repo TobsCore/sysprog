@@ -35,6 +35,7 @@ private:
 
     void match(SymbolType tokenType);
     void nextToken();
+    void printError(SymbolType expected);
     void printError();
 
     bool checkFollowSet(RuleType rule, SymbolType type);

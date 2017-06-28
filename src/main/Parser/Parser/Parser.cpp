@@ -23,7 +23,7 @@ void Parser::nextToken() {
 
 void Parser::match(SymbolType tokenType) {
     if (currentToken->getType() != tokenType) {
-        printError();
+        printError(tokenType);
     }
     nextToken();
 }
@@ -71,7 +71,7 @@ Node *Parser::decl() {
         node->addChild(createLeaf());
         nextToken();
     } else {
-        printError();
+        printError(IDENTIFIER);
     }
 
     return node;
@@ -92,7 +92,7 @@ Node *Parser::array() {
             node->setRuleType(ARRAY);
             nextToken();
         } else {
-            printError();
+            printError(INTEGER);
         }
 
         match(BRACKET_RIGHT);
@@ -147,7 +147,7 @@ Node *Parser::statement() {
             node->addChild(createLeaf());
             nextToken();
         } else {
-            printError();
+            printError(IDENTIFIER);
         }
 
         node->addChild(index());
@@ -168,7 +168,7 @@ Node *Parser::statement() {
             node->addChild(createLeaf());
             nextToken();
         } else {
-            printError();
+            printError(IDENTIFIER);
         }
 
         node->addChild(index());
@@ -338,10 +338,20 @@ Node *Parser::createEpsilonNode() {
     return node;
 }
 
+void Parser::printError(SymbolType expected) {
+    cerr << RED << "Unexpected token in line: " << currentToken->getRow()
+         << " column:" << currentToken->getCol()
+         << " - Found: <" << ToString(currentToken->getType()) << "> "
+         << " Expected: <" << ToString(expected) << ">";
+
+    cerr << COLOR_RESET << endl;
+    exit(1);
+}
+
 void Parser::printError() {
     cerr << RED << "Unexpected token in line: " << currentToken->getRow()
-         << " \tcolumn:" << currentToken->getCol() << "\t"
-         << ToString(currentToken->getType());
+         << " column:" << currentToken->getCol()
+         << " - Found: <" << ToString(currentToken->getType()) << "> ";
 
     if (currentToken->getType() == IDENTIFIER) {
         cerr << " lexem: " << static_cast<IdentifierToken *>(currentToken)->getLexem();
