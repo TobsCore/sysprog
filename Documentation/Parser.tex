@@ -1,5 +1,33 @@
 \chapter{Parser}\label{chap:Parser}
 
+In unserem \texttt{src/main/} Ordner, wurde neben dem \texttt{Scanner/} Order der Ordner \texttt{Parser/} angelegt, der die wesentlichen Quellcode-Dateien enthält. In diesem Ordner befindet sich die \texttt{runParser.cpp}-Datei, welche die main-Methode enthält, die das eigentliche Programm startet. Hier werden die Programmparameter gelesen, also den Pfad für die Eingabe- und Ausgabedatei und die wesentlichen Objekte werden erstellt.
+
+Wenn man sich diese Funktion genauer ansieht, stellt man fest, dass wir eine Klasse eingeführt haben, die die wesentlichen Kontrollaufgaben übernimmt: Die Compiler-Klasse. Diese Klasse hat die 3 Methoden
+\begin{itemize}
+\item \texttt{parse()}
+\item \texttt{typeCheck()}
+\item \texttt{runCodeGenerator()}
+\end{itemize}
+
+und nimmt im Konstruktor zwei Strings entgegen. Einmal den Pfad zur Eingabedatei, einmal dem Pfad zur Ausgabedatei. Dieser Konstruktor generiert die wesentlichen Objekte, also den Scanner, den Parser, den TypeChecker und den CodeGenerator. Der Scanner wird an den Parser übergeben und wird von dort aufgerufen.
+
+Das besondere an unserem Aufbau ist, dass der Scanner immer noch als eigenständiges Modul eingesetzt werden kann. Wir haben in unserer \texttt{CMakeLists.txt} den Scanner als eigenes Build Target definiert, das seine eigene main Methode besitzt und auch durch ein anderes Design ausgetauscht werden kann.
+
+\section{Das Parsen}
+Der Parser bekommt, wie bereits beschrieben den Scanner im Konstruktor mitgeteilt und wird dann durch den Aufruf der \texttt{parse()} Methode gestartet. Hierbei wird ein rekursiver Methodenaufruf gestartet, der mit der Methode \texttt{prog()} beginnt. Der Ergebnis des rekursiven Aufrufs ist, dass ein ParseTree Objekt zurückgegeben wird, wobei alle notwendigen Knoten gesetzt wurden. Wie dies geschieht, soll im Folgenden genauer betrachtet werden.
+
+Mit dem Aufruf von \texttt{prog()} wird das nächste Token aus dem Scanner geholt. Für dieses Token wird ein neuer Node erstellt, der PROG Node. In unserer Implementierung haben wir uns dazu entschieden, dass wir die Kind-Knoten wie folgt hinzufügen:
+Jeder Knoten hat die Methode \texttt{addChild()}, die einen Kindknoten hinzufügt. Durch den Aufruf von \texttt{node->addChild(decls())} und danach \texttt{node->addChild(statements())}, werden die Kindknoten für \texttt{DECLS} und \texttt{STATEMENTS} hinzugefügt. Diese rufen wiederum rekursiv die anderen Methoden auf, sodass hier die richtigen Kindknoten gesetzt werden usw. Wenn man sich den ParseTree als Graphen vorstellt, würde man hier also von einem DepthFirst-Ansatz reden, da DECLS erst komplett generiert wird, bevor STATEMENTS erstellt wird.
+
+Es soll nun gezeigt werden, wie wir mit Terminalen umgehen. Hierfür haben wir die Methode \texttt{match()} eingeführt, die das aktuelle Token mit einem erwarteten Token vergleicht und dann das nächste Token vom Scanner holt. Hier soll der Auszug aus der Methode \texttt{decl()} die Funktionsweise verdeutlichen:
+
+\lstinputlisting[language=C++]{decl.cpp}
+
+Hier wird zuerst geprüft, ob es sich um ein \texttt{INT}-Token handelt, indem die match-Methode aufgerufen wird. Danach wird die Methode \texttt{array()} aufgerufen und das (eventuelle leere) Knotenobjekt als Kind dem aktuellen Knoten hinzugefügt. Da ein Identifier ein Blatt in dem ParseTree darstellt, wird die createLeaf-Methode aufgerufen, nachdem validiert wurde, dass das aktuelle Token ein Identifier ist.
+
+Nachdem dieser ParseTree rekursiv durchlaufen ist, wird er zurückgegeben und kann vom TypeChecker genutzt werden, um auf die Typkorrektheit zu prüfen und danach den Code zu generieren.
+
+
 \section{TypeChecker}
 Der ParseTree wird der Methode \texttt{analyze()} übergeben, welche die Semantik überprüft. Ausgehend von dieser Startmethode wird der gesamte ParseTree durch rekursive Aufrufe überprüft. Die Implementierung setzt die Vorlage aus dem \emph{Systemnahes Programmieren II}-Skript um.
 
