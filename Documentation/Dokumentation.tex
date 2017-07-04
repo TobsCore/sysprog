@@ -37,6 +37,9 @@
 % code listings
 \usepackage{listings}
 \renewcommand{\lstlistingname}{Code}
+\newcommand*\lstinputpath[1]{\lstset{inputpath=#1}}
+\lstinputpath{Code}
+
 \lstset{
     backgroundcolor=\color{lbcolor},
     tabsize=4,
