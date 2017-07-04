@@ -2,6 +2,7 @@
 
 In unserem \texttt{src/main/} Ordner, wurde neben dem \texttt{Scanner/} Order der Ordner \texttt{Parser/} angelegt, der die wesentlichen Quellcode-Dateien enthält. In diesem Ordner befindet sich die \texttt{runParser.cpp}-Datei, welche die main-Methode enthält, die das eigentliche Programm startet. Hier werden die Programmparameter gelesen, also den Pfad für die Eingabe- und Ausgabedatei und die wesentlichen Objekte werden erstellt.
 
+\section{Compiler}
 Wenn man sich diese Funktion genauer ansieht, stellt man fest, dass wir eine Klasse eingeführt haben, die die wesentlichen Kontrollaufgaben übernimmt: Die Compiler-Klasse. Diese Klasse hat die 3 Methoden
 \begin{itemize}
 \item \texttt{parse()}
@@ -13,10 +14,23 @@ und nimmt im Konstruktor zwei Strings entgegen. Einmal den Pfad zur Eingabedatei
 
 Das besondere an unserem Aufbau ist, dass der Scanner immer noch als eigenständiges Modul eingesetzt werden kann. Wir haben in unserer \texttt{CMakeLists.txt} den Scanner als eigenes Build Target definiert, das seine eigene main Methode besitzt und auch durch ein anderes Design ausgetauscht werden kann.
 
+\section{Der ParseTree}
+Der \texttt{ParseTree} bietet die grundlegende Struktur für den Parser. Es handelt sich hierbei um einen Baum, der aus einzelnen Knoten, den \texttt{Node}s besteht. Diese \texttt{Node}s haben Kindknoten, sodass diese Baumstruktur aufgeht. Wir haben die Klasse \texttt{ParseTree} als Wrapperklasse eingeführt, die den Root-Knoten, also den obersten Knoten, enthält und den Code etwas verständlicher macht.
+
+Ein Knoten speichert seine Kindknoten als Node-Referenz in einem Array mit maximal 9 Elementen. Wichtig bei der Größenwahl war, dass die zur Grammatik gehörenden Elemente als Kindknoten gespeichert werden können, was bei 9 Knoten gewährleistet ist. Außerdem hat ein Knoten einen internen Zähler, der speichert, wie viele Kinder er hat.
+
+Ein Knoten, der keine Kinder hat, wird als Leaf bezeichnet. Wir haben davon abgesehen, eine eigene Klasse \texttt{Leaf} einzuführen, da ein einfacher Node für diese Aufgabe genügt.
+
+Durch die Methode \texttt{addChild()} kann ein Kindknoten zu einem Knoten hinzugefügt werden und durch den Aufruf von \texttt{getChild(int position)} kann der Kindknoten an der übergebenen Position zurückgegeben werden.
+
+Ein Node speichert neben den Kindknoten noch den \texttt{RuleType}, den \texttt{NodeType} und das Token. Über das Token kann bei einem Identifier auf das Lexem zurückgegriffen werden und bei einem Integer auf den Wert des Integers.
+
+Der \texttt{RuleType} bestimmt, um welche Grammatikregel es sich bei dem Knoten handelt, der \texttt{NodeType} wird für die semantische Analyse im TypeChecker genutzt.
+
 \section{Das Parsen}
 Der Parser bekommt, wie bereits beschrieben den Scanner im Konstruktor mitgeteilt und wird dann durch den Aufruf der \texttt{parse()} Methode gestartet. Hierbei wird ein rekursiver Methodenaufruf gestartet, der mit der Methode \texttt{prog()} beginnt. Der Ergebnis des rekursiven Aufrufs ist, dass ein ParseTree Objekt zurückgegeben wird, wobei alle notwendigen Knoten gesetzt wurden. Wie dies geschieht, soll im Folgenden genauer betrachtet werden.
 
-Mit dem Aufruf von \texttt{prog()} wird das nächste Token aus dem Scanner geholt. Für dieses Token wird ein neuer Node erstellt, der PROG Node. In unserer Implementierung haben wir uns dazu entschieden, dass wir die Kind-Knoten wie folgt hinzufügen:
+Mit dem Aufruf von \texttt{prog()} wird das nächste Token aus dem Scanner geholt. Für dieses Token wird ein neuer Node erstellt, der \texttt{PROG} Node. In unserer Implementierung haben wir uns dazu entschieden, dass wir die Kind-Knoten wie folgt hinzufügen:
 Jeder Knoten hat die Methode \texttt{addChild()}, die einen Kindknoten hinzufügt. Durch den Aufruf von \texttt{node->addChild(decls())} und danach \texttt{node->addChild(statements())}, werden die Kindknoten für \texttt{DECLS} und \texttt{STATEMENTS} hinzugefügt. Diese rufen wiederum rekursiv die anderen Methoden auf, sodass hier die richtigen Kindknoten gesetzt werden usw. Wenn man sich den ParseTree als Graphen vorstellt, würde man hier also von einem DepthFirst-Ansatz reden, da DECLS erst komplett generiert wird, bevor STATEMENTS erstellt wird.
 
 Es soll nun gezeigt werden, wie wir mit Terminalen umgehen. Hierfür haben wir die Methode \texttt{match()} eingeführt, die das aktuelle Token mit einem erwarteten Token vergleicht und dann das nächste Token vom Scanner holt. Hier soll der Auszug aus der Methode \texttt{decl()} die Funktionsweise verdeutlichen:
