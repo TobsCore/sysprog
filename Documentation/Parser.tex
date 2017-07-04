@@ -1,4 +1,14 @@
-\chapter{Parser}
-\label{chap:Parser}
+\chapter{Parser}\label{chap:Parser}
 
-\lipsum[1]{}
+\section{TypeChecker}
+Der ParseTree wird der Methode \texttt{analyze()} übergeben, welche die Semantik überprüft. Ausgehend von dieser Startmethode wird der gesamte ParseTree durch rekursive Aufrufe überprüft. Die Implementierung setzt die Vorlage aus dem \emph{Systemnahes Programmieren II}-Skript um.
+
+Der TypeChecker überprüft, ob ein geparster Baum die Syntaxregeln der Sprache einhält. Dazu werden die Inhalte der Teilbäume auf ihre Art, den Typ und die Reihenfolge überprüft. Dabei geht der TypeChecker wie ein Besucher von Teilbaum zu Teilbaum, bis der komplette Baum durchlaufen wurde.
+Dabei wird je nach Regel eine andere Methode zum Parsen aufgerufen, die dann die Reihenfolge der Abarbeitung einhält und nach den Vorgaben aus dem Skript den Baum parst.
+
+Die Methode \texttt{analyze()} bekommt einen Knoten übergeben. Dieser Node hat eine zugeordnete Regel. Anhand dieser wird eine der entsprechenden \texttt{analyze()} Methoden aufgerufen.
+
+In diesen Methoden werden zunächst alle möglichen Teilbäume des Nodes übergeben, falls diese nicht vollständig sind wird der Node mit einem Nullwert initialisiert.
+Die gegebenen Teilbäume ermöglichen es nun eindeutig die Semantik des ganzen Baumes zu überprüfen. Sollte die Überprüfung erfolgreich sein, es sind also keine Regelverstöße vorhanden, wird über die Methode \texttt{setType()} der Knotentyp gesetzt.
+
+Sollte ein Teilbaum allerdings gegen die gegebene Grammatik verstoßen wird ein Fehler mit relevanten Informationen auf der Konsole ausgegeben. Anschließend wird der Knotentyp auf \texttt{ERROR\_TYPE} gesetzt.
