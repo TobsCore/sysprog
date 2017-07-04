@@ -56,7 +56,7 @@ Das Projekt kann man wie folgt laden:
 >git clone https://github.com/TobsCore/sysprog.git
 \end{lstlisting}
 
-Man erkennt, dass ein neues Verzeichnis mit dem Namen \texttt{sysprog/} erstellt wurde. Dies ist unser Projekt-Verzeichnis. Wie das Projekt organisiert ist, wird genauer in~\ref{sec:orga_code} genauer beleuchtet.
+Man erkennt, dass ein neues Verzeichnis mit dem Namen \texttt{sysprog/} erstellt wurde. Dies ist unser Projekt-Verzeichnis. Wie das Projekt organisiert ist, wird genauer in~\ref{sec:orga_code} beleuchtet.
 
 Es handelt sich bei uns um ein \textit{CMake Projekt}, was man unter anderem daran erkennt, dass sich im Hauptverzeichnis die Datei \texttt{CMakeLists.txt} befindet. Diese Datei wird dazu genutzt, dass alle Programmteile korrekt gelinkt werden und man kann dort verschiedene \textit{Compile Targets} definieren. Was dies bedeutet, werden wir sehen, wenn das Projekt erfolgreich in Eclipse importiert wurde.
 
@@ -194,6 +194,11 @@ Mit der Funktion \texttt{getChar()} des Buffers wird das nächste Zeichen geholt
 Die Methode \texttt{ungetChar()} dient dazu Zeichen gegebenenfalls zurückzugehen, damit ein Zeichen nach Tokenerstellung erneut gelesen werden muss. Sofern diese Aktion im selben Speicherblock stattfindet wird ganz simpel ein Index zurückgegangen, sollte das aktuelle Zeichen am Anfang einer der Speicherblöcke stehen, wird der aktuelle Block gewechselt, und die Indexposition neu berechnet.
 
 Wird der Buffer nicht mehr benötigt, wird auch die einzulesende Datei geschlossen.
+
+\section{Automat}
+Der Automat enthält die Logik, um die eingelesenen Zeichen zu analysieren und aus einer bestimmten Folge dieser Zeichen Tokens zu erkennen. Diese Tokens enthalten Informationen darüber, ob die Zeichen zu der vorgegebenen Sprache gehören. Für die Realisierung der Logik haben wir uns für eine Zustandsmatrix entschieden. Mit der Methode \texttt{checkExpression(char c)} wird dem Automaten das aktuelle Zeichen vom Scanner übergeben. Das übergebene Zeichen bestimmt dann zusammen mit dem vorherigen Zustand des Automats den nächsten Zustand in der Zustandsmatrix. Hierbei wird die Spalte des nächsten Zustands von dem eingelesenen Zeichen mit der Methode \texttt{findColumn(char c)} bestimmt. Die aktuelle Zeile der Matrix ist abhängig von dem vorherigen Zustand. Wurde der neue Zustand festgelegt, enthält er also zum einen die Information über die Zeile des nächsten Zustands und zum anderen die Information, ob ein Token erkannt wurde oder ob das nächste Zeichen zur weiteren Analyse benötigt wird.
+
+Wurde noch kein Token erkannt, so gibt die Zustandsmatrix das Enum \texttt{NEXTCHAR} zurück. Falls ein Token erkannt wurde, so wird das entsprechende Enum mit der Art des Tokens zurückgegeben. Das zurückgegebene Token wird anschließend erstellt. Hierbei existiert für jeden Tokentyp eine eigene Klasse, die von der Superklasse \texttt{Token} erbt, wie beispielsweise \texttt{IdentifierToken} oder \texttt{IntegerToken}.
 
 \section{Symboltabelle}
 Die Symboltabelle speichert für alle Identifier und Schlüsselworte einen Token-Info-Container. Dies ist relevant, da sich so gleiche Lexeme, die als Identifier erkannt werden, denselben Info-Container teilen. Um ein performantes Überprüfen, ob ein Lexem bereits einen Info-Container besitzt, zu ermöglichen, ist die Symboltabelle als Hash-Map implementiert. Kollisionen von gleichen Hashes bei unterschiedlichen Lexemen wird vermieden, indem eine Verlinkte Liste eingesetzt wird.
